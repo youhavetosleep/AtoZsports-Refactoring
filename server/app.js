@@ -1,10 +1,13 @@
 const express = require('express')
+const morgan = require('morgan')
 const dotenv = require('dotenv')
 const router = require('./routes')
 
 dotenv.config()
 const app = express()
 const port = process.env.PORT || 80
+
+app.use(morgan('dev'))
 
 app.use('/', router)
 
