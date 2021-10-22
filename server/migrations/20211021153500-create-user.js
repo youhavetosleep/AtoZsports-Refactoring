@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      homeground: {
+      homeGround: {
         allowNull: false,
         type: Sequelize.STRING
       },
