@@ -26,6 +26,9 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      phoneOpen: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

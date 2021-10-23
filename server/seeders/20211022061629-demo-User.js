@@ -1,20 +1,40 @@
 'use strict'
 
+const users = require('../data/user')
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('User', [{
-      email: 'wsad@gmail.com',
-      nickName: 'WSAD',
-      password: '1234',
-      phone: '010-1234-5678',
-      homeGround: '서울시 광진구',
-      favoriteSports: '축구',
-      verified: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+  up: async (queryInterface, Sequelize) => {
+    let data = []
+    users.map((el) => {
+      const {
+        email,
+        nickName,
+        password,
+        phone,
+        homeGround,
+        favoriteSports,
+        verified,
+        verifiedKey
+      } = el
+      let obj = {
+        email,
+        nickName,
+        password,
+        phone,
+        homeGround,
+        favoriteSports,
+        verified,
+        verifiedKey,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      data.push(obj)
+    })
+
+    return queryInterface.bulkInsert('User', data, {})
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('User', null, {});
+
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('User', null, {})
   }
-};
+}
