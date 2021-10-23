@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      nickName: {
+      nickname: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      homeGround: {
+      homeground: {
         allowNull: false,
         type: Sequelize.STRING
       },

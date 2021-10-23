@@ -1,4 +1,7 @@
 'use strict';
+
+const { sequelize } = require("../models");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Post', {
@@ -8,25 +11,36 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      sports: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       division: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       content: {
+        allowNull: false,
         type: Sequelize.TEXT
       },
       startTime: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       endTime: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       status: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       phoneOpen: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       createdAt: {
