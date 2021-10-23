@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Post.init({
     title: DataTypes.STRING,
+    sports: DataTypes.STRING,
     division: DataTypes.STRING,
     content: DataTypes.TEXT,
     startTime: DataTypes.DATE,

@@ -8,20 +8,20 @@ module.exports = {
     users.map((el) => {
       const {
         email,
-        nickName,
+        nickname,
         password,
         phone,
-        homeGround,
+        homeground,
         favoriteSports,
         verified,
         verifiedKey
       } = el
       let obj = {
         email,
-        nickName,
+        nickname,
         password,
         phone,
-        homeGround,
+        homeground,
         favoriteSports,
         verified,
         verifiedKey,

@@ -9,9 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       comment: {
+        allowNull: false,
         type: Sequelize.TEXT
       },
       score: {
+        allowNull: false,
         type: Sequelize.FLOAT
       },
       createdAt: {

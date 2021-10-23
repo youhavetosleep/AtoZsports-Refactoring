@@ -7,6 +7,7 @@ module.exports = {
     let data = []
     posts.map((el) => {
       const {
+        sports,
         title,
         division,
         content,
@@ -18,6 +19,7 @@ module.exports = {
         groundId
       } = el
       let obj = {
+        sports,
         title,
         division,
         content,
