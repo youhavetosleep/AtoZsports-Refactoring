@@ -7,6 +7,7 @@ const hpp = require('hpp')
 const dotenv = require('dotenv')
 const helmet = require('helmet')
 const router = require('./routes')
+const db = require('./models')
 
 dotenv.config()
 const app = express()
