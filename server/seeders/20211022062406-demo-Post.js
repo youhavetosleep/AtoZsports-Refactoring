@@ -15,6 +15,7 @@ module.exports = {
         endTime,
         status,
         phoneOpen,
+        addressName,
         userId,
         groundId
       } = el
@@ -27,6 +28,7 @@ module.exports = {
         endTime,
         status,
         phoneOpen,
+        addressName,
         userId,
         groundId,
         createdAt: new Date(),

@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     sports: DataTypes.STRING,
     placeName: DataTypes.STRING,
     addressName: DataTypes.STRING,
-    roadAddressName: DataTypes.STRING,
     phone: DataTypes.STRING,
     longitude: DataTypes.FLOAT,
     latitude: DataTypes.FLOAT,

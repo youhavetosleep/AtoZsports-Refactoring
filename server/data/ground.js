@@ -5,7 +5,6 @@ const grounds = [
     phone: '031-328-7086',
     placeName: '유림풋살장',
     placeUrl: 'http://place.map.kakao.com/715842216',
-    roadAddressName: '경기 용인시 처인구 한터로58번길 29',
     latitude: '127.214827986162',
     longitude: '37.2520770795764'
   },
@@ -15,7 +14,6 @@ const grounds = [
     phone: '',
     placeName: '오토허브풋살장',
     placeUrl: 'http://place.map.kakao.com/567498084',
-    roadAddressName: '경기 용인시 기흥구 중부대로 242-2',
     latitude: '127.091819699652',
     longitude: '37.2675531813486'
   },
@@ -25,7 +23,6 @@ const grounds = [
     phone: '',
     placeName: '분당차량사업소 하부풋살장',
     placeUrl: 'http://place.map.kakao.com/512228174',
-    roadAddressName: '경기 용인시 기흥구 용구대로2469번길 92',
     latitude: '127.107814398614',
     longitude: '37.3229624803259'
   },
@@ -45,7 +42,6 @@ const grounds = [
     phone: '010-3951-3233',
     placeName: '플레이스풋볼',
     placeUrl: 'http://place.map.kakao.com/1972132444',
-    roadAddressName: '경기 용인시 처인구 모현읍 곡현로480번길 12',
     latitude: '127.222981511152',
     longitude: '37.3275796685558'
   },
@@ -55,7 +51,6 @@ const grounds = [
     phone: '',
     placeName: '시드풋볼아카데미',
     placeUrl: 'http://place.map.kakao.com/78162738',
-    roadAddressName: '경기 용인시 처인구 모현읍 외개일로 91-6',
     latitude: '127.24073378269',
     longitude: '37.3482928717926'
   },
@@ -65,7 +60,6 @@ const grounds = [
     phone: '',
     placeName: '기흥풋살장',
     placeUrl: 'http://place.map.kakao.com/1521181530',
-    roadAddressName: '',
     latitude: '127.134993213485',
     longitude: '37.2583428255416'
   },
@@ -75,7 +69,6 @@ const grounds = [
     phone: '',
     placeName: '국립중앙청소년디딤센터 풋살장',
     placeUrl: 'http://place.map.kakao.com/38023145',
-    roadAddressName: '경기 용인시 처인구 남사읍 각궁로 252-76',
     latitude: '127.166426723706',
     longitude: '37.1005354616117'
   },
@@ -85,7 +78,6 @@ const grounds = [
     phone: '',
     placeName: '경기도소방학교 풋살장',
     placeUrl: 'http://place.map.kakao.com/1826338115',
-    roadAddressName: '',
     latitude: '127.11741300243489',
     longitude: '37.124975130555'
   },
@@ -95,7 +87,6 @@ const grounds = [
     phone: '',
     placeName: '명지대학교 자연캠퍼스 풋살장',
     placeUrl: 'http://place.map.kakao.com/171766577',
-    roadAddressName: '',
     latitude: '127.188830465055',
     longitude: '37.2234997034962'
   },
@@ -105,7 +96,6 @@ const grounds = [
     phone: '',
     placeName: '풋살장',
     placeUrl: 'http://place.map.kakao.com/962418391',
-    roadAddressName: '',
     latitude: '127.113277376276',
     longitude: '37.2816358723062'
   },
@@ -115,7 +105,6 @@ const grounds = [
     phone: '',
     placeName: '김혁공원 풋살장',
     placeUrl: 'http://place.map.kakao.com/485076543',
-    roadAddressName: '',
     latitude: '127.128151388378',
     longitude: '37.2760648960063'
   }

@@ -8,6 +8,7 @@ const posts = [
     endTime: '2021-11-13 14:00',
     status: '모집중',
     phoneOpen: true,
+    addressName: '경기 용인시 처인구 유방동 405-1',
     userId: 1,
     groundId: 1
   },
@@ -20,6 +21,7 @@ const posts = [
     endTime: '2021-11-14 16:00',
     status: '모집완료',
     phoneOpen: true,
+    addressName: '경기 용인시 기흥구 영덕동 1266',
     userId: 1,
     groundId: 2
   },
@@ -32,6 +34,7 @@ const posts = [
     endTime: '2021-11-20 18:00',
     status: '모집중',
     phoneOpen: false,
+    addressName: '경기 용인시 기흥구 보정동 195-6',
     userId: 1,
     groundId: 3
   },
@@ -44,6 +47,7 @@ const posts = [
     endTime: '2021-11-20 11:00',
     status: '모집중',
     phoneOpen: true,
+    addressName: '경기 용인시 수지구 풍덕천동 29-7',
     userId: 2,
     groundId: 4
   },
@@ -56,6 +60,7 @@ const posts = [
     endTime: '2021-11-20 11:00',
     status: '모집완료',
     phoneOpen: true,
+    addressName: '경기 용인시 처인구 모현읍 매산리 563-3',
     userId: 2,
     groundId: 5
   },
@@ -68,6 +73,7 @@ const posts = [
     endTime: '2021-11-20 11:00',
     status: '모집중',
     phoneOpen: false,
+    addressName: '경기 용인시 처인구 모현읍 일산리 12-8',
     userId: 3,
     groundId: 6
   },
@@ -80,6 +86,7 @@ const posts = [
     endTime: '2021-11-20 11:00',
     status: '모집중',
     phoneOpen: false,
+    addressName: '경기 용인시 기흥구 상하동 202-124',
     userId: 3,
     groundId: 7
   },
@@ -92,6 +99,7 @@ const posts = [
     endTime: '2021-11-13 20:00',
     status: '모집중',
     phoneOpen: true,
+    addressName: '경기 용인시 처인구 남사읍 전궁리 17',
     userId: 4,
     groundId: 8
   },
@@ -104,6 +112,7 @@ const posts = [
     endTime: '2021-11-14 16:00',
     status: '모집중',
     phoneOpen: true,
+    addressName: '경기 용인시 처인구 남사읍 봉명리 646-2',
     userId: 4,
     groundId: 9
   },
@@ -116,6 +125,7 @@ const posts = [
     endTime: '2021-11-14 16:00',
     status: '모집완료',
     phoneOpen: true,
+    addressName: '경기 용인시 처인구 남동 555',
     userId: 5,
     groundId: 10
   },
@@ -128,6 +138,7 @@ const posts = [
     endTime: '2021-11-14 16:00',
     status: '모집중',
     phoneOpen: true,
+    addressName: '경기 용인시 기흥구 구갈동 350',
     userId: 5,
     groundId: 11
   },
@@ -140,6 +151,7 @@ const posts = [
     endTime: '2021-11-20 19:00',
     status: '모집중',
     phoneOpen: false,
+    addressName: '경기 용인시 기흥구 구갈동 569',
     userId: 5,
     groundId: 12
   },

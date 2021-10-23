@@ -17,9 +17,6 @@ module.exports = {
       addressName: {
         type: Sequelize.STRING
       },
-      roadAddressName: {
-        type: Sequelize.STRING
-      },
       phone: {
         type: Sequelize.STRING
       },

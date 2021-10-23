@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     startTime: DataTypes.DATE,
     endTime: DataTypes.DATE,
     status: DataTypes.STRING,
-    phoneOpen: DataTypes.BOOLEAN
+    phoneOpen: DataTypes.BOOLEAN,
+    addressName: DataTypes.STRING
   }, {
     tableName: 'Post',
     sequelize,
