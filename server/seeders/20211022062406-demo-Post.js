@@ -8,7 +8,7 @@ module.exports = {
     posts.map((el) => {
       const {
         title,
-        content,
+        division,
         startTime,
         endTime,
         status,
@@ -18,7 +18,7 @@ module.exports = {
       } = el
       let obj = {
         title,
-        content,
+        division,
         startTime,
         endTime,
         status,

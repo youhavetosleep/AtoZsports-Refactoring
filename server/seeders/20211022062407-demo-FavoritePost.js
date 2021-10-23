@@ -1,15 +1,28 @@
 'use strict'
 
+const favoritePost = require('../data/favoritePost')
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('FavoritePost', [{
-      userId: 1,
-      postId: 5,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+  up: async (queryInterface, Sequelize) => {
+    let data = []
+    favoritePost.map((el) => {
+      const {
+        userId,
+        postId
+      } = el
+      let obj = {
+        userId,
+        postId,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      data.push(obj)
+    })
+
+    return queryInterface.bulkInsert('FavoritePost', data, {})
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('FavoritePost', null, {});
+
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('FavoritePost', null, {})
   }
-};
+}
