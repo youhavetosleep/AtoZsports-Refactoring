@@ -9,6 +9,7 @@ module.exports = {
       const {
         title,
         division,
+        content,
         startTime,
         endTime,
         status,
@@ -19,6 +20,7 @@ module.exports = {
       let obj = {
         title,
         division,
+        content,
         startTime,
         endTime,
         status,
