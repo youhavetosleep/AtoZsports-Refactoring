@@ -10,7 +10,7 @@ module.exports = {
     
     if (!accessTokenData) { // accessToken이 만료된 상황
       if (!refreshToken) { // refreshToken마저 만료
-        return res.statue(403).send({ 
+        return res.status(403).send({ 
           data: null,
           message: '로그인이 필요한 권한입니다.' 
         })
