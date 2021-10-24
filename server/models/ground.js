@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Ground.hasMany(models.Post)
-      models.Ground.hasMany(models.GroundReview)
+      models.Ground.hasMany(models.Post, { foreignKey: 'groundId' })
+      models.Ground.hasMany(models.GroundReview, { foreignKey: 'groundId' })
     }
   };
   Ground.init({
@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     placeName: DataTypes.STRING,
     addressName: DataTypes.STRING,
     phone: DataTypes.STRING,
-    longitude: DataTypes.FLOAT,
-    latitude: DataTypes.FLOAT,
+    longitude: DataTypes.DOUBLE,
+    latitude: DataTypes.DOUBLE,
     placeUrl: DataTypes.STRING
   }, {
     tableName: 'Ground',

@@ -6,7 +6,7 @@ module.exports = {
   // 랜딩 페이지 후 메인 페이지
   urgentPostList: (req, res, next) => {
     // 스포츠 종목별로 관리하기 위해 종목을 url에서 분리해 확인한다.
-    const sports = req.baseUrl.split('/')[1]
+    let sports = req.baseUrl.split('/')[1]
     const Do = decodeURIComponent(req.query.do)
     const City = decodeURIComponent(req.query.city)
     const addressName = Do + ' ' + City
@@ -76,58 +76,64 @@ module.exports = {
           { model: User, attributes: ['nickname', 'userPhone'] }
         ],
         where: { id: req.query.id }
-      }).then((data) => {
-        const {
-          id,
-          title,
-          division,
-          content,
-          startTime,
-          endTime,
-          status,
-          phoneOpen,
-          Ground: { PlaceName, addressName, longitude, latitude, phone },
-          User: { nickname, userPhone }
-        } = data
+      })
+        .then((data) => {
+          const {
+            id,
+            title,
+            division,
+            content,
+            startTime,
+            endTime,
+            status,
+            phoneOpen,
+            Ground: { PlaceName, addressName, longitude, latitude, phone },
+            User: { nickname, userPhone }
+          } = data
 
-        let resultData
-        phoneOpen === true
-          ? (resultData = {
-              id,
-              title,
-              division,
-              content,
-              startTime,
-              endTime,
-              status,
-              PlaceName,
-              addressName,
-              longitude,
-              latitude,
-              phone,
-              nickname,
-              userPhone
-            })
-          : (resultData = {
-              id,
-              title,
-              division,
-              content,
-              startTime,
-              endTime,
-              status,
-              PlaceName,
-              addressName,
-              longitude,
-              latitude,
-              phone,
-              nickname
-            })
-            res.send(resultData)
-      })
-      .catch((err) => {
-        console.log(`findPost Error: ${err.message}`)
-      })
+          let resultData
+          phoneOpen === true
+            ? (resultData = {
+                id,
+                title,
+                division,
+                content,
+                startTime,
+                endTime,
+                status,
+                PlaceName,
+                addressName,
+                longitude,
+                latitude,
+                phone,
+                nickname,
+                userPhone
+              })
+            : (resultData = {
+                id,
+                title,
+                division,
+                content,
+                startTime,
+                endTime,
+                status,
+                PlaceName,
+                addressName,
+                longitude,
+                latitude,
+                phone,
+                nickname
+              })
+          res.locals.message === '인증 완료'
+            ? res.send({ postsData: resultData })
+            : res.send({
+                accessToken: res.locals.isAuth,
+                postsData: resultData
+              })
+        })
+        .catch((err) => {
+          console.log(`findPost Error: ${err.message}`)
+        })
     }
     const sports = req.baseUrl.split('/')[1]
     let Day = new Date(req.query.date)
@@ -183,7 +189,60 @@ module.exports = {
     })
   },
   // 게시글 작성
-  writePost: (req, res, next) => {},
+  writePost: (req, res, next) => {
+    let sports = req.baseUrl.split('/')[1]
+    let title = req.body.title
+    let division = req.body.division
+    let content = req.body.content
+    let startTime = new Date(req.body.startTime)
+    let endTime = new Date(req.body.endTime)
+    let status = req.body.status
+    let phoneOpen = req.body.phoneOpen
+    let {
+      placeName,
+      addressName,
+      phone,
+      longitude,
+      latitude,
+      placeUrl
+    } = req.body.ground
+
+    Ground.findOrCreate({
+      where: {
+        placeName,
+        addressName,
+        phone,
+        longitude,
+        latitude,
+        placeUrl
+      }
+    })
+      .then(async ([data, created]) => {
+        try {
+          let userId = res.locals.userId
+          let groundId = data.dataValues.id
+          let writePostData = await Post.create({
+            sports,
+            title,
+            division,
+            content,
+            startTime,
+            endTime,
+            status,
+            phoneOpen,
+            addressName,
+            userId,
+            groundId
+          })
+          res.send(writePostData.dataValues)
+        } catch (err) {
+          console.log(`writePost Error: ${err.message}`)
+        }
+      })
+      .catch((err) => {
+        console.log(`writeGround Error: ${err.message}`)
+      })
+  },
   // 게시글 수정
   updatePost: (req, res, next) => {},
   // 게시글 삭제

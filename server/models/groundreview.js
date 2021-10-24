@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.GroundReview.belongsTo(models.User)
-      models.GroundReview.belongsTo(models.Ground)
+      models.GroundReview.belongsTo(models.User, { foreignKey: 'userId' })
+      models.GroundReview.belongsTo(models.Ground, { foreignKey: 'groundId' })
     }
   };
   GroundReview.init({

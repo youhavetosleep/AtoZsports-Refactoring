@@ -21,10 +21,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       longitude: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DOUBLE
       },
       latitude: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DOUBLE
       },
       placeUrl: {
         type: Sequelize.STRING
