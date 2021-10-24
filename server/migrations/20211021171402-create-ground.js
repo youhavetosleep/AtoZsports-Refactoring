@@ -17,17 +17,14 @@ module.exports = {
       addressName: {
         type: Sequelize.STRING
       },
-      roadAddressName: {
-        type: Sequelize.STRING
-      },
       phone: {
         type: Sequelize.STRING
       },
       longitude: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DOUBLE
       },
       latitude: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DOUBLE
       },
       placeUrl: {
         type: Sequelize.STRING

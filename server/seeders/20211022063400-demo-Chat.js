@@ -9,12 +9,12 @@ module.exports = {
       const {
         comment,
         userId,
-        roomName
+        postId
       } = el
       let obj = {
         comment,
         userId,
-        roomName,
+        postId,
         createdAt: new Date(),
         updatedAt: new Date()
       }

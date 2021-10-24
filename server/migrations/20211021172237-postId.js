@@ -3,12 +3,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // postId가 필요한 테이블에 field 추가
-    await queryInterface.addColumn('Chat', 'roomName', Sequelize.INTEGER)
+    await queryInterface.addColumn('Chat', 'postId', Sequelize.INTEGER)
     await queryInterface.addColumn('FavoritePost', 'postId', Sequelize.INTEGER)
 
     // foreign key 연결
     await queryInterface.addConstraint('Chat', {
-      fields: ['roomName'],
+      fields: ['postId'],
       type: 'foreign key',
       name: 'FK_Chat_roomName',
       references: {
@@ -33,7 +33,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeConstraint('Chat', 'FK_Chat_roomName')
-    await queryInterface.removeColumn('Chat', 'roomName')
+    await queryInterface.removeColumn('Chat', 'postId')
     await queryInterface.removeConstraint('FavoritePost', 'FK_FavoritePost_postId')
     await queryInterface.removeColumn('FavoritePost', 'postId')
   }

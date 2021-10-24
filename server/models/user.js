@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.User.hasMany(models.Chat)
-      models.User.hasMany(models.FavoritePost)
-      models.User.hasMany(models.GroundReview)
-      models.User.hasMany(models.Post)
+      models.User.hasMany(models.Chat, { foreignKey: 'userId' })
+      models.User.hasMany(models.FavoritePost, { foreignKey: 'userId' })
+      models.User.hasMany(models.GroundReview, { foreignKey: 'userId' })
+      models.User.hasMany(models.Post, { foreignKey: 'userId' })
     }
   }
   User.init(
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       nickname: DataTypes.STRING,
       password: DataTypes.STRING,
-      phone: DataTypes.STRING,
+      userPhone: DataTypes.STRING,
       homeground: DataTypes.STRING,
       favoriteSports: DataTypes.STRING,
       verified: DataTypes.BOOLEAN,
