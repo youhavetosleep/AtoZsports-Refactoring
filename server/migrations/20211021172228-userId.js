@@ -58,9 +58,15 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeConstraint('Chat', 'FK_Chat_userId')
     await queryInterface.removeColumn('Chat', 'userId')
-    await queryInterface.removeConstraint('FavoritePost', 'FK_FavoritePost_userId')
+    await queryInterface.removeConstraint(
+      'FavoritePost',
+      'FK_FavoritePost_userId'
+    )
     await queryInterface.removeColumn('FavoritePost', 'userId')
-    await queryInterface.removeConstraint('GroundReview', 'FK_GroundReview_userId')
+    await queryInterface.removeConstraint(
+      'GroundReview',
+      'FK_GroundReview_userId'
+    )
     await queryInterface.removeColumn('GroundReview', 'userId')
     await queryInterface.removeConstraint('Post', 'FK_Post_userId')
     await queryInterface.removeColumn('Post', 'userId')
