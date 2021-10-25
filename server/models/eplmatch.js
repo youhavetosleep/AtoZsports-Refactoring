@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class EplMatch extends Model {
     /**
@@ -12,16 +10,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  EplMatch.init({
-    time: DataTypes.STRING,
-    homeTeam: DataTypes.STRING,
-    awayTeam: DataTypes.STRING,
-    stadium: DataTypes.STRING
-  }, {
-    tableName: 'EplMatch',
-    sequelize,
-    modelName: 'EplMatch',
-  });
-  return EplMatch;
-};
+  }
+  EplMatch.init(
+    {
+      time: DataTypes.STRING,
+      homeTeam: DataTypes.STRING,
+      awayTeam: DataTypes.STRING,
+      stadium: DataTypes.STRING
+    },
+    {
+      tableName: 'EplMatch',
+      sequelize,
+      modelName: 'EplMatch'
+    }
+  )
+  return EplMatch
+}

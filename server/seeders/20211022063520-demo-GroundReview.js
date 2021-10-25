@@ -6,12 +6,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     let data = []
     review.map((el) => {
-      const {
-        comment,
-        score,
-        userId,
-        groundId
-      } = el
+      const { comment, score, userId, groundId } = el
       let obj = {
         comment,
         score,

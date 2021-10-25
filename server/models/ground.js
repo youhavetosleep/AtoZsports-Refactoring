@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Ground extends Model {
     /**
@@ -13,19 +11,22 @@ module.exports = (sequelize, DataTypes) => {
       models.Ground.hasMany(models.Post, { foreignKey: 'groundId' })
       models.Ground.hasMany(models.GroundReview, { foreignKey: 'groundId' })
     }
-  };
-  Ground.init({
-    sports: DataTypes.STRING,
-    placeName: DataTypes.STRING,
-    addressName: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    longitude: DataTypes.DOUBLE,
-    latitude: DataTypes.DOUBLE,
-    placeUrl: DataTypes.STRING
-  }, {
-    tableName: 'Ground',
-    sequelize,
-    modelName: 'Ground',
-  });
-  return Ground;
-};
+  }
+  Ground.init(
+    {
+      sports: DataTypes.STRING,
+      placeName: DataTypes.STRING,
+      addressName: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      longitude: DataTypes.DOUBLE,
+      latitude: DataTypes.DOUBLE,
+      placeUrl: DataTypes.STRING
+    },
+    {
+      tableName: 'Ground',
+      sequelize,
+      modelName: 'Ground'
+    }
+  )
+  return Ground
+}
