@@ -6,11 +6,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     let data = []
     chat.map((el) => {
-      const {
-        comment,
-        userId,
-        postId
-      } = el
+      const { comment, userId, postId } = el
       let obj = {
         comment,
         userId,

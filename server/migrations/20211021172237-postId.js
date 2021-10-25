@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -34,7 +34,10 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeConstraint('Chat', 'FK_Chat_roomName')
     await queryInterface.removeColumn('Chat', 'postId')
-    await queryInterface.removeConstraint('FavoritePost', 'FK_FavoritePost_postId')
+    await queryInterface.removeConstraint(
+      'FavoritePost',
+      'FK_FavoritePost_postId'
+    )
     await queryInterface.removeColumn('FavoritePost', 'postId')
   }
-};
+}

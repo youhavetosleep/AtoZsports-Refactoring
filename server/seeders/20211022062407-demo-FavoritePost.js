@@ -6,10 +6,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     let data = []
     favoritePost.map((el) => {
-      const {
-        userId,
-        postId
-      } = el
+      const { userId, postId } = el
       let obj = {
         userId,
         postId,

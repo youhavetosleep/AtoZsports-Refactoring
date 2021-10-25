@@ -64,6 +64,8 @@ db.sequelize
 
 app.use('/', router)
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`서버가 ${port}번에서 작동 중입니다.`)
 })
+const io = require('socket.io')(server)
+require('./controllers/chatController')(io)
