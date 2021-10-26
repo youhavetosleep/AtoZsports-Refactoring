@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../api/index.jsx'
+import LoginModal from '../modal/loginModal'
 
 const Signup = () => {
   const history = useHistory()
@@ -52,6 +53,7 @@ const Signup = () => {
   const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
       _nick.current.focus()
+      setNickCheck(false)
       setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
       return
     } else {
@@ -81,6 +83,7 @@ const Signup = () => {
   const checkEmail = async () => {
     if (!email_Reg.test(email)) {
       _email.current.focus()
+      setEmailCheck(false)
       setMessageEmail('이메일 형식에 맞게 작성해주세요')
       return
     } else {
@@ -196,6 +199,8 @@ const Signup = () => {
     history.push('/')
   }
 
+const [modal, setModal] = useState(false)
+
   return (
     <>
       <TitleWrapper>
@@ -309,8 +314,10 @@ const Signup = () => {
           <SignWrap>
             <EmailText>* Send를 누른 후 이메일 인증을 완료해주세요. </EmailText>
             <Sign onClick={signUp}>Send</Sign>
+            <button onClick={()=>setModal(true)}>로그인</button>
           </SignWrap>
         </FormWrapper>
+        {modal ? <LoginModal /> : null}
       </FormContainer>
     </>
   )
