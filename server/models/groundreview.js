@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class GroundReview extends Model {
     /**
@@ -13,14 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       models.GroundReview.belongsTo(models.User, { foreignKey: 'userId' })
       models.GroundReview.belongsTo(models.Ground, { foreignKey: 'groundId' })
     }
-  };
-  GroundReview.init({
-    comment: DataTypes.TEXT,
-    score: DataTypes.FLOAT
-  }, {
-    tableName: 'GroundReview',
-    sequelize,
-    modelName: 'GroundReview',
-  });
-  return GroundReview;
-};
+  }
+  GroundReview.init(
+    {
+      comment: DataTypes.TEXT,
+      score: DataTypes.FLOAT
+    },
+    {
+      tableName: 'GroundReview',
+      sequelize,
+      modelName: 'GroundReview'
+    }
+  )
+  return GroundReview
+}
