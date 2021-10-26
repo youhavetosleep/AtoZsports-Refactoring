@@ -1,35 +1,40 @@
 import React, { useState, useRef } from 'react'
-// import { useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import lockerroom from '../image/lockerroom.jpeg'
-// import api from '../api'
+import instance from '../api/index.jsx'
 
 const Signup = () => {
-  // const history = useHistory()
+  const history = useHistory()
 
   // 회원가입 데이터
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [pwCheck, setPwCheck] = useState('')
   const [nickname, setNickname] = useState('')
-  const [phone, setPhone] = useState('')
-  const [favorteSport, setFavorteSport] = useState('')
-  // const [homeground, setHomeground] = useState('')
+  const [userPhone, setUserPhone] = useState('')
+  const [favoriteSports, setfavoriteSports] = useState('')
+  const [homeground, setHomeground] = useState('서울 강남')
 
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
   const [messagePassword, setMessagePassword] = useState('')
   const [messagePwCheck, setMessagePwCheck] = useState('')
   const [messageNickname, setMessageNickname] = useState('')
-  const [messagePhone, setMessagePhone] = useState('')
+  const [messageUserPhone, setMessageUserPhone] = useState('')
   const [messageSport, setMessageSport] = useState('')
+
+  // 닉네임, 이메일 유효성 검사 color 변경
+  const [nickCheck, setNickCheck] = useState(false)
+  const [emailCheck, setEmailCheck] = useState(false)
 
   // 표기 오류시 해당 text focus
   const _email = useRef()
   const _pw = useRef()
   const _pwChk = useRef()
   const _nick = useRef()
-  const _phone = useRef()
+  const _userPhone = useRef()
   const _sport = useRef()
 
   // 이메일, 비밀번호, 닉네임 형식을 체크하는 정규 표현식
@@ -40,27 +45,66 @@ const Signup = () => {
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
-  // (phone)
-  const phone_Reg = /^01([0|1|6|7|8|9]?)-\d{3,4}-\d{4}$/
+  // (userPhone)
+  const userPhone_Reg = /^01([0|1|6|7|8|9]?)-\d{3,4}-\d{4}$/
 
   // 닉네임 확인
-  const checkNickname = () => {
+  const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
       _nick.current.focus()
       setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
       return
+    } else {
+      await instance
+        .post(
+          '/nick-check',
+          {
+            nickname
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            withCredentials: true
+          }
+        )
+        .then((res) => {
+          setMessageNickname(res.data.message)
+          if (res.data.message === '✔ 사용 가능한 닉네임입니다') {
+            setNickCheck(true)
+          }
+        })
     }
-    setMessageNickname('')
   }
 
   // 이메일 확인
-  const checkEmail = () => {
+  const checkEmail = async () => {
     if (!email_Reg.test(email)) {
       _email.current.focus()
       setMessageEmail('이메일 형식에 맞게 작성해주세요')
       return
+    } else {
+      await instance
+        .post(
+          '/mail-check',
+          {
+            email
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            withCredentials: true
+          }
+        )
+        .then((res) => {
+          setMessageEmail(res.data.message)
+
+          if (res.data.message === '✔ 사용 가능한 이메일입니다') {
+            setEmailCheck(true)
+          }
+        })
     }
-    setMessageEmail('')
   }
 
   // 비밀번호 확인
@@ -89,13 +133,13 @@ const Signup = () => {
   }
 
   // 핸드폰 확인
-  const checkPhone = () => {
-    if (!phone_Reg.test(phone)) {
-      _phone.current.focus()
-      setMessagePhone(`('-' 포함) 핸드폰번호를 확인하세요`)
+  const checkuserPhone = () => {
+    if (!userPhone_Reg.test(userPhone)) {
+      _userPhone.current.focus()
+      setMessageUserPhone(`('-' 포함) 핸드폰번호를 확인하세요`)
       return
     }
-    setMessagePhone('')
+    setMessageUserPhone('')
   }
 
   // 회원가입 버튼
@@ -116,17 +160,40 @@ const Signup = () => {
       _pwChk.current.focus()
       setMessagePwCheck('비밀번호 확인을 입력해주세요')
       return
-    } else if (phone === '') {
-      _phone.current.focus()
-      setMessagePhone('핸드폰을 등록해주세요')
+    } else if (userPhone === '') {
+      _userPhone.current.focus()
+      setMessageUserPhone('핸드폰을 등록해주세요')
       return
-    } else if (favorteSport === '') {
+    } else if (favoriteSports === '') {
       _sport.current.focus()
       setMessageSport('좋아하는 스포츠를 입력해주세요')
       return
     }
     event.preventDefault()
-    // await api.post()
+    await instance.post(
+      '/signup',
+      {
+        email,
+        password,
+        nickname,
+        userPhone,
+        favoriteSports,
+        homeground
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      }
+    )
+    Swal.fire({
+      title: '이메일 인증을 완료해주세요!',
+      text: `해당 메일에서 '인증하기' 버튼을 누르면 회원가입이 완료됩니다.`,
+      confirmButtonColor: '#d6d6d6',
+      confirmButtonText: '확인'
+    })
+    history.push('/')
   }
 
   return (
@@ -149,7 +216,11 @@ const Signup = () => {
                 ref={_nick}
                 onBlur={checkNickname}
               />
-              <Check>{messageNickname}</Check>
+              {nickCheck ? (
+                <PassCheck>{messageNickname}</PassCheck>
+              ) : (
+                <Check>{messageNickname}</Check>
+              )}
             </Inputbox>
           </Element>
           <Element>
@@ -164,7 +235,11 @@ const Signup = () => {
                 ref={_email}
                 onBlur={checkEmail}
               />
-              <Check>{messageEmail}</Check>
+              {emailCheck ? (
+                <PassCheck>{messageEmail}</PassCheck>
+              ) : (
+                <Check>{messageEmail}</Check>
+              )}
             </Inputbox>
           </Element>
           <Element>
@@ -202,14 +277,14 @@ const Signup = () => {
             <Inputbox>
               <Input
                 type="text"
-                placeholder="000 - 0000 - 0000"
+                placeholder="' - ' 포함하여 전화번호를 입력해주세요"
                 onChange={(e) => {
-                  setPhone(e.target.value)
+                  setUserPhone(e.target.value)
                 }}
-                ref={_phone}
-                onBlur={checkPhone}
+                ref={_userPhone}
+                onBlur={checkuserPhone}
               />
-              <Check>{messagePhone}</Check>
+              <Check>{messageUserPhone}</Check>
             </Inputbox>
           </Element>
           <Element>
@@ -218,7 +293,7 @@ const Signup = () => {
               type="text"
               placeholder="좋아하는 스포츠를 입력해주세요"
               onChange={(e) => {
-                setFavorteSport(e.target.value)
+                setfavoriteSports(e.target.value)
               }}
               ref={_sport}
             />
@@ -227,11 +302,12 @@ const Signup = () => {
           <Element>
             <DropName>살고 있는 지역을 선택해주세요</DropName>
             <DropWrapper>
-              <Dropbox />
-              <Dropbox />
+              <Dropbox value="서울" />
+              <Dropbox value="강남" />
             </DropWrapper>
           </Element>
           <SignWrap>
+            <EmailText>* Send를 누른 후 이메일 인증을 완료해주세요. </EmailText>
             <Sign onClick={signUp}>Send</Sign>
           </SignWrap>
         </FormWrapper>
@@ -248,6 +324,8 @@ const TitleWrapper = styled.div`
 
 const TitleImg = styled.img`
   opacity: 50%;
+  width: 100%;
+  height: 100%;
 `
 
 const TitleText = styled.h1`
@@ -276,6 +354,7 @@ const FormWrapper = styled.div`
   width: 700px;
   padding: 50px;
   box-sizing: border-box;
+  border-radius: 5px;
 `
 
 const Element = styled.div`
@@ -312,7 +391,7 @@ const Input = styled.input`
   }
 `
 
-const Check = styled.p`
+const Check = styled.div`
   margin: 0;
   margin-top: 3px;
   position: absolute;
@@ -321,11 +400,20 @@ const Check = styled.p`
   color: #840909;
 `
 
+const PassCheck = styled.div`
+  margin: 0;
+  margin-top: 3px;
+  position: absolute;
+  right: 0;
+  font-size: 13px;
+  color: #1b7e07;
+`
+
 const DropWrapper = styled.div`
   display: flex;
 `
 
-const Dropbox = styled.div`
+const Dropbox = styled.input`
   border: solid 2px #bebebe;
   height: 25px;
   width: 125px;
@@ -334,7 +422,16 @@ const Dropbox = styled.div`
 
 const SignWrap = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+`
+
+const EmailText = styled.p`
+  margin: 0;
+  margin-top: 40px;
+  align-items: bottom;
+  text-align: bottom;
+  font-size: 15px;
+  color: #7e7e7e;
 `
 
 const Sign = styled.button`
@@ -349,4 +446,5 @@ const Sign = styled.button`
     color: #840909;
   }
 `
+
 export default Signup

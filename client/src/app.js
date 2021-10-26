@@ -14,6 +14,7 @@ import PremierLeague from './pages/premierLeague'
 import Review from './pages/review'
 import Signup from './pages/signup'
 import Write from './pages/write'
+import Auth from './auth/auth'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/mypage" component={Mypage} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/premierleague" component={PremierLeague} />
+          <Route exact path="/auth" component={Auth} />
         </Switch>
         <Footer />
       </Router>
