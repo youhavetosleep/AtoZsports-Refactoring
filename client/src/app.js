@@ -1,7 +1,5 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Footer from './components/footer'
-import Navbar from './components/navbar'
 import GlobalStyle from './globalStyle/globalStyle'
 import Entrance from './pages/entrance'
 import Futsal from './pages/futsal'
@@ -20,7 +18,6 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
-        <Navbar />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />
@@ -34,7 +31,6 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/premierleague" component={PremierLeague} />
         </Switch>
-        <Footer />
       </Router>
     </>
   )
