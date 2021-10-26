@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../image/subLogo.png'
+import GlobalStyle from '../globalStyle/globalStyle'
 import styled from "styled-components"
 
  
 const Navbar = () => {
   return (
     <>
+    <GlobalStyle />
       <Nav>
         <Logo>
           <Link to='/entrance'>

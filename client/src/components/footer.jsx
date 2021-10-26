@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import GlobalStyle from '../globalStyle/globalStyle'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
     <>
+    <GlobalStyle />
       <Footerbar>
         <Github href='https://github.com/codestates/AtoZsports'>
           A to Z Sports Repository
@@ -14,13 +16,13 @@ const Footer = () => {
           <Href href='https://github.com/steel-hyuk'>
             <div>김은혁 (BE) |</div>
           </Href>
-          <Href href='https://github.com/steel-hyuk'>
+          <Href href='https://github.com/jsjsjskjs'>
             <div>김재식 (BE) |</div>
           </Href>
-          <Href href='https://github.com/steel-hyuk'>
+          <Href href='https://github.com/shinseungmin-kor'>
             <div>신승민 (FE) |</div>
           </Href>
-          <Href href='https://github.com/steel-hyuk'>
+          <Href href='https://github.com/youhavetosleep'>
             <div>진정수 (FE)</div>
           </Href>
         </Team>

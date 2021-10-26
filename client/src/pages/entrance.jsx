@@ -18,7 +18,7 @@ const Entrance = () => {
               <img src={futsal} className="entrance_img" />
               <div className="entrance_Text">
                 <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
-                <div className="entrance_subText">Futsal</div>
+                <div className="entrance_subText">FUTSAL</div>
               </div>
             </Footsal>
           </Link>
@@ -26,22 +26,22 @@ const Entrance = () => {
         <Sports_Sub>
           <Running>
             <img src={running} className="entrance_img" />
-            <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
-            <div className="entrance_subText">Futsal</div>
+            <div className="entrance_mainText">함께 달릴 준비가 되었나요?</div>
+            <div className="entrance_subText">COMMING SOON</div>
           </Running>
         </Sports_Sub>
         <Sports_Sub>
           <BasketBall>
             <img src={basketball} className="entrance_img" />
-            <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
-            <div className="entrance_subText">Futsal</div>
+            <div className="entrance_mainText">왼손은 거들뿐</div>
+            <div className="entrance_subText">COMMING SOON</div>
           </BasketBall>
         </Sports_Sub>
         <Sports_Sub>
           <CommingSoon>
             <img src={comming} className="entrance_img" />
-            <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
-            <div className="entrance_subText">Futsal</div>
+            <div className="entrance_mainText">계속 업데이트 됩니다</div>
+            <div className="entrance_subText">COMMING SOON</div>
           </CommingSoon>
         </Sports_Sub>
       </Sports_Main>
@@ -59,141 +59,151 @@ const Sports_Sub = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
+  :hover {
+    .entrance_mainText{
+      color: white;
+    }
+    .entrance_subText {
+      color: white;
+    }
+    .entrance_img {
+      cursor: pointer;
+      opacity: 1;
+      filter: brightness(80%);
+      transition: 0.3s ease-out;
+    }
+  }
 `
 
 const Footsal = styled.div`
   position: relative;
   .entrance_Text {
-    
+  
   }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 26%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 37%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
 const Running = styled.div`
   position: relative;
+  .entrance_Text {
+  
+  }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 22%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 19%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
 const BasketBall = styled.div`
   position: relative;
+  .entrance_Text {
+  
+  }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 36%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 20%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
 const CommingSoon = styled.div`
   position: relative;
+  .entrance_Text {
+  
+  }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 28%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 19%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
