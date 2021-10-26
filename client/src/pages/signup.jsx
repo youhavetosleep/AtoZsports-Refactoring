@@ -5,6 +5,8 @@ import Swal from 'sweetalert2'
 import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../api/index.jsx'
 
+import axios from 'axios'
+
 const Signup = () => {
   const history = useHistory()
 
@@ -55,9 +57,9 @@ const Signup = () => {
       setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
       return
     } else {
-      await instance
+      await axios
         .post(
-          '/nick-check',
+          `${process.env.REACT_APP_API_URL}/nick-check`,
           {
             nickname
           },
