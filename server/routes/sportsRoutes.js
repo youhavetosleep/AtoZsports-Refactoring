@@ -12,6 +12,7 @@ router.patch('/posts/:postId', auth.isAuth, postsController.updatePost)
 router.delete('/posts/:postId', auth.isAuth, postsController.deletePost)
 
 router.get('/ground', groundController.findGround)
+router.get('/ground/:groundId/review', groundController.findReview)
 router.post('/ground/:groundId/review', auth.isAuth, groundController.writeReview)
 router.patch('/ground/:groundId/review/:reviewId', auth.isAuth, groundController.updateReview)
 router.delete('/ground/:groundId/review/:reviewId', auth.isAuth, groundController.deleteReview)

@@ -229,6 +229,7 @@ module.exports = {
     Ground.findOrCreate({
       where: {
         placeName,
+        sports,
         addressName,
         phone,
         longitude,
@@ -285,6 +286,7 @@ module.exports = {
     Ground.findOrCreate({
       where: {
         placeName,
+        sports,
         addressName,
         phone,
         longitude,

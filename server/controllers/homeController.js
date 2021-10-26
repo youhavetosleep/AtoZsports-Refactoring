@@ -87,8 +87,9 @@ module.exports = {
       } else {
         // 메일 전송을 위한 정보
         const domain = process.env.NODE_ENV === 'production' ? 'atozsports.link' : 'http://localhost:3000'
+        const from = `AtoZ sports <${process.env.GMAIL_ID}>`
         const mailOptions = {
-          from: process.env.GMAIL_ID,
+          from: from,
           to: email,
           subject: `${nickname}님 ! AtoZ sports 이메일 인증입니다.`,
           html: `
