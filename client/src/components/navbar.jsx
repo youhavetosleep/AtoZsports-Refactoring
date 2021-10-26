@@ -8,24 +8,32 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-        <Logo>
-          <Link to='/entrance'>
-            <LogoImage src={logo}/>
-          </Link>
-        </Logo>
-        <Menu>
-          <Link to='/matchlist' className='nav_matchlist'>Match</Link>
-          <Link to='/map' className='nav_map'>Map</Link>
-          <span className='nav_login'>Login</span>
-          <Link to='/signup' className='nav_signup'>Signup</Link>
-        </Menu>
+        <NavContainer>
+          <Logo>
+            <Link to="/entrance">
+              <LogoImage src={logo} />
+            </Link>
+          </Logo>
+          <Menu>
+            <Link to="/matchlist" className="nav_matchlist">
+              Match
+            </Link>
+            <Link to="/map" className="nav_map">
+              Map
+            </Link>
+            <span className="nav_login">Login</span>
+            <Link to="/signup" className="nav_signup">
+              Signup
+            </Link>
+          </Menu>
+        </NavContainer>
       </Nav>
     </>
   )
 }
 
 const Nav = styled.div`
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -33,6 +41,10 @@ const Nav = styled.div`
   width: 100%;
   height: 60px;
   transition: 0.3s;
+`
+
+const NavContainer = styled.div`
+
 `
 
 const Menu = styled.div`
