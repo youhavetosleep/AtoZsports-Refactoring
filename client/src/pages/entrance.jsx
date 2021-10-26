@@ -86,8 +86,8 @@ const Footsal = styled.div`
   }
   .entrance_mainText {
     top: 45%;
-	  left: 30%;
-    font-size: 20px;
+	  left: 26%;
+    font-size: 1.3vw;
     font-weight: bold;
     color: #353535;
     position: absolute;
@@ -95,8 +95,8 @@ const Footsal = styled.div`
   }
   .entrance_subText {
     top: 50%;
-	  left: 32%;
-    font-size: 50px;
+	  left: 37%;
+    font-size: 2vw;
     font-weight: bold;
     color: #353535;
     position: absolute;
@@ -104,7 +104,8 @@ const Footsal = styled.div`
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
   }
@@ -112,97 +113,97 @@ const Footsal = styled.div`
 
 const Running = styled.div`
   position: relative;
+  .entrance_Text {
+  
+  }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 22%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 19%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
 const BasketBall = styled.div`
   position: relative;
+  .entrance_Text {
+  
+  }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 36%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 20%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
 const CommingSoon = styled.div`
   position: relative;
+  .entrance_Text {
+  
+  }
   .entrance_mainText {
     top: 45%;
-	  left: 20%;
-    font-size: 30px;
+	  left: 28%;
+    font-size: 1.3vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_subText {
     top: 50%;
-	  left: 40%;
-    font-size: 30px;
+	  left: 19%;
+    font-size: 2vw;
+    font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
   }
   .entrance_img {
     opacity: 0.3;
-    width: 100%;
+    width: 25vw;
+    height: 100vh;
     background-size: cover;
     vertical-align: middle;
-    :hover {
-      cursor: pointer;
-      opacity: 1;
-      filter: brightness(80%);
-      transition: 0.3s ease-out;
-    }
   }
 `
 
