@@ -81,9 +81,6 @@ const Sports_Sub = styled.div`
 
 const Footsal = styled.div`
   position: relative;
-  .entrance_Text {
-  
-  }
   .entrance_mainText {
     top: 45%;
 	  left: 26%;

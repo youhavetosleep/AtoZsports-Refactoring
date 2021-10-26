@@ -16,10 +16,10 @@ const Navbar = () => {
           </Link>
         </Logo>
         <Menu>
-          <Link to='/matchlist' className='nav_matchlist'>Match</Link>
-          <Link to='/map' className='nav_map'>Map</Link>
+          <Link to='/matchlist' className='nav_matchlist' style={{ textDecoration: 'none' }}>Match</Link>
+          <Link to='/map' className='nav_map' style={{ textDecoration: 'none' }}>Map</Link>
           <span className='nav_login'>Login</span>
-          <Link to='/signup' className='nav_signup'>Signup</Link>
+          <Link to='/signup' className='nav_signup' style={{ textDecoration: 'none' }}>Signup</Link>
         </Menu>
       </Nav>
     </>
@@ -28,28 +28,56 @@ const Navbar = () => {
 
 const Nav = styled.div`
   background-color: #FAFAFA;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
   width: 100%;
   height: 60px;
-  transition: 0.3s;
-`
-
-const Menu = styled.div`
-margin-top: 20px;
-margin-right: 80px;
-font-size: 14px;
-text-decoration: none;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Logo = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  position: absolute;
+  top: 0%;
+  left: 49%;
 `
+
+const Menu = styled.div`
+position: absolute;
+top: 50%;
+right: 20%;
+font-size: .9vw;
+.nav_matchlist {
+  margin-left: 40%;
+  color: #353535;
+  :hover {
+  color: #840909;
+}
+}
+.nav_map {
+  margin-left: 40%;
+  color: #353535;
+  :hover {
+  color: #840909;
+}
+}
+.nav_login {
+  margin-left: 40%;
+  color: #353535;
+  :hover {
+  color: #840909;
+}
+}
+.nav_signup {
+  margin-left: 40%;
+  color: #353535;
+  :hover {
+  color: #840909;
+}
+}
+
+`
+
 
 const LogoImage = styled.img`
   width: 60px;
