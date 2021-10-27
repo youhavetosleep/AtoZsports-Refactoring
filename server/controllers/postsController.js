@@ -169,9 +169,10 @@ module.exports = {
     let limit = Number(req.query.limit)
     if (pageNum > 1) offset = limit * (pageNum - 1)
     const addressName = Do + ' ' + City
-
+    /*
     StartTime.setHours(StartTime.getHours() + 9)
     EndTime.setHours(EndTime.getHours() + 9)
+    */
 
     Post.findAll(
       !req.query.startTime
