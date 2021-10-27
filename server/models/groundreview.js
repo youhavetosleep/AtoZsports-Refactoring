@@ -1,27 +1,27 @@
-'use strict'
-const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  class GroundReview extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      models.GroundReview.belongsTo(models.User, { foreignKey: 'userId' })
-      models.GroundReview.belongsTo(models.Ground, { foreignKey: 'groundId' })
-    }
-  }
-  GroundReview.init(
+  const GroundReview = sequelize.define(
+    'GroundReview',
     {
-      comment: DataTypes.TEXT,
-      score: DataTypes.FLOAT
+      comment: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      score: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      }
     },
     {
       tableName: 'GroundReview',
-      sequelize,
-      modelName: 'GroundReview'
+      charset: 'utf8',
+      collate: 'utf8_general_ci'
     }
   )
+
+  GroundReview.associate = (db) => {
+    db.GroundReview.belongsTo(db.User, { foreignKey: 'userId' })
+    db.GroundReview.belongsTo(db.Ground, { foreignKey: 'groundId' })
+  }
+
   return GroundReview
 }

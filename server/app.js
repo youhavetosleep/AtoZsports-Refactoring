@@ -55,13 +55,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(session(sessionOption))
 
-db.sequelize
-  .sync()
-  .then(() => {
-    console.log('db 연결 성공!')
-  })
-  .catch(console.error)
-
 app.use('/', router)
 
 app.listen(PORT, () => {

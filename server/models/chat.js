@@ -1,26 +1,27 @@
-'use strict'
-const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  class Chat extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      models.Chat.belongsTo(models.User, { foreignKey: 'userId' })
-      models.Chat.belongsTo(models.Post, { foreignKey: 'postId' })
-    }
-  }
-  Chat.init(
+  const Chat = sequelize.define(
+    'Chat',
     {
-      comment: DataTypes.TEXT
+      comment: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      score: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+      }
     },
     {
       tableName: 'Chat',
-      sequelize,
-      modelName: 'Chat'
+      charset: 'utf8',
+      collate: 'utf8_general_ci'
     }
   )
+
+  Chat.associate = (db) => {
+    db.Chat.belongsTo(db.User, { foreignKey: 'userId' })
+    db.Chat.belongsTo(db.Post, { foreignKey: 'postId' })
+  }
+
   return Chat
 }

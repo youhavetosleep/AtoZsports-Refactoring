@@ -1,35 +1,54 @@
-'use strict'
-const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      models.User.hasMany(models.Chat, { foreignKey: 'userId' })
-      models.User.hasMany(models.FavoritePost, { foreignKey: 'userId' })
-      models.User.hasMany(models.GroundReview, { foreignKey: 'userId' })
-      models.User.hasMany(models.Post, { foreignKey: 'userId' })
-    }
-  }
-  User.init(
+  const User = sequelize.define(
+    'User',
     {
-      email: DataTypes.STRING,
-      nickname: DataTypes.STRING,
-      password: DataTypes.STRING,
-      userPhone: DataTypes.STRING,
-      homeground: DataTypes.STRING,
-      favoriteSports: DataTypes.STRING,
-      verified: DataTypes.BOOLEAN,
-      verifiedKey: DataTypes.STRING
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      userPhone: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      homeground: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      favoriteSports: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      verified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      },
+      verifiedKey: {
+        type: DataTypes.STRING
+      }
     },
     {
       tableName: 'User',
-      sequelize,
-      modelName: 'User'
+      charset: 'utf8',
+      collate: 'utf8_general_ci'
     }
   )
+
+  User.associate = (db) => {
+    db.User.hasMany(db.Chat, { foreignKey: 'userId' })
+    db.User.hasMany(db.FavoritePost, { foreignKey: 'userId' })
+    db.User.hasMany(db.GroundReview, { foreignKey: 'userId' })
+    db.User.hasMany(db.Post, { foreignKey: 'userId' })
+  }
+
   return User
 }
