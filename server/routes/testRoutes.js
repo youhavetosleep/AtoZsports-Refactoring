@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { Post } = require('../models')
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
     Post.findAll({})
     .then((data) => res.send(data))
 })
