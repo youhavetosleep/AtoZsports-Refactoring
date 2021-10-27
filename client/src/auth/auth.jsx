@@ -25,7 +25,6 @@ const Auth = () => {
         }
       )
       .then((res) => {
-        console.log(res.data.message)
         if (res.data.message) {
           Swal.fire({
             title: '회원가입이 완료되었습니다!',
