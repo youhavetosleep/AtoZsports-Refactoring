@@ -198,8 +198,6 @@ const Signup = () => {
     history.push('/')
   }
 
-  const [modal, setModal] = useState(false)
-
   return (
     <>
       <TitleWrapper>
