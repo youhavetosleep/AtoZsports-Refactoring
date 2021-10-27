@@ -14,6 +14,17 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+/*
+db.User = require('./user')(sequelize, Sequelize)
+db.Chat = require('./chat')(sequelize, Sequelize)
+db.EplMatch = require('./eplmatch')(sequelize, Sequelize)
+db.EplResult = require('./eplresult')(sequelize, Sequelize)
+db.FavoritePost = require('./favoritepost')(sequelize, Sequelize)
+db.Ground = require('./ground')(sequelize, Sequelize)
+db.GroundReview = require('./groundreview')(sequelize, Sequelize)
+db.Post = require('./chat')(sequelize, Sequelize)
+*/
+
 fs
   .readdirSync(__dirname)
   .filter(file => {

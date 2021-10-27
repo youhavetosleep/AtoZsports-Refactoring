@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     'EplMatch',
     {
       time: {
-        time: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false
       },
       homeTeam: {
