@@ -6,7 +6,7 @@ module.exports = {
   // 랜딩 페이지 후 메인 페이지
   urgentPostList: (req, res, next) => {
     // 스포츠 종목별로 관리하기 위해 종목을 url에서 분리해 확인한다.
-    let sports = req.baseUrl.split('/')[1]
+    let sports = 'futsal'
     const Do = decodeURIComponent(req.query.do)
     const City = decodeURIComponent(req.query.city)
     const addressName = Do + ' ' + City
