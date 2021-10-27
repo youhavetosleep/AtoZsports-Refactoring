@@ -3,7 +3,6 @@ const userController = require('../controllers/usersController')
 const auth = require('../controllers/function/function')
 const usersController = require('../controllers/usersController')
 
-
 router.get('/', auth.isAuth, userController.myInfo)
 router.patch('/', userController.update)
 router.delete('/', auth.isAuth, userController.withdrawal)

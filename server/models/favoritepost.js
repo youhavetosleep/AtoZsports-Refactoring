@@ -1,27 +1,24 @@
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  const FavoritePost = sequelize.define(
-    'FavoritePost',
-    {
-      comment: {
-        type: DataTypes.TEXT,
-        allowNull: false
-      },
-      score: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-      }
-    },
+  class FavoritePost extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      models.FavoritePost.belongsTo(models.User, { foreignKey: 'userId' })
+      models.FavoritePost.belongsTo(models.Post, { foreignKey: 'postId' })
+    }
+  }
+  FavoritePost.init(
+    {},
     {
       tableName: 'FavoritePost',
-      charset: 'utf8',
-      collate: 'utf8_general_ci'
+      sequelize,
+      modelName: 'FavoritePost'
     }
   )
-
-  FavoritePost.associate = (db) => {
-    db.FavoritePost.belongsTo(db.User, { foreignKey: 'userId' })
-    db.FavoritePost.belongsTo(db.Post, { foreignKey: 'postId' })
-  }
-
   return FavoritePost
 }
