@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
 import { loginUser } from '../_actions/user.action'
 import login1 from '../image/login1.png'
 import googleLogo from '../image/googleLogo.jpg'
 import kakaoLogo from '../image/kakaoLogo.png'
-import Swal from 'sweetalert2'
 
 const LoginModal = () => {
   const history = useHistory()
@@ -124,6 +124,7 @@ const Container = styled.div`
     }
   }
 `
+
 const Form = styled.div`
   position: fixed;
   top: 50%;
@@ -154,6 +155,7 @@ const Title = styled.h1`
   font-weight : bold;
   color : #505050;
 `
+
 const Input = styled.input`
   border: none;
   border-bottom: solid 2px #e4e4e4;
@@ -187,6 +189,7 @@ const SignUpWrap = styled.div`
   justify-content: flex-end;
   margin-top: 10px;
 `
+
 const SignupText = styled.p`
   text-align: right;
   font-size: 13px;
@@ -195,6 +198,7 @@ const SignupText = styled.p`
   margin: auto 0;
   color: #a5a5a5;
 `
+
 const SignupBtn = styled.button`
   border: none;
   background-color: #ffffff;
@@ -210,6 +214,7 @@ const LineWrap = styled.div`
   position: relative;
   height: 50px;
 `
+
 const Or = styled.h3`
   margin: 0;
   position: absolute;
@@ -223,6 +228,7 @@ const Or = styled.h3`
   z-index: 2;
   text-align: center;
 `
+
 const Line = styled.div`
   position: absolute;
   border: solid 0.1px #e4e4e4;
@@ -232,6 +238,7 @@ const Line = styled.div`
   transform: translate(-50%, -50%);
   z-index: 1;
 `
+
 const GoogleWrap = styled.div`
   position: relative;
   border: solid 1px #bebebe;
@@ -241,6 +248,7 @@ const GoogleWrap = styled.div`
   padding: 12px 60px 10px 20px;
   box-sizing: border-box;
 `
+
 const KakaoWrap = styled.div`
   position: relative;
   border: none;
@@ -265,4 +273,5 @@ const SocialText = styled.p`
   font-size: 13px;
   text-align: right;
 `
+
 export default LoginModal
