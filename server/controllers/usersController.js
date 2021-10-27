@@ -1,4 +1,4 @@
-const { isAuth } = require('../controllers/function/function')
+const { isAuth } = require('./function/function')
 const { User, Post, FavoritePost } = require('../models')
 
 module.exports = {
@@ -37,20 +37,31 @@ module.exports = {
           message: '수정에 필요한 정보가 입력되지 않음'
         })
       }
-      User.update({ nickname, userPhone, homeground, favoriteSports }, {
-        where: { id: userId }
+      User.findOne({
+        where: { id: userId}
       })
-      .then(() => {
-        // 정보를 수정한 후 수정 완료된 정보를 send
-        User.findOne({ where: { id: userId }})
-        .then((user) => {
-          delete user.dataValues.password
-          res.send({ userData: user.dataValues })
-        })
-      })
-      .catch((error) => {
-        console.log('내 정보 수정 오류')
-        next(error)
+      .then((user) => {
+        if (user) {
+          // 유저가 존재할 경우
+          User.update({ nickname, userPhone, homeground, favoriteSports }, {
+            where: { id: userId }
+          })
+          .then(() => {
+            // 정보를 수정한 후 수정 완료된 정보를 send
+            User.findOne({ where: { id: userId }})
+            .then((user) => {
+              delete user.dataValues.password
+              res.send({ userData: user.dataValues })
+            })
+          })
+          .catch((error) => {
+            console.log('내 정보 수정 에러')
+            next(error)
+          })
+        } else {
+          // 유저가 존재하지 않을 경우
+          res.status(404).send({ message: '존재하지 않는 회원입니다' })
+        }
       })
     }
   },
@@ -59,7 +70,7 @@ module.exports = {
     const userId = res.locals.userId
     User.findOne({ where : { id: userId } })
     .then((user) => {
-      // 입력받은 패스워드와 현재 유저의 패스워드가 다를 경우 오류 표시
+      // 입력받은 패스워드와 현재 유저의 패스워드가 다를 경우 에러 표시
       if (user.dataValues.password !== req.body.password) {
         res.status(404).send({ message: '비밀번호가 일치하지 않습니다' })
       } else {
@@ -67,7 +78,7 @@ module.exports = {
       }
     })
     .catch((error) => {
-      console.log('비밀번호 확인 오류')
+      console.log('비밀번호 확인 에러')
       next(error)
     })
   },
@@ -76,7 +87,7 @@ module.exports = {
     const userId = res.locals.userId
     User.findOne({ where: { id: userId } })
     .then((user) => {
-      // 입력받은 패스와드와 현재 유저의 패스워드가 같으면 오류 표시
+      // 입력받은 패스와드와 현재 유저의 패스워드가 같으면 에러 표시
       if (user.dataValues.password === req.body.password) {
         res.status(404).send({ message: '현재 비밀번호와 같은 비밀번호입니다' })
       } else {
@@ -95,15 +106,25 @@ module.exports = {
   // 회원탈퇴
   withdrawal: (req, res, next) => {
     const userId = res.locals.userId
-    User.destroy({
+    // 회원을 찾고 회원이 존재할 경우에만 탈퇴 진행
+    User.findOne({
       where: { id: userId }
     })
-    .then(() => {
-      res.send({ message: '회원탈퇴가 성공적으로 이루어졌습니다'})
-    })
-    .catch((error) => {
-      console.log('회원탈퇴 에러')
-      next(error)
+    .then((user) => {
+      if (user) {
+        User.destroy({
+          where: { id: userId }
+        })
+        .then(() => {
+          res.send({ message: '회원탈퇴가 성공적으로 이루어졌습니다'})
+        })
+        .catch((error) => {
+          console.log('회원탈퇴 에러')
+          next(error)
+        })
+      } else {
+        res.status(404).send({ message: '존재하지 않는 회원입니다' })
+      }
     })
   },
   // 사용자 정보 불러오기
@@ -191,15 +212,25 @@ module.exports = {
   deleteFavorite: (req, res, next) => {
     const userId = res.locals.userId
     const postId = Number(req.params.postId)
-    FavoritePost.destroy({
+    // 이미 제거된 경우를 대비하여 존재한다면 제거
+    FavoritePost.findOne({
       where: { userId, postId }
     })
-    .then(() => {
-      res.send({ message: '게시글 관심이 삭제되었습니다'})
-    })
-    .catch((error) => {
-      console.log('관심 글 삭제 에러')
-      next(error)
+    .then((favorite) => {
+      if (favorite) {
+        FavoritePost.destroy({
+          where: { userId, postId }
+        })
+        .then(() => {
+          res.send({ message: '게시글 관심이 삭제되었습니다'})
+        })
+        .catch((error) => {
+          console.log('관심 글 삭제 에러')
+          next(error)
+        })
+      } else {
+        res.status(404).send({ message: '관심 등록되지 않은 글입니다' })
+      }
     })
   }
 }
