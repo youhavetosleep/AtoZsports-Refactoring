@@ -8,10 +8,15 @@ const dotenv = require('dotenv')
 const helmet = require('helmet')
 const router = require('./routes')
 const db = require('./models')
+const http = require('http')
+const socketIo = require('socket.io')
 
 dotenv.config()
 const app = express()
+const httpServer = http.createServer(app)
 const PORT = process.env.PORT || 80
+const io = socketIo(httpServer)
+const chatController = require('./controllers/chatController')(io)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'))
@@ -64,6 +69,6 @@ db.sequelize
 
 app.use('/', router)
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`서버가 ${PORT}번에서 작동 중입니다.`)
 })
