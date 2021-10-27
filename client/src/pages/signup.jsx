@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../api/index.jsx'
-import LoginModal from '../modal/loginModal'
 
 const Signup = () => {
   const history = useHistory()
@@ -16,7 +15,7 @@ const Signup = () => {
   const [nickname, setNickname] = useState('')
   const [userPhone, setUserPhone] = useState('')
   const [favoriteSports, setfavoriteSports] = useState('')
-  const [homeground, setHomeground] = useState('서울 강남')
+  const [homeground, setHomeground] = useState('서울 강남구')
 
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
@@ -199,7 +198,7 @@ const Signup = () => {
     history.push('/')
   }
 
-const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(false)
 
   return (
     <>
@@ -308,16 +307,14 @@ const [modal, setModal] = useState(false)
             <DropName>살고 있는 지역을 선택해주세요</DropName>
             <DropWrapper>
               <Dropbox value="서울" />
-              <Dropbox value="강남" />
+              <Dropbox value="강남구" />
             </DropWrapper>
           </Element>
           <SignWrap>
             <EmailText>* Send를 누른 후 이메일 인증을 완료해주세요. </EmailText>
             <Sign onClick={signUp}>Send</Sign>
-            <button onClick={()=>setModal(true)}>로그인</button>
           </SignWrap>
         </FormWrapper>
-        {modal ? <LoginModal /> : null}
       </FormContainer>
     </>
   )
@@ -343,6 +340,7 @@ const TitleText = styled.h1`
   margin: 0;
   color: #ffffff;
   font-size: 50px;
+  font-weight: bold;
 `
 
 const FormContainer = styled.div`

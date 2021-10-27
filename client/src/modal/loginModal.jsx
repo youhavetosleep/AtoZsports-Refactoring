@@ -3,12 +3,11 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../_actions/user.action'
-import instance from '../api/index.jsx'
 import login1 from '../image/login1.png'
 import googleLogo from '../image/googleLogo.jpg'
 import kakaoLogo from '../image/kakaoLogo.png'
 import Swal from 'sweetalert2'
-import store from '../store/store'
+
 const LoginModal = () => {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -16,9 +15,6 @@ const LoginModal = () => {
   //로그인 데이터
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  //로그인 에러메시지
-  const [errMessage, setErrMessage] = useState('')
 
   //로그인 버튼
   const logIn = async () => {
@@ -37,28 +33,24 @@ const LoginModal = () => {
     } else {
       dispatch(loginUser(userData))
       .then(res => {
-        console.log(store.getState().user.signinSuccess.userData)
+        console.log(res.payload)
+      }).catch(err => {
+        if(err.response.status === 409) {
+          Swal.fire({
+            text: '이메일인증을 진행해주세요',
+            icon: 'warning',
+            confirmButtonColor: '#d2d2d2',
+            confirmButtonText: '확인'
+          })
+        }else if(err.response.status === 404) {
+          Swal.fire({
+            text: '사용자를 찾을 수 없습니다',
+            icon: 'warning',
+            confirmButtonColor: '#d2d2d2',
+            confirmButtonText: '확인'
+          })
+        }                
       })
-          // if(res.data.message === '사용자를 찾을 수 없습니다') {
-          //   setErrMessage(res.data.message)
-          //   Swal.fire({
-          //     text: {errMessage},
-          //     icon: 'warning',
-          //     confirmButtonColor: '#d2d2d2',
-          //     confirmButtonText: '확인',
-          //   })
-          //   return
-          // }else if(res.data.message === '이메일 인증을 진행해주세요') {
-          //   setErrMessage(res.data.message)
-          //   Swal.fire({
-          //     text: {errMessage},
-          //     icon: 'warning',
-          //     confirmButtonColor: '#d2d2d2',
-          //     confirmButtonText: '확인',
-          //   })
-          //   return
-          // }
-
     }
   }
 
@@ -151,7 +143,7 @@ const LoginImg = styled.img`
 const LoginWrap = styled.div`
   width: 50%;
   height: 100%;
-  padding: 25px 50px;
+  padding: 50px 50px;
   box-sizing: border-box;
 `
 
@@ -159,6 +151,8 @@ const Title = styled.h1`
   text-align: right;
   font-size: 40px;
   margin-bottom: 70px;
+  font-weight : bold;
+  color : #505050;
 `
 const Input = styled.input`
   border: none;
@@ -178,11 +172,11 @@ const Input = styled.input`
 const LoginBtn = styled.button`
   border: solid 1px #666666;
   width: 100%;
-  border-radius: 10px;
-  padding: 10px;
+  padding: 7px;
   color: #292929;
   background-color: #ffffff;
   font-size: 15px;
+  border-radius: 20px;
   :hover {
     cursor: pointer;
   }
@@ -225,7 +219,7 @@ const Or = styled.h3`
   height: 20px;
   background-color: #ffffff;
   color: #e4e4e4;
-  transform: translate(-50%, -57%);
+  transform: translate(-50%, -35%);
   z-index: 2;
   text-align: center;
 `
@@ -244,7 +238,7 @@ const GoogleWrap = styled.div`
   height: 35px;
   border-radius: 20px;
   margin-bottom: 10px;
-  padding: 10px 60px 10px 20px;
+  padding: 12px 60px 10px 20px;
   box-sizing: border-box;
 `
 const KakaoWrap = styled.div`
@@ -252,18 +246,18 @@ const KakaoWrap = styled.div`
   border: none;
   height: 35px;
   border-radius: 20px;
-  padding: 10px 60px 10px 20px;
+  padding: 13px 60px 10px 20px;
   box-sizing: border-box;
   background-color: #ffdc00;
 `
 
 const SocialLogo = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(80%, 20%);
+  transform: translate(110%, 35%);
 `
 
 const SocialText = styled.p`
