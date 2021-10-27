@@ -8,13 +8,9 @@ const dotenv = require('dotenv')
 const helmet = require('helmet')
 const router = require('./routes')
 const db = require('./models')
-const http = require('http')
-const socketIo = require('socket.io')
 
 dotenv.config()
 const app = express()
-const httpServer = http.createServer(app)
-const io = socketIo(httpServer)
 const port = process.env.PORT || 80
 
 if (process.env.NODE_ENV === 'production') {
@@ -68,6 +64,6 @@ db.sequelize
 
 app.use('/', router)
 
-httpServer.listen(port, () => {
+app.listen(port, () => {
   console.log(`서버가 ${port}번에서 작동 중입니다.`)
 })
