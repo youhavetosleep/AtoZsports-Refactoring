@@ -1,28 +1,27 @@
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  const EplMatch = sequelize.define(
-    'EplMatch',
+  class EplMatch extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  EplMatch.init(
     {
-      time: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      homeTeam: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      awayTeam: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      stadium: {
-        type: DataTypes.STRING,
-        allowNull: false
-      }
+      time: DataTypes.STRING,
+      homeTeam: DataTypes.STRING,
+      awayTeam: DataTypes.STRING,
+      stadium: DataTypes.STRING
     },
     {
       tableName: 'EplMatch',
-      charset: 'utf8',
-      collate: 'utf8_general_ci'
+      sequelize,
+      modelName: 'EplMatch'
     }
   )
   return EplMatch

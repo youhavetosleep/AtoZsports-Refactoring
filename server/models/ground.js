@@ -1,47 +1,32 @@
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  const Ground = sequelize.define(
-    'Ground',
+  class Ground extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      models.Ground.hasMany(models.Post, { foreignKey: 'groundId' })
+      models.Ground.hasMany(models.GroundReview, { foreignKey: 'groundId' })
+    }
+  }
+  Ground.init(
     {
-      sports: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      placeName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      addressName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      phone: {
-        type: DataTypes.TEXT,
-        allowNull: false
-      },
-      longitude: {
-        type: DataTypes.DOUBLE,
-        allowNull: false
-      },
-      latitude: {
-        type: DataTypes.DOUBLE,
-        allowNull: false
-      },
-      placeUrl: {
-        type: DataTypes.STRING,
-        allowNull: false
-      }
+      sports: DataTypes.STRING,
+      placeName: DataTypes.STRING,
+      addressName: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      longitude: DataTypes.DOUBLE,
+      latitude: DataTypes.DOUBLE,
+      placeUrl: DataTypes.STRING
     },
     {
       tableName: 'Ground',
-      charset: 'utf8',
-      collate: 'utf8_general_ci'
+      sequelize,
+      modelName: 'Ground'
     }
   )
-
-  Ground.associate = (db) => {
-    db.Ground.hasMany(db.Post, { foreignKey: 'groundId' })
-    db.Ground.hasMany(db.GroundReview, { foreignKey: 'groundId' })
-  }
-
   return Ground
 }

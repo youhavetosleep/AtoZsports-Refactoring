@@ -1,7 +1,9 @@
 const router = require('express').Router()
+const { Post } = require('../models')
 
 router.post('/', (req, res) => {
-    res.send(`check! ${req.body.test}`)
+    Post.findAll({})
+    .then((data) => res.send(data))
 })
 
 module.exports = router
