@@ -1,4 +1,4 @@
-const { isAuth } = require('../controllers/function/function')
+const { isAuth } = require('./function/function')
 const { User, Post, FavoritePost } = require('../models')
 
 module.exports = {

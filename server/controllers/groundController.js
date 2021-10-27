@@ -1,5 +1,4 @@
 const { Op } = require('sequelize')
-const { everyScoreSum } = require('./function/function')
 const { User, Ground, GroundReview } = require('../models')
 
 module.exports = {
@@ -29,15 +28,21 @@ module.exports = {
       })
     } else if (req.query.id) { 
       // 선택한 경기장 정보
-      // Ground.findOne({
-      //   include: { model: GroundReview, attributes: ['score'] },
-      //   where : { id }
-      // })
-      // .then(async (data) => {
-      //   const score = await Promise.all(
-      //     data.GroundReviews.map((el) => el.score)
-      //   )
-      // })
+      Ground.findOne({
+        // 평점을 줘야하기 때문에 join
+        include: { model: GroundReview, attributes: ['score'] },
+        where : { id }
+      })
+      .then(async (data) => {
+        await Promise.all(
+          data.GroundReviews.map((el) => el.score)
+        )
+        .then((score) => {
+          const { id, sports, placeName, addressName, phone, placeUrl } = data
+          const ground = { id, sports, placeName, addressName, phone, placeUrl, score }
+          res.send(ground)
+        })
+      })
     } else {
       // 쿼리값이 제대로 작성되지 않은 경우
       res.status(404).send({ message: '쿼리 요청이 잘못 작성됨'})
