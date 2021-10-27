@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
+const { isAuth } = require('./function/function')
 const { Post, Ground, User, FavoritePost } = require('../models')
-const { isAuth } = require('../controllers/function/function')
 
 module.exports = {
   // 랜딩 페이지 후 메인 페이지
