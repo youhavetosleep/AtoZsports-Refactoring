@@ -170,6 +170,8 @@ module.exports = {
     if (pageNum > 1) offset = limit * (pageNum - 1)
     const addressName = Do + ' ' + City
     /*
+    배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
+    아래의 코드는 로컬환경에서만 사용한다.
     StartTime.setHours(StartTime.getHours() + 9)
     EndTime.setHours(EndTime.getHours() + 9)
     */
