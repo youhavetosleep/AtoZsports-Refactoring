@@ -45,7 +45,7 @@ const Logo = styled.div`
 const Menu = styled.div`
 position: absolute;
 top: 50%;
-right: 20%;
+right: 22%;
 font-size: .9vw;
 .nav_matchlist {
   margin-left: 40%;
