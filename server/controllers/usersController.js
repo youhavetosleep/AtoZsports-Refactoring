@@ -66,7 +66,7 @@ module.exports = {
             },
             withCredentials: true
           })
-
+          console.log('카카오 유저 데이터 확인',kakaoUserData)
           if (kakaoUserData) {
             let accountData = kakaoUserData.data.kakao_account
             let userKakaoEmail = accountData.email
@@ -122,7 +122,6 @@ module.exports = {
                   delete userData.password
                   const accessToken = generateAccessToken(userData)
                   const refreshToken = generateRefreshToken(userData)
-                  res.header('Access-Control-Allow-Origin', 'https://atozsports.link')
                   sendRefreshToken(res, refreshToken) //access보다 위에 있어야 한다
                   sendAccessToken(res, accessToken, userData)
                 })
@@ -134,7 +133,6 @@ module.exports = {
               delete userData.password
               const accessToken = generateAccessToken(userData)
               const refreshToken = generateRefreshToken(userData)
-              res.header('Access-Control-Allow-Origin', 'https://atozsports.link')
               sendRefreshToken(res, refreshToken) //access보다 위에 있어야 한다
               sendAccessToken(res, accessToken, userData)
             }
@@ -150,7 +148,7 @@ module.exports = {
         process.env.NODE_ENV === 'production'
           ? 'atozsports.link'
           : 'http://localhost:3000'
-      const JS_APP_KEY = process.env.KAKAO_CLIENT_ID
+      const JS_APP_KEY = process.env.KAKAO_APP_KEY
       const REDIRECT_URI = `${DOMAIN}/kakao`
       const makeFormData = (params) => {
         const searchParams = new URLSearchParams()
