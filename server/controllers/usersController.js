@@ -49,6 +49,93 @@ module.exports = {
       next(error)
     })
   },
+  // kakao 소셜 로그인
+  kakao: (req, res, next) => {
+
+  },
+  // google 소셜 로그인
+  google: async (req, res, next) => {
+    // 인가코드를 클라이언트로부터 받아옴
+    const code = req.query.code
+    // 인가코드를 구글에 전송하여 회원 정보를 받아냄
+    await axios.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${code}`, {
+      headers: {
+        authorization: `token ${code}`,
+        accept: 'application/json'
+      }
+    })
+    .then((data) => {
+      const email = data.data.email
+      const nickname = data.data.name
+      // 회원정보에서 이메일을 찾아 최초 로그인인지 구분
+      console.log('email: ', email)
+      User.findOne({ where: { email: email } })
+      .then((user) => {
+        if (!user) {
+          // 최초 로그인 (회원가입 절차 => 로그인)
+          // email, nickname을 제외하고는 임의의 데이터로 회원 생성
+          User.create({
+            email: email,
+            password: generateRandomPassword(),
+            nickname: nickname,
+            userPhone: '010-xxxx-xxxx',
+            homeground: '',
+            favoriteSports: '',
+            verified: true,
+            verifiedKey: ''
+          })
+          .then(async (newUser) => {
+            const userData = newUser.dataValues
+            // 임시 비밀번호 공지를 위한 메일 전송
+            const domain = process.env.NODE_ENV === 'production' ? 'atozsports.link' : 'http://localhost:3000'
+            const from = `AtoZ sports <${process.env.GMAIL_ID}>`
+            const mailOptions = {
+              from: from,
+              to: email,
+              subject: `${nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
+              html: `
+                <div>
+                  <h1>AtoZ sports</h1>
+                  <div>안녕하세요. ${nickname}님, AtoZ Sports 가입을 진심으로 감사드립니다.</div>
+                  <div>임시 비밀번호를 다음과 같이 발급해드렸습니다.</div>
+                  <div>임시 비밀번호 : ${userData.password}</div>
+                  <div>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</div>
+                  <div>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</div>
+                  <br />
+                  <a href="${domain}">홈페이지로 이동</a>
+                </div>
+              `
+            }
+            await smtpTransport.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.log(error)
+              } else {
+                console.log(info.response)
+              }
+            })
+            // 회원 생성, 메일 전송 후 로그인까지 진행
+            delete userData.password
+            const accessToken = generateAccessToken(userData)
+            const refreshToken = generateRefreshToken(userData)
+            sendRefreshToken(res, refreshToken)
+            sendAccessToken(res, accessToken, userData)
+          })
+        } else {
+          // 그냥 로그인
+          const userData = user.dataValues
+          delete userData.password
+          const accessToken = generateAccessToken(userData)
+          const refreshToken = generateRefreshToken(userData)
+          sendRefreshToken(res, refreshToken)
+          sendAccessToken(res, accessToken, userData)
+        }
+      })
+    })
+    .catch((error) => {
+      console.log('구글 로그인 에러')
+      next(error)
+    })
+  },
   // 회원가입
   signup: (req, res, next) => {
     const { email, nickname, password, userPhone, favoriteSports, homeground } = req.body
