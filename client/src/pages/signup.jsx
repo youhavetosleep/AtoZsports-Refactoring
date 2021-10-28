@@ -40,9 +40,9 @@ const Signup = () => {
   // 이메일, 비밀번호, 닉네임 형식을 체크하는 정규 표현식
   const email_Reg =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
-  // (password) 최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
+  // (password) 최소 8 자, 최소 각 1자의 문자, 숫자, 특수 문자
   const password_Reg =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
+    /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
   // (userPhone)
@@ -166,7 +166,7 @@ const Signup = () => {
     }
     event.preventDefault()
     await instance.post(
-      'users/signup',
+      '/users/signup',
       {
         email,
         password,
@@ -242,7 +242,7 @@ const Signup = () => {
             <Inputbox>
               <Input
                 type="password"
-                placeholder="password"
+                placeholder="(최소 8자) 문자/숫자/특수문자 모두 포함해야합니다"
                 onChange={(e) => {
                   setPassword(e.target.value)
                 }}

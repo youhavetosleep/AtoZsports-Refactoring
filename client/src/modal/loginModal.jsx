@@ -141,7 +141,7 @@ const Container = styled.div`
   left: 0;
   z-index: 400;
   background: rgba(0, 0, 0, 0.6);
-  background-color: #797979;
+  background-color: rgba(0, 0, 0, 0.6);
   /* opacity: .5; */
   animation: back 0.5s ease-in;
   z-index: 2;
