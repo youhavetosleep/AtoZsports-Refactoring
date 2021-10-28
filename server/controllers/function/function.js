@@ -60,5 +60,17 @@ module.exports = {
           console.log(`Access Token Error : ${error.message}`)
         })
     }
+  },
+  // 랜덤 비밀번호 생성
+  generateRandomPassword: () => {
+    const chars =  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz!@#$%^&*"
+    const stringLength = 8
+
+    let randomString = ''
+    for(let n=0; n < stringLength; n++) {
+      let randomNum = Math.floor(Math.random() * chars.length)
+      randomString += chars.substring(randomNum, randomNum + 1)
+    }
+    return randomString
   }
 }

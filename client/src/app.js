@@ -13,6 +13,8 @@ import Review from './pages/review'
 import Signup from './pages/signup'
 import Write from './pages/write'
 import Auth from './auth/auth'
+import Google from './auth/google'
+import Kakao from './auth/kakao'
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/premierleague" component={PremierLeague} />
           <Route exact path="/auth" component={Auth} />
+          <Route exact path="/google" component={Google} />
+          <Route exact path="/kakao" component={Kakao} />
         </Switch>
       </Router>
     </>

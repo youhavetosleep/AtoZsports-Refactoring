@@ -10,5 +10,7 @@ export DATABASE_PASSWORD=$(aws ssm get-parameters --region ap-northeast-2 --name
 export DATABASE_PORT=$(aws ssm get-parameters --region ap-northeast-2 --names DATABASE_PORT --query Parameters[0].Value | sed 's/"//g')
 export DATABASE_HOST=$(aws ssm get-parameters --region ap-northeast-2 --names DATABASE_HOST --query Parameters[0].Value | sed 's/"//g')
 export DATABASE_NAME=$(aws ssm get-parameters --region ap-northeast-2 --names DATABASE_NAME --query Parameters[0].Value | sed 's/"//g')
+export GMAIL_ID=$(aws ssm get-parameters --region ap-northeast-2 --names GMAIL_ID --query Parameters[0].Value | sed 's/"//g')
+export GMAIL_PASSWORD=$(aws ssm get-parameters --region ap-northeast-2 --names GMAIL_PASSWORD --query Parameters[0].Value | sed 's/"//g')
 
 authbind --deep pm2 start app.js

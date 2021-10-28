@@ -14,8 +14,8 @@ const Signup = () => {
   const [pwCheck, setPwCheck] = useState('')
   const [nickname, setNickname] = useState('')
   const [userPhone, setUserPhone] = useState('')
-  const [favoriteSports, setfavoriteSports] = useState('')
-  const [homeground, setHomeground] = useState('서울 강남')
+  const [favoriteSports, setFavoriteSports] = useState('')
+  const [homeground, setHomeground] = useState('서울 강남구')
 
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
@@ -51,7 +51,7 @@ const Signup = () => {
   // 닉네임 확인
   const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
-      _nick.current.focus()
+      setNickCheck(false)
       setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
       return
     } else {
@@ -80,7 +80,7 @@ const Signup = () => {
   // 이메일 확인
   const checkEmail = async () => {
     if (!email_Reg.test(email)) {
-      _email.current.focus()
+      setEmailCheck(false)
       setMessageEmail('이메일 형식에 맞게 작성해주세요')
       return
     } else {
@@ -99,7 +99,6 @@ const Signup = () => {
         )
         .then((res) => {
           setMessageEmail(res.data.message)
-
           if (res.data.message === '✔ 사용 가능한 이메일입니다') {
             setEmailCheck(true)
           }
@@ -108,9 +107,8 @@ const Signup = () => {
   }
 
   // 비밀번호 확인
-  const checkPassWord = () => {
+  const checkPassword = () => {
     if (!password_Reg.test(password)) {
-      _pw.current.focus()
       setMessagePassword('(최소 8자) 문자/숫자/특수문자 모두 포함해야합니다')
       return
     }
@@ -118,14 +116,12 @@ const Signup = () => {
   }
 
   // 비밀번호 이중 확인
-  const doubleCheckPassWord = () => {
+  const doubleCheckPassword = () => {
     if (password === '') {
-      _pw.current.focus()
       setMessagePassword('비밀번호를 먼저 입력하세요')
       return
     } else if (password !== '' && !pwCheck) setMessagePwCheck('')
     else if (password !== pwCheck || !password_Reg.test(password)) {
-      _pwChk.current.focus()
       setMessagePwCheck('비밀번호가 일치하지 않습니다')
       return
     }
@@ -133,9 +129,8 @@ const Signup = () => {
   }
 
   // 핸드폰 확인
-  const checkuserPhone = () => {
+  const checkUserPhone = () => {
     if (!userPhone_Reg.test(userPhone)) {
-      _userPhone.current.focus()
       setMessageUserPhone(`('-' 포함) 핸드폰번호를 확인하세요`)
       return
     }
@@ -252,7 +247,7 @@ const Signup = () => {
                   setPassword(e.target.value)
                 }}
                 ref={_pw}
-                onBlur={checkPassWord}
+                onBlur={checkPassword}
               />
               <Check>{messagePassword}</Check>
             </Inputbox>
@@ -267,7 +262,7 @@ const Signup = () => {
                   setPwCheck(e.target.value)
                 }}
                 ref={_pwChk}
-                onBlur={doubleCheckPassWord}
+                onBlur={doubleCheckPassword}
               />
               <Check>{messagePwCheck}</Check>
             </Inputbox>
@@ -282,7 +277,7 @@ const Signup = () => {
                   setUserPhone(e.target.value)
                 }}
                 ref={_userPhone}
-                onBlur={checkuserPhone}
+                onBlur={checkUserPhone}
               />
               <Check>{messageUserPhone}</Check>
             </Inputbox>
@@ -293,7 +288,7 @@ const Signup = () => {
               type="text"
               placeholder="좋아하는 스포츠를 입력해주세요"
               onChange={(e) => {
-                setfavoriteSports(e.target.value)
+                setFavoriteSports(e.target.value)
               }}
               ref={_sport}
             />
@@ -303,7 +298,7 @@ const Signup = () => {
             <DropName>살고 있는 지역을 선택해주세요</DropName>
             <DropWrapper>
               <Dropbox value="서울" />
-              <Dropbox value="강남" />
+              <Dropbox value="강남구" />
             </DropWrapper>
           </Element>
           <SignWrap>
@@ -336,6 +331,7 @@ const TitleText = styled.h1`
   margin: 0;
   color: #ffffff;
   font-size: 50px;
+  font-weight: bold;
 `
 
 const FormContainer = styled.div`

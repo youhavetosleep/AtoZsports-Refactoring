@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c832589adacf2dad5acc80158b98189&libraries=services,clusterer,drawing"></script>
+    <script>
+      Kakao.init("0c832589adacf2dad5acc80158b98189");
+      Kakao.isInitialized();
+      </script>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,7 +32,6 @@
     <title>AtoZ sports</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.

@@ -18,10 +18,10 @@ module.exports = {
       data.push(obj)
     })
 
-    return queryInterface.bulkInsert('groundReview', data, {})
+    return queryInterface.bulkInsert('GroundReview', data, {})
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('groundReview', null, {})
+    return queryInterface.bulkDelete('GroundReview', null, {})
   }
 }

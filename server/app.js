@@ -8,10 +8,15 @@ const dotenv = require('dotenv')
 const helmet = require('helmet')
 const router = require('./routes')
 const db = require('./models')
+const http = require('http')
+const socketIo = require('socket.io')
 
 dotenv.config()
 const app = express()
-const port = process.env.PORT || 80
+const httpServer = http.createServer(app)
+const PORT = process.env.PORT || 80
+const io = socketIo(httpServer)
+const chatController = require('./controllers/chatController')(io)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'))
@@ -58,14 +63,12 @@ app.use(session(sessionOption))
 db.sequelize
   .sync()
   .then(() => {
-    console.log('db 연결 성공')
+    console.log('db 연결 성공!')
   })
   .catch(console.error)
 
 app.use('/', router)
 
-const server = app.listen(port, () => {
-  console.log(`서버가 ${port}번에서 작동 중입니다.`)
+httpServer.listen(PORT, () => {
+  console.log(`서버가 ${PORT}번에서 작동 중입니다.`)
 })
-const io = require('socket.io')(server)
-require('./controllers/chatController')(io)
