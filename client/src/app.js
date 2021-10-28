@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import GlobalStyle from './globalStyle/globalStyle'
 import Entrance from './pages/entrance'
@@ -15,8 +15,15 @@ import Write from './pages/write'
 import Auth from './auth/auth'
 import Google from './auth/google'
 import Kakao from './auth/kakao'
+import Navbar from './components/navbar'
+import Footer from './components/footer'
+import NavbarChange from './components/navbarChange'
 
 function App() {
+
+  const [isLogin, setIsLogin] = useState(true)
+ 
+
   return (
     <>
       <GlobalStyle />
@@ -24,15 +31,42 @@ function App() {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />
-          <Route exact path="/futsal" component={Futsal} />
-          <Route exact path="/map" component={Map} />
-          <Route exact path="/review" component={Review} />
-          <Route exact path="/matchlist" component={MatchList} />
-          <Route exact path="/post" component={Post} />
-          <Route exact path="/write" component={Write} />
-          <Route exact path="/mypage" component={Mypage} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/premierleague" component={PremierLeague} />
+          <Route exact path="/futsal">
+            { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Futsal />
+          </Route>
+          <Route exact path="/map">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Map />
+          </Route>
+          <Route exact path="/review">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Review />
+          </Route>
+          <Route exact path="/matchlist">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <MatchList />
+          </Route>
+          <Route exact path="/post">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Post />
+          </Route>
+          <Route exact path="/write">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Write />
+          </Route>
+          <Route exact path="/mypage">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Mypage />
+          </Route>
+          <Route exact path="/signup">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <Signup />
+          </Route>
+          <Route exact path="/premierleague">
+          { isLogin ? <NavbarChange /> : <Navbar /> }
+            <PremierLeague />
+          </Route>
           <Route exact path="/auth" component={Auth} />
           <Route exact path="/google" component={Google} />
           <Route exact path="/kakao" component={Kakao} />

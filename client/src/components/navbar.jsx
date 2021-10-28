@@ -13,21 +13,21 @@ const Navbar = () => {
       <GlobalStyle />
       <Nav>
         <Logo>
-          <Link to="/entrance">
+          <Link to="/entrance" >
             <LogoImage src={logo} />
           </Link>
         </Logo>
         <Menu>
-          <Link to="/matchlist" className="nav_matchlist">
+          <Link to="/matchlist" className="nav_matchlist" style={{textDecoration: 'none'}}>
             Match
           </Link>
-          <Link to="/map" className="nav_map">
+          <Link to="/map" className="nav_map" style={{textDecoration: 'none'}}>
             Map
           </Link>
           <span className="nav_login" onClick={() => setLoginOpen(true)}>
             Login
           </span>
-          <Link to="/signup" className="nav_signup">
+          <Link to="/signup" className="nav_signup" style={{textDecoration: 'none'}}>
             Signup
           </Link>
         </Menu>
@@ -45,21 +45,58 @@ const Nav = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  transition: 0.3s;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
 `
 
+// const Menu = styled.div`
+//   margin-top: 20px;
+//   margin-right: 80px;
+//   font-size: 14px;
+//   text-decoration: none;
+// `
+
 const Menu = styled.div`
-  margin-top: 20px;
-  margin-right: 80px;
-  font-size: 14px;
-  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  right: 20%;
+  font-size: 0.9vw;
+  .nav_matchlist {
+    margin-left: 40%;
+    color: #353535;
+    :hover {
+      color: #840909;
+    }
+  }
+  .nav_map {
+    margin-left: 40%;
+    color: #353535;
+    :hover {
+      color: #840909;
+    }
+  }
+  .nav_login {
+    margin-left: 40%;
+    color: #353535;
+    :hover {
+      color: #840909;
+    }
+  }
+  .nav_signup {
+    margin-left: 40%;
+    color: #353535;
+    :hover {
+      color: #840909;
+    }
+  }
 `
 
 const Logo = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  position: absolute;
+  top: 0%;
+  left: 49%;
 `
 
 const LogoImage = styled.img`
