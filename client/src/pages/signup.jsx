@@ -15,7 +15,7 @@ const Signup = () => {
   const [nickname, setNickname] = useState('')
   const [userPhone, setUserPhone] = useState('')
   const [favoriteSports, setfavoriteSports] = useState('')
-  const [homeground, setHomeground] = useState('서울 강남')
+  const [homeground, setHomeground] = useState('서울 강남구')
 
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
@@ -52,6 +52,7 @@ const Signup = () => {
   const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
       _nick.current.focus()
+      setNickCheck(false)
       setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
       return
     } else {
@@ -81,6 +82,7 @@ const Signup = () => {
   const checkEmail = async () => {
     if (!email_Reg.test(email)) {
       _email.current.focus()
+      setEmailCheck(false)
       setMessageEmail('이메일 형식에 맞게 작성해주세요')
       return
     } else {
@@ -303,7 +305,7 @@ const Signup = () => {
             <DropName>살고 있는 지역을 선택해주세요</DropName>
             <DropWrapper>
               <Dropbox value="서울" />
-              <Dropbox value="강남" />
+              <Dropbox value="강남구" />
             </DropWrapper>
           </Element>
           <SignWrap>
@@ -336,6 +338,7 @@ const TitleText = styled.h1`
   margin: 0;
   color: #ffffff;
   font-size: 50px;
+  font-weight: bold;
 `
 
 const FormContainer = styled.div`
