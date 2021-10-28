@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux';
 import { getMatchList } from '../_actions/matchCard_action';
 import Footer from '../components/footer'
-import Navbar from '../components/navbar'
 import gotomap from '../image/gotomap.jpg'
 import sublogo from '../image/subLogo.png'
 import stadium from '../image/stadium.jpg'
@@ -22,7 +21,6 @@ import Slide_02 from '../components/futsalSlide/slide_02'
 import Slide_03 from '../components/futsalSlide/slide_03'
 import MatchCard from '../components/matchCard';
 import { Link } from 'react-router-dom';
-import NavbarChange from '../components/navbarChange';
 import MoreViewCard from '../components/moreviewCard';
 
 const Futsal = () => {
@@ -30,7 +28,7 @@ const Futsal = () => {
 
   const [matchData, setMatchData] = useState(null)
   const [CurrentOrder, setCurrentOrder] = useState('용병모집')
-  const [isLogin, setIsLogin] = useState(false)
+ 
 
   useEffect(() => {
     dispatch(getMatchList())
@@ -66,7 +64,6 @@ const Futsal = () => {
   return (
     <>
       <GlobalStyle />
-        { isLogin ? <NavbarChange /> : <Navbar /> }
           <FutsalLandingPage>
             <FutsalSliderSection>
               <Slider {...setting} className="slider">
@@ -384,6 +381,10 @@ flex-direction: column;
   padding: 20px;
   margin-left: 30px;
   border-radius: 5px;
+  .notice {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
   .notice_list {
     display: flex;
     flex-direction: row;

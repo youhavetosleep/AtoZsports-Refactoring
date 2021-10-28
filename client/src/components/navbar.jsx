@@ -93,7 +93,11 @@ const Menu = styled.div`
   }
 `
 
-const Logo = styled.div``
+const Logo = styled.div`
+  position: absolute;
+  top: 0%;
+  left: 49%;
+`
 
 const LogoImage = styled.img`
   width: 60px;
