@@ -108,6 +108,10 @@ module.exports = {
                     </div>
                   `
                   }
+                  if(!(await smtpTransport.verify())) {
+                    throw new Error('email transporter verification failed')
+                  }
+                  
                   await smtpTransport.sendMail(emailOptions, (err, res) => {
                     if (err) {
                       console.log(`메일발송 에러 발생: ${err.message}`)

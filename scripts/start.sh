@@ -13,5 +13,8 @@ export DATABASE_NAME=$(aws ssm get-parameters --region ap-northeast-2 --names DA
 export GMAIL_ID=$(aws ssm get-parameters --region ap-northeast-2 --names GMAIL_ID --query Parameters[0].Value | sed 's/"//g')
 export GMAIL_PASSWORD=$(aws ssm get-parameters --region ap-northeast-2 --names GMAIL_PASSWORD --query Parameters[0].Value | sed 's/"//g')
 export KAKAO_APP_KEY=$(aws ssm get-parameters --region ap-northeast-2 --names KAKAO_APP_KEY --query Parameters[0].Value | sed 's/"//g')
+export DEPLOY_ACCESS_KEY_ID=$(aws ssm get-parameters --region ap-northeast-2 --names DEPLOY_ACCESS_KEY_ID --query Parameters[0].Value | sed 's/"//g')
+export DEPLOY_REGION=$(aws ssm get-parameters --region ap-northeast-2 --names DEPLOY_REGION --query Parameters[0].Value | sed 's/"//g')
+export DEPLOY_SERECT_ACCESS_KEY=$(aws ssm get-parameters --region ap-northeast-2 --names DEPLOY_SERECT_ACCESS_KEY --query Parameters[0].Value | sed 's/"//g')
 
 authbind --deep pm2 start app.js
