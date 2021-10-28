@@ -40,11 +40,7 @@ export async function loginUser(dataToSubmit) {
 
 export async function kakaoUser(authorizationCode) {
   const request = await instance
-<<<<<<< HEAD
     .get(`/users/signin/kakao?code=${authorizationCode}`, {
-=======
-    .get(`users/signin/kakao?code=${authorizationCode}`, {
->>>>>>> 2602ec50be64fc7dcead5899f0b20cc0d0fbc851
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
@@ -58,11 +54,7 @@ export async function kakaoUser(authorizationCode) {
 
 export async function googleUser(authorizationCode) {
   const request = await instance
-<<<<<<< HEAD
     .get(`/users/signin/google?code=${authorizationCode}`, {
-=======
-    .get(`users/signin/google?code=${authorizationCode}`, {
->>>>>>> 2602ec50be64fc7dcead5899f0b20cc0d0fbc851
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
