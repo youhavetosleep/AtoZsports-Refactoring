@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import Dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import { useDispatch } from 'react-redux'
 import { kakaoUser } from '../_actions/user.action'
-Dotenv.config()
+dotenv.config()
 
 const CLIENTDOMAIN =
   process.env.REACT_APP_CLIENT_DOMAIN || 'http://localhost:3000'
