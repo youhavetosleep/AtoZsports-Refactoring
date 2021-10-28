@@ -22,12 +22,15 @@ import Slide_02 from '../components/futsalSlide/slide_02'
 import Slide_03 from '../components/futsalSlide/slide_03'
 import MatchCard from '../components/matchCard';
 import { Link } from 'react-router-dom';
+import NavbarChange from '../components/navbarChange';
+import MoreViewCard from '../components/moreviewCard';
 
 const Futsal = () => {
   const dispatch = useDispatch();
 
   const [matchData, setMatchData] = useState(null)
-  const [CurrentOrder, setCurrentOrder] = useState('최신순')
+  const [CurrentOrder, setCurrentOrder] = useState('용병모집')
+  const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
     dispatch(getMatchList())
@@ -38,6 +41,15 @@ const Futsal = () => {
       console.log(err)
     })
   })
+
+  const latestBtn = () => {
+    setCurrentOrder('용병모집');
+    // console.log(setCurrentOrder())
+  }
+
+  const viewBtn = () => {
+    setCurrentOrder('경기제안');
+  }
 
   const setting = {
     slide: 'div',
@@ -54,7 +66,7 @@ const Futsal = () => {
   return (
     <>
       <GlobalStyle />
-        <Navbar />
+        { isLogin ? <NavbarChange /> : <Navbar /> }
           <FutsalLandingPage>
             <FutsalSliderSection>
               <Slider {...setting} className="slider">
@@ -98,9 +110,9 @@ const Futsal = () => {
                         className={
                           CurrentOrder === '최신순' ? 'setbold first' : 'first'
                         }
-                        // onClick={latestBtn}
+                        onClick={latestBtn}
                       >
-                        최신순
+                        용병모집
                       </span>
                       |
                       <span
@@ -109,9 +121,9 @@ const Futsal = () => {
                             ? 'setbold second'
                             : 'second'
                         }
-                        // onClick={viewBtn}
+                        onClick={viewBtn}
                       >
-                        조회순
+                        경기제안
                       </span>
                     </span>
                     <div className="dropBox">
@@ -124,7 +136,7 @@ const Futsal = () => {
               <MatchCard />
               <MatchCard />
               <MatchCard />
-              <MatchCard />
+              <MoreViewCard />
               </MatchSoonList>
             </FutsalMatchSoonSection>
             <FutsalAnotherSection>
@@ -380,6 +392,7 @@ flex-direction: column;
       color: #840909;
     }
     .notice_text {
+
       margin-left: 10px;
       line-height: 20px;
     }

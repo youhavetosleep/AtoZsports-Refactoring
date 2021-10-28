@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom'
 import eye from '../image/eye.svg';
 import styled from 'styled-components';
 
-function MatchCard() {
+function MoreViewCard() {
   
   return (
     <>
       <GlobalStyle />
-      <MatchCardContainer>
+      <MoreViewCardContainer>
       <div className="articlebox-listbox">
-        <Link to="/entrance" style={{ textDecoration: 'none' }}>
+        <Link to="/matchlist" style={{ textDecoration: 'none' }}>
           <ul>
             <li className="articlebox-title">
-              공덕풋살장 용병뛰실분?
+              더 많은 공고를 보고싶다면?
             </li>
             <li className="articlebox-date">
             2021.11.01 08:30 ~ 12:00
@@ -34,12 +34,12 @@ function MatchCard() {
           </ul>
         </Link>
       </div>
-      </MatchCardContainer>
+      </MoreViewCardContainer>
     </>
   )
 }
 
-const MatchCardContainer = styled.div`
+const MoreViewCardContainer = styled.div`
 
 
 .articlebox {
@@ -112,6 +112,6 @@ const MatchCardContainer = styled.div`
 }
 `
 
-export default MatchCard
+export default MoreViewCard
 
 
