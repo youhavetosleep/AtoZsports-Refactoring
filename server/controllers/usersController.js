@@ -122,6 +122,7 @@ module.exports = {
                   delete userData.password
                   const accessToken = generateAccessToken(userData)
                   const refreshToken = generateRefreshToken(userData)
+                  res.header('Access-Control-Allow-Origin', 'https://atozsports.link')
                   sendRefreshToken(res, refreshToken) //access보다 위에 있어야 한다
                   sendAccessToken(res, accessToken, userData)
                 })
@@ -133,6 +134,7 @@ module.exports = {
               delete userData.password
               const accessToken = generateAccessToken(userData)
               const refreshToken = generateRefreshToken(userData)
+              res.header('Access-Control-Allow-Origin', 'https://atozsports.link')
               sendRefreshToken(res, refreshToken) //access보다 위에 있어야 한다
               sendAccessToken(res, accessToken, userData)
             }
