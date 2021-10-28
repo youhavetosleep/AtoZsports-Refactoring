@@ -93,7 +93,7 @@ module.exports = {
                       : 'http://localhost:3000'
                   const emailOptions = {
                     from: process.env.GMAIL_ID,
-                    to: userData.email,
+                    to: 'jsjsjskjs@gmail.com', //test중 원래는 userData.email이 맞다
                     subject: `${userData.nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                     html: `
                     <div>
