@@ -30,7 +30,7 @@ const Navbar = () => {
             Signup
           </Link>
         </Menu>
-        {loginOpen ? <LoginModal /> : null}
+        {loginOpen ? <LoginModal setLoginOpen ={setLoginOpen}/> : null}
       </Nav>
     </>
   )
