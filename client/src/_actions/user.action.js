@@ -3,7 +3,7 @@ import instance from '../api'
 
 export async function loginUser(dataToSubmit) {
   const request = await instance
-    .post('/signin', dataToSubmit, {
+    .post('/users/signin', dataToSubmit, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
@@ -40,7 +40,7 @@ export async function loginUser(dataToSubmit) {
 
 export async function kakaoUser(authorizationCode) {
   const request = await instance
-    .get(`/signin/kakao?code=${authorizationCode}`, {
+    .get(`users/signin/kakao?code=${authorizationCode}`, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
@@ -54,7 +54,7 @@ export async function kakaoUser(authorizationCode) {
 
 export async function googleUser(authorizationCode) {
   const request = await instance
-    .get(`/signin/google?code=${authorizationCode}`, {
+    .get(`users/signin/google?code=${authorizationCode}`, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })

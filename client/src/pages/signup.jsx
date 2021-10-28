@@ -57,7 +57,7 @@ const Signup = () => {
     } else {
       await instance
         .post(
-          '/nick-check',
+          '/users/nick-check',
           {
             nickname
           },
@@ -86,7 +86,7 @@ const Signup = () => {
     } else {
       await instance
         .post(
-          '/mail-check',
+          '/users/mail-check',
           {
             email
           },
@@ -166,7 +166,7 @@ const Signup = () => {
     }
     event.preventDefault()
     await instance.post(
-      '/signup',
+      'users/signup',
       {
         email,
         password,
