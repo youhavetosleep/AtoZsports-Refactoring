@@ -1,13 +1,14 @@
-const { isAuth } = require('../controllers/function/function')
-const { User, Post, FavoritePost } = require('../models')
 const dotenv = require('dotenv')
 const crypto = require('crypto')
+const axios = require('axios')
 const { 
   generateAccessToken, 
   generateRefreshToken, 
   sendAccessToken, 
   sendRefreshToken 
-} = require('../controllers/token/tokenController')
+} = require('./token/tokenController')
+const { isAuth } = require('./function/function')
+const { User, Post, FavoritePost } = require('../models')
 const smtpTransport = require('../config/mailConfig')
 
 dotenv.config()
@@ -68,7 +69,6 @@ module.exports = {
       const email = data.data.email
       const nickname = data.data.name
       // 회원정보에서 이메일을 찾아 최초 로그인인지 구분
-      console.log('email: ', email)
       User.findOne({ where: { email: email } })
       .then((user) => {
         if (!user) {
