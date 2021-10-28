@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
-import { BiX } from 'react-icons/bi'
 import { loginUser } from '../_actions/user.action'
 import login1 from '../image/login1.png'
 import googleLogo from '../image/googleLogo.jpg'
@@ -12,8 +11,23 @@ import { KAKAO_AUTH_URL } from '../auth/kakao.jsx'
 import { GOOGLE_AUTH_URL } from '../auth/google.jsx'
 
 const LoginModal = ({ setLoginOpen }) => {
+  const _modal = useRef()
   const history = useHistory()
   const dispatch = useDispatch()
+
+  const handleCloseModal = e => {
+    if (e.target === _modal.current) {
+      setLoginOpen(false)
+      document.body.style.overflow = 'unset'
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', handleCloseModal)
+    return () => {
+      window.removeEventListener('click', handleCloseModal)
+    } 
+  })
 
   //로그인 데이터
   const [email, setEmail] = useState('')
@@ -68,13 +82,10 @@ const LoginModal = ({ setLoginOpen }) => {
   }
 
   return (
-    <Container>
+    <Container onClick={(e)=>handleCloseModal(e)} ref={_modal}>
       <Form>
         <LoginImg src={login1} />
         <LoginWrap>
-          <CancelBtn onClick={() => setLoginOpen(false)}>
-            <BiX />
-          </CancelBtn>
           <Title>Login</Title>
           <Input
             type="text"
@@ -128,6 +139,7 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 400;
   background: rgba(0, 0, 0, 0.6);
   background-color: #797979;
   animation: back 0.5s ease-in;
@@ -150,6 +162,7 @@ const Form = styled.div`
   width: 720px;
   height: 500px;
   display: flex;
+  z-index: 500;
 `
 
 const LoginImg = styled.img`
@@ -160,20 +173,9 @@ const LoginImg = styled.img`
 const LoginWrap = styled.div`
   width: 50%;
   height: 100%;
-  padding: 50px 50px;
+  padding: 55px 50px 50px 50px;
   box-sizing: border-box;
   position: relative;
-`
-
-const CancelBtn = styled.div`
-  position: absolute;
-  right: 2%;
-  top: 1.3%;
-  font-size: 20px;
-  color: #505050;
-  :hover {
-    cursor: pointer;
-  }
 `
 
 const Title = styled.h1`

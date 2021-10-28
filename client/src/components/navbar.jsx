@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import LoginModal from '../modal/loginModal'
 
 const Navbar = () => {
-
   const [loginOpen, setLoginOpen] = useState(false)
 
   return (
@@ -25,12 +24,14 @@ const Navbar = () => {
           <Link to="/map" className="nav_map">
             Map
           </Link>
-          <span className="nav_login" onClick={()=> setLoginOpen(true)}>Login</span>
+          <span className="nav_login" onClick={() => setLoginOpen(true)}>
+            Login
+          </span>
           <Link to="/signup" className="nav_signup">
             Signup
           </Link>
         </Menu>
-        {loginOpen ? <LoginModal setLoginOpen ={setLoginOpen}/> : null}
+        {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
       </Nav>
     </>
   )
