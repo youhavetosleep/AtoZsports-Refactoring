@@ -19,7 +19,9 @@ module.exports = {
   sendRefreshToken: (res, refreshToken) => {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      path: '/'
+      secure: process.env.NODE_ENV === 'production' ? true : false,
+      path: '/',
+      sameSite: 'none'
     })
   },
   // 인증 확인

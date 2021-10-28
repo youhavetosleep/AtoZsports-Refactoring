@@ -53,7 +53,6 @@ module.exports = {
   // kakao 소셜 로그인
   kakao: async (req, res, next) => {
     const code = req.query.code
-    console.log('카카오 코드 확인',code)
     if (code !== undefined) {
       requestToken(code)
         .then(async ({ data }) => {
@@ -66,7 +65,6 @@ module.exports = {
             },
             withCredentials: true
           })
-
           if (kakaoUserData) {
             let accountData = kakaoUserData.data.kakao_account
             let userKakaoEmail = accountData.email
@@ -91,7 +89,7 @@ module.exports = {
                   let userData = user.dataValues
                   const DOMAIN =
                     process.env.NODE_ENV === 'production'
-                      ? 'atozsports.link'
+                      ? 'https://atozsports.link'
                       : 'http://localhost:3000'
                   const emailOptions = {
                     from: process.env.GMAIL_ID,
@@ -110,6 +108,10 @@ module.exports = {
                     </div>
                   `
                   }
+                  if(!(await smtpTransport.verify())) {
+                    throw new Error('email transporter verification failed')
+                  }
+                  
                   await smtpTransport.sendMail(emailOptions, (err, res) => {
                     if (err) {
                       console.log(`메일발송 에러 발생: ${err.message}`)
@@ -146,9 +148,9 @@ module.exports = {
     function requestToken(code) {
       const DOMAIN =
         process.env.NODE_ENV === 'production'
-          ? 'atozsports.link'
+          ? 'https://atozsports.link'
           : 'http://localhost:3000'
-      const JS_APP_KEY = process.env.KAKAO_CLIENT_ID
+      const JS_APP_KEY = process.env.KAKAO_APP_KEY
       const REDIRECT_URI = `${DOMAIN}/kakao`
       const makeFormData = (params) => {
         const searchParams = new URLSearchParams()
