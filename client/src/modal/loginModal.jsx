@@ -130,7 +130,9 @@ const Container = styled.div`
   left: 0;
   background: rgba(0, 0, 0, 0.6);
   background-color: #797979;
+  /* opacity: .5; */
   animation: back 0.5s ease-in;
+  z-index: 2;
   @keyframes back {
     from {
       opacity: 0%;
