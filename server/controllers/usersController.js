@@ -53,7 +53,6 @@ module.exports = {
   // kakao 소셜 로그인
   kakao: async (req, res, next) => {
     const code = req.query.code
-    console.log('카카오 코드 확인',code)
     if (code !== undefined) {
       requestToken(code)
         .then(async ({ data }) => {
@@ -66,7 +65,6 @@ module.exports = {
             },
             withCredentials: true
           })
-          console.log('카카오 유저 데이터 확인',kakaoUserData)
           if (kakaoUserData) {
             let accountData = kakaoUserData.data.kakao_account
             let userKakaoEmail = accountData.email
