@@ -91,7 +91,7 @@ module.exports = {
                   let userData = user.dataValues
                   const DOMAIN =
                     process.env.NODE_ENV === 'production'
-                      ? 'atozsports.link'
+                      ? 'https://atozsports.link'
                       : 'http://localhost:3000'
                   const emailOptions = {
                     from: process.env.GMAIL_ID,
@@ -146,7 +146,7 @@ module.exports = {
     function requestToken(code) {
       const DOMAIN =
         process.env.NODE_ENV === 'production'
-          ? 'atozsports.link'
+          ? 'https://atozsports.link'
           : 'http://localhost:3000'
       const JS_APP_KEY = process.env.KAKAO_APP_KEY
       const REDIRECT_URI = `${DOMAIN}/kakao`
