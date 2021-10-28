@@ -3,12 +3,15 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
+import { BiX } from 'react-icons/bi'
 import { loginUser } from '../_actions/user.action'
 import login1 from '../image/login1.png'
 import googleLogo from '../image/googleLogo.jpg'
 import kakaoLogo from '../image/kakaoLogo.png'
+import { KAKAO_AUTH_URL } from '../auth/kakao.jsx'
+import { GOOGLE_AUTH_URL } from '../auth/google.jsx'
 
-const LoginModal = () => {
+const LoginModal = ({ setLoginOpen }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -19,7 +22,8 @@ const LoginModal = () => {
   //로그인 버튼
   const logIn = async () => {
     let userData = {
-      email, password
+      email,
+      password
     }
 
     if (email === '' || password === '') {
@@ -32,26 +36,35 @@ const LoginModal = () => {
       return
     } else {
       dispatch(loginUser(userData))
-      .then(res => {
-        console.log(res.payload)
-      }).catch(err => {
-        if(err.response.status === 409) {
-          Swal.fire({
-            text: '이메일인증을 진행해주세요',
-            icon: 'warning',
-            confirmButtonColor: '#d2d2d2',
-            confirmButtonText: '확인'
-          })
-        }else if(err.response.status === 404) {
-          Swal.fire({
-            text: '사용자를 찾을 수 없습니다',
-            icon: 'warning',
-            confirmButtonColor: '#d2d2d2',
-            confirmButtonText: '확인'
-          })
-        }                
-      })
+        .then((res) => {
+          console.log(res.payload)
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
+            Swal.fire({
+              text: '이메일인증을 진행해주세요',
+              icon: 'warning',
+              confirmButtonColor: '#d2d2d2',
+              confirmButtonText: '확인'
+            })
+          } else if (err.response.status === 404) {
+            Swal.fire({
+              text: '사용자를 찾을 수 없습니다',
+              icon: 'warning',
+              confirmButtonColor: '#d2d2d2',
+              confirmButtonText: '확인'
+            })
+          }
+        })
     }
+  }
+
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL
+  }
+
+  const googleLogin = () => {
+    window.location.href = GOOGLE_AUTH_URL
   }
 
   return (
@@ -59,6 +72,9 @@ const LoginModal = () => {
       <Form>
         <LoginImg src={login1} />
         <LoginWrap>
+          <CancelBtn onClick={() => setLoginOpen(false)}>
+            <BiX />
+          </CancelBtn>
           <Title>Login</Title>
           <Input
             type="text"
@@ -92,11 +108,11 @@ const LoginModal = () => {
             <Or>or</Or>
             <Line />
           </LineWrap>
-          <GoogleWrap>
+          <GoogleWrap onClick={googleLogin}>
             <SocialLogo src={googleLogo} />
             <SocialText>google 계정으로 로그인</SocialText>
           </GoogleWrap>
-          <KakaoWrap>
+          <KakaoWrap onClick={kakaoLogin}>
             <SocialLogo src={kakaoLogo} />
             <SocialText>kakao 계정으로 로그인</SocialText>
           </KakaoWrap>
@@ -146,14 +162,26 @@ const LoginWrap = styled.div`
   height: 100%;
   padding: 50px 50px;
   box-sizing: border-box;
+  position: relative;
+`
+
+const CancelBtn = styled.div`
+  position: absolute;
+  right: 2%;
+  top: 1.3%;
+  font-size: 20px;
+  color: #505050;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 const Title = styled.h1`
   text-align: right;
   font-size: 40px;
   margin-bottom: 70px;
-  font-weight : bold;
-  color : #505050;
+  font-weight: bold;
+  color: #505050;
 `
 
 const Input = styled.input`
@@ -162,11 +190,14 @@ const Input = styled.input`
   width: 97%;
   padding: 3px;
   margin-bottom: 20px;
+  ::placeholder {
+    color: #cecece;
+  }
   :focus {
     outline: none;
-    border-bottom: solid 3.5px #797979;
+    border-bottom: solid 3px #797979;
     ::placeholder {
-      color: #e4e4e4;
+      color: #797979;
     }
   }
 `
@@ -247,6 +278,9 @@ const GoogleWrap = styled.div`
   margin-bottom: 10px;
   padding: 12px 60px 10px 20px;
   box-sizing: border-box;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 const KakaoWrap = styled.div`
@@ -257,6 +291,9 @@ const KakaoWrap = styled.div`
   padding: 13px 60px 10px 20px;
   box-sizing: border-box;
   background-color: #ffdc00;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 const SocialLogo = styled.img`
