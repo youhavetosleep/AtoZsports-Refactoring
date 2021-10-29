@@ -92,8 +92,8 @@ module.exports = {
                       ? 'https://atozsports.link'
                       : 'http://localhost:3000'
                   const emailOptions = {
-                    from: 'jsjsjskjs@gmail.com', //test중 AWS SES 등록 도메인 테스트를 기다리는 중이라 임시설정
-                    to: 'jsjsjskjs@gmail.com', //test중 원래는 userData.email이 맞다
+                    from: 'atozsports@api.atozsports.link', //test중 AWS SES 등록 도메인 테스트를 기다리는 중이라 임시설정
+                    to: userData.email, //test중 원래는 userData.email이 맞다
                     subject: `${userData.nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                     html: `
                     <div>
