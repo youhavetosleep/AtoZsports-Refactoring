@@ -28,10 +28,7 @@ export async function loginUser(dataToSubmit) {
         favoriteSports
       }
     })
-    .catch((err) => {
-      console.log(err)
-    })
-
+    
   return {
     type: LOGIN_USER,
     payload: request

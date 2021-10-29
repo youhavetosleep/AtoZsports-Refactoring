@@ -1,16 +1,18 @@
 /*global kakao*/
-import React, { useEffect, useRef, useState } from 'react'
-import { FaSearch } from 'react-icons/fa'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router'
 
-const Map = () => {
-  const el = useRef()
+const Map = ({ searchPlace }) => {
   const mapRef = useRef()
-  const [markers, setMarkers] = useState([])
-  const [map, setMap] = useState()
-  const [search, setSearch] = useState('안양 풋살')
+  const MenuRef = useRef()
 
-  console.log(search)
+  const history = useHistory()
+
+  // const Review = () => {
+  //   history.push('/review')
+  // }
+
   useEffect(() => {
     let markers = [], // 지도를 표시할 div
       mapOption = {
@@ -20,32 +22,17 @@ const Map = () => {
 
     // 지도를 생성합니다
     let map = new kakao.maps.Map(mapRef.current, mapOption)
-
-    const zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    const zoomControl = new kakao.maps.ZoomControl()
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
 
     // 장소 검색 객체를 생성합니다
     let ps = new kakao.maps.services.Places()
 
     // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-
     let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 })
 
-    // 키워드로 장소를 검색합니다
-    searchPlaces()
-
-    // 키워드 검색을 요청하는 함수입니다
-    function searchPlaces() {
-      let keyword = document.getElementById('keyword').value
-
-      if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!')
-        return false
-      }
-
-      // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-      ps.keywordSearch(keyword, placesSearchCB)
-    }
+    // mapsearch 컴포넌트에서 검색어를 입력해서 searchPlace에 담아 준것
+    ps.keywordSearch(searchPlace, placesSearchCB)
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
@@ -68,7 +55,7 @@ const Map = () => {
     // 검색 결과 목록과 마커를 표출하는 함수입니다
     function displayPlaces(places) {
       let listEl = document.getElementById('placesList'),
-        menuEl = document.getElementById('menu_wrap'),
+        menuEl = MenuRef.current,
         fragment = document.createDocumentFragment(),
         bounds = new kakao.maps.LatLngBounds(),
         listStr = ''
@@ -101,19 +88,15 @@ const Map = () => {
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
           })
-
           itemEl.onmouseover = function () {
             displayInfowindow(marker, title)
           }
-
           itemEl.onmouseout = function () {
             infowindow.close()
           }
         })(marker, places[i].place_name)
-
         fragment.appendChild(itemEl)
       }
-
       // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
       listEl.appendChild(fragment)
       menuEl.scrollTop = 0
@@ -133,19 +116,12 @@ const Map = () => {
           '   <h5>' +
           places.place_name +
           '</h5>'
-
-      if (places.road_address_name) {
-        itemStr +=
-          '<span>' +
-          places.road_address_name +
-          '</span>' +
-          '<span class="jibun gray">' +
-          places.address_name +
-          '</span>'
-      } else {
-        itemStr += '<span>' + places.address_name + '</span>'
-      }
-      itemStr += '<span class="tel">' + places.phone + '</span>' + '</div>'
+      itemStr += '<span>' + places.address_name + '</span>'
+      itemStr +=
+        '<form class="review">' +
+        `<p class='reviewP'>리뷰 (12)</p>` +
+        '<p>예약하기</p>' +
+        '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
       return el
@@ -170,10 +146,8 @@ const Map = () => {
           position: position, // 마커의 위치
           image: markerImage
         })
-
       marker.setMap(map) // 지도 위에 마커를 표출합니다
       markers.push(marker) // 배열에 생성된 마커를 추가합니다
-
       return marker
     }
 
@@ -231,40 +205,30 @@ const Map = () => {
         el.removeChild(el.lastChild)
       }
     }
-  }, [])
+  }, [searchPlace])
   return (
     <Container>
+      <BackList />
       <div class="map_wrap">
         <MapView ref={mapRef} />
-
-        <div id="menu_wrap">
-          <SearchBar className="option">
-              <Searchform onsubmit="searchPlaces(); return false;">
-                <Input
-                  type="text"
-                  onChange={(e) => {
-                    setSearch(e.target.value)
-                  }}
-                  id="keyword"
-                  value='안양 풋살'
-                />
-                <SearchBtn type="submit"><FaSearch /></SearchBtn>
-              </Searchform>
-          </SearchBar>
-          <List>
-            <ListLine />
-            <ListTitle>경기장 목록</ListTitle>
-          </List>
-          <ul id="placesList"></ul>
-          <div id="pagination"></div>
-        </div>
       </div>
+      <MenuWrap ref={MenuRef}>
+        <SearchLine />
+        <List>
+          <ListLine />
+          <ListTitle>경기장 목록</ListTitle>
+        </List>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+      </MenuWrap>
     </Container>
   )
 }
 
 const Container = styled.div`
   display: flex;
+  height: 100%;
+  width: 100%;
   .map_wrap,
   .map_wrap a,
   .map_wrap a:hover,
@@ -275,33 +239,18 @@ const Container = styled.div`
   .map_wrap {
     position: relative;
   }
-  #menu_wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 473px;
-    height: 944px;
-    padding: 30px;
-    box-sizing : border-box;
-    overflow-y: auto;
-    background: rgba(255, 255, 255);
-    z-index: 1;
-    font-size: 12px;
-    border-radius: 10px;
-  }
   #placesList li {
+    position: relative;
     list-style: none;
-    height : 121px;
+    height: 121px;
   }
   #placesList .item {
-    position: relative;
     border-bottom: 1px solid #888;
     overflow: hidden;
     cursor: pointer;
     min-height: 65px;
     :hover {
-      background-color : #C4C4C4;
+      background-color: #f4f4f4;
     }
   }
   #placesList .item span {
@@ -313,13 +262,13 @@ const Container = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    font-size : 15px;
+    font-size: 15px;
   }
   #placesList .item .info {
     padding: 30px 0 10px 55px;
   }
   #placesList .item h5 {
-    font-size : 20px;
+    font-size: 20px;
   }
   #placesList .info .gray {
     color: #8a8a8a;
@@ -331,6 +280,26 @@ const Container = styled.div`
   }
   #placesList .info .tel {
     color: #009900;
+  }
+  #placesList .review {
+    display: flex;
+    position: absolute;
+    bottom: 7%;
+    right: 1%;
+  }
+  #placesList .review p {
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+    border: 1px solid #cecece;
+    padding: 5px 10px;
+    border-radius: 25px;
+    text-align: center;
+    width: 60px;
+    :hover {
+      background-color: #840909;
+      color: white;
+    }
   }
   #placesList .item .markerbg {
     float: left;
@@ -402,67 +371,65 @@ const Container = styled.div`
 `
 
 const MapView = styled.div`
-  width: 100vw;
-  height: 1000px;
-  position: relative;
+  width: 75vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 1;
   overflow: hidden;
 `
 
 const List = styled.div`
-position : relative;
-width : 100%;
-height : 50px;
-display: flex;
-align-items: center;
-justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const ListLine = styled.div`
-position : absolute;
-top : 55%;
-left: 0;
-width : 100%;
-border : 1px solid #5c5c5c;
-z-index: 5;
+  position: absolute;
+  top: 55%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #5c5c5c;
+  z-index: 5;
 `
 
 const ListTitle = styled.h1`
-z-index: 10;
-width : 175px;
-height : 10px;
-font-size : 20px;
-background-color : white;
-text-align : center;
-color : #5c5c5c;
+  z-index: 10;
+  width: 175px;
+  height: 10px;
+  font-size: 20px;
+  background-color: white;
+  text-align: center;
+  color: #5c5c5c;
 `
 
-const Input = styled.input`
-width : 343px;
-padding : 15px 20px;
-border-radius : 10px;
-border :  solid 1px #c6c6c6;
+const SearchLine = styled.div`
+  height: 50px;
 `
 
-const Searchform = styled.form`
-height : 50px;
-position : relative;
+const MenuWrap = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 473px;
+  height: 100vh;
+  padding: 30px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: rgba(255, 255, 255);
+  z-index: 1;
+  font-size: 12px;
+  border-radius: 10px;
 `
 
-const SearchBtn =styled.button`
-position :absolute;
-border : none;
-top: 5%;
-right : 9%;
-width : 50px;
-height : 50px;
-font-size : 25px;
-background : none;
-color :#c6c6c6;
-`
-
-const SearchBar = styled.div`
-    text-align: center;
-    justify-content: center;
+const BackList = styled.div`
+  height: 100%;
+  width: 473px;
 `
 
 export default Map
