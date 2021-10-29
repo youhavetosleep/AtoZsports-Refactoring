@@ -91,9 +91,10 @@ module.exports = {
                     process.env.NODE_ENV === 'production'
                       ? 'https://atozsports.link'
                       : 'http://localhost:3000'
+                  const from = `AtoZ sports <atozSport@api.atozsports.link>`
                   const emailOptions = {
-                    from: process.env.GMAIL_ID,
-                    to: 'jsjsjskjs@gmail.com', //test중 원래는 userData.email이 맞다
+                    from: from,
+                    to: userData.email, //test중 원래는 userData.email이 맞다
                     subject: `${userData.nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                     html: `
                     <div>
@@ -108,10 +109,10 @@ module.exports = {
                     </div>
                   `
                   }
-                  if(!(await smtpTransport.verify())) {
+                  if (!(await smtpTransport.verify())) {
                     throw new Error('email transporter verification failed')
                   }
-                  
+
                   await smtpTransport.sendMail(emailOptions, (err, res) => {
                     if (err) {
                       console.log(`메일발송 에러 발생: ${err.message}`)
