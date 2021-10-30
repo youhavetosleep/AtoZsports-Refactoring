@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../image/subLogo.png'
 import GlobalStyle from '../globalStyle/globalStyle'
 import styled from "styled-components"
+import { useDispatch } from 'react-redux'
+import { logoutUser } from '../_actions/user.action'
 
  
-const NavbarChange = () => {
+const NavbarChange = ({ isLogin, setIsLogin }) => {
+  const dispatch = useDispatch()
+
+  const hadleLogout = () => {
+    if(isLogin) {
+      dispatch(logoutUser())
+      .then(res => {
+        console.log(res)
+        setIsLogin(false)
+      })
+    }
+  }
+
   return (
     <>
     <GlobalStyle />
@@ -19,7 +33,12 @@ const NavbarChange = () => {
           <Link to='/matchlist' className='nav_matchlist' style={{ textDecoration: 'none' }}>Match</Link>
           <Link to='/map' className='nav_map' style={{ textDecoration: 'none' }}>Map</Link>
           <Link to='/mypage' className='nav_mypage' style={{ textDecoration: 'none' }}>Mypage</Link>
-          <Link to='/entrance' className='nav_logout' style={{ textDecoration: 'none' }}>Logout</Link>
+          <Link 
+          to='/entrance' 
+          className='nav_logout' 
+          style={{ textDecoration: 'none' }}
+          onClick={hadleLogout}
+          >Logout</Link>
         </Menu>
       </Nav>
     </>

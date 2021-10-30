@@ -1,56 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GlobalStyle from '../globalStyle/globalStyle'
 import { Link } from 'react-router-dom'
-import eye from '../image/eye.svg'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import { getMatchData } from '../_actions/matchCard_action'
 
-function MatchCard() {
-  const dispatch = useDispatch()
 
-  const [matchData, setMatchData] = useState(null)
-
-  useEffect(() => {
-    dispatch(getMatchData())
-      .then((res) => {
-        setMatchData(res.payload)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  },[])
-
+function MatchCard({ member, setMemberData }) {
+  const matchInfoHadler = () => {
+    setMemberData(member)
+  }
 
   return (
     <>
       <GlobalStyle />
       <MatchCardContainer>
-          {matchData && matchData.map(el => {
-            return (
               <div 
               className="articlebox-listbox"
+              onClick={() => matchInfoHadler()}
               >
                 <Link to="/entrance" style={{ textDecoration: 'none' }}>
                   <ul>
-                    <li className="articlebox-title">{el.title}</li>
+                    <li className="articlebox-title">{member.title}</li>
                     <li className="articlebox-date">
-                      {el.startTime} ~ {el.endTime}
+                      {member.startTime} ~ {member.endTime}
                     </li>
-                    <li className="articlebox-ground">공덕풋살장</li>
+                    <li className="articlebox-ground">{member.placeName}</li>
                     <li className="articlebox-content">
-                      {el.content}
+                      {member.content}
                     </li>
                     <li>
                       <span className="articlebox-state">
-                        <span>{el.status}</span>
+                        <span>{member.status}</span>
                       </span>
                     </li>
                   </ul>
                 </Link>
               </div>
-            )
-          })}
       </MatchCardContainer>
     </>
   )

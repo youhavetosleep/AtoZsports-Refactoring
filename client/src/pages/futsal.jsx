@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { getMatchList } from '../_actions/matchCard_action'
+import { getMatchData, getMatchList } from '../_actions/matchCard_action'
 import Footer from '../components/footer'
 import gotomap from '../image/gotomap.jpg'
 import sublogo from '../image/subLogo.png'
@@ -27,17 +27,19 @@ const Futsal = () => {
   const dispatch = useDispatch()
 
   const [CurrentOrder, setCurrentOrder] = useState('용병모집')
-  const [matchData, setMatchData] = useState(null)
+  const [memberData, setMemberData] = useState(null)
 
-  // useEffect(() => {
-  //   dispatch(getMatchData())
-  //     .then((res) => {
-  //       setMatchData(res.payload)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // },[])
+  useEffect(() => {
+    dispatch(getMatchData())
+      .then((res) => {
+        setMemberData(res.payload)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },[])
+
+  console.log(memberData)
 
 
   const latestBtn = () => {
@@ -121,10 +123,16 @@ const Futsal = () => {
           </MatchSoonFilter>
           <MatchSoonList>
             <div className='matchCard'>
-            <MatchCard />
-            </div>
+            {memberData && memberData.map((member, idx) => (
+              <MatchCard
+              setMemberData={setMemberData}
+              member={member}
+              key={idx}
+              />
+            ))}
             <div className='moreView'>
             <MoreViewCard />
+            </div>
             </div>
           </MatchSoonList>
         </FutsalMatchSoonSection>
@@ -273,16 +281,18 @@ const MatchSoonFilter = styled.div`
 const MatchSoonList = styled.div`
   display: flex;
   position: relative;
-  grid-template-columns: repeat(3, auto);
-  gap: 20px;
+  
   .matchCard {
-    display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 31.8%);
+  row-gap: 20px;
+  /* margin-bottom: 20px; */
   }
   .moreView {
+    position: flex;
     right: -15px;
     bottom: 0px;
     display: flex;
-    position: absolute;
   }
 `
 
