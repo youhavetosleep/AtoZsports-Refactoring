@@ -41,9 +41,6 @@ function MatchCard({ member, setMemberData }) {
 }
 
 const MatchCardContainer = styled.div`
-display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 20px;
   .articlebox {
     &-listbox {
       background-color: white;
