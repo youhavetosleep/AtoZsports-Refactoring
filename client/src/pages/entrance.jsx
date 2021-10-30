@@ -50,19 +50,20 @@ const Entrance = () => {
 }
 
 const Sports_Main = styled.section`
-  height: 100vh;
+  height: 100%;
   display: flex;
   background-color: none;
 `
 
 const Sports_Sub = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
+  background-size: cover;
   :hover {
     .entrance_mainText{
       color: white;

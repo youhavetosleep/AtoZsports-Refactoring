@@ -1,5 +1,6 @@
-import { LOGIN_USER, KAKAO_USER, GOOGLE_USER } from './types'
+import { LOGIN_USER, KAKAO_USER, GOOGLE_USER, LOGOUT_USER } from './types'
 import instance from '../api'
+import axios from 'axios'
 
 export async function loginUser(dataToSubmit) {
   const request = await instance
@@ -36,6 +37,17 @@ export async function loginUser(dataToSubmit) {
     type: LOGIN_USER,
     payload: request
   }
+}
+
+export async function logoutUser() {
+  const request = await instance
+    .post(`/users/logout`)
+    .then(res => console.log(res))
+
+  return {
+    type: LOGOUT_USER,
+    payload: request
+  } 
 }
 
 export async function kakaoUser(authorizationCode) {

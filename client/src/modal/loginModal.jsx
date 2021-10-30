@@ -151,7 +151,7 @@ const Container = styled.div`
   background: rgba(0, 0, 0, 0.6);
   background-color: rgba(0, 0, 0, 0.6);
   /* opacity: .5; */
-  animation: back 0.5s ease-in;
+  animation: back 0.1s ease-in;
   z-index: 2;
   @keyframes back {
     from {

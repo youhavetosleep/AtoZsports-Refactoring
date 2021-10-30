@@ -1,13 +1,18 @@
 import axios from 'axios'
-import { MATCH_LIST } from './types'
+import { MATCH_DATA } from './types'
 
-export async function getMatchList() {
+// 용병, 경기제안 데이터
+
+export async function getMatchData() {
   const request = await axios
-    .post('/{sports}?do={do}&city={city}')
-    .then((response) => response.data)
+    .get(`http://localhost:80/futsal?division=member&do=경기&city=용인시`,{
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true 
+    })
+    .then(res => res.data)
 
   return {
-    type: MATCH_LIST,
+    type: MATCH_DATA,
     payload: request
   }
 }

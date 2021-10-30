@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { getMatchList } from '../_actions/matchCard_action'
+import { getMatchData, getMatchList } from '../_actions/matchCard_action'
 import Footer from '../components/footer'
 import gotomap from '../image/gotomap.jpg'
 import sublogo from '../image/subLogo.png'
@@ -26,18 +26,21 @@ import MoreViewCard from '../components/moreviewCard'
 const Futsal = () => {
   const dispatch = useDispatch()
 
-  const [matchData, setMatchData] = useState(null)
   const [CurrentOrder, setCurrentOrder] = useState('용병모집')
+  const [memberData, setMemberData] = useState(null)
 
   useEffect(() => {
-    dispatch(getMatchList())
+    dispatch(getMatchData())
       .then((res) => {
-        setMatchData(res.payload[0])
+        setMemberData(res.payload)
       })
       .catch((err) => {
         console.log(err)
       })
-  })
+  },[])
+
+  console.log(memberData)
+
 
   const latestBtn = () => {
     setCurrentOrder('용병모집')
@@ -119,12 +122,18 @@ const Futsal = () => {
             <div className="dropBox"></div>
           </MatchSoonFilter>
           <MatchSoonList>
-            <MatchCard />
-            <MatchCard />
-            <MatchCard />
-            <MatchCard />
-            <MatchCard />
+            <div className='matchCard'>
+            {memberData && memberData.map((member, idx) => (
+              <MatchCard
+              setMemberData={setMemberData}
+              member={member}
+              key={idx}
+              />
+            ))}
+            <div className='moreView'>
             <MoreViewCard />
+            </div>
+            </div>
           </MatchSoonList>
         </FutsalMatchSoonSection>
         <FutsalAnotherSection>
@@ -270,9 +279,21 @@ const MatchSoonFilter = styled.div`
 `
 
 const MatchSoonList = styled.div`
+  display: flex;
+  position: relative;
+  
+  .matchCard {
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 20px;
+  grid-template-columns: repeat(3, 31.8%);
+  row-gap: 20px;
+  /* margin-bottom: 20px; */
+  }
+  .moreView {
+    position: flex;
+    right: -15px;
+    bottom: 0px;
+    display: flex;
+  }
 `
 
 const MatchText = styled.div``
