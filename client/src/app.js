@@ -20,12 +20,49 @@ import Footer from './components/footer'
 import NavbarChange from './components/navbarChange'
 import store from './store/store'
 import MapSearch from './components/map/mapSearch'
+import Top from './components/Top'
+import ScrollToTop from './components/scrollTop'
 
 function App() {
   let userInfo = store.getState().user
 
   const [isLogin, setIsLogin] = useState(true)
+  const [scrollPosition, setScrollPosition] = useState(0);
 
+  useEffect(() => {
+    window.addEventListener("scroll", scrollPositionHandler);
+    return () => {
+      window.removeEventListener("scroll", scrollPositionHandler);
+    };
+  });
+
+  const scrollPositionHandler = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+
+
+  const isElementUnderBottom = (elem, triggerDiff) => {
+    const { top } = elem.getBoundingClientRect();
+    const { innerHeight } = window;
+    return top > innerHeight + (triggerDiff || 0);
+  };
+
+  const handleScroll = () => {
+    const elems = document.querySelectorAll(".scroll");
+    elems.forEach((elem) => {
+      if (isElementUnderBottom(elem, -20)) {
+        elem.style.opacity = "0";
+        elem.style.transform = "translateY(70px)";
+      } else {
+        elem.style.opacity = "1";
+        elem.style.transform = "translateY(0px)";
+      }
+    });
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {
       setIsLogin(true)
@@ -38,6 +75,8 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
+      {scrollPosition > 60 ? <Top /> : null}
+      <ScrollToTop />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />

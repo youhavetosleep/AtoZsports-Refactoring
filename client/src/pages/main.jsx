@@ -29,9 +29,9 @@ const Main = () => {
         </MainLogoPage>
         <Landing1>
           <Landing_Container>
-            <Landing_In>
+            <Landing_In className="landing scroll">
               <Landing_text>
-                <div className="landing_mainText">
+                <div className="landing_mainText scroll">
                   우리동네의
                   <br />
                   경기장을 찾아보세요.
