@@ -146,6 +146,7 @@ const Map = () => {
         itemStr += '<span>' + places.address_name + '</span>'
       }
       itemStr += '<span class="tel">' + places.phone + '</span>' + '</div>'
+      itemStr += '<span class="test">' + "시험" + '</span>' + '</div>'
       el.innerHTML = itemStr
       el.className = 'item'
       return el

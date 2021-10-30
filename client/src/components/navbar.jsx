@@ -82,6 +82,7 @@ const Menu = styled.div`
     color: #353535;
     :hover {
       color: #840909;
+      cursor: pointer;
     }
   }
   .nav_signup {

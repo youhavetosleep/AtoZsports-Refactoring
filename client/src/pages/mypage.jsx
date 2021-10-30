@@ -64,7 +64,9 @@ const Mypage = () => {
                   >
                     정보수정
                   </div>
-                  <div className="editPassWord" onClick={handleEditPasswordBtn}>
+                  <div 
+                  className="editPassWord"
+                  onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>
@@ -138,11 +140,9 @@ const Mypage = () => {
             {changeCard === '용병모집' ? (
               <MyRecruitment>
                 <MatchCard />
-                <MatchCard />
               </MyRecruitment>
             ) : (
               <MyAttention>
-                <MatchCard />
                 <MatchCard />
               </MyAttention>
             )}

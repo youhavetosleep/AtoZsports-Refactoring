@@ -8,10 +8,11 @@ const Slide_02 = () => {
   return (
     <>
       <GlobalStyle />
-      <Slider_01>
+      <Slider_02>
         <img src={futsalSliderImg} className="slider_img"></img>
+        <SliderText>
         <div className="slider_mainText">
-          우리동네 풋살장을 검색해 보세요.
+          우리동네 풋살장을 검색해보세요
         </div>
         <div className="slider_subText">
           미처 몰랐던 우리동네 풋살장을
@@ -20,13 +21,16 @@ const Slide_02 = () => {
           <br />
           확인할 수 있습니다.
         </div>
-        <Button to='/map' className="slider_button">풋살장 검색하기</Button>
-      </Slider_01>
+        <Link to='/map' style={{textDecoration: 'none'}}>
+        <div className="slider_button">풋살장 검색하기</div>
+        </Link>
+        </SliderText>
+      </Slider_02>
     </>
   )
 }
 
-const Slider_01 = styled.div`
+const Slider_02 = styled.div`
 width: 100%;
 height: 100%;
 display: flex;
@@ -34,34 +38,10 @@ justify-content: center;
 align-items: center;
 overflow: hidden;
 position: relative;
-.slider_mainText {
- top: 35%;
- position: absolute;
- font-size: 50px;
- color: white;
- text-align: center;
- line-height:60px;
-}
-.slider_mainText p {
- top: 100%;
- left: 20%;
- position: absolute;
- font-size: 35px;
- color: white;
- text-align: center;
-}
-.slider_subText {
- margin-top: 80px;
- font-size: 23px;
- position: absolute;
- color: white;
- text-align: center;
- line-height:30px;
- font-weight: lighter;
-}
+
 .slider_img{
  width: 100%;
- height: 94vh;
+ height: 100%;
  filter: brightness(70%);
  opacity: .85;
  background-size: cover;
@@ -69,11 +49,40 @@ position: relative;
 }
 `
 
-const Button = styled(Link)`
+const SliderText = styled.div`
+width: 100%;
+height: 55vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+overflow: hidden;
 position: absolute;
-  ;
+.slider_mainText {
+ top: 10vh;
+ font-size: 3em;
+ color: white;
+ text-align: center;
+ line-height:60px;
+}
+.slider_mainText p {
+ left: 20%;
+ font-size: .7em;
+ color: white;
+ text-align: center;
+}
+.slider_subText {
+ font-size: 1.3em;
+ margin-top: 15px;
+ color: white;
+ text-align: center;
+ line-height:30px;
+ font-weight: lighter;
+}
+.slider_button {
   top: 62%;
   padding: 9px;
+  margin-top: 30px;
   width: 130px;
   height: 13px;
   text-align: center;
@@ -90,7 +99,9 @@ position: absolute;
     opacity: 1;
     background-color: #dcdcdc;
   }
+}
 `
+
 
 
 export default Slide_02

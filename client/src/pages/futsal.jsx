@@ -26,18 +26,19 @@ import MoreViewCard from '../components/moreviewCard'
 const Futsal = () => {
   const dispatch = useDispatch()
 
-  const [matchData, setMatchData] = useState(null)
   const [CurrentOrder, setCurrentOrder] = useState('용병모집')
+  const [matchData, setMatchData] = useState(null)
 
-  useEffect(() => {
-    dispatch(getMatchList())
-      .then((res) => {
-        setMatchData(res.payload[0])
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  })
+  // useEffect(() => {
+  //   dispatch(getMatchData())
+  //     .then((res) => {
+  //       setMatchData(res.payload)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  // },[])
+
 
   const latestBtn = () => {
     setCurrentOrder('용병모집')
@@ -119,12 +120,12 @@ const Futsal = () => {
             <div className="dropBox"></div>
           </MatchSoonFilter>
           <MatchSoonList>
+            <div className='matchCard'>
             <MatchCard />
-            <MatchCard />
-            <MatchCard />
-            <MatchCard />
-            <MatchCard />
+            </div>
+            <div className='moreView'>
             <MoreViewCard />
+            </div>
           </MatchSoonList>
         </FutsalMatchSoonSection>
         <FutsalAnotherSection>
@@ -270,9 +271,19 @@ const MatchSoonFilter = styled.div`
 `
 
 const MatchSoonList = styled.div`
-  display: grid;
+  display: flex;
+  position: relative;
   grid-template-columns: repeat(3, auto);
   gap: 20px;
+  .matchCard {
+    display: flex;
+  }
+  .moreView {
+    right: -15px;
+    bottom: 0px;
+    display: flex;
+    position: absolute;
+  }
 `
 
 const MatchText = styled.div``

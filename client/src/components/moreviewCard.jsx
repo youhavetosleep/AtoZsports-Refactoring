@@ -1,7 +1,6 @@
 import React from 'react'
 import GlobalStyle from '../globalStyle/globalStyle'
 import { Link } from 'react-router-dom'
-import eye from '../image/eye.svg';
 import styled from 'styled-components';
 
 function MoreViewCard() {
@@ -16,21 +15,9 @@ function MoreViewCard() {
             <li className="articlebox-title">
               더 많은 공고를 보고싶다면?
             </li>
-            <li className="articlebox-date">
-            2021.11.01 08:30 ~ 12:00
-            </li>
-            <li className="articlebox-ground">
-              공덕풋살장
-            </li>
-            <li className="articlebox-content">
-              공격수 1명, 키퍼 1명 구합니다.<br/>
-              픽업은 안되고 직접오셔야 됩니다.
-            </li>
-            <li>
               <span className="articlebox-state">
-                <span>모집중</span>
+                더 많은 공고 보러가기
               </span>
-            </li>
           </ul>
         </Link>
       </div>
@@ -71,43 +58,26 @@ const MoreViewCardContainer = styled.div`
   &-title {
     font-weight: bold;
     font-size: 1.3rem;
-    margin: 20px auto 10px auto;
+    margin: 110px auto 10px 38px;
     padding: 0px 0px 10px 0px;
-    border-bottom: 1px solid gray;
     color: #353535;
   }
-
-  &-date {
-    font-size: 1rem;
-    margin-bottom: 4px;
-    color: #747474;
-    padding: 0px 0px 0px 0px;
-  }
-
-  &-ground {
-    font-size: .9rem;
-    margin: 10px auto 20px;
-    color: #747474;
-    padding: 0px 0px 10px 0px;
-  }
-
-
-  &-content {
-    margin-bottom: 40px;
-    font-size: 1.2rem;
-    line-height: 1.7rem;
-    color: #353535;
-  }
-
+  
   &-state {
-    border: 1px solid gray;
-    border-radius: 10px;
-    font-size: .8rem;
-    padding: 2px 15px 2px 15px;
+    /* border: 1px solid gray;
+    border-radius: 10px; */
+    width: 50%;
+    font-size: 1rem;
+    margin: 0px 50px 0px 30px;
+    padding: 2px 80px 2px 15px;
     color: #353535;
     position: absolute;
     right: 24px;
     margin: 0 !important;
+    :hover {
+      color: #840909;
+      border-bottom: 1px solid #840909;
+    }
   }
 }
 `
