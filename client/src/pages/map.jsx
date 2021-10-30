@@ -116,12 +116,20 @@ const Map = ({ searchPlace }) => {
           '   <h5>' +
           places.place_name +
           '</h5>'
-      itemStr += '<span>' + places.address_name + '</span>'
-      itemStr +=
-        '<form class="review">' +
-        `<a href='http://localhost:3000/review'>리뷰 (12)</a>` +
-        `<a>경기잡기</a>` +
-        '</form>'
+
+      if (places.road_address_name) {
+        itemStr +=
+          '<span>' +
+          places.road_address_name +
+          '</span>' +
+          '<span class="jibun gray">' +
+          places.address_name +
+          '</span>'
+      } else {
+        itemStr += '<span>' + places.address_name + '</span>'
+      }
+      itemStr += '<span class="tel">' + places.phone + '</span>' + '</div>'
+      itemStr += '<span class="test">' + "시험" + '</span>' + '</div>'
       el.innerHTML = itemStr
       el.className = 'item'
       // setGroundList([...groundList, places.place_name])

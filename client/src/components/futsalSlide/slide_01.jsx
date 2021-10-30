@@ -10,6 +10,7 @@ const Slide_01 = () => {
       <GlobalStyle />
       <Slider_01>
         <img src={futsalSliderImg} className="slider_img"></img>
+        <SliderText>
         <div className="slider_mainText">
           A to Z Sports Futsal 에<br />
           <p>오신것을 환영합니다.</p>
@@ -21,7 +22,10 @@ const Slide_01 = () => {
           <br />
           다양한 서비스를 이용해 보세요.
         </div>
-        <Button to='/matchlist' className="slider_button">모집현황 보기</Button>
+        <Link to='/matchlist' style={{textDecoration: 'none'}}>
+        <div className="slider_button">모집현황 보기</div>
+        </Link>
+        </SliderText>
       </Slider_01>
     </>
   )
@@ -35,34 +39,10 @@ justify-content: center;
 align-items: center;
 overflow: hidden;
 position: relative;
-.slider_mainText {
- top: 35%;
- position: absolute;
- font-size: 50px;
- color: white;
- text-align: center;
- line-height:60px;
-}
-.slider_mainText p {
- top: 100%;
- left: 20%;
- position: absolute;
- font-size: 35px;
- color: white;
- text-align: center;
-}
-.slider_subText {
- margin-top: 80px;
- font-size: 23px;
- position: absolute;
- color: white;
- text-align: center;
- line-height:30px;
- font-weight: lighter;
-}
+
 .slider_img{
  width: 100%;
- height: 94vh;
+ height: 100%;
  filter: brightness(70%);
  opacity: .85;
  background-size: cover;
@@ -70,11 +50,40 @@ position: relative;
 }
 `
 
-const Button = styled(Link)`
+const SliderText = styled.div`
+width: 100%;
+height: 55vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+overflow: hidden;
 position: absolute;
-  ;
+.slider_mainText {
+ top: 10vh;
+ font-size: 3.5em;
+ color: white;
+ text-align: center;
+ line-height:60px;
+}
+.slider_mainText p {
+ left: 20%;
+ font-size: .7em;
+ color: white;
+ text-align: center;
+}
+.slider_subText {
+ font-size: 1.2em;
+ margin-top: 15px;
+ color: white;
+ text-align: center;
+ line-height:30px;
+ font-weight: lighter;
+}
+.slider_button {
   top: 62%;
   padding: 9px;
+  margin-top: 30px;
   width: 130px;
   height: 13px;
   text-align: center;
@@ -91,7 +100,9 @@ position: absolute;
     opacity: 1;
     background-color: #dcdcdc;
   }
+}
 `
+
 
 
 export default Slide_01

@@ -12,6 +12,11 @@ function EditPasswordModal({ setEditPswordModal }) {
     }
   }
 
+  const hadleEditPasswordPage = () => {
+    setEditPswordModal(false)
+    
+  }
+
   useEffect(() => {
     window.addEventListener('click', handleCloseEditPasswordModal)
     return () => {
@@ -38,9 +43,7 @@ function EditPasswordModal({ setEditPswordModal }) {
               ></input>
               <div
                 className="checkPswordBtn"
-                //   onClick={(e) => {
-                //     handleLoginBtn(e);
-                //   }}
+                onClick={hadleEditPasswordPage}
               >
                 확인하기
               </div>
