@@ -8,6 +8,9 @@ export async function loginUser(dataToSubmit) {
       withCredentials: true
     })
     .then((response) => {
+      instance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${response.data.accessToken}`
       const {
         id,
         email,
@@ -28,10 +31,7 @@ export async function loginUser(dataToSubmit) {
         favoriteSports
       }
     })
-    .catch((err) => {
-      console.log(err)
-    })
-
+    
   return {
     type: LOGIN_USER,
     payload: request

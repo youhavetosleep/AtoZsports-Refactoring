@@ -15,7 +15,7 @@ const LoginModal = ({ setLoginOpen }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const handleCloseModal = e => {
+  const handleCloseModal = (e) => {
     if (e.target === _modal.current) {
       setLoginOpen(false)
       document.body.style.overflow = 'unset'
@@ -26,7 +26,7 @@ const LoginModal = ({ setLoginOpen }) => {
     window.addEventListener('click', handleCloseModal)
     return () => {
       window.removeEventListener('click', handleCloseModal)
-    } 
+    }
   })
 
   //로그인 데이터
@@ -51,9 +51,11 @@ const LoginModal = ({ setLoginOpen }) => {
     } else {
       dispatch(loginUser(userData))
         .then((res) => {
-          console.log(res.payload)
+          setLoginOpen(false)
+          window.location.reload()
         })
         .catch((err) => {
+          console.log(err.response)
           if (err.response.status === 409) {
             Swal.fire({
               text: '이메일인증을 진행해주세요',
@@ -63,7 +65,8 @@ const LoginModal = ({ setLoginOpen }) => {
             })
           } else if (err.response.status === 404) {
             Swal.fire({
-              text: '사용자를 찾을 수 없습니다',
+              title: '사용자를 찾을 수 없습니다',
+              text: '이메일과 비밀번호를 확인해주세요',
               icon: 'warning',
               confirmButtonColor: '#d2d2d2',
               confirmButtonText: '확인'
@@ -82,7 +85,7 @@ const LoginModal = ({ setLoginOpen }) => {
   }
 
   return (
-    <Container onClick={(e)=>handleCloseModal(e)} ref={_modal}>
+    <Container onClick={(e) => handleCloseModal(e)} ref={_modal}>
       <Form>
         <LoginImg src={login1} />
         <LoginWrap>
@@ -111,7 +114,12 @@ const LoginModal = ({ setLoginOpen }) => {
           <LoginBtn onClick={logIn}>로그인</LoginBtn>
           <SignUpWrap>
             <SignupText>아직 회원이 아니신가요?</SignupText>
-            <SignupBtn onClick={() => history.push('/signup')}>
+            <SignupBtn
+              onClick={() => {
+                setLoginOpen(false)
+                history.push('/signup')
+              }}
+            >
               회원가입
             </SignupBtn>
           </SignUpWrap>

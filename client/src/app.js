@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import GlobalStyle from './globalStyle/globalStyle'
 import Entrance from './pages/entrance'
@@ -18,10 +18,21 @@ import Kakao from './auth/kakao'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import NavbarChange from './components/navbarChange'
+import store from './store/store'
+import MapSearch from './components/map/mapSearch'
 
 function App() {
+  let userInfo = store.getState().user
 
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
+
+  useEffect(() => {
+    if (userInfo.loginSuccess !== undefined) {
+      setIsLogin(true)
+    } else {
+      setIsLogin(false)
+    }
+  }, [])
 
   return (
     <>
@@ -31,39 +42,39 @@ function App() {
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />
           <Route exact path="/futsal">
-            { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <Futsal />
           </Route>
           <Route exact path="/map">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
-            <Map />
+            {isLogin ? <NavbarChange /> : <Navbar />}
+            <MapSearch />
           </Route>
           <Route exact path="/review">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <Review />
           </Route>
           <Route exact path="/matchlist">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <MatchList />
           </Route>
           <Route exact path="/post">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <Post />
           </Route>
           <Route exact path="/write">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <Write />
           </Route>
           <Route exact path="/mypage">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <Mypage />
           </Route>
           <Route exact path="/signup">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <Signup />
           </Route>
           <Route exact path="/premierleague">
-          { isLogin ? <NavbarChange /> : <Navbar /> }
+            {isLogin ? <NavbarChange /> : <Navbar />}
             <PremierLeague />
           </Route>
           <Route exact path="/auth" component={Auth} />

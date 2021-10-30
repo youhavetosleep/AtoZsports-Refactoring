@@ -72,6 +72,10 @@ const Signup = () => {
           setMessageNickname(res.data.message)
           if (res.data.message === '✔ 사용 가능한 닉네임입니다') {
             setNickCheck(true)
+            return
+          }else {
+            setNickCheck(false)
+            _nick.current.focus()
           }
         })
     }
@@ -101,6 +105,9 @@ const Signup = () => {
           setMessageEmail(res.data.message)
           if (res.data.message === '✔ 사용 가능한 이메일입니다') {
             setEmailCheck(true)
+          }else {
+            setEmailCheck(false)
+            _email.current.focus()
           }
         })
     }
