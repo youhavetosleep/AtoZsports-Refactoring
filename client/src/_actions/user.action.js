@@ -8,6 +8,9 @@ export async function loginUser(dataToSubmit) {
       withCredentials: true
     })
     .then((response) => {
+      instance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${response.data.accessToken}`
       const {
         id,
         email,

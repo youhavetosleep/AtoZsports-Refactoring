@@ -39,10 +39,11 @@ const MapSearch = () => {
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
+  display: flex;
 `
 
 const SearchForm = styled.form`
-  margin-left: 500px;
+  margin-left: 45px;
   position: absolute;
   left: -23.5%;
   margin-top: 20px;
@@ -58,6 +59,7 @@ const Input = styled.input`
 
 const SearchPosition = styled.div`
   position: relative;
+  z-index: 200;
 `
 
 const SearchBtn = styled.button`

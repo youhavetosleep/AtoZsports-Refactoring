@@ -1,15 +1,15 @@
 /*global kakao*/
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
 const Map = ({ searchPlace }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
+  const [groundList, setGroundList] = useState([])
+  // const history = useHistory()
 
-  const history = useHistory()
-
-  // const Review = () => {
+  // const review = () => {
   //   history.push('/review')
   // }
 
@@ -17,7 +17,7 @@ const Map = ({ searchPlace }) => {
     let markers = [], // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 4 // 지도의 확대 레벨
       }
 
     // 지도를 생성합니다
@@ -72,7 +72,7 @@ const Map = ({ searchPlace }) => {
         let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
           marker = addMarker(placePosition, i),
           itemEl = getListItem(i, places[i]) // 검색 결과 항목 Element를 생성합니다
-
+        setGroundList([...groundList, places[i].place_name])
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition)
@@ -119,11 +119,12 @@ const Map = ({ searchPlace }) => {
       itemStr += '<span>' + places.address_name + '</span>'
       itemStr +=
         '<form class="review">' +
-        `<p class='reviewP'>리뷰 (12)</p>` +
-        '<p>예약하기</p>' +
+        `<a href='http://localhost:3000/review'>리뷰 (12)</a>` +
+        `<a>경기잡기</a>` +
         '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
+      // setGroundList([...groundList, places.place_name])
       return el
     }
 
@@ -205,7 +206,9 @@ const Map = ({ searchPlace }) => {
         el.removeChild(el.lastChild)
       }
     }
+    console.log(groundList)
   }, [searchPlace])
+
   return (
     <Container>
       <BackList />
@@ -287,7 +290,7 @@ const Container = styled.div`
     bottom: 7%;
     right: 1%;
   }
-  #placesList .review p {
+  #placesList .review a {
     margin: 0;
     padding: 0;
     margin-right: 10px;
@@ -296,6 +299,8 @@ const Container = styled.div`
     border-radius: 25px;
     text-align: center;
     width: 60px;
+    text-decoration: none;
+    color: black;
     :hover {
       background-color: #840909;
       color: white;
