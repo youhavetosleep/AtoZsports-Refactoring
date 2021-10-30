@@ -286,6 +286,7 @@ const MatchSoonList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 31.8%);
   row-gap: 20px;
+  column-gap: 24px;
   /* margin-bottom: 20px; */
   }
   .moreView {
