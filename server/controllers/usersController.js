@@ -93,8 +93,8 @@ module.exports = {
                       : 'http://localhost:3000'
                   const from = `AtoZ sports <atozsports@api.atozsports.link>`
                   const emailOptions = {
-                    from: from, //test중 AWS SES 등록 도메인 테스트를 기다리는 중이라 임시설정
-                    to: userData.email, //test중 원래는 userData.email이 맞다
+                    from: from,
+                    to: userData.email,
                     subject: `${userData.nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                     html: `
                     <div>
@@ -132,7 +132,16 @@ module.exports = {
                   console.log(err.message)
                 })
             } else if (findUser) {
-              let userData = findUser.dataValues
+              await User.update(
+                {
+                  verified: true
+                },
+                { where: { email: userKakaoEmail } }
+              )
+              let updatedUser = await User.findOne({
+                where: { email: userKakaoEmail }
+              })
+              let userData = updatedUser.dataValues
               delete userData.password
               const accessToken = generateAccessToken(userData)
               const refreshToken = generateRefreshToken(userData)
@@ -251,6 +260,14 @@ module.exports = {
             // 그냥 로그인
             const userData = user.dataValues
             delete userData.password
+            // 자체회원가입 후 인증 안 된 상태로 소셜 로그인 시 인증
+            if (userData.verified === false) {
+              console.log('hi')
+              User.update(
+                { verified: true },
+                { where: { id: userData.id } }
+              )
+            }
             const accessToken = generateAccessToken(userData)
             const refreshToken = generateRefreshToken(userData)
             sendRefreshToken(res, refreshToken)
@@ -315,8 +332,9 @@ module.exports = {
             process.env.NODE_ENV === 'production'
               ? 'atozsports.link'
               : 'http://localhost:3000'
+          const from = `AtoZ sports <${process.env.GMAIL_ID}>`
           const mailOptions = {
-            from: process.env.GMAIL_ID,
+            from: from,
             to: email,
             subject: `${nickname}님 ! AtoZ sports 이메일 인증입니다.`,
             html: `
