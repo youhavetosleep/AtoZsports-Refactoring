@@ -78,15 +78,15 @@ export async function googleUser(authorizationCode) {
   }
 }
 
-export async function deleteUser(authorizationCode) {
+export async function deleteUser() {
   const request = await instance
-   .delete(`http://localhost:80/users`, {
+   .delete(`/users`, {
      headers: {
        'Content-Type': 'application/json',
-       authorization: authorizationCode
+       authorization: ''
       }
    })
-   .then(res => console.log(res.data.message))
+   .then(res => res.data.message)
 
    return {
      type: DELETE_USER,

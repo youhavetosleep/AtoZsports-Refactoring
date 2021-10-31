@@ -37,7 +37,7 @@ const NavbarChange = ({ isLogin, setIsLogin }) => {
           <Link to='/map' className='nav_map' style={{ textDecoration: 'none' }}>Map</Link>
           <Link to='/mypage' className='nav_mypage' style={{ textDecoration: 'none' }}>Mypage</Link>
           <Link 
-          to='/entrance' 
+          to='/futsal' 
           className='nav_logout' 
           style={{ textDecoration: 'none' }}
           onClick={hadleLogout}

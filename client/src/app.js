@@ -55,9 +55,9 @@ function App() {
   const handleScroll = () => {
     const elems = document.querySelectorAll(".scroll");
     elems.forEach((elem) => {
-      if (isElementUnderBottom(elem, -20)) {
+      if (isElementUnderBottom(elem, -30)) {
         elem.style.opacity = "0";
-        elem.style.transform = "translateY(20px)";
+        elem.style.transform = "translateY(40px)";
       } else {
         elem.style.opacity = "1";
         elem.style.transform = "translateY(0px)";
