@@ -93,8 +93,8 @@ module.exports = {
                       : 'http://localhost:3000'
                   const from = `AtoZ sports <atozsports@api.atozsports.link>`
                   const emailOptions = {
-                    from: from, //test중 AWS SES 등록 도메인 테스트를 기다리는 중이라 임시설정
-                    to: userData.email, //test중 원래는 userData.email이 맞다
+                    from: from,
+                    to: userData.email,
                     subject: `${userData.nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                     html: `
                     <div>
@@ -141,7 +141,6 @@ module.exports = {
               let updatedUser = await User.findOne({
                 where: { email: userKakaoEmail }
               })
-              console.log('여기여기',updatedUser.dataValues)
               let userData = updatedUser.dataValues
               delete userData.password
               const accessToken = generateAccessToken(userData)
