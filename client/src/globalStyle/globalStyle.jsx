@@ -1,6 +1,19 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+@font-face {
+  font-family: "NotoSansKR";
+  src: url("../fonts/notoSansKR/NotoSans-Bold.woff") format("woff");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansKR";
+  src: url("../fonts/openSans/OpenSans-SemiBold.woff") format("woff");
+  unicode-range: U+0020-007E;
+  font-style: normal;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -29,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	background-color: #FAFAFA;
 	line-height: 1;
-  	font-family: 'noto sans';
+	font-family: "NotoSansKR", sans-serif;
   	font-weight: normal;
 }
 ol, ul {
@@ -47,6 +60,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+.scroll {
+  transition: transform 1s, opacity 1s;
+}
+
 
 `
 export default GlobalStyle

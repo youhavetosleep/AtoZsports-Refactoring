@@ -30,11 +30,14 @@ const NavbarChange = ({ isLogin, setIsLogin }) => {
           </Link>
         </Logo>
         <Menu>
+        <Link to="/futsal" className="nav_home" style={{textDecoration: 'none'}}>
+            Home
+          </Link>
           <Link to='/matchlist' className='nav_matchlist' style={{ textDecoration: 'none' }}>Match</Link>
           <Link to='/map' className='nav_map' style={{ textDecoration: 'none' }}>Map</Link>
           <Link to='/mypage' className='nav_mypage' style={{ textDecoration: 'none' }}>Mypage</Link>
           <Link 
-          to='/entrance' 
+          to='/futsal' 
           className='nav_logout' 
           style={{ textDecoration: 'none' }}
           onClick={hadleLogout}
@@ -64,31 +67,37 @@ const Logo = styled.div`
 const Menu = styled.div`
 position: absolute;
 top: 50%;
-right: 22%;
+right: 18vw;
 font-size: .9vw;
+.nav_home {
+    color: #353535;
+    :hover {
+      color: #840909;
+    }
+  }
 .nav_matchlist {
-  margin-left: 40%;
+  margin-left: 30%;
   color: #353535;
   :hover {
   color: #840909;
 }
 }
 .nav_map {
-  margin-left: 40%;
+  margin-left: 30%;
   color: #353535;
   :hover {
   color: #840909;
 }
 }
 .nav_mypage {
-  margin-left: 40%;
+  margin-left: 30%;
   color: #353535;
   :hover {
   color: #840909;
 }
 }
 .nav_logout {
-  margin-left: 40%;
+  margin-left: 30%;
   color: #353535;
   :hover {
   color: #840909;

@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import Footer from '../components/footer'
 import MatchCard from '../components/matchCard'
 import GlobalStyle from '../globalStyle/globalStyle'
 import EditPasswordModal from '../modal/editPasswordModal'
+import { deleteUser } from '../_actions/user.action'
 
 const Mypage = () => {
+  const dispatch = useDispatch()
+
   const [changeCard, setChangeCard] = useState('용병모집')
   const [editeInfo, setEditInfo] = useState(false)
   const [editPswordModal, setEditPswordModal] = useState(false)
+  const [FailWithdrawal, setFailWithdrawal] = useState(false);
+  const [YesOrNo, setYesOrNo] = useState(false);
 
   const handleEditUserinfo = () => {
     editeInfo ? setEditInfo(false) : setEditInfo(true)
@@ -16,6 +22,16 @@ const Mypage = () => {
 
   const handleEditPasswordBtn = () => {
     setEditPswordModal(true)
+  }
+
+  const withdrawal = () => {
+    if (YesOrNo) {
+      return dispatch(deleteUser())
+        .then(res => (window.location.href = '/'))
+        .catch(err => {
+          console.log(err)
+        });
+    }
   }
 
   return (
@@ -134,21 +150,26 @@ const Mypage = () => {
           )}
           <MyCard>
             <ChoiceState>
-              <div className="myMercenary">용병모집</div>|
-              <div className="letsGame">경기제안</div>
+              <div className="myMercenary">작성한 공고</div>|
+              <div className="letsGame">관심 공고</div>
             </ChoiceState>
             {changeCard === '용병모집' ? (
               <MyRecruitment>
-                <MatchCard />
+                작성한 공고가 없습니다
               </MyRecruitment>
             ) : (
               <MyAttention>
-                <MatchCard />
+                관심있는 공고가 없습니다
               </MyAttention>
             )}
           </MyCard>
           <GoodbyeUser>
-            <div className="PleaseDontgo">회원탈퇴</div>
+            <div className="PleaseDontgo"
+            onClick={e => {
+              withdrawal();
+              setYesOrNo(true);
+            }}
+            >회원탈퇴</div>
           </GoodbyeUser>
         </MypageIn>
       </MypageContainer>

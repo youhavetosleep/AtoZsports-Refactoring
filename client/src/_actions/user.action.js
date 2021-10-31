@@ -1,4 +1,4 @@
-import { LOGIN_USER, KAKAO_USER, GOOGLE_USER, LOGOUT_USER } from './types'
+import { LOGIN_USER, KAKAO_USER, GOOGLE_USER, LOGOUT_USER, DELETE_USER } from './types'
 import instance from '../api'
 import axios from 'axios'
 
@@ -42,7 +42,7 @@ export async function loginUser(dataToSubmit) {
 export async function logoutUser() {
   const request = await instance
     .post(`/users/logout`)
-    .then(res => console.log(res))
+    .then(res => res.data.message)
 
   return {
     type: LOGOUT_USER,
@@ -76,4 +76,20 @@ export async function googleUser(authorizationCode) {
     type: GOOGLE_USER,
     payload: request
   }
+}
+
+export async function deleteUser() {
+  const request = await instance
+   .delete(`/users`, {
+     headers: {
+       'Content-Type': 'application/json',
+       authorization: ''
+      }
+   })
+   .then(res => res.data.message)
+
+   return {
+     type: DELETE_USER,
+     payload: request
+   }
 }
