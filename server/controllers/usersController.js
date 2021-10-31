@@ -132,7 +132,17 @@ module.exports = {
                   console.log(err.message)
                 })
             } else if (findUser) {
-              let userData = findUser.dataValues
+              await User.update(
+                {
+                  verified: true
+                },
+                { where: { email: userKakaoEmail } }
+              )
+              let updatedUser = await User.findOne({
+                where: { email: userKakaoEmail }
+              })
+              console.log('여기여기',updatedUser.dataValues)
+              let userData = updatedUser.dataValues
               delete userData.password
               const accessToken = generateAccessToken(userData)
               const refreshToken = generateRefreshToken(userData)
