@@ -18,6 +18,9 @@ const Navbar = () => {
           </Link>
         </Logo>
         <Menu>
+        <Link to="/futsal" className="nav_home" style={{textDecoration: 'none'}}>
+            Home
+          </Link>
           <Link to="/matchlist" className="nav_matchlist" style={{textDecoration: 'none'}}>
             Match
           </Link>
@@ -61,24 +64,30 @@ const Nav = styled.div`
 const Menu = styled.div`
   position: absolute;
   top: 50%;
-  right: 20%;
-  font-size: 0.9vw;
+  right: 18.2vw;
+  font-size: 1vw;
+  .nav_home {
+    color: #353535;
+    :hover {
+      color: #840909;
+    }
+  }
   .nav_matchlist {
-    margin-left: 40%;
+    margin-left: 30%;
     color: #353535;
     :hover {
       color: #840909;
     }
   }
   .nav_map {
-    margin-left: 40%;
+    margin-left: 30%;
     color: #353535;
     :hover {
       color: #840909;
     }
   }
   .nav_login {
-    margin-left: 40%;
+    margin-left: 30%;
     color: #353535;
     :hover {
       color: #840909;
@@ -86,7 +95,7 @@ const Menu = styled.div`
     }
   }
   .nav_signup {
-    margin-left: 40%;
+    margin-left: 30%;
     color: #353535;
     :hover {
       color: #840909;

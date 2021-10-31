@@ -61,10 +61,11 @@ overflow: hidden;
 position: absolute;
 .slider_mainText {
  top: 10vh;
- font-size: 3.5em;
+ font-size: 3em;
  color: white;
  text-align: center;
- line-height:60px;
+ font-weight: bold;
+ line-height:50px;
 }
 .slider_mainText p {
  left: 20%;
@@ -77,7 +78,7 @@ position: absolute;
  margin-top: 15px;
  color: white;
  text-align: center;
- line-height:30px;
+ line-height:25px;
  font-weight: lighter;
 }
 .slider_button {

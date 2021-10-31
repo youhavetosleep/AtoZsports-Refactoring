@@ -259,8 +259,8 @@ const FutsalMatchSoonSection = styled.section`
   width: 100%;
   max-width: 1110px;
   justify-content: center;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid #C4C4C4;
+  border-bottom: 1px solid #C4C4C4;
   padding: 60px 0px 50px 0px;
   margin: auto;
 `
