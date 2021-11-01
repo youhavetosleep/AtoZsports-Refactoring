@@ -32,7 +32,7 @@ export async function loginUser(dataToSubmit) {
         favoriteSports
       }
     })
-    
+
   return {
     type: LOGIN_USER,
     payload: request
@@ -42,12 +42,12 @@ export async function loginUser(dataToSubmit) {
 export async function logoutUser() {
   const request = await instance
     .post(`/users/logout`)
-    .then(res => console.log(res))
+    .then((res) => console.log(res.data))
 
   return {
     type: LOGOUT_USER,
     payload: request
-  } 
+  }
 }
 
 export async function kakaoUser(authorizationCode) {
@@ -57,6 +57,7 @@ export async function kakaoUser(authorizationCode) {
       withCredentials: true
     })
     .then((response) => response.data)
+    .catch((err) => console.log(err))
 
   return {
     type: KAKAO_USER,
@@ -71,6 +72,7 @@ export async function googleUser(authorizationCode) {
       withCredentials: true
     })
     .then((response) => response.data)
+    .catch((err) => console.log(err))
 
   return {
     type: GOOGLE_USER,

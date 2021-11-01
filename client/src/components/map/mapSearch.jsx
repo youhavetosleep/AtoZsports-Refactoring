@@ -5,7 +5,7 @@ import Map from '../../pages/map'
 
 const MapSearch = () => {
   const [inputText, setInputText] = useState('')
-  const [place, setPlace] = useState('')
+  const [place, setPlace] = useState('안양 풋살')
 
   const onChange = (e) => {
     setInputText(e.target.value)
