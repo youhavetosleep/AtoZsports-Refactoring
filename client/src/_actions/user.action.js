@@ -42,11 +42,7 @@ export async function loginUser(dataToSubmit) {
 export async function logoutUser() {
   const request = await instance
     .post(`/users/logout`)
-<<<<<<< HEAD
     .then(res => res.data.message)
-=======
-    .then((res) => console.log(res.data))
->>>>>>> 22d36c329d8f39682f1853e90c313c5069b6e067
 
   return {
     type: LOGOUT_USER,
