@@ -1,15 +1,14 @@
 /*global kakao*/
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
 const Map = ({ searchPlace }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
-  const [groundList, setGroundList] = useState([])
-  // const history = useHistory()
 
-  // const review = () => {
+  const history = useHistory()
+  // const Review = () => {
   //   history.push('/review')
   // }
 
@@ -17,7 +16,7 @@ const Map = ({ searchPlace }) => {
     let markers = [], // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 4 // 지도의 확대 레벨
+        level: 3 // 지도의 확대 레벨
       }
 
     // 지도를 생성합니다
@@ -72,7 +71,7 @@ const Map = ({ searchPlace }) => {
         let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
           marker = addMarker(placePosition, i),
           itemEl = getListItem(i, places[i]) // 검색 결과 항목 Element를 생성합니다
-        setGroundList([...groundList, places[i].place_name])
+
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition)
@@ -116,23 +115,14 @@ const Map = ({ searchPlace }) => {
           '   <h5>' +
           places.place_name +
           '</h5>'
-
-      if (places.road_address_name) {
-        itemStr +=
-          '<span>' +
-          places.road_address_name +
-          '</span>' +
-          '<span class="jibun gray">' +
-          places.address_name +
-          '</span>'
-      } else {
-        itemStr += '<span>' + places.address_name + '</span>'
-      }
-      itemStr += '<span class="tel">' + places.phone + '</span>' + '</div>'
-      itemStr += '<span class="test">' + "시험" + '</span>' + '</div>'
+      itemStr += '<span>' + places.address_name + '</span>'
+      itemStr +=
+        '<form class="review">' +
+        `<a class='reviewP'>리뷰 (12)</a>` +
+        `<a href='http://localhost:3000/review'>예약하기</a>` +
+        '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
-      // setGroundList([...groundList, places.place_name])
       return el
     }
 
@@ -214,9 +204,7 @@ const Map = ({ searchPlace }) => {
         el.removeChild(el.lastChild)
       }
     }
-    console.log(groundList)
   }, [searchPlace])
-
   return (
     <Container>
       <BackList />

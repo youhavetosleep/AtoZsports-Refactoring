@@ -28,7 +28,8 @@ const Auth = () => {
         if (res.data.message) {
           Swal.fire({
             title: '회원가입이 완료되었습니다!',
-            text: `로그인 후 서비스를 이용해보세요`,
+            icon: 'success',
+            text: '로그인 후 서비스를 이용해보세요',
             confirmButtonColor: '#d6d6d6',
             confirmButtonText: '확인'
           })
