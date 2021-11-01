@@ -266,8 +266,8 @@ module.exports = {
                 { verified: true },
                 { where: { id: userData.id } }
               )
+              userData.verified = true
             }
-            userData.verified = true
             const accessToken = generateAccessToken(userData)
             const refreshToken = generateRefreshToken(userData)
             sendRefreshToken(res, refreshToken)
