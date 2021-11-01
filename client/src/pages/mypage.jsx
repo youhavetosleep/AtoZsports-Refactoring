@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import Footer from '../components/footer'
 import MatchCard from '../components/matchCard'
 import GlobalStyle from '../globalStyle/globalStyle'
 import EditPasswordModal from '../modal/editPasswordModal'
-import { deleteUser } from '../_actions/user.action'
+import { deleteUser, mypageUser } from '../_actions/user.action'
 
-const Mypage = () => {
+const Mypage = ({ userInfo }) => {
   const dispatch = useDispatch()
 
   const [changeCard, setChangeCard] = useState('용병모집')
@@ -15,9 +15,22 @@ const Mypage = () => {
   const [editPswordModal, setEditPswordModal] = useState(false)
   const [FailWithdrawal, setFailWithdrawal] = useState(false);
   const [YesOrNo, setYesOrNo] = useState(false);
+  const [editUserInfo, setEditUserInfo] = useState({
+    "nickname": userInfo.loginSuccess.nickname,
+})
 
-  const handleEditUserinfo = () => {
-    editeInfo ? setEditInfo(false) : setEditInfo(true)
+const Token = userInfo.loginSuccess.accessToken
+
+  const handleEditPage = () => {
+    setEditInfo(true)
+  }
+
+  const handleSendUserinfo = () => {
+    dispatch(mypageUser(editUserInfo, Token))
+    .then((res) => {
+      console.log(res)
+    })
+    setEditInfo(false)
   }
 
   const handleEditPasswordBtn = () => {
@@ -33,6 +46,15 @@ const Mypage = () => {
         });
     }
   }
+
+  const changeUserInfo = (e) => {
+    // console.log(e.target.value)
+    setEditUserInfo({
+      "nickname": e.target.value
+    })
+  }
+
+  // console.log(editUserInfo)
 
   return (
     <>
@@ -50,33 +72,33 @@ const Mypage = () => {
                   <Userinfo_email>
                     <div className="userinfo_emailTitle">이메일</div>
                     <div className="userinfo_emailContents">
-                      football@love.com
+                      {userInfo.loginSuccess.email}
                     </div>
                   </Userinfo_email>
                   <Uuserinfo_phone>
                     <div className="userinfo_phoneTitle">핸드폰</div>
-                    <div className="userinfo_phoneContents">010-1234-5678</div>
+                    <div className="userinfo_phoneContents">{userInfo.loginSuccess.userPhone}</div>
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
-                    <div className="userinfo_nicknameContents">footballS2</div>
+                    <div className="userinfo_nicknameContents">{userInfo.loginSuccess.nickname}</div>
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
-                    <div className="userinfo_homegroundContents">용인시</div>
+                    <div className="userinfo_homegroundContents">{userInfo.loginSuccess.homeground}</div>
                   </Userinfo_homeground>
                   <Userinfo_favorite>
                     <div className="userinfo_favoriteTitle">
                       좋아하는 스포츠
                     </div>
-                    <div className="userinfo_favorite">풋살</div>
+                    <div className="userinfo_favorite">{userInfo.loginSuccess.favoriteSports}</div>
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
                   <div
                     className="editInfo"
                     setEditPswordModal={setEditPswordModal}
-                    onClick={handleEditUserinfo}
+                    onClick={handleEditPage}
                   >
                     정보수정
                   </div>
@@ -98,7 +120,7 @@ const Mypage = () => {
                     <input
                       type="text"
                       className="editinfo_emailContents"
-                      value="football@love.com"
+                      placeholder={userInfo.loginSuccess.email}
                       disabled
                     />
                   </Userinfo_email>
@@ -107,7 +129,7 @@ const Mypage = () => {
                     <input
                       type="text"
                       className="editinfo_phoneContents"
-                      value="010-1234-5678"
+                      placeholder={userInfo.loginSuccess.userPhone}
                       disabled
                     />
                   </Uuserinfo_phone>
@@ -116,7 +138,8 @@ const Mypage = () => {
                     <input
                       type="text"
                       className="editinfo_nicknameContents"
-                      value="footballS2"
+                      placeholder={userInfo.loginSuccess.nickname}
+                      onChange={(e) => changeUserInfo(e)}
                     />
                   </Userinfo_nickname>
                   <Userinfo_homeground>
@@ -124,7 +147,7 @@ const Mypage = () => {
                     <input
                       type="text"
                       className="editinfo_homegroundContents"
-                      value="용인시"
+                      placeholder={userInfo.loginSuccess.homeground}
                       disabled
                     />
                   </Userinfo_homeground>
@@ -135,13 +158,15 @@ const Mypage = () => {
                     <input
                       type="text"
                       className="editinfo_favorite"
-                      value="풋살"
+                      value={userInfo.loginSuccess.favoriteSports}
                       disabled
                     />
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div className="sendEditInfo" onClick={handleEditUserinfo}>
+                  <div 
+                  className="sendEditInfo" 
+                  onClick={handleSendUserinfo}>
                     Send
                   </div>
                 </EditUserInfo>
@@ -180,6 +205,7 @@ const Mypage = () => {
 
 const MypageContainer = styled.div`
   width: 100%;
+  min-height: 100%;
   display: flex;
   justify-content: left;
 `
@@ -296,7 +322,7 @@ const Userinfo_nickname = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     :focus {
-      outline: none;
+      outline-color: #840909;
     }
   }
 `
