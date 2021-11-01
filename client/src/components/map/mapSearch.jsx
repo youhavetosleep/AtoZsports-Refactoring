@@ -47,7 +47,7 @@ const SearchForm = styled.form`
   position: absolute;
   left: -23.5%;
   margin-top: 20px;
-  z-index: 300;
+  z-index: 30;
 `
 
 const Input = styled.input`
@@ -59,7 +59,7 @@ const Input = styled.input`
 
 const SearchPosition = styled.div`
   position: relative;
-  z-index: 200;
+  z-index: 20;
 `
 
 const SearchBtn = styled.button`

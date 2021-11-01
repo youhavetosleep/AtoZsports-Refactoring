@@ -7,6 +7,7 @@ const SelectBox = ({ handleEndHour, handleStartHour }) => {
       <Select onChange={handleStartHour}>
         {OPTIONS.map((option) => (
           <option
+            
             key={option.value}
             value={option.value}
             defaultValue={option.value}
@@ -38,8 +39,9 @@ const Select = styled.select`
   margin: 0;
   min-width: 0;
   display: block;
-  width: 100px;
+  width: 80px;
   padding: 8px 8px;
+  margin-right :5px; 
   font-size: inherit;
   line-height: inherit;
   border: 1px solid;
@@ -49,9 +51,6 @@ const Select = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  &:focus {
-    border-color: red;
-  }
 `
 
 export default SelectBox
