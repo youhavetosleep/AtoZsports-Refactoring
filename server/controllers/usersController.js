@@ -1,6 +1,7 @@
 const dotenv = require('dotenv')
 const crypto = require('crypto')
 const axios = require('axios')
+const inlineCss = require('nodemailer-juice')
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -97,22 +98,34 @@ module.exports = {
                     to: userData.email,
                     subject: `${userData.nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                     html: `
+                    <style>
+                      div { 
+                        border: 1px solid black; 
+                        text-align: center; 
+                        padding: 20px; 
+                        width: 70%;
+                      }
+                      a { color: white; text-decoration-line: none }
+                      h1 { margin-bottom: 20px; font-size: 50px; }
+                      p { font-size: 15px; margin-botton: 10px; }
+                      span { font-weight: bold; }
+                      button { background-color: black; width: 150px; height: 35px; border-radius: 6px; }
+                    </style>
                     <div>
                       <h1>AtoZ sports</h1>
-                      <div>안녕하세요. ${userData.nickname}님, AtoZ Sports 가입을 진심으로 감사드립니다.</div>
-                      <div>임시 비밀번호를 다음과 같이 발급해드렸습니다.</div>
-                      <div>임시 비밀번호 : ${userData.password}</div>
-                      <div>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</div>
-                      <div>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</div>
-                      <br />
-                      <a href="${DOMAIN}">홈페이지로 이동</a>
+                      <p>안녕하세요. <span>${userData.nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p><br />
+                      <p>임시 비밀번호를 다음과 같이 발급해드렸습니다.</p><br />
+                      <p>임시 비밀번호 : <span>${userData.password}</span></p><br />
+                      <p>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</p><br />
+                      <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p><br />
+                      <button><a href="${DOMAIN}">홈페이지로 이동</a></button>
                     </div>
                   `
                   }
                   if (!(await smtpTransport.verify())) {
                     throw new Error('email transporter verification failed')
                   }
-
+                  smtpTransport.use('compile', inlineCss())
                   await smtpTransport.sendMail(emailOptions, (err, res) => {
                     if (err) {
                       console.log(`메일발송 에러 발생: ${err.message}`)
@@ -230,18 +243,31 @@ module.exports = {
                 to: email,
                 subject: `${nickname}님 ! AtoZ sports 임시 비밀번호 발급입니다.`,
                 html: `
+                <style>
+                  div { 
+                    border: 1px solid black; 
+                    text-align: center; 
+                    padding: 20px; 
+                    width: 70%;
+                  }
+                  a { color: white; text-decoration-line: none }
+                  h1 { margin-bottom: 20px; font-size: 50px; }
+                  p { font-size: 15px; margin-botton: 10px; }
+                  span { font-weight: bold; }
+                  button { background-color: black; width: 150px; height: 35px; border-radius: 6px; }
+                </style>
                 <div>
-                  <h1>AtoZ sports</h1>
-                  <div>안녕하세요. ${nickname}님, AtoZ Sports 가입을 진심으로 감사드립니다.</div>
-                  <div>임시 비밀번호를 다음과 같이 발급해드렸습니다.</div>
-                  <div>임시 비밀번호 : ${userData.password}</div>
-                  <div>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</div>
-                  <div>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</div>
-                  <br />
-                  <a href="${domain}">홈페이지로 이동</a>
+                  <h1>AtoZ sports</h1><br />
+                  <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p><br />
+                  <p>임시 비밀번호를 다음과 같이 발급해드렸습니다.</p><br />
+                  <p>임시 비밀번호 : <span>${userData.password}</span></p><br />
+                  <p>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</p><br />
+                  <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p><br />
+                  <button><a href="${domain}">홈페이지로 이동</a></button>
                 </div>
               `
               }
+              smtpTransport.use('compile', inlineCss())
               await smtpTransport.sendMail(mailOptions, (error, info) => {
                 if (error) {
                   console.log(error)
@@ -338,15 +364,32 @@ module.exports = {
             to: email,
             subject: `${nickname}님 ! AtoZ sports 이메일 인증입니다.`,
             html: `
+            <style>
+              div { 
+                border: 1px solid black; 
+                text-align: center; 
+                padding: 20px; 
+                width: 70%;
+              }
+              a { color: white; text-decoration-line: none }
+              h1 { margin-bottom: 20px; font-size: 50px; }
+              p { font-size: 15px; margin-botton: 10px; }
+              span { font-weight: bold; }
+              button { background-color: black; width: 50px; height: 35px; border-radius: 6px; }
+            </style>
             <div>
-              <h1>AtoZ sports</h1>
-              <div>안녕하세요. ${nickname}님, AtoZ Sports 가입을 진심으로 감사드립니다.</div>
-              <p>아래의 링크를 클릭하여 이메일 인증을 완료해주세요.</p>
-              <a href="${domain}/auth/?email=${email}&verifiedKey=${verifiedKey}">인증하기</a>
-              <div>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</div>
+              <h1>AtoZ sports</h1><br />
+              <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p>
+              <br />
+              <p>아래의 버튼을 클릭하여 이메일 인증을 완료해주세요.</p>
+              <br />
+              <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>
+              <br />
+              <button><a href="${domain}/auth/?email=${email}&verifiedKey=${verifiedKey}">인증</a></button>
             </div>
           `
           }
+          smtpTransport.use('compile', inlineCss())
           // 메일 전송
           await smtpTransport.sendMail(mailOptions, (error, info) => {
             if (error) {

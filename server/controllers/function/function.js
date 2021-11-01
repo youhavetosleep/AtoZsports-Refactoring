@@ -1,5 +1,6 @@
 const dotenv = require('dotenv')
 const schedule = require('node-schedule')
+const inlineCss = require('nodemailer-juice')
 const { isAuthorized, checkRefreshToken, generateAccessToken } = require('../token/tokenController')
 const smtpTransport = require('../../config/mailConfig')
 const { User, Post } = require('../../models')
@@ -85,8 +86,8 @@ module.exports = {
     const startTime = new Date(req.body.startTime)
     // 경기 날짜에 알림 메일을 보내기 위한 설정. (0시 정각에 메일 전송)
     let scheduleTime = new Date(req.body.startTime)
-    scheduleTime.setHours(0)
-    scheduleTime.setMinutes(0)
+    scheduleTime.setHours(-4)
+    scheduleTime.setMinutes(25)
     // 정해진 시간에 메일 전송
     schedule.scheduleJob(scheduleTime, async () => {
       try {
@@ -105,15 +106,30 @@ module.exports = {
               to: email,
               subject: `${nickname}님 ! AtoZ sports에서 알림 메일을 전송합니다.`,
               html: `
+                <style>
+                  div { 
+                    border: 1px solid black; 
+                    text-align: center; 
+                    padding: 20px; 
+                    width: 70%;
+                  }
+                  h1 { margin-bottom: 20px; font-size: 50px; }
+                  p { font-size: 15px; margin-botton: 10px; }
+                  span { font-weight: bold; }
+                </style>
                 <div>
                   <h1>AtoZ sports</h1>
-                  <div>안녕하세요. ${nickname}님, AtoZ Sports를 이용해주셔서 진심으로 감사드립니다.</div>
-                  <div>금일 ${time[0]}시 ${time[1]}분에 ${placeName}에서 경기가 예정되어 있습니다. <div>
-                  <div>눈부신 경기력을 보여주시길 기대합니다 !</div>
-                  <div>앞으로도 AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</div>
+                  <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports를 이용해주셔서 진심으로 감사드립니다.</p>
+                  <br />
+                  <p><span>금일 ${time[0]}시 ${time[1]}분</span>에 <span>${placeName}</span>에서 경기가 예정되어 있습니다. </p>
+                  <br />
+                  <p>눈부신 경기력을 보여주시길 기대합니다 !</p>
+                  <br />
+                  <p>앞으로도 AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>
                 </div>
               `
             }
+            smtpTransport.use('compile', inlineCss())
             await smtpTransport.sendMail(mailOptions, (error, info) => {
               if (error) {
                 console.log(error)
