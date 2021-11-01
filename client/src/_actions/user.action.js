@@ -56,7 +56,7 @@ export async function logoutUser() {
   }
 }
 
-export async function mypageUser(editUserInfo, Token) {
+export async function mypageUser(Token) {
   const request = await instance
     .patch('/users', {
       headers: { 
@@ -64,7 +64,7 @@ export async function mypageUser(editUserInfo, Token) {
         Authorization: `Bearer ${Token}` },
       withCredentials: true
     })
-    .then(res => res.data);
+    .then(res => console.log(res.data));
 
   return {
     type: MYPAGE_USER,
@@ -102,13 +102,14 @@ export async function googleUser(authorizationCode) {
   }
 }
 
-export async function deleteUser() {
+export async function deleteUser(Token) {
   const request = await instance
    .delete(`/users`, {
      headers: {
        'Content-Type': 'application/json',
-       authorization: ''
-      }
+       Authorization: `Bearer ${Token}` 
+      },
+      withCredentials: true
    })
    .then(res => res.data.message)
 
