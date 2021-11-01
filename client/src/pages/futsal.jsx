@@ -33,6 +33,7 @@ const Futsal = () => {
   useEffect(() => {
     dispatch(getMatchData(CurrentOrder))
       .then((res) => {
+        // console.log(res.payload)
         setMemberData(res.payload)
       })
       .catch((err) => {
@@ -40,6 +41,7 @@ const Futsal = () => {
       })
   }, [CurrentOrder])
 
+  // console.log(memberData)
 
   const latestBtn = () => {
     setCurrentOrder('member')
@@ -123,8 +125,6 @@ const Futsal = () => {
             <div className="matchCard">
               { memberData &&
                 memberData.map((member, idx) => {
-                  console.log(memberData)
-                  // console.log(idx)
                   return <MatchCard
                     setMemberData={setMemberData}
                     member={member}
@@ -135,10 +135,6 @@ const Futsal = () => {
               <div className="moreView">
                 <MoreViewCard />
               </div> 
-                <img src={sublogo} className='background_logo'/>
-                <img src={sublogo} className='background_logo2'/>
-                <img src={sublogo} className='background_logo3'/>
-                <img src={sublogo} className='background_logo4'/>
             </div>
           </MatchSoonList>
         </FutsalMatchSoonSection>

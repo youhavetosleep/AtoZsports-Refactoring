@@ -39,7 +39,7 @@ const Token = userInfo.loginSuccess.accessToken
 
   const withdrawal = () => {
     if (YesOrNo) {
-      return dispatch(deleteUser())
+      return dispatch(deleteUser(Token))
         .then(res => (window.location.href = '/'))
         .catch(err => {
           console.log(err)
@@ -120,7 +120,7 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_emailContents"
-                      placeholder={userInfo.loginSuccess.email}
+                      value={userInfo.loginSuccess.email}
                       disabled
                     />
                   </Userinfo_email>
@@ -129,7 +129,7 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_phoneContents"
-                      placeholder={userInfo.loginSuccess.userPhone}
+                      value={userInfo.loginSuccess.userPhone}
                       disabled
                     />
                   </Uuserinfo_phone>
@@ -147,7 +147,7 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_homegroundContents"
-                      placeholder={userInfo.loginSuccess.homeground}
+                      value={userInfo.loginSuccess.homeground}
                       disabled
                     />
                   </Userinfo_homeground>
