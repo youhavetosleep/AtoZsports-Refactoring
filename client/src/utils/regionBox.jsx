@@ -1,14 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { REGION, AREA } from './data'
 
 const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
 
+<<<<<<< HEAD
+=======
+  const [matchList, setMatchList] = useState([])
+
+  const selectRegion = () => {
+    AREA.forEach((selected) => {
+      if (selected.name === region1) {
+        setMatchList(selected.list)
+      }
+    })
+  }
+
+  useEffect(() => {
+    selectRegion()
+  }, [matchList, region1])
+>>>>>>> a4c4531969cfeaeba64b2c59f7de3f5bda2a0102
 
   return (
     <SelectBoxWrapper>
       <Select onChange={handleRegion1}>
-        {AREA.map((option) => (
+        {REGION.map((option) => (
           <option
             key={option.value}
             value={option.value}
@@ -18,8 +34,13 @@ const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
           </option>
         ))}
       </Select>
+<<<<<<< HEAD
       {/* <Select onChange={handleRegion2}>
         {REGION.map((option) => (
+=======
+      <Select onChange={handleRegion2}>
+        {matchList.map((option) => (
+>>>>>>> a4c4531969cfeaeba64b2c59f7de3f5bda2a0102
           <option
             key={option.value}
             value={option.value}
@@ -39,9 +60,10 @@ const SelectBoxWrapper = styled.div`
 
 export const Select = styled.select`
   margin: 0;
+  margin-left : 7px;
   min-width: 0;
   display: block;
-  width: 100px;
+  width: 135px;
   padding: 8px 8px;
   font-size: inherit;
   line-height: inherit;
@@ -52,9 +74,6 @@ export const Select = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  &:focus {
-    border-color: red;
-  }
 `
 
 export default RegionBox

@@ -24,6 +24,11 @@ import Top from './components/Top'
 import ScrollToTop from './components/scrollTop'
 
 function App() {
+  // 지역선택 드롭박스를 위한 상태
+  const [region1, setRegion1] = useState('서울')
+  const [region2, setRegion2] = useState('')
+
+  // 로그인 정보 저장
   let userInfo = store.getState().user
 
   const [isLogin, setIsLogin] = useState(false)
@@ -76,6 +81,14 @@ function App() {
     }
   }, [])
 
+  const handleRegion1 = (e) => {
+    setRegion1(e.target.value)
+  }
+  const handleRegion2 = (e) => {
+    setRegion2(e.target.value)
+    console.log(e.target.value)
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -86,45 +99,56 @@ function App() {
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />
           <Route exact path="/futsal">
-            { isLogin ? <NavbarChange 
-            isLogin={isLogin}
-            setIsLogin={setIsLogin}
-            /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <Futsal />
           </Route>
           <Route exact path="/map">
-          { isLogin ? <NavbarChange 
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <MapSearch />
           </Route>
           <Route exact path="/review">
-          { isLogin ? <NavbarChange
-          isLogin={isLogin} 
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <Review />
           </Route>
           <Route exact path="/matchlist">
-          { isLogin ? <NavbarChange
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
-            <MatchList />
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
+            <MatchList
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
+            />
           </Route>
           <Route exact path="/post">
-          { isLogin ? <NavbarChange 
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <Post />
           </Route>
           <Route exact path="/write">
-          { isLogin ? <NavbarChange
-          isLogin={isLogin} 
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <Write />
           </Route>
           <Route exact path="/mypage">
@@ -137,17 +161,19 @@ function App() {
             />
           </Route>
           <Route exact path="/signup">
-          { isLogin ? <NavbarChange 
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <Signup />
           </Route>
           <Route exact path="/premierleague">
-          { isLogin ? <NavbarChange
-          isLogin={isLogin} 
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
             <PremierLeague />
           </Route>
           <Route exact path="/auth" component={Auth} />
