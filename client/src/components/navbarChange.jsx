@@ -67,8 +67,8 @@ const Logo = styled.div`
 const Menu = styled.div`
 position: absolute;
 top: 50%;
-right: 18vw;
-font-size: .9vw;
+right: 21vw;
+font-size: 1rem;
 .nav_home {
     color: #353535;
     :hover {

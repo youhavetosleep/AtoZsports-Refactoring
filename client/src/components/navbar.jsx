@@ -64,8 +64,8 @@ const Nav = styled.div`
 const Menu = styled.div`
   position: absolute;
   top: 50%;
-  right: 18.2vw;
-  font-size: 1vw;
+  right: 20vw;
+  font-size: 1rem;
   .nav_home {
     color: #353535;
     :hover {

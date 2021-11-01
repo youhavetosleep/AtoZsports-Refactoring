@@ -22,33 +22,31 @@ import Slide_03 from '../components/futsalSlide/slide_03'
 import MatchCard from '../components/matchCard'
 import { Link } from 'react-router-dom'
 import MoreViewCard from '../components/moreviewCard'
+import LogoCard from '../components/logoCard'
 
 const Futsal = () => {
   const dispatch = useDispatch()
 
-  const [CurrentOrder, setCurrentOrder] = useState('용병모집')
+  const [CurrentOrder, setCurrentOrder] = useState('member')
   const [memberData, setMemberData] = useState(null)
 
   useEffect(() => {
-    dispatch(getMatchData())
+    dispatch(getMatchData(CurrentOrder))
       .then((res) => {
         setMemberData(res.payload)
       })
       .catch((err) => {
         console.log(err)
       })
-  },[])
-
-  console.log(memberData)
+  }, [CurrentOrder])
 
 
   const latestBtn = () => {
-    setCurrentOrder('용병모집')
-    // console.log(setCurrentOrder())
+    setCurrentOrder('member')
   }
 
   const viewBtn = () => {
-    setCurrentOrder('경기제안')
+    setCurrentOrder('match')
   }
 
   const setting = {
@@ -103,7 +101,7 @@ const Futsal = () => {
             <span className="ordergroup">
               <span
                 className={
-                  CurrentOrder === '최신순' ? 'setbold first' : 'first'
+                  CurrentOrder === 'member' ? 'setbold first' : 'first'
                 }
                 onClick={latestBtn}
               >
@@ -112,7 +110,7 @@ const Futsal = () => {
               |
               <span
                 className={
-                  CurrentOrder === '조회순' ? 'setbold second' : 'second'
+                  CurrentOrder === 'match' ? 'setbold second' : 'second'
                 }
                 onClick={viewBtn}
               >
@@ -122,17 +120,25 @@ const Futsal = () => {
             <div className="dropBox"></div>
           </MatchSoonFilter>
           <MatchSoonList>
-            <div className='matchCard'>
-            {memberData && memberData.map((member, idx) => (
-              <MatchCard
-              setMemberData={setMemberData}
-              member={member}
-              key={idx}
-              />
-            ))}
-            <div className='moreView'>
-            <MoreViewCard />
-            </div>
+            <div className="matchCard">
+              { memberData &&
+                memberData.map((member, idx) => {
+                  console.log(memberData)
+                  // console.log(idx)
+                  return <MatchCard
+                    setMemberData={setMemberData}
+                    member={member}
+                    key={idx}
+                  />
+                })
+              }
+              <div className="moreView">
+                <MoreViewCard />
+              </div> 
+                <img src={sublogo} className='background_logo'/>
+                <img src={sublogo} className='background_logo2'/>
+                <img src={sublogo} className='background_logo3'/>
+                <img src={sublogo} className='background_logo4'/>
             </div>
           </MatchSoonList>
         </FutsalMatchSoonSection>
@@ -192,7 +198,7 @@ const FutsalLandingPage = styled.div`
 const FutsalSliderSection = styled.section`
   width: 100%;
   .slider {
-    color: white;
+    color: #FAFAFA;
   }
 `
 
@@ -255,6 +261,8 @@ const GotoMap = styled.div`
   }
 `
 
+
+
 const FutsalMatchSoonSection = styled.section`
   width: 100%;
   max-width: 1110px;
@@ -276,6 +284,31 @@ const MatchSoonTitle = styled.div`
 
 const MatchSoonFilter = styled.div`
   margin-bottom: 20px;
+  font-size: 1.2rem;
+  .setbold {
+      font-weight: bolder;
+    }
+  .ordergroup {
+    color: #353535;
+    left: 0;
+    position: flex;
+    text-align: left;
+    top: 100px;
+
+    .first {
+      margin-right: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    } 
+
+    .second {
+      margin-left: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 `
 
 const MatchSoonList = styled.div`
@@ -283,17 +316,49 @@ const MatchSoonList = styled.div`
   position: relative;
   
   .matchCard {
-  display: grid;
-  grid-template-columns: repeat(3, 31.8%);
-  row-gap: 20px;
-  column-gap: 24px;
-  /* margin-bottom: 20px; */
+    display: grid;
+    grid-template-columns: repeat(3, 31.8%);
+    row-gap: 20px;
+    column-gap: 24px;
+    /* margin-bottom: 20px; */
   }
   .moreView {
-    position: flex;
-    right: -15px;
-    bottom: 0px;
-    display: flex;
+    position: absolute;
+    /* display: flex; */
+    right: -2%;
+    bottom: 0%;
+  }
+  .background_logo {
+    position: absolute;
+    width: 15%;
+    top: 80px;
+    left: 460px;
+    z-index: 1;
+    opacity: .5;
+  }
+  .background_logo2 {
+    position: absolute;
+    width: 15%;
+    top: 80px;
+    right: 90px;
+    z-index: 1;
+    opacity: .5;
+  }
+  .background_logo3 {
+    position: absolute;
+    width: 15%;
+    bottom: 100px;
+    left: 80px;
+    z-index: 1;
+    opacity: .5;
+  }
+  .background_logo4 {
+    position: absolute;
+    width: 15%;
+    bottom: 100px;
+    left: 460px;
+    z-index: 1;
+    opacity: .5;
   }
 `
 
@@ -421,3 +486,4 @@ function PrevArrow(props) {
     </>
   )
 }
+

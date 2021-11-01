@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { REGION, AREA } from './data'
 
 const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
+
+
   return (
     <SelectBoxWrapper>
       <Select onChange={handleRegion1}>
@@ -12,21 +14,21 @@ const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
             value={option.value}
             defaultValue={option.value}
           >
-            {option.value}
+            {option.name}
           </option>
         ))}
       </Select>
-      <Select onChange={handleRegion2}>
+      {/* <Select onChange={handleRegion2}>
         {REGION.map((option) => (
           <option
             key={option.value}
             value={option.value}
             defaultValue={option.value}
           >
-            {option.name}
+            {option.value}
           </option>
         ))}
-      </Select>
+      </Select> */}
     </SelectBoxWrapper>
   )
 }

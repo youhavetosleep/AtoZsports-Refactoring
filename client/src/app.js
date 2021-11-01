@@ -26,7 +26,7 @@ import ScrollToTop from './components/scrollTop'
 function App() {
   let userInfo = store.getState().user
 
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0);
 
 
@@ -132,7 +132,9 @@ function App() {
           isLogin={isLogin}
           setIsLogin={setIsLogin}
           /> : <Navbar /> }
-            <Mypage />
+            <Mypage 
+            userInfo={userInfo}
+            />
           </Route>
           <Route exact path="/signup">
           { isLogin ? <NavbarChange 

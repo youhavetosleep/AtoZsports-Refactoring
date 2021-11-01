@@ -1,4 +1,10 @@
-import { LOGIN_USER, KAKAO_USER, GOOGLE_USER, LOGOUT_USER, DELETE_USER } from './types'
+import { 
+  LOGIN_USER, 
+  KAKAO_USER, 
+  GOOGLE_USER, 
+  LOGOUT_USER, 
+  DELETE_USER, 
+  MYPAGE_USER } from './types'
 import instance from '../api'
 import axios from 'axios'
 
@@ -48,6 +54,22 @@ export async function logoutUser() {
     type: LOGOUT_USER,
     payload: request
   }
+}
+
+export async function mypageUser(editUserInfo, Token) {
+  const request = await instance
+    .patch('/users', {
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}` },
+      withCredentials: true
+    })
+    .then(res => res.data);
+
+  return {
+    type: MYPAGE_USER,
+    payload: request,
+  };
 }
 
 export async function kakaoUser(authorizationCode) {
