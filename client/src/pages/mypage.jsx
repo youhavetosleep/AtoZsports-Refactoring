@@ -190,7 +190,7 @@ const Token = userInfo.loginSuccess.accessToken
           </MyCard>
           <GoodbyeUser>
             <div className="PleaseDontgo"
-            onClick={e => {
+            onClick={(e) => {
               withdrawal();
               setYesOrNo(true);
             }}

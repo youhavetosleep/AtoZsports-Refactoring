@@ -4,8 +4,6 @@ import { REGION, AREA } from './data'
 
 const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
 
-<<<<<<< HEAD
-=======
   const [matchList, setMatchList] = useState([])
 
   const selectRegion = () => {
@@ -19,7 +17,6 @@ const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
   useEffect(() => {
     selectRegion()
   }, [matchList, region1])
->>>>>>> a4c4531969cfeaeba64b2c59f7de3f5bda2a0102
 
   return (
     <SelectBoxWrapper>
@@ -34,13 +31,8 @@ const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
           </option>
         ))}
       </Select>
-<<<<<<< HEAD
       {/* <Select onChange={handleRegion2}>
         {REGION.map((option) => (
-=======
-      <Select onChange={handleRegion2}>
-        {matchList.map((option) => (
->>>>>>> a4c4531969cfeaeba64b2c59f7de3f5bda2a0102
           <option
             key={option.value}
             value={option.value}
