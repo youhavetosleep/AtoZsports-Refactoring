@@ -53,7 +53,7 @@ function App() {
           isLogin={isLogin}
           setIsLogin={setIsLogin}
           /> : <Navbar /> }
-            <Map />
+            <MapSearch />
           </Route>
           <Route exact path="/review">
           { isLogin ? <NavbarChange

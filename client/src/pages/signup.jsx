@@ -75,7 +75,6 @@ const Signup = () => {
             return
           }else {
             setNickCheck(false)
-            _nick.current.focus()
           }
         })
     }
@@ -107,7 +106,6 @@ const Signup = () => {
             setEmailCheck(true)
           }else {
             setEmailCheck(false)
-            _email.current.focus()
           }
         })
     }
@@ -188,14 +186,24 @@ const Signup = () => {
         },
         withCredentials: true
       }
-    )
-    Swal.fire({
-      title: '이메일 인증을 완료해주세요!',
-      text: `해당 메일에서 '인증하기' 버튼을 누르면 회원가입이 완료됩니다.`,
-      confirmButtonColor: '#d6d6d6',
-      confirmButtonText: '확인'
+    ).then(res => {
+      Swal.fire({
+        title: '이메일 인증을 완료해주세요!',
+        icon: 'success',
+        text: '해당 메일에서 인증하기 버튼을 누르면 회원가입이 완료됩니다.',
+        confirmButtonColor: '#d6d6d6',
+        confirmButtonText: '확인'
+      })
+      history.push('/')
     })
-    history.push('/')
+    .catch(err => {
+      Swal.fire({
+        icon: 'warning',
+        text: '닉네임이나 이메일 중복여부를 확인해주세요',
+        confirmButtonColor: '#d6d6d6',
+        confirmButtonText: '확인'
+      })
+    })
   }
 
   return (

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import dotenv from 'dotenv'
+import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import { googleUser } from '../_actions/user.action'
 dotenv.config()
 
@@ -13,9 +15,19 @@ export const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?cli
 
 const Google = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const googleLogin = async (authorizationCode) => {
     dispatch(googleUser(authorizationCode))
+    if(authorizationCode) {
+      Swal.fire({
+        title: '회원가입이 완료되었습니다!',
+        icon: 'success',
+        confirmButtonColor: '#d6d6d6',
+        confirmButtonText: '확인'
+      })
+      history.push('/')
+    }
   }
 
   useEffect(() => {
