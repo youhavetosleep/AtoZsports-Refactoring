@@ -249,16 +249,16 @@ module.exports = {
             })
           } else {
             // 그냥 로그인
-            const userData = user.dataValues
+            let userData = user.dataValues
             delete userData.password
             // 자체회원가입 후 인증 안 된 상태로 소셜 로그인 시 인증
             if (userData.verified === false) {
-              console.log('hi')
               User.update(
                 { verified: true },
                 { where: { id: userData.id } }
               )
             }
+            userData.verified = true
             const accessToken = generateAccessToken(userData)
             const refreshToken = generateRefreshToken(userData)
             sendRefreshToken(res, refreshToken)
@@ -323,15 +323,18 @@ module.exports = {
             process.env.NODE_ENV === 'production'
               ? 'atozsports.link'
               : 'http://localhost:3000'
-          const from = `AtoZ sports <${process.env.GMAIL_ID}>`
+          const from = `AtoZ Sports <${process.env.GMAIL_ID}>`
           const mailOptions = {
             from: from,
             to: email,
             subject: `${nickname}님 ! AtoZ sports 이메일 인증입니다.`,
             html: `
             <div>
-              <p>아래의 링크를 클릭해주세요.</p>
+              <h1>AtoZ sports</h1>
+              <div>안녕하세요. ${nickname}님, AtoZ Sports 가입을 진심으로 감사드립니다.</div>
+              <p>아래의 링크를 클릭하여 이메일 인증을 완료해주세요.</p>
               <a href="${domain}/auth/?email=${email}&verifiedKey=${verifiedKey}">인증하기</a>
+              <div>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</div>
             </div>
           `
           }

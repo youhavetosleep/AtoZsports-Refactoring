@@ -1,6 +1,5 @@
-const schedule = require('node-schedule')
 const { Op } = require('sequelize')
-const { isAuth } = require('./function/function')
+const { isAuth, reserveMail } = require('./function/function')
 const { Post, Ground, User, FavoritePost } = require('../models')
 
 module.exports = {
@@ -171,13 +170,11 @@ module.exports = {
     if (pageNum > 1) offset = limit * (pageNum - 1)
     const addressName = Do + ' ' + City
     
-    
     // 배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
     // 아래의 코드는 로컬환경에서만 사용한다.
     // StartTime.setHours(StartTime.getHours() + 9)
     // EndTime.setHours(EndTime.getHours() + 9)
     
-
     Post.findAll(
       !req.query.startTime
         ? {
@@ -250,7 +247,7 @@ module.exports = {
     let content = req.body.content
     let startTime = new Date(req.body.startTime)
     let endTime = new Date(req.body.endTime)
-    let status = req.body.status
+    let status = '모집중'
     let phoneOpen = req.body.phoneOpen
     let {
       placeName,
@@ -275,7 +272,7 @@ module.exports = {
         try {
           let userId = res.locals.userId
           let groundId = data.dataValues.id
-          let writePostData = await Post.create({
+          await Post.create({
             sports,
             title,
             division,
@@ -288,7 +285,10 @@ module.exports = {
             userId,
             groundId
           })
-          res.send(writePostData.dataValues)
+          .then((post) => {
+            reserveMail(post, req)
+            res.send(post.dataValues)
+          })
         } catch (err) {
           console.log(`writePost Error: ${err.message}`)
         }
@@ -306,7 +306,7 @@ module.exports = {
     let content = req.body.content
     let startTime = new Date(req.body.startTime)
     let endTime = new Date(req.body.endTime)
-    let status = req.body.status
+    let status = '모집중'
     let phoneOpen = req.body.phoneOpen
     let {
       placeName,
@@ -348,8 +348,11 @@ module.exports = {
             { where: { id: postId } }
           )
           if (updatePostData[0] === 1) {
-            let updatedPostData = await Post.findOne({ where: { id: postId } })
-            res.send(updatedPostData)
+            await Post.findOne({ where: { id: postId } })
+            .then((post) => {
+              reserveMail(post, req)
+              res.send(post)
+            })
           } else {
             console.log('게시글이 수정이 되지 않았습니다!')
           }
