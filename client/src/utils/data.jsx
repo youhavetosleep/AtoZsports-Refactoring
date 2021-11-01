@@ -1,0 +1,98 @@
+export const OPTIONS = [
+  { value: '00:00', name: '00:00' },
+  { value: '01:00', name: '01:00' },
+  { value: '02:00', name: '02:00' },
+  { value: '03:00', name: '03:00' },
+  { value: '04:00', name: '04:00' },
+  { value: '05:00', name: '05:00' },
+  { value: '06:00', name: '06:00' },
+  { value: '07:00', name: '07:00' },
+  { value: '08:00', name: '08:00' },
+  { value: '09:00', name: '09:00' },
+  { value: '10:00', name: '10:00' },
+  { value: '11:00', name: '11:00' },
+  { value: '12:00', name: '12:00' },
+  { value: '13:00', name: '13:00' },
+  { value: '14:00', name: '14:00' },
+  { value: '15:00', name: '15:00' },
+  { value: '16:00', name: '16:00' },
+  { value: '17:00', name: '17:00' },
+  { value: '18:00', name: '18:00' },
+  { value: '19:00', name: '19:00' },
+  { value: '20:00', name: '20:00' },
+  { value: '21:00', name: '21:00' },
+  { value: '22:00', name: '22:00' },
+  { value: '23:00', name: '23:00' },
+  { value: '24:00', name: '24:00' }
+]
+
+export const REGION = [
+  { value: '서울', name: '서울특별시' },
+  { value: '부산', name: '부산광역시' },
+  { value: '대구', name: '대구광역시' },
+  { value: '인천', name: '인천광역시' },
+  { value: '광주', name: '광주광역시' },
+  { value: '대전', name: '대전광역시' },
+  { value: '울산', name: '울산광역시' },
+  { value: '경기', name: '경기도' },
+  { value: '강원', name: '강원도' },
+  { value: '충북', name: '충청북도' },
+  { value: '충남', name: '충청남도' },
+  { value: '전북', name: '전라북도' },
+  { value: '전남', name: '전라남도' },
+  { value: '경북', name: '경상북도' },
+  { value: '경남', name: '경상남도' },
+  { value: '제주', name: '제주도' }
+]
+export const REGION2 = [
+  { value: '서울', name: '서울특별시' },
+  { value: '부산', name: '부산광역시' },
+  { value: '대구', name: '대구광역시' },
+  { value: '인천', name: '인천광역시' },
+  { value: '광주', name: '광주광역시' },
+  { value: '대전', name: '대전광역시' },
+  { value: '울산', name: '울산광역시' },
+  { value: '경기', name: '경기도' },
+  { value: '강원', name: '강원도' },
+  { value: '충북', name: '충청북도' },
+  { value: '충남', name: '충청남도' },
+  { value: '전북', name: '전라북도' },
+  { value: '전남', name: '전라남도' },
+  { value: '경북', name: '경상북도' },
+  { value: '경남', name: '경상남도' },
+  { value: '제주', name: '제주도' }
+]
+
+export const AREA = [
+  {
+    id: 1,
+    name: '서울',
+    value: [
+      '강남구',
+      '강동구',
+      '강북구',
+      '강서구',
+      '관악구',
+      '광진구',
+      '구로구',
+      '금천구',
+      '노원구',
+      '도봉구',
+      '동대문구',
+      '동작구',
+      '마포구',
+      '서대문구',
+      '서초구',
+      '성동구',
+      '성북구',
+      '송파구',
+      '양천구',
+      '영등포구',
+      '용산구',
+      '은평구',
+      '종로구',
+      '중구',
+      '중랑구'
+    ]
+  }
+]
