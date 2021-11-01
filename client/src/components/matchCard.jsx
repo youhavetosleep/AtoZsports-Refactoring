@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 
-function MatchCard({ member, setMemberData }) {
+function MatchCard({ member, setListData,idx }) {
   const matchInfoHadler = () => {
-    setMemberData(member)
+    setListData(member)
   }
-
   return (
     <>
       <GlobalStyle />
