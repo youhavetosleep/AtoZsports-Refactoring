@@ -1,11 +1,12 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../api/index.jsx'
+import RegionBox from '../utils/regionBox'
 
-const Signup = () => {
+const Signup = ({ region1, region2, handleRegion1, handleRegion2 }) => {
   const history = useHistory()
 
   // 회원가입 데이터
@@ -15,7 +16,7 @@ const Signup = () => {
   const [nickname, setNickname] = useState('')
   const [userPhone, setUserPhone] = useState('')
   const [favoriteSports, setFavoriteSports] = useState('')
-  const [homeground, setHomeground] = useState('서울 강남구')
+  const [homeground, setHomeground] = useState('')
 
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
@@ -24,10 +25,14 @@ const Signup = () => {
   const [messageNickname, setMessageNickname] = useState('')
   const [messageUserPhone, setMessageUserPhone] = useState('')
   const [messageSport, setMessageSport] = useState('')
+  const [messageHome, setMessageHome] = useState('')
 
-  // 닉네임, 이메일 유효성 검사 color 변경
-  const [nickCheck, setNickCheck] = useState(false)
-  const [emailCheck, setEmailCheck] = useState(false)
+  // 유효성 검사 color 변경
+  const [nickColor, setNickColor] = useState(false)
+  const [emailColor, setEmailColor] = useState(false)
+  const [pwColor, setPwColor] = useState(false)
+  const [pwCheckColor, setPwCheckColor] = useState(false)
+  const [phoneColor, setPhoneColor] = useState(false)
 
   // 표기 오류시 해당 text focus
   const _email = useRef()
@@ -51,7 +56,7 @@ const Signup = () => {
   // 닉네임 확인
   const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
-      setNickCheck(false)
+      setNickColor(false)
       setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
       return
     } else {
@@ -71,10 +76,10 @@ const Signup = () => {
         .then((res) => {
           setMessageNickname(res.data.message)
           if (res.data.message === '✔ 사용 가능한 닉네임입니다') {
-            setNickCheck(true)
+            setNickColor(true)
             return
-          }else {
-            setNickCheck(false)
+          } else {
+            setNickColor(false)
           }
         })
     }
@@ -83,7 +88,7 @@ const Signup = () => {
   // 이메일 확인
   const checkEmail = async () => {
     if (!email_Reg.test(email)) {
-      setEmailCheck(false)
+      setEmailColor(false)
       setMessageEmail('이메일 형식에 맞게 작성해주세요')
       return
     } else {
@@ -103,9 +108,9 @@ const Signup = () => {
         .then((res) => {
           setMessageEmail(res.data.message)
           if (res.data.message === '✔ 사용 가능한 이메일입니다') {
-            setEmailCheck(true)
-          }else {
-            setEmailCheck(false)
+            setEmailColor(true)
+          } else {
+            setEmailColor(false)
           }
         })
     }
@@ -114,32 +119,39 @@ const Signup = () => {
   // 비밀번호 확인
   const checkPassword = () => {
     if (!password_Reg.test(password)) {
+      setPwColor(false)
       setMessagePassword('(최소 8자) 문자/숫자/특수문자 모두 포함해야합니다')
       return
     }
-    setMessagePassword('')
+    setPwColor(true)
+    setMessagePassword('✔ 사용 가능한 비밀번호입니다')
   }
 
   // 비밀번호 이중 확인
   const doubleCheckPassword = () => {
     if (password === '') {
-      setMessagePassword('비밀번호를 먼저 입력하세요')
+      setPwCheckColor(false)
+      setMessagePwCheck('비밀번호를 먼저 입력하세요')
       return
     } else if (password !== '' && !pwCheck) setMessagePwCheck('')
     else if (password !== pwCheck || !password_Reg.test(password)) {
+      setPwCheckColor(false)
       setMessagePwCheck('비밀번호가 일치하지 않습니다')
       return
     }
-    setMessagePwCheck('')
+    setPwCheckColor(true)
+    setMessagePwCheck('✔ 비밀번호가 확인되었습니다')
   }
 
   // 핸드폰 확인
   const checkUserPhone = () => {
     if (!userPhone_Reg.test(userPhone)) {
+      setPhoneColor(false)
       setMessageUserPhone(`('-' 포함) 핸드폰번호를 확인하세요`)
       return
     }
-    setMessageUserPhone('')
+    setPhoneColor(true)
+    setMessageUserPhone('✔ 핸드폰 번호가 확인되었습니다')
   }
 
   // 회원가입 버튼
@@ -168,44 +180,53 @@ const Signup = () => {
       _sport.current.focus()
       setMessageSport('좋아하는 스포츠를 입력해주세요')
       return
+    } else if (homeground === '세종 전동면') {
+      setMessageHome('살고 있는 지역을 선택해주세요')
+      return
     }
     event.preventDefault()
-    await instance.post(
-      '/users/signup',
-      {
-        email,
-        password,
-        nickname,
-        userPhone,
-        favoriteSports,
-        homeground
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json'
+    await instance
+      .post(
+        '/users/signup',
+        {
+          email,
+          password,
+          nickname,
+          userPhone,
+          favoriteSports,
+          homeground
         },
-        withCredentials: true
-      }
-    ).then(res => {
-      Swal.fire({
-        title: '이메일 인증을 완료해주세요!',
-        icon: 'success',
-        text: '해당 메일에서 인증하기 버튼을 누르면 회원가입이 완료됩니다.',
-        confirmButtonColor: '#d6d6d6',
-        confirmButtonText: '확인'
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }
+      )
+      .then((res) => {
+        Swal.fire({
+          title: '이메일 인증을 완료해주세요!',
+          icon: 'success',
+          text: '해당 메일에서 인증하기 버튼을 누르면 회원가입이 완료됩니다.',
+          confirmButtonColor: '#d6d6d6',
+          confirmButtonText: '확인'
+        })
+        history.push('/')
       })
-      history.push('/')
-    })
-    .catch(err => {
-      Swal.fire({
-        icon: 'warning',
-        text: '닉네임이나 이메일 중복여부를 확인해주세요',
-        confirmButtonColor: '#d6d6d6',
-        confirmButtonText: '확인'
+      .catch((err) => {
+        Swal.fire({
+          icon: 'warning',
+          text: '닉네임이나 이메일 중복여부를 확인해주세요',
+          confirmButtonColor: '#d6d6d6',
+          confirmButtonText: '확인'
+        })
       })
-    })
   }
 
+  useEffect(() => {
+    setHomeground(`${region1} ${region2}`)
+  }, [region2])
+  
   return (
     <>
       <TitleWrapper>
@@ -226,7 +247,7 @@ const Signup = () => {
                 ref={_nick}
                 onBlur={checkNickname}
               />
-              {nickCheck ? (
+              {nickColor ? (
                 <PassCheck>{messageNickname}</PassCheck>
               ) : (
                 <Check>{messageNickname}</Check>
@@ -245,7 +266,7 @@ const Signup = () => {
                 ref={_email}
                 onBlur={checkEmail}
               />
-              {emailCheck ? (
+              {emailColor ? (
                 <PassCheck>{messageEmail}</PassCheck>
               ) : (
                 <Check>{messageEmail}</Check>
@@ -264,7 +285,11 @@ const Signup = () => {
                 ref={_pw}
                 onBlur={checkPassword}
               />
-              <Check>{messagePassword}</Check>
+              {pwColor ? (
+                <PassCheck>{messagePassword}</PassCheck>
+              ) : (
+                <Check>{messagePassword}</Check>
+              )}
             </Inputbox>
           </Element>
           <Element>
@@ -279,7 +304,11 @@ const Signup = () => {
                 ref={_pwChk}
                 onBlur={doubleCheckPassword}
               />
-              <Check>{messagePwCheck}</Check>
+              {pwCheckColor ? (
+                <PassCheck>{messagePwCheck}</PassCheck>
+              ) : (
+                <Check>{messagePwCheck}</Check>
+              )}
             </Inputbox>
           </Element>
           <Element>
@@ -287,6 +316,7 @@ const Signup = () => {
             <Inputbox>
               <Input
                 type="text"
+                maxLength="13"
                 placeholder="' - ' 포함하여 전화번호를 입력해주세요"
                 onChange={(e) => {
                   setUserPhone(e.target.value)
@@ -294,7 +324,11 @@ const Signup = () => {
                 ref={_userPhone}
                 onBlur={checkUserPhone}
               />
-              <Check>{messageUserPhone}</Check>
+              {phoneColor ? (
+                <PassCheck>{messageUserPhone}</PassCheck>
+              ) : (
+                <Check>{messageUserPhone}</Check>
+              )}
             </Inputbox>
           </Element>
           <Element>
@@ -311,9 +345,13 @@ const Signup = () => {
           </Element>
           <Element>
             <DropName>살고 있는 지역을 선택해주세요</DropName>
+            <Check className="home">{messageHome}</Check>
             <DropWrapper>
-              <Dropbox value="서울" />
-              <Dropbox value="강남구" />
+              <RegionBox
+                region1={region1}
+                handleRegion1={handleRegion1}
+                handleRegion2={handleRegion2}
+              />
             </DropWrapper>
           </Element>
           <SignWrap>
@@ -360,7 +398,7 @@ const FormWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: solid 3px #bebebe;
+  border: solid 2px #bebebe;
   height: 850px;
   width: 700px;
   padding: 50px;
@@ -370,6 +408,10 @@ const FormWrapper = styled.div`
 
 const Element = styled.div`
   margin-bottom: 40px;
+  .home {
+    margin-right: 48px;
+    margin-top: 12px;
+  }
 `
 
 const Name = styled.p`
@@ -422,13 +464,6 @@ const PassCheck = styled.div`
 
 const DropWrapper = styled.div`
   display: flex;
-`
-
-const Dropbox = styled.input`
-  border: solid 2px #bebebe;
-  height: 25px;
-  width: 125px;
-  margin-right: 15px;
 `
 
 const SignWrap = styled.div`

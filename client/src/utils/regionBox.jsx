@@ -1,71 +1,95 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { FaChevronDown } from 'react-icons/fa'
 import { REGION, AREA } from './data'
 
 const RegionBox = ({ region1, handleRegion1, handleRegion2 }) => {
-
-  const [matchList, setMatchList] = useState([])
+  const [region2, setRegion2] = useState([])
 
   const selectRegion = () => {
     AREA.forEach((selected) => {
       if (selected.name === region1) {
-        setMatchList(selected.list)
+        setRegion2(selected.list)
       }
     })
   }
 
   useEffect(() => {
     selectRegion()
-  }, [matchList, region1])
+  }, [region2, region1])
 
   return (
-    <SelectBoxWrapper>
-      <Select onChange={handleRegion1}>
-        {REGION.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            defaultValue={option.value}
-          >
-            {option.name}
-          </option>
-        ))}
-      </Select>
-      {/* <Select onChange={handleRegion2}>
-        {REGION.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            defaultValue={option.value}
-          >
-            {option.value}
-          </option>
-        ))}
-      </Select> */}
-    </SelectBoxWrapper>
+    <SelectBoxContainer>
+      <SelectWrap>
+        <Select onChange={handleRegion1}>
+          {REGION.map((option) => (
+            <option
+              key={option.value}
+              value={option.value}
+              defaultValue={option.value}
+            >
+              {option.name}
+            </option>
+          ))}
+        </Select>
+        <DownWrap>
+          <FaChevronDown />
+        </DownWrap>
+      </SelectWrap>
+      <SelectWrap className='second'>
+        <Select onChange={handleRegion2}>
+          {region2.map((option) => (
+            <option
+              key={option.value}
+              value={option.value}
+              defaultValue={option.value}
+            >
+              {option.value}
+            </option>
+          ))}
+        </Select>
+        <DownWrap>
+          <FaChevronDown />
+        </DownWrap>
+      </SelectWrap>
+    </SelectBoxContainer>
   )
 }
 
-const SelectBoxWrapper = styled.div`
+const SelectBoxContainer = styled.div`
   display: flex;
+  .second {
+    margin-left: 7px;
+  }
 `
-
+const SelectWrap = styled.div`
+  position: relative;
+`
+const DownWrap = styled.div`
+  width: 0.1px;
+  position: absolute;
+  top: 27.5%;
+  right: 20%;
+  color: #000000;
+  z-index: -1;
+`
 export const Select = styled.select`
   margin: 0;
-  margin-left : 7px;
   min-width: 0;
-  display: block;
   width: 135px;
+  box-sizing: border-box;
   padding: 8px 8px;
   font-size: inherit;
-  line-height: inherit;
-  border: 1px solid;
+  border: 1px solid #c6c6c6;
   border-radius: 4px;
   color: inherit;
-  background-color: transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  opacity: 90%;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 export default RegionBox
