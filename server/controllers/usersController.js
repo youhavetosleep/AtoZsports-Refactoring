@@ -358,7 +358,7 @@ module.exports = {
             process.env.NODE_ENV === 'production'
               ? 'atozsports.link'
               : 'http://localhost:3000'
-          const from = `AtoZ Sports <${process.env.GMAIL_ID}>`
+          const from = `AtoZ sports <atozsports@api.atozsports.link>`
           const mailOptions = {
             from: from,
             to: email,

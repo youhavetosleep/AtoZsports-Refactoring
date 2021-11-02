@@ -9,13 +9,13 @@ function MoreViewCard() {
     <>
       <GlobalStyle />
       <MoreViewCardContainer>
-      <div className="articlebox-listbox">
+      <div className="moreMatch-listbox">
         <Link to="/matchlist" style={{ textDecoration: 'none' }}>
           <ul>
-            <li className="articlebox-title">
+            <li className="moreMatch-title">
               더 많은 공고를 보고싶다면?
             </li>
-              <span className="articlebox-state">
+              <span className="moreMatch-subTitle">
                 더 많은 공고 보러가기
               </span>
           </ul>
@@ -27,9 +27,8 @@ function MoreViewCard() {
 }
 
 const MoreViewCardContainer = styled.div`
-
-
-.articlebox {
+z-index: 10;
+.moreMatch {
   &-listbox {
     background-color: white;
     border: 1px solid #747474;;
@@ -63,21 +62,18 @@ const MoreViewCardContainer = styled.div`
     color: #353535;
   }
   
-  &-state {
+  &-subTitle {
     /* border: 1px solid gray;
     border-radius: 10px; */
     width: 50%;
     font-size: 1rem;
-    margin: 0px 50px 0px 30px;
-    padding: 2px 80px 2px 15px;
+    margin: 0px 00px 0px 0px;
+    padding: 2px 70px 2px 15px;
     color: #353535;
     position: absolute;
-    right: 24px;
+    right: 0px;
     margin: 0 !important;
-    :hover {
-      color: #840909;
-      border-bottom: 1px solid #840909;
-    }
+
   }
 }
 `
