@@ -6,7 +6,7 @@ import GlobalStyle from '../globalStyle/globalStyle'
 import { USER_PASSWORD } from '../_actions/types'
 import { userPassword } from '../_actions/user.action'
 
-function EditPasswordModal({ setEditPswordModal, token }) {
+function EditPasswordModal({ setEditPswordModal, token, setEditPsword }) {
   const modalEl = useRef()
   const dispatch = useDispatch()
 
@@ -14,52 +14,7 @@ function EditPasswordModal({ setEditPswordModal, token }) {
   const [messagePassword, setMessagePassword] = useState('')
   const [beforeUserPsword, setbeforeUserPsword] = useState('')
 
-  // console.log(token)
-  // console.log(password)
-  // (password) 최소 8 자, 최소 각 1자의 문자, 숫자, 특수 문자
-  const password_Reg =
-    /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
-
-    const hadleChangePassword = () => {
-  
-      dispatch(userPassword(token, password))
-      .then((res) => {
-        console.log(res)
-      })
-      setEditPswordModal(false)
-    }
-
-  // 비밀번호 확인
-  // const checkPassword = async () => {
-  //   if (beforeUserPsword password)) {
-  //     setMessagePassword('현재 비밀번호와 일치하지 않습니다.')
-  //     return
-  //   } else {
-  //     await instance
-  //     .post(
-  //       `/users/security`,
-  //       {
-  //         password
-  //       },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         withCredentials: true
-  //       }
-  //     ).then((res) => {
-  //       console.log(res.data.message)
-  //     })
-  //   }
-  // }
-
-
-  const handleCheckPsword = (e) => {
-    setPassword(e.target.value)
-  }
-
-  // console.log(password)
-
+  // 모달창 밖을 클릭하면 모달창이 꺼지는 함수
   const handleCloseEditPasswordModal = (e) => {
     if (e.target === modalEl.current) {
       setEditPswordModal(false)
@@ -67,16 +22,41 @@ function EditPasswordModal({ setEditPswordModal, token }) {
     }
   }
 
-  const hadleEditPasswordPage = () => {
-    setEditPswordModal(false)
-  }
-
+  // 클릭이벤트로 모달을 끄는 함수 실행하는 코드
   useEffect(() => {
     window.addEventListener('click', handleCloseEditPasswordModal)
     return () => {
       window.removeEventListener('click', handleCloseEditPasswordModal)
     }
   })
+
+  // 비밀번호 확인 모달창에서 입력하는 value값 저장
+  const handleCheckPsword = (e) => {
+    setPassword(e.target.value)
+    // console.log('기존비밀번호와 대조할 비밀번호 ======> 'password)
+  }
+
+  // Dispatch 로 입력된 비밀번호를 비밀번호 확인 api로 보내 맞는지 판별하기
+  // 일치한다면, 응답으로 받은 메세지를 비밀번호의 일치여부를 알려주는 텍스트 상태를 가지고있는
+  // setMessagePassword 로 보내 상태를 최신화 한다.
+  useEffect(() => {
+    dispatch(userPassword(password, token))
+    .then((res) => {
+      setMessagePassword(res.payload)
+    })
+  },[password])
+
+  // 일단 구현은 되는데, 글자를 하나칠때마다 서버로 요청이가기에 정상적인 접근은 아닌거 같다. 백엔드와 상의해보자.
+  // console.log(messagePassword)
+
+  const hadleChangePassword = () => {
+    if(messagePassword === '✔ 비밀번호가 일치합니다'){ 
+    setEditPswordModal(false)
+    setEditPsword(true)
+    }
+  }
+
+
 
   return (
     <>
@@ -95,10 +75,20 @@ function EditPasswordModal({ setEditPswordModal, token }) {
                 className="checkPswordInput"
                 placeholder="현재 비밀번호"
                 onChange={(e) => handleCheckPsword(e)}
-                // onBlur={checkPassword}
-                // onBlur={checkPassword}
+                //onBlur={checkPassword}
               ></input>
-              <Check>{messagePassword}</Check>
+              <Check>{
+              messagePassword === '✔ 비밀번호가 일치합니다' ? 
+              (
+                <div className='samePsword'>
+                  {messagePassword}
+                  </div>
+              ) : (
+                <div className='wrongPsword'>
+                  {messagePassword}
+                  </div>
+              )
+              }</Check>
               <div 
               className="checkPswordBtn" 
               onClick={hadleChangePassword}>
@@ -168,7 +158,7 @@ const CheckPasswordModal = styled.div`
     position: absolute;
     height: 30px;
     bottom: 30px;
-    right: 47px;
+    right: 50px;
     font-size: 1.2rem;
     :hover {
       cursor: pointer;
@@ -178,13 +168,24 @@ const CheckPasswordModal = styled.div`
 `
 
 const Check = styled.div`
-  margin: 0;
+  .samePsword {
+    margin: 0;
+  margin-top: 0px;
+  position: absolute;
+  left: 50px;
+  bottom: 45px;
+  font-size: 13px;
+  color: #1b7e07;
+  }
+  .wrongPsword {
+    margin: 0;
   margin-top: 0px;
   position: absolute;
   left: 50px;
   bottom: 45px;
   font-size: 13px;
   color: #840909;
+  }
 `
 
 export default EditPasswordModal
