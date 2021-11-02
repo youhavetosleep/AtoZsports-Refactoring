@@ -1,6 +1,13 @@
-import { LOGIN_USER, KAKAO_USER, GOOGLE_USER, LOGOUT_USER } from './types'
+import { 
+  LOGIN_USER, 
+  KAKAO_USER, 
+  GOOGLE_USER, 
+  LOGOUT_USER, 
+  DELETE_USER, 
+  MYPAGE_USER,
+  USER_PASSWORD 
+} from './types'
 import instance from '../api'
-import axios from 'axios'
 
 export async function loginUser(dataToSubmit) {
   const request = await instance
@@ -42,12 +49,41 @@ export async function loginUser(dataToSubmit) {
 export async function logoutUser() {
   const request = await instance
     .post(`/users/logout`)
-    .then((res) => console.log(res.data))
+    .then(res => res.data.message)
 
   return {
     type: LOGOUT_USER,
     payload: request
   }
+}
+
+export async function mypageUser(editUserInfo, Token) {
+  const request = await instance
+    .patch(
+      '/users', 
+    {
+      email: editUserInfo.email, 
+      verifiedKey: null,
+      nickname: editUserInfo.nickname, 
+      userPhone: editUserInfo.userPhone,
+      homeground: editUserInfo.homeground,
+      favoriteSports: editUserInfo.favoriteSports,
+      userId: editUserInfo.userId
+    },
+    {
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}` 
+      },
+      withCredentials: true
+    }
+    )
+    .then(res => res.data);
+
+  return {
+    type: MYPAGE_USER,
+    payload: request,
+  };
 }
 
 export async function kakaoUser(authorizationCode) {
@@ -78,4 +114,42 @@ export async function googleUser(authorizationCode) {
     type: GOOGLE_USER,
     payload: request
   }
+}
+
+export async function deleteUser(Token) {
+  const request = await instance
+   .delete(`/users`, {
+     headers: {
+       'Content-Type': 'application/json',
+       Authorization: `Bearer ${Token}` 
+      },
+      withCredentials: true
+   })
+   .then(res => res.data.message)
+
+   return {
+     type: DELETE_USER,
+     payload: request
+   }
+}
+
+export async function userPassword(token, password) {
+  const request = await instance
+   .post(`/users/security`, {
+    password
+  },
+  {
+    headers: { 
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}` 
+    },
+    withCredentials: true
+  }
+  )
+   .then(res => console.log(res))
+
+   return {
+     type: USER_PASSWORD,
+     payload: request
+   }
 }

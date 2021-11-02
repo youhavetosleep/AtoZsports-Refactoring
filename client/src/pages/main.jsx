@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/footer'
 
 const Main = () => {
+
   return (
     <>
       <GlobalStyle />
@@ -30,7 +31,7 @@ const Main = () => {
         <Landing1>
           <Landing_Container>
             <Landing_In>
-              <Landing_text>
+              <Landing_text className="text scroll">
                 <div className="landing_mainText">
                   우리동네의
                   <br />
@@ -47,15 +48,15 @@ const Main = () => {
                   지금도 그곳에선 뜨거운 경기가 열리고 있습니다!
                 </div>
               </Landing_text>
-              <img src={mainLogo} className="landing_gif"></img>
+              <img src={mainLogo} className="landing_gif scroll"></img>
             </Landing_In>
           </Landing_Container>
         </Landing1>
         <Landing2>
           <Landing_Container>
             <Landing_In>
-            <img src={mainLogo} className="landing_gif"></img>
-              <Landing_text>
+            <img src={mainLogo} className="landing_gif scroll"></img>
+              <Landing_text className="text scroll">
                 <div className="landing_mainText2">
                   팀원을 모집할 수 있고
                   <br />
@@ -80,7 +81,7 @@ const Main = () => {
         <Landing1>
           <Landing_Container>
             <Landing_In>
-              <Landing_text>
+              <Landing_text className="text scroll">
                 <div className="landing_mainText">
                   다양한 소통의 기능을
                   <br />
@@ -97,7 +98,7 @@ const Main = () => {
                   실시간 채팅기능을 제공합니다.
                 </div>
               </Landing_text>
-              <img src={mainLogo} className="landing_gif"></img>
+              <img src={mainLogo} className="landing_gif scroll"></img>
             </Landing_In>
           </Landing_Container>
         </Landing1>
@@ -140,6 +141,7 @@ const MainLogo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 2;
   .logo {
     width: 27rem;
   }
@@ -147,6 +149,7 @@ const MainLogo = styled.div`
     margin-top: 5px;
     font-size: 23px;
     text-align: center;
+    font-weight: lighter;
   }
   .logo_button {
     margin-top: 32px;
@@ -245,6 +248,7 @@ const Landing_In = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 0.2rem;
+ 
   .landing_gif {
     display: flex;
     width: 40vw;
@@ -254,25 +258,30 @@ const Landing_In = styled.div`
 const Landing_text = styled.div`
 display: flex;
 flex-direction: column;
+color: #353535;
   .landing_mainText {
-    font-size: 40px;
+    font-size: 35px;
     display: flex;
     flex-direction: column;
+    font-weight: bold;
+    line-height: 40px;
   }
   .landing_subText {
-    font-size: 20px;
+    font-size: 16px;
     margin-top: 20px;
+    line-height: 19px;
   }
   .landing_mainText2 {
-    font-size: 40px;
+    font-size: 35px;
     display: flex;
     flex-direction: column;
-    text-align: right;
+    font-weight: bold;
+    line-height: 40px;
   }
   .landing_subText2 {
-    font-size: 20px;
+    font-size: 16px;
     margin-top: 20px;
-    text-align: right;
+    line-height: 19px;
   }
 `
 
@@ -296,6 +305,7 @@ const LandingFinal_Text = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #353535;
   .landing_finalText {
     font-size: 40px;
   text-align: center;

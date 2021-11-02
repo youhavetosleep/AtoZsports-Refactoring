@@ -62,17 +62,18 @@ overflow: hidden;
 position: absolute;
 .slider_mainText {
  top: 10vh;
- font-size: 3em;
+ font-size: 2.8em;
  color: white;
  text-align: center;
+ font-weight: bold;
  line-height:60px;
 }
 .slider_subText {
- font-size: 1.3em;
+ font-size: 1.2em;
  margin-top: 15px;
  color: white;
  text-align: center;
- line-height:30px;
+ line-height:25px;
  font-weight: lighter;
 }
 .slider_button {

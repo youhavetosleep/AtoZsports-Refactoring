@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -29,7 +30,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	background-color: #FAFAFA;
 	line-height: 1;
-  	font-family: 'noto sans';
+	font-family: "NotoSans", sans-serif;
   	font-weight: normal;
 }
 ol, ul {
@@ -47,6 +48,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+.scroll {
+  transition: transform 1s, opacity 1s;
+}
+
 
 `
 export default GlobalStyle
