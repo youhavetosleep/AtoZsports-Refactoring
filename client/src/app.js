@@ -23,8 +23,8 @@ import MapSearch from './components/map/mapSearch'
 
 function App() {
   // 지역선택 드롭박스를 위한 상태
-  const [region1, setRegion1] = useState('서울')
-  const [region2, setRegion2] = useState('')
+  const [region1, setRegion1] = useState('세종')
+  const [region2, setRegion2] = useState('전동면')
 
   // 로그인 정보 저장
   let userInfo = store.getState().user
@@ -44,7 +44,6 @@ function App() {
   }
   const handleRegion2 = (e) => {
     setRegion2(e.target.value)
-    console.log(e.target.value)
   }
 
   return (
@@ -121,7 +120,12 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Signup />
+            <Signup
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
+            />
           </Route>
           <Route exact path="/premierleague">
             {isLogin ? (
