@@ -57,15 +57,28 @@ export async function logoutUser() {
   }
 }
 
-export async function mypageUser(Token) {
+export async function mypageUser(editUserInfo, Token) {
   const request = await instance
-    .patch('/users', {
+    .patch(
+      '/users', 
+    {
+      email: editUserInfo.email, 
+      verifiedKey: null,
+      nickname: editUserInfo.nickname, 
+      userPhone: editUserInfo.userPhone,
+      homeground: editUserInfo.homeground,
+      favoriteSports: editUserInfo.favoriteSports,
+      userId: editUserInfo.userId
+    },
+    {
       headers: { 
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Token}` },
+        Authorization: `Bearer ${Token}` 
+      },
       withCredentials: true
-    })
-    .then(res => console.log(res.data));
+    }
+    )
+    .then(res => res.data);
 
   return {
     type: MYPAGE_USER,

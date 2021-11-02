@@ -13,6 +13,8 @@ import { deleteUser, mypageUser } from '../_actions/user.action'
 
 const Mypage = ({ userInfo }) => {
   const dispatch = useDispatch()
+  const Token = userInfo.loginSuccess.accessToken
+  const userInfoSuccess = userInfo.loginSuccess
 
   const [changeCard, setChangeCard] = useState('작성한 공고')
   const [writeData, setWriteData] = useState([])
@@ -21,31 +23,23 @@ const Mypage = ({ userInfo }) => {
   const [editPswordModal, setEditPswordModal] = useState(false)
   const [FailWithdrawal, setFailWithdrawal] = useState(false)
   const [YesOrNo, setYesOrNo] = useState(false)
-  const [editUserInfo, setEditUserInfo] = useState({
-    nickname: userInfo.loginSuccess.nickname
-  })
+  const [editUserInfo, setEditUserInfo] = useState({})
+  const [mypageInfo, setMypageInfo] = useState(userInfoSuccess)
 
-  const Token = userInfo.loginSuccess.accessToken
-  // const write = writeData.data.postList
+  // console.log(userInfo.loginSuccess) 
+  // console.log(mypageInfo) 
 
   useEffect(() => {
     dispatch(getUserMatchData(Token)).then((res) => {
       setWriteData(res.payload.data.postList)
     })
-  }, [setWriteData])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getUserFavoriteData(Token)).then((res) => {
       setFavoriteData(res.payload.data)
-      // console.log(res.payload.data)
     })
-  }, [setFavoriteData])
-
-  // console.log(writeData)
-  console.log(favoriteData)
-
-  // console.log("write ======>", write)
-  // console.log("favoriteData ======>", favoriteData.data)
+  }, [dispatch])
 
   const matchBtn = () => {
     setChangeCard('관심 공고')
@@ -60,8 +54,9 @@ const Mypage = ({ userInfo }) => {
   }
 
   const handleSendUserinfo = () => {
-    dispatch(mypageUser(editUserInfo, Token)).then((res) => {
-      console.log(res)
+    dispatch(mypageUser(editUserInfo, Token))
+    .then((res) => {
+      setMypageInfo(res.payload.userData)
     })
     setEditInfo(false)
   }
@@ -81,13 +76,16 @@ const Mypage = ({ userInfo }) => {
   }
 
   const changeUserInfo = (e) => {
-    // console.log(e.target.value)
     setEditUserInfo({
-      nickname: e.target.value
+      email: userInfo.loginSuccess.email,
+      userPhone: userInfo.loginSuccess.userPhone,
+      nickname: e.target.value,
+      homeground: userInfo.loginSuccess.homeground,
+      favoriteSports: userInfo.loginSuccess.favoriteSports,
+      userId: userInfo.loginSuccess.id
     })
   }
-
-  // console.log(write)
+  
 
   return (
     <>
@@ -105,25 +103,25 @@ const Mypage = ({ userInfo }) => {
                   <Userinfo_email>
                     <div className="userinfo_emailTitle">이메일</div>
                     <div className="userinfo_emailContents">
-                      {userInfo.loginSuccess.email}
+                      {mypageInfo.email}
                     </div>
                   </Userinfo_email>
                   <Uuserinfo_phone>
                     <div className="userinfo_phoneTitle">핸드폰</div>
                     <div className="userinfo_phoneContents">
-                      {userInfo.loginSuccess.userPhone}
+                      {mypageInfo.userPhone}
                     </div>
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
                     <div className="userinfo_nicknameContents">
-                      {userInfo.loginSuccess.nickname}
+                      {mypageInfo.nickname}
                     </div>
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
                     <div className="userinfo_homegroundContents">
-                      {userInfo.loginSuccess.homeground}
+                      {mypageInfo.homeground}
                     </div>
                   </Userinfo_homeground>
                   <Userinfo_favorite>
@@ -131,14 +129,13 @@ const Mypage = ({ userInfo }) => {
                       좋아하는 스포츠
                     </div>
                     <div className="userinfo_favorite">
-                      {userInfo.loginSuccess.favoriteSports}
+                      {mypageInfo.favoriteSports}
                     </div>
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
                   <div
                     className="editInfo"
-                    setEditPswordModal={setEditPswordModal}
                     onClick={handleEditPage}
                   >
                     정보수정
@@ -159,7 +156,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_emailContents"
-                      value={userInfo.loginSuccess.email}
+                      value={mypageInfo.email}
                       disabled
                     />
                   </Userinfo_email>
@@ -168,7 +165,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_phoneContents"
-                      value={userInfo.loginSuccess.userPhone}
+                      value={mypageInfo.userPhone}
                       disabled
                     />
                   </Uuserinfo_phone>
@@ -177,7 +174,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_nicknameContents"
-                      placeholder={userInfo.loginSuccess.nickname}
+                      placeholder={mypageInfo.nickname}
                       onChange={(e) => changeUserInfo(e)}
                     />
                   </Userinfo_nickname>
@@ -186,7 +183,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_homegroundContents"
-                      value={userInfo.loginSuccess.homeground}
+                      value={mypageInfo.homeground}
                       disabled
                     />
                   </Userinfo_homeground>
@@ -197,7 +194,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_favorite"
-                      value={userInfo.loginSuccess.favoriteSports}
+                      value={mypageInfo.favoriteSports}
                       disabled
                     />
                   </Userinfo_favorite>
@@ -242,13 +239,13 @@ const Mypage = ({ userInfo }) => {
                   favoriteData.map((member, idx) => {
                     return <MatchCard member={member} key={idx} />
                   })}
-                </div>
-              {changeCard === '작성한 공고' && writeData === undefined ? (
-                <div className='mypage_Match'>작성한 공고가 없습니다.</div>
-              ) : (null)}
-              {changeCard === '관심 공고' && favoriteData === undefined ? (
-                <div className='mypage_Match'>관심등록한 공고가 없습니다.</div>
-              ) : (null)}
+            </div>
+            {changeCard === '작성한 공고' && writeData === undefined ? (
+              <div className="mypage_Match">작성한 공고가 없습니다.</div>
+            ) : null}
+            {changeCard === '관심 공고' && favoriteData === undefined ? (
+              <div className="mypage_Match">관심등록한 공고가 없습니다.</div>
+            ) : null}
           </MyCard>
           <GoodbyeUser>
             <div
@@ -527,13 +524,13 @@ const MyCard = styled.section`
     column-gap: 24px;
     margin: 20px 0px 0px 0px;
   }
-  .mypage_Match{
+  .mypage_Match {
     display: flex;
     width: auto;
     font-size: 1.5rem;
     justify-content: center;
     align-items: center;
-    margin: 150px auto 168px auto ;
+    margin: 150px auto 168px auto;
   }
 `
 
