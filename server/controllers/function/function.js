@@ -100,7 +100,7 @@ module.exports = {
           if (String(startTime) === String(finded.dataValues.startTime)) {
             const time = String(finded.dataValues.startTime).split(' ')[4].split(':')
             const { email, nickname } = finded.dataValues.User.dataValues
-            const from = `AtoZ sports <${process.env.GMAIL_ID}>`
+            const from = `AtoZ sports <atozsports@api.atozsports.link>`
             const mailOptions = {
               from: from,
               to: email,
