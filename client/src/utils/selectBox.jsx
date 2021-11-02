@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { OPTIONS } from './data'
+import { STARTOPTIONS, ENDOPTIONS } from './data'
 const SelectBox = ({ handleEndHour, handleStartHour }) => {
   return (
     <SelectBoxWrapper>
       <Select onChange={handleStartHour}>
-        {OPTIONS.map((option) => (
+        {STARTOPTIONS.map((option) => (
           <option
             
             key={option.value}
@@ -17,7 +17,7 @@ const SelectBox = ({ handleEndHour, handleStartHour }) => {
         ))}
       </Select>
       <Select onChange={handleEndHour}>
-        {OPTIONS.map((option) => (
+        {ENDOPTIONS.map((option) => (
           <option
             key={option.value}
             value={option.value}
@@ -40,14 +40,12 @@ const Select = styled.select`
   min-width: 0;
   display: block;
   width: 80px;
+  box-sizing: border-box;
   padding: 8px 8px;
   margin-right :5px; 
   font-size: inherit;
-  line-height: inherit;
-  border: 1px solid;
+  border: 1px solid #c6c6c6;
   border-radius: 4px;
-  color: inherit;
-  background-color: transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

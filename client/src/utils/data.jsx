@@ -1,4 +1,34 @@
-export const OPTIONS = [
+export const STARTOPTIONS = [
+  {value : '', name : '시작 시간'},
+  { value: '00:00', name: '00:00' },
+  { value: '01:00', name: '01:00' },
+  { value: '02:00', name: '02:00' },
+  { value: '03:00', name: '03:00' },
+  { value: '04:00', name: '04:00' },
+  { value: '05:00', name: '05:00' },
+  { value: '06:00', name: '06:00' },
+  { value: '07:00', name: '07:00' },
+  { value: '08:00', name: '08:00' },
+  { value: '09:00', name: '09:00' },
+  { value: '10:00', name: '10:00' },
+  { value: '11:00', name: '11:00' },
+  { value: '12:00', name: '12:00' },
+  { value: '13:00', name: '13:00' },
+  { value: '14:00', name: '14:00' },
+  { value: '15:00', name: '15:00' },
+  { value: '16:00', name: '16:00' },
+  { value: '17:00', name: '17:00' },
+  { value: '18:00', name: '18:00' },
+  { value: '19:00', name: '19:00' },
+  { value: '20:00', name: '20:00' },
+  { value: '21:00', name: '21:00' },
+  { value: '22:00', name: '22:00' },
+  { value: '23:00', name: '23:00' },
+  { value: '24:00', name: '24:00' }
+]
+
+export const ENDOPTIONS = [
+  {value : '', name : '종료 시간'},
   { value: '00:00', name: '00:00' },
   { value: '01:00', name: '01:00' },
   { value: '02:00', name: '02:00' },
@@ -237,6 +267,7 @@ export const AREA = [
     id: 10,
     name: '세종',
     list: [
+      { value: '시/구/군' },
       { value: '조치원읍' },
       { value: '연기면' },
       { value: '연동면' },
