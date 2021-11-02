@@ -21,10 +21,10 @@ const Mypage = ({ userInfo }) => {
   
   const [changeCard, setChangeCard] = useState('작성한 공고')
   const [writeData, setWriteData] = useState([])
+  const [favoriteData, setFavoriteData] = useState([])
   const [editPsword, setEditPsword] = useState(false)
   const [firstPsword, setFirstPsword] = useState('')
   const [secondPsword, setSecondPsword] = useState('')
-  const [favoriteData, setFavoriteData] = useState([])
   const [editeInfo, setEditInfo] = useState(false)
   const [editPswordModal, setEditPswordModal] = useState(false)
   const [YesOrNo, setYesOrNo] = useState(false)
@@ -37,6 +37,7 @@ const Mypage = ({ userInfo }) => {
   const [messagePwCheck, setMessagePwCheck] = useState('')
   const [pwColor, setPwColor] = useState(false)
   const [pwCheckColor, setPwCheckColor] = useState(false)
+
   
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
@@ -50,7 +51,7 @@ const Mypage = ({ userInfo }) => {
 
   useEffect(() => {
     dispatch(getUserFavoriteData(Token)).then((res) => {
-      setFavoriteData(res.payload.data)
+      setFavoriteData(res.payload.data.postList)
     })
   }, [setFavoriteData])
 
@@ -382,7 +383,7 @@ const Mypage = ({ userInfo }) => {
                   }
                   onClick={matchBtn}
                 >
-                  관심공고
+                  관심 공고
                 </span>
               </span>
             </ChoiceState>
