@@ -29,7 +29,17 @@ const Futsal = () => {
 
   const [CurrentOrder, setCurrentOrder] = useState('member')
   const [memberData, setMemberData] = useState([])
-  const [emptyData, setEmptyData] = useState([])
+  const [dummyData, setDummyData] = useState([{},{},{},{},{}])
+
+  useEffect(() => {
+    dispatch(getMatchData(CurrentOrder))
+    .then((res) => {
+      setMemberData(res.payload)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [CurrentOrder])
 
   const matchBtn = () => {
     setCurrentOrder('match')
@@ -39,16 +49,9 @@ const Futsal = () => {
     setCurrentOrder('member')
   }
 
-  useEffect(() => {
-    dispatch(getMatchData(CurrentOrder))
-    .then((res) => {
-      setMemberData(res.payload)
-      setEmptyData(memberData)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [CurrentOrder])
+
+  // console.log("memberData ========> ",memberData)
+  // console.log("dummyData ========> ",dummyData.length)
 
   const setting = {
     slide: 'div',
@@ -147,7 +150,19 @@ const Futsal = () => {
                   )
                 })
               ) : (
-                <div className='empty_MatchCard'>
+                null
+              )}
+              {memberData.length < 5 && memberData.length > 0 ? (
+              dummyData && dummyData.slice(0, 5-memberData.length).map((el) => {
+                return (
+                  <LogoCard />
+                )
+              })) : null}
+              {memberData.length < 5 && memberData.length > 0 ? (<MoreViewCard />) : null}
+            </div>
+            {memberData.length === 0 ? (
+              <>
+               <div className='empty_MatchCard'>
                <div className='gotoWrite'>
                   해당지역의 공고가 없습니다,<br />
                   직접 작성해보시겠어요?
@@ -158,14 +173,9 @@ const Futsal = () => {
                </div>
                </Link>
             </div>
-              )}
-              {emptyData && emptyData.slice(0, emptyData.length-1).map((el) => {
-                return (
-                  <LogoCard />
-                )
-              })}
-              {memberData.length < 5 && memberData.length > 0 ? (<MoreViewCard />) : null}
-            </div>
+              </>
+            ) : (null)}
+           
             
           </MatchSoonList>
         </FutsalMatchSoonSection>
@@ -375,11 +385,14 @@ const MatchSoonList = styled.div`
     }
     .linkWrite {
       margin-top: 20px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: black;
+      border: 1px solid gray;
+      border-radius: 15px;
+      padding: 7px 15px 5px 15px;
       :hover {
         color: #840909;
-        border-bottom: 1px solid #840909;
+        border: 1px solid #840909;
       }
     }
   }

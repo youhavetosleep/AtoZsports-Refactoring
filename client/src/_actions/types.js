@@ -9,3 +9,5 @@ export const DELETE_USER = 'delete_user';
 // 매치정보
 export const MATCH_DATA = 'match_card'
 export const MATCH_LIST_DATA = 'match_list'
+export const USER_WRITEMATCH = 'user_writematch'
+export const USER_FAVORITEMATCH = 'user_favoritmatch'

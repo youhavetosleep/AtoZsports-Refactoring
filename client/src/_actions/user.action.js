@@ -4,7 +4,8 @@ import {
   GOOGLE_USER, 
   LOGOUT_USER, 
   DELETE_USER, 
-  MYPAGE_USER } from './types'
+  MYPAGE_USER 
+} from './types'
 import instance from '../api'
 import axios from 'axios'
 

@@ -5,29 +5,62 @@ import Footer from '../components/footer'
 import MatchCard from '../components/matchCard'
 import GlobalStyle from '../globalStyle/globalStyle'
 import EditPasswordModal from '../modal/editPasswordModal'
+import {
+  getUserFavoriteData,
+  getUserMatchData
+} from '../_actions/matchCard_action'
 import { deleteUser, mypageUser } from '../_actions/user.action'
 
 const Mypage = ({ userInfo }) => {
   const dispatch = useDispatch()
 
-  const [changeCard, setChangeCard] = useState('용병모집')
+  const [changeCard, setChangeCard] = useState('작성한 공고')
+  const [writeData, setWriteData] = useState([])
+  const [favoriteData, setFavoriteData] = useState([])
   const [editeInfo, setEditInfo] = useState(false)
   const [editPswordModal, setEditPswordModal] = useState(false)
-  const [FailWithdrawal, setFailWithdrawal] = useState(false);
-  const [YesOrNo, setYesOrNo] = useState(false);
+  const [FailWithdrawal, setFailWithdrawal] = useState(false)
+  const [YesOrNo, setYesOrNo] = useState(false)
   const [editUserInfo, setEditUserInfo] = useState({
-    "nickname": userInfo.loginSuccess.nickname,
-})
+    nickname: userInfo.loginSuccess.nickname
+  })
 
-const Token = userInfo.loginSuccess.accessToken
+  const Token = userInfo.loginSuccess.accessToken
+  // const write = writeData.data.postList
+
+  useEffect(() => {
+    dispatch(getUserMatchData(Token)).then((res) => {
+      setWriteData(res.payload.data.postList)
+    })
+  }, [setWriteData])
+
+  useEffect(() => {
+    dispatch(getUserFavoriteData(Token)).then((res) => {
+      setFavoriteData(res.payload.data)
+      // console.log(res.payload.data)
+    })
+  }, [setFavoriteData])
+
+  // console.log(writeData)
+  console.log(favoriteData)
+
+  // console.log("write ======>", write)
+  // console.log("favoriteData ======>", favoriteData.data)
+
+  const matchBtn = () => {
+    setChangeCard('관심 공고')
+  }
+
+  const memberBtn = () => {
+    setChangeCard('작성한 공고')
+  }
 
   const handleEditPage = () => {
     setEditInfo(true)
   }
 
   const handleSendUserinfo = () => {
-    dispatch(mypageUser(editUserInfo, Token))
-    .then((res) => {
+    dispatch(mypageUser(editUserInfo, Token)).then((res) => {
       console.log(res)
     })
     setEditInfo(false)
@@ -40,21 +73,21 @@ const Token = userInfo.loginSuccess.accessToken
   const withdrawal = () => {
     if (YesOrNo) {
       return dispatch(deleteUser(Token))
-        .then(res => (window.location.href = '/'))
-        .catch(err => {
+        .then((res) => (window.location.href = '/'))
+        .catch((err) => {
           console.log(err)
-        });
+        })
     }
   }
 
   const changeUserInfo = (e) => {
     // console.log(e.target.value)
     setEditUserInfo({
-      "nickname": e.target.value
+      nickname: e.target.value
     })
   }
 
-  // console.log(editUserInfo)
+  // console.log(write)
 
   return (
     <>
@@ -77,21 +110,29 @@ const Token = userInfo.loginSuccess.accessToken
                   </Userinfo_email>
                   <Uuserinfo_phone>
                     <div className="userinfo_phoneTitle">핸드폰</div>
-                    <div className="userinfo_phoneContents">{userInfo.loginSuccess.userPhone}</div>
+                    <div className="userinfo_phoneContents">
+                      {userInfo.loginSuccess.userPhone}
+                    </div>
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
-                    <div className="userinfo_nicknameContents">{userInfo.loginSuccess.nickname}</div>
+                    <div className="userinfo_nicknameContents">
+                      {userInfo.loginSuccess.nickname}
+                    </div>
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
-                    <div className="userinfo_homegroundContents">{userInfo.loginSuccess.homeground}</div>
+                    <div className="userinfo_homegroundContents">
+                      {userInfo.loginSuccess.homeground}
+                    </div>
                   </Userinfo_homeground>
                   <Userinfo_favorite>
                     <div className="userinfo_favoriteTitle">
                       좋아하는 스포츠
                     </div>
-                    <div className="userinfo_favorite">{userInfo.loginSuccess.favoriteSports}</div>
+                    <div className="userinfo_favorite">
+                      {userInfo.loginSuccess.favoriteSports}
+                    </div>
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
@@ -102,9 +143,7 @@ const Token = userInfo.loginSuccess.accessToken
                   >
                     정보수정
                   </div>
-                  <div 
-                  className="editPassWord"
-                  onClick={handleEditPasswordBtn}>
+                  <div className="editPassWord" onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>
@@ -164,9 +203,7 @@ const Token = userInfo.loginSuccess.accessToken
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div 
-                  className="sendEditInfo" 
-                  onClick={handleSendUserinfo}>
+                  <div className="sendEditInfo" onClick={handleSendUserinfo}>
                     Send
                   </div>
                 </EditUserInfo>
@@ -175,26 +212,54 @@ const Token = userInfo.loginSuccess.accessToken
           )}
           <MyCard>
             <ChoiceState>
-              <div className="myMercenary">작성한 공고</div>|
-              <div className="letsGame">관심 공고</div>
+              <span className="ordergroup">
+                <span
+                  className={
+                    changeCard === '작성한 공고' ? 'setbold first' : 'first'
+                  }
+                  onClick={memberBtn}
+                >
+                  작성한 공고
+                </span>
+                |
+                <span
+                  className={
+                    changeCard === '관심 공고' ? 'setbold second' : 'second'
+                  }
+                  onClick={matchBtn}
+                >
+                  관심공고
+                </span>
+              </span>
             </ChoiceState>
-            {changeCard === '용병모집' ? (
-              <MyRecruitment>
-                작성한 공고가 없습니다
-              </MyRecruitment>
-            ) : (
-              <MyAttention>
-                관심있는 공고가 없습니다
-              </MyAttention>
-            )}
+            <div className="writeORfavorite">
+              {changeCard === '작성한 공고'
+                ? writeData &&
+                  writeData.map((member, idx) => {
+                    return <MatchCard member={member} key={idx} />
+                  })
+                : favoriteData &&
+                  favoriteData.map((member, idx) => {
+                    return <MatchCard member={member} key={idx} />
+                  })}
+                </div>
+              {changeCard === '작성한 공고' && writeData === undefined ? (
+                <div className='mypage_Match'>작성한 공고가 없습니다.</div>
+              ) : (null)}
+              {changeCard === '관심 공고' && favoriteData === undefined ? (
+                <div className='mypage_Match'>관심등록한 공고가 없습니다.</div>
+              ) : (null)}
           </MyCard>
           <GoodbyeUser>
-            <div className="PleaseDontgo"
-            onClick={(e) => {
-              withdrawal();
-              setYesOrNo(true);
-            }}
-            >회원탈퇴</div>
+            <div
+              className="PleaseDontgo"
+              onClick={(e) => {
+                withdrawal()
+                setYesOrNo(true)
+              }}
+            >
+              회원탈퇴
+            </div>
           </GoodbyeUser>
         </MypageIn>
       </MypageContainer>
@@ -421,11 +486,55 @@ const ChoiceState = styled.div`
   .letsGame {
     margin-left: 10px;
   }
+  .setbold {
+    font-weight: bolder;
+  }
+  .ordergroup {
+    color: #353535;
+    left: 0;
+    position: flex;
+    text-align: left;
+    top: 100px;
+
+    .first {
+      margin-right: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    .second {
+      margin-left: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 `
 
 const MyCard = styled.section`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  position: relative;
+  /* flex-direction: column; */
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0px 0px 20px;
+  .writeORfavorite {
+    display: grid;
+    grid-template-columns: repeat(2, 360px);
+    row-gap: 20px;
+    column-gap: 24px;
+    margin: 20px 0px 0px 0px;
+  }
+  .mypage_Match{
+    display: flex;
+    width: auto;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    margin: 150px auto 168px auto ;
+  }
 `
 
 const MyRecruitment = styled.div`
