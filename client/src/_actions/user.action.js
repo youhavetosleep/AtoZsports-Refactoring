@@ -4,9 +4,10 @@ import {
   GOOGLE_USER, 
   LOGOUT_USER, 
   DELETE_USER, 
-  MYPAGE_USER } from './types'
+  MYPAGE_USER,
+  USER_PASSWORD 
+} from './types'
 import instance from '../api'
-import axios from 'axios'
 
 export async function loginUser(dataToSubmit) {
   const request = await instance
@@ -56,15 +57,28 @@ export async function logoutUser() {
   }
 }
 
-export async function mypageUser(Token) {
+export async function mypageUser(editUserInfo, Token) {
   const request = await instance
-    .patch('/users', {
+    .patch(
+      '/users', 
+    {
+      email: editUserInfo.email, 
+      verifiedKey: null,
+      nickname: editUserInfo.nickname, 
+      userPhone: editUserInfo.userPhone,
+      homeground: editUserInfo.homeground,
+      favoriteSports: editUserInfo.favoriteSports,
+      userId: editUserInfo.userId
+    },
+    {
       headers: { 
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${Token}` },
+        Authorization: `Bearer ${Token}` 
+      },
       withCredentials: true
-    })
-    .then(res => console.log(res.data));
+    }
+    )
+    .then(res => res.data);
 
   return {
     type: MYPAGE_USER,
@@ -115,6 +129,27 @@ export async function deleteUser(Token) {
 
    return {
      type: DELETE_USER,
+     payload: request
+   }
+}
+
+export async function userPassword(token, password) {
+  const request = await instance
+   .post(`/users/security`, {
+    password
+  },
+  {
+    headers: { 
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}` 
+    },
+    withCredentials: true
+  }
+  )
+   .then(res => console.log(res))
+
+   return {
+     type: USER_PASSWORD,
      payload: request
    }
 }

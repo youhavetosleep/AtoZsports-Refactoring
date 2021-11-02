@@ -5,56 +5,136 @@ import Footer from '../components/footer'
 import MatchCard from '../components/matchCard'
 import GlobalStyle from '../globalStyle/globalStyle'
 import EditPasswordModal from '../modal/editPasswordModal'
+import {
+  getUserFavoriteData,
+  getUserMatchData
+} from '../_actions/matchCard_action'
 import { deleteUser, mypageUser } from '../_actions/user.action'
+import instance from '../api/index.jsx'
 
 const Mypage = ({ userInfo }) => {
   const dispatch = useDispatch()
-
-  const [changeCard, setChangeCard] = useState('용병모집')
+  
+  const Token = userInfo.loginSuccess.accessToken
+  const userInfoSuccess = userInfo.loginSuccess
+  // console.log(userInfoSuccess)
+  
+  const [changeCard, setChangeCard] = useState('작성한 공고')
+  const [writeData, setWriteData] = useState([])
+  const [favoriteData, setFavoriteData] = useState([])
   const [editeInfo, setEditInfo] = useState(false)
   const [editPswordModal, setEditPswordModal] = useState(false)
-  const [FailWithdrawal, setFailWithdrawal] = useState(false);
-  const [YesOrNo, setYesOrNo] = useState(false);
-  const [editUserInfo, setEditUserInfo] = useState({
-    "nickname": userInfo.loginSuccess.nickname,
-})
+  const [YesOrNo, setYesOrNo] = useState(false)
+  const [editUserInfo, setEditUserInfo] = useState({})
+  const [mypageInfo, setMypageInfo] = useState(userInfoSuccess)
+  const [nickCheck, setNickCheck] = useState(false)
+  const [messageNickname, setMessageNickname] = useState('')
+  const [nickname, setNickname] = useState('')
+  
+  
+  // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
+  const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
-const Token = userInfo.loginSuccess.accessToken
+  useEffect(() => {
+    dispatch(getUserMatchData(Token)).then((res) => {
+      setWriteData(res.payload.data.postList)
+    })
+  }, [setWriteData])
+
+  useEffect(() => {
+    dispatch(getUserFavoriteData(Token)).then((res) => {
+      setFavoriteData(res.payload.data)
+    })
+  }, [setFavoriteData])
+
+  const matchBtn = () => {
+    setChangeCard('관심 공고')
+  }
+
+  const memberBtn = () => {
+    setChangeCard('작성한 공고')
+  }
 
   const handleEditPage = () => {
     setEditInfo(true)
   }
 
   const handleSendUserinfo = () => {
+    if(messageNickname === '✔ 사용 가능한 닉네임입니다'){
     dispatch(mypageUser(editUserInfo, Token))
     .then((res) => {
-      console.log(res)
+      setMypageInfo(res.payload.userData)
+      // console.log(res.payload.userData)
     })
     setEditInfo(false)
+  } else {
+    return;
+  }
+}
+
+  // 닉네임 확인
+  const checkNickname = async () => {
+    if (!nickname_Reg.test(nickname)) {
+      setNickCheck(false)
+      setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
+      return
+    } else {
+      await instance
+        .post(
+          '/users/nick-check',
+          {
+            nickname
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            withCredentials: true
+          }
+        )
+        .then((res) => {
+          setMessageNickname(res.data.message)
+          // console.log(res.data.message)
+          if (res.data.message === '✔ 사용 가능한 닉네임입니다') {
+            setNickCheck(true)
+            return
+          }else {
+            setNickCheck(false)
+          }
+        })
+    }
   }
 
   const handleEditPasswordBtn = () => {
     setEditPswordModal(true)
   }
 
+  const handelCancelBtn = () => {
+    setEditInfo(false)
+  }
+
   const withdrawal = () => {
     if (YesOrNo) {
       return dispatch(deleteUser(Token))
-        .then(res => (window.location.href = '/'))
-        .catch(err => {
+        .then((res) => (window.location.href = '/'))
+        .catch((err) => {
           console.log(err)
-        });
+        })
     }
   }
 
   const changeUserInfo = (e) => {
-    // console.log(e.target.value)
     setEditUserInfo({
-      "nickname": e.target.value
+      email: userInfo.loginSuccess.email,
+      userPhone: userInfo.loginSuccess.userPhone,
+      nickname: e.target.value,
+      homeground: userInfo.loginSuccess.homeground,
+      favoriteSports: userInfo.loginSuccess.favoriteSports,
+      userId: userInfo.loginSuccess.id
     })
+    setNickname(e.target.value)
   }
-
-  // console.log(editUserInfo)
+  
 
   return (
     <>
@@ -62,7 +142,10 @@ const Token = userInfo.loginSuccess.accessToken
       <MypageContainer>
         <MypageIn>
           {editPswordModal ? (
-            <EditPasswordModal setEditPswordModal={setEditPswordModal} />
+            <EditPasswordModal 
+            setEditPswordModal={setEditPswordModal} 
+            token={Token}
+            />
           ) : null}
           {!editeInfo ? (
             <MypageUserInfo>
@@ -72,39 +155,44 @@ const Token = userInfo.loginSuccess.accessToken
                   <Userinfo_email>
                     <div className="userinfo_emailTitle">이메일</div>
                     <div className="userinfo_emailContents">
-                      {userInfo.loginSuccess.email}
+                      {mypageInfo.email}
                     </div>
                   </Userinfo_email>
                   <Uuserinfo_phone>
                     <div className="userinfo_phoneTitle">핸드폰</div>
-                    <div className="userinfo_phoneContents">{userInfo.loginSuccess.userPhone}</div>
+                    <div className="userinfo_phoneContents">
+                      {mypageInfo.userPhone}
+                    </div>
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
-                    <div className="userinfo_nicknameContents">{userInfo.loginSuccess.nickname}</div>
+                    <div className="userinfo_nicknameContents">
+                      {mypageInfo.nickname}
+                    </div>
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
-                    <div className="userinfo_homegroundContents">{userInfo.loginSuccess.homeground}</div>
+                    <div className="userinfo_homegroundContents">
+                      {mypageInfo.homeground}
+                    </div>
                   </Userinfo_homeground>
                   <Userinfo_favorite>
                     <div className="userinfo_favoriteTitle">
                       좋아하는 스포츠
                     </div>
-                    <div className="userinfo_favorite">{userInfo.loginSuccess.favoriteSports}</div>
+                    <div className="userinfo_favorite">
+                      {mypageInfo.favoriteSports}
+                    </div>
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
                   <div
                     className="editInfo"
-                    setEditPswordModal={setEditPswordModal}
                     onClick={handleEditPage}
                   >
                     정보수정
                   </div>
-                  <div 
-                  className="editPassWord"
-                  onClick={handleEditPasswordBtn}>
+                  <div className="editPassWord" onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>
@@ -120,7 +208,7 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_emailContents"
-                      value={userInfo.loginSuccess.email}
+                      value={mypageInfo.email}
                       disabled
                     />
                   </Userinfo_email>
@@ -129,7 +217,7 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_phoneContents"
-                      value={userInfo.loginSuccess.userPhone}
+                      value={mypageInfo.userPhone}
                       disabled
                     />
                   </Uuserinfo_phone>
@@ -138,16 +226,22 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_nicknameContents"
-                      placeholder={userInfo.loginSuccess.nickname}
+                      placeholder={mypageInfo.nickname}
                       onChange={(e) => changeUserInfo(e)}
+                      onBlur={checkNickname}
                     />
+                      {nickCheck ? (
+                         <PassCheck>{messageNickname}</PassCheck>
+                          ) : (
+                        <Check>{messageNickname}</Check>
+                      )}
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
                     <input
                       type="text"
                       className="editinfo_homegroundContents"
-                      value={userInfo.loginSuccess.homeground}
+                      value={mypageInfo.homeground}
                       disabled
                     />
                   </Userinfo_homeground>
@@ -158,7 +252,7 @@ const Token = userInfo.loginSuccess.accessToken
                     <input
                       type="text"
                       className="editinfo_favorite"
-                      value={userInfo.loginSuccess.favoriteSports}
+                      value={mypageInfo.favoriteSports}
                       disabled
                     />
                   </Userinfo_favorite>
@@ -166,8 +260,15 @@ const Token = userInfo.loginSuccess.accessToken
                 <EditUserInfo>
                   <div 
                   className="sendEditInfo" 
-                  onClick={handleSendUserinfo}>
+                  onClick={handleSendUserinfo}
+                  >
                     Send
+                  </div>
+                  <div 
+                  className="cancelEdit" 
+                  onClick={handelCancelBtn}
+                  >
+                    Cancel
                   </div>
                 </EditUserInfo>
               </UserInfo>
@@ -175,26 +276,54 @@ const Token = userInfo.loginSuccess.accessToken
           )}
           <MyCard>
             <ChoiceState>
-              <div className="myMercenary">작성한 공고</div>|
-              <div className="letsGame">관심 공고</div>
+              <span className="ordergroup">
+                <span
+                  className={
+                    changeCard === '작성한 공고' ? 'setbold first' : 'first'
+                  }
+                  onClick={memberBtn}
+                >
+                  작성한 공고
+                </span>
+                |
+                <span
+                  className={
+                    changeCard === '관심 공고' ? 'setbold second' : 'second'
+                  }
+                  onClick={matchBtn}
+                >
+                  관심공고
+                </span>
+              </span>
             </ChoiceState>
-            {changeCard === '용병모집' ? (
-              <MyRecruitment>
-                작성한 공고가 없습니다
-              </MyRecruitment>
-            ) : (
-              <MyAttention>
-                관심있는 공고가 없습니다
-              </MyAttention>
-            )}
+            <div className="writeORfavorite">
+              {changeCard === '작성한 공고'
+                ? writeData &&
+                  writeData.map((member, idx) => {
+                    return <MatchCard member={member} key={idx} />
+                  })
+                : favoriteData &&
+                  favoriteData.map((member, idx) => {
+                    return <MatchCard member={member} key={idx} />
+                  })}
+            </div>
+            {changeCard === '작성한 공고' && writeData === undefined ? (
+              <div className="mypage_Match">작성한 공고가 없습니다.</div>
+            ) : null}
+            {changeCard === '관심 공고' && favoriteData === undefined ? (
+              <div className="mypage_Match">관심등록한 공고가 없습니다.</div>
+            ) : null}
           </MyCard>
           <GoodbyeUser>
-            <div className="PleaseDontgo"
-            onClick={e => {
-              withdrawal();
-              setYesOrNo(true);
-            }}
-            >회원탈퇴</div>
+            <div
+              className="PleaseDontgo"
+              onClick={(e) => {
+                withdrawal()
+                setYesOrNo(true)
+              }}
+            >
+              회원탈퇴
+            </div>
           </GoodbyeUser>
         </MypageIn>
       </MypageContainer>
@@ -408,6 +537,38 @@ const EditUserInfo = styled.div`
       color: #840909;
     }
   }
+  .cancelEdit {
+    display: flex;
+    position: absolute;
+    justify-content: right;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    bottom: 10px;
+    right: 100px;
+    border-bottom: 1px solid black;
+    :hover {
+      cursor: pointer;
+      border-bottom: 1px solid #840909;
+      color: #840909;
+    }
+  }
+`
+const Check = styled.div`
+  margin: 0;
+  margin-top: 3px;
+  position: absolute;
+  right: 30px;
+  font-size: 13px;
+  color: #840909;
+`
+
+const PassCheck = styled.div`
+  margin: 0;
+  margin-top: 3px;
+  position: absolute;
+  right: 30px;
+  font-size: 13px;
+  color: #1b7e07;
 `
 
 const ChoiceState = styled.div`
@@ -421,11 +582,55 @@ const ChoiceState = styled.div`
   .letsGame {
     margin-left: 10px;
   }
+  .setbold {
+    font-weight: bolder;
+  }
+  .ordergroup {
+    color: #353535;
+    left: 0;
+    position: flex;
+    text-align: left;
+    top: 100px;
+
+    .first {
+      margin-right: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    .second {
+      margin-left: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 `
 
 const MyCard = styled.section`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  position: relative;
+  /* flex-direction: column; */
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0px 0px 20px;
+  .writeORfavorite {
+    display: grid;
+    grid-template-columns: repeat(2, 360px);
+    row-gap: 20px;
+    column-gap: 24px;
+    margin: 20px 0px 0px 0px;
+  }
+  .mypage_Match {
+    display: flex;
+    width: auto;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    margin: 150px auto 168px auto;
+  }
 `
 
 const MyRecruitment = styled.div`

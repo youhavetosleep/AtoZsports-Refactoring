@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 
-function MatchCard({ member, setListData,idx }) {
+function MatchCard({ member, setListData, idx }) {
   const matchInfoHadler = () => {
     setListData(member)
   }
@@ -20,18 +20,28 @@ function MatchCard({ member, setListData,idx }) {
                   <ul>
                     <li className="articlebox-title">{member.title}</li>
                     <li className="articlebox-date">
-                      {member.startTime} ~ {member.endTime}
+                      {member.startTime.slice(0, 10)}&nbsp;
+                      {member.startTime.slice(11, 16)}&nbsp;
+                       ~ &nbsp;
+                       {member.endTime.slice(0, 10)}&nbsp;
+                       {member.endTime.slice(11, 16)}
                     </li>
                     <li className="articlebox-ground">{member.placeName}</li>
                     <li className="articlebox-content">
                       {member.content}
                     </li>
                     <li>
-                      <span className="articlebox-state">
-                        <span>{member.status}</span>
-                      </span>
                     </li>
                   </ul>
+                      <span className="articlebox-state">
+                        <span
+                         className={
+                           member.status === '모집중' ? 'progress' : 'end'
+                         }
+                        >
+                          {member.status}
+                          </span>
+                      </span>
                 </Link>
               </div>
       </MatchCardContainer>
@@ -98,14 +108,25 @@ z-index: 10;
     }
 
     &-state {
-      border: 1px solid gray;
       border-radius: 10px;
       font-size: 0.8rem;
-      padding: 2px 15px 2px 15px;
       color: #353535;
       position: absolute;
       right: 24px;
+      bottom: 30px;
       margin: 0 !important;
+      .progress {
+        border: 1px solid #840909;
+        color: #840909;
+        border-radius: 13px;
+        padding: 4px 20px 4px 20px;
+      }
+      .end {
+        color: #353535;
+        background-color: #C4C4C4;
+        border-radius: 13px;
+        padding: 5px 15px 5px 15px;
+      }
     }
   }
 `
