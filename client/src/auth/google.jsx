@@ -18,7 +18,9 @@ const Google = () => {
   const history = useHistory()
 
   const googleLogin = async (authorizationCode) => {
-    dispatch(googleUser(authorizationCode))
+    dispatch(googleUser(authorizationCode)).then(res=>{
+      window.location.reload()
+    })
     if(authorizationCode) {
       Swal.fire({
         title: '회원가입이 완료되었습니다!',

@@ -28,11 +28,12 @@ function App() {
 
   // 로그인 정보 저장
   let userInfo = store.getState().user
-
+  console.log(userInfo)
   const [isLogin, setIsLogin] = useState(true)
 
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {
+
       setIsLogin(true)
     } else {
       setIsLogin(false)

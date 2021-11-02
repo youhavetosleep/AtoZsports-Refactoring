@@ -1,5 +1,53 @@
+import { ImStarHalf } from 'react-icons/im'
+import { ImStarFull } from 'react-icons/im'
+
+export const STAR = [
+  {
+    value: '5',
+    name: `
+    ${<ImStarFull />}
+    ${<ImStarFull />}
+    ${<ImStarFull />}
+    ${<ImStarFull />}
+    ${<ImStarFull />}
+    `
+    
+  },
+  {
+    value: '4',
+    name: `
+    ${(<ImStarFull />)}
+    ${(<ImStarFull />)}
+    ${(<ImStarFull />)}
+    ${(<ImStarFull />)}
+    `
+  },
+  {
+    value: '3',
+    name: `
+    ${(<ImStarFull />)}
+    ${(<ImStarFull />)}
+    ${(<ImStarFull />)}
+    `
+  },
+  {
+    value: '2',
+    name: `
+    ${(<ImStarFull />)}
+    ${(<ImStarFull />)}
+    `
+  },
+  {
+    value: '1',
+    name: `
+    ${(<ImStarFull />)}
+    `
+  },
+  
+]
+
 export const STARTOPTIONS = [
-  {value : '', name : '시작 시간'},
+  { value: '', name: '시작 시간' },
   { value: '00:00', name: '00:00' },
   { value: '01:00', name: '01:00' },
   { value: '02:00', name: '02:00' },
@@ -28,7 +76,7 @@ export const STARTOPTIONS = [
 ]
 
 export const ENDOPTIONS = [
-  {value : '', name : '종료 시간'},
+  { value: '', name: '종료 시간' },
   { value: '00:00', name: '00:00' },
   { value: '01:00', name: '01:00' },
   { value: '02:00', name: '02:00' },
