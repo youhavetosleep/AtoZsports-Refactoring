@@ -10,36 +10,42 @@ import {
   getUserMatchData
 } from '../_actions/matchCard_action'
 import { deleteUser, mypageUser } from '../_actions/user.action'
+import instance from '../api/index.jsx'
 
 const Mypage = ({ userInfo }) => {
   const dispatch = useDispatch()
+  
   const Token = userInfo.loginSuccess.accessToken
   const userInfoSuccess = userInfo.loginSuccess
-
+  // console.log(userInfoSuccess)
+  
   const [changeCard, setChangeCard] = useState('작성한 공고')
   const [writeData, setWriteData] = useState([])
   const [favoriteData, setFavoriteData] = useState([])
   const [editeInfo, setEditInfo] = useState(false)
   const [editPswordModal, setEditPswordModal] = useState(false)
-  const [FailWithdrawal, setFailWithdrawal] = useState(false)
   const [YesOrNo, setYesOrNo] = useState(false)
   const [editUserInfo, setEditUserInfo] = useState({})
   const [mypageInfo, setMypageInfo] = useState(userInfoSuccess)
-
-  // console.log(userInfo.loginSuccess) 
-  // console.log(mypageInfo) 
+  const [nickCheck, setNickCheck] = useState(false)
+  const [messageNickname, setMessageNickname] = useState('')
+  const [nickname, setNickname] = useState('')
+  
+  
+  // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
+  const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
   useEffect(() => {
     dispatch(getUserMatchData(Token)).then((res) => {
       setWriteData(res.payload.data.postList)
     })
-  }, [dispatch])
+  }, [setWriteData])
 
   useEffect(() => {
     dispatch(getUserFavoriteData(Token)).then((res) => {
       setFavoriteData(res.payload.data)
     })
-  }, [dispatch])
+  }, [setFavoriteData])
 
   const matchBtn = () => {
     setChangeCard('관심 공고')
@@ -54,15 +60,57 @@ const Mypage = ({ userInfo }) => {
   }
 
   const handleSendUserinfo = () => {
+    if(messageNickname === '✔ 사용 가능한 닉네임입니다'){
     dispatch(mypageUser(editUserInfo, Token))
     .then((res) => {
       setMypageInfo(res.payload.userData)
+      // console.log(res.payload.userData)
     })
     setEditInfo(false)
+  } else {
+    return;
+  }
+}
+
+  // 닉네임 확인
+  const checkNickname = async () => {
+    if (!nickname_Reg.test(nickname)) {
+      setNickCheck(false)
+      setMessageNickname('(2-10자) 한글, 영문, 숫자만 가능합니다')
+      return
+    } else {
+      await instance
+        .post(
+          '/users/nick-check',
+          {
+            nickname
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            withCredentials: true
+          }
+        )
+        .then((res) => {
+          setMessageNickname(res.data.message)
+          // console.log(res.data.message)
+          if (res.data.message === '✔ 사용 가능한 닉네임입니다') {
+            setNickCheck(true)
+            return
+          }else {
+            setNickCheck(false)
+          }
+        })
+    }
   }
 
   const handleEditPasswordBtn = () => {
     setEditPswordModal(true)
+  }
+
+  const handelCancelBtn = () => {
+    setEditInfo(false)
   }
 
   const withdrawal = () => {
@@ -84,6 +132,7 @@ const Mypage = ({ userInfo }) => {
       favoriteSports: userInfo.loginSuccess.favoriteSports,
       userId: userInfo.loginSuccess.id
     })
+    setNickname(e.target.value)
   }
   
 
@@ -93,7 +142,10 @@ const Mypage = ({ userInfo }) => {
       <MypageContainer>
         <MypageIn>
           {editPswordModal ? (
-            <EditPasswordModal setEditPswordModal={setEditPswordModal} />
+            <EditPasswordModal 
+            setEditPswordModal={setEditPswordModal} 
+            token={Token}
+            />
           ) : null}
           {!editeInfo ? (
             <MypageUserInfo>
@@ -176,7 +228,13 @@ const Mypage = ({ userInfo }) => {
                       className="editinfo_nicknameContents"
                       placeholder={mypageInfo.nickname}
                       onChange={(e) => changeUserInfo(e)}
+                      onBlur={checkNickname}
                     />
+                      {nickCheck ? (
+                         <PassCheck>{messageNickname}</PassCheck>
+                          ) : (
+                        <Check>{messageNickname}</Check>
+                      )}
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
@@ -200,8 +258,17 @@ const Mypage = ({ userInfo }) => {
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div className="sendEditInfo" onClick={handleSendUserinfo}>
+                  <div 
+                  className="sendEditInfo" 
+                  onClick={handleSendUserinfo}
+                  >
                     Send
+                  </div>
+                  <div 
+                  className="cancelEdit" 
+                  onClick={handelCancelBtn}
+                  >
+                    Cancel
                   </div>
                 </EditUserInfo>
               </UserInfo>
@@ -470,6 +537,38 @@ const EditUserInfo = styled.div`
       color: #840909;
     }
   }
+  .cancelEdit {
+    display: flex;
+    position: absolute;
+    justify-content: right;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    bottom: 10px;
+    right: 100px;
+    border-bottom: 1px solid black;
+    :hover {
+      cursor: pointer;
+      border-bottom: 1px solid #840909;
+      color: #840909;
+    }
+  }
+`
+const Check = styled.div`
+  margin: 0;
+  margin-top: 3px;
+  position: absolute;
+  right: 30px;
+  font-size: 13px;
+  color: #840909;
+`
+
+const PassCheck = styled.div`
+  margin: 0;
+  margin-top: 3px;
+  position: absolute;
+  right: 30px;
+  font-size: 13px;
+  color: #1b7e07;
 `
 
 const ChoiceState = styled.div`
