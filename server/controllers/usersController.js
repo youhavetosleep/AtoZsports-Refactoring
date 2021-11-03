@@ -9,7 +9,7 @@ const {
   sendRefreshToken
 } = require('./token/tokenController')
 const { isAuth, generateRandomPassword } = require('./function/function')
-const { User, Post, FavoritePost } = require('../models')
+const { User, Post, Ground, FavoritePost } = require('../models')
 const smtpTransport = require('../config/mailConfig')
 
 dotenv.config()
@@ -588,17 +588,25 @@ module.exports = {
   myPost: (req, res, next) => {
     const userId = res.locals.userId
     Post.findAll({
+      include: [{ model: Ground, attributes: ['placeName'] }],
       where: { userId }
     })
-      .then((postList) => {
+      .then(async (postList) => {
         // 내가 작성한 게시글이 존재하지 않는 경우
         if (postList.length === 0) {
           res.status(204).send({ message: '작성한 게시글이 존재하지 않습니다' })
         } else {
           // 작성한 게시글이 존재할 경우
+          const list = await Promise.all(
+            postList.map((el) => {
+            const { id, sports, startTime, endTime, content, status } = el
+            const { placeName } = el.Ground
+            const post = { id, sports, startTime, endTime, placeName, content, status }
+            return post
+          }))
           // 최신순으로 정렬
-          postList.sort((a, b) => b.id - a.id)
-          res.send({ postList })
+          list.sort((a, b) => b.id - a.id)
+          res.send(list)
         }
       })
       .catch((error) => {
@@ -617,16 +625,27 @@ module.exports = {
       // Promise를 통해 postId 각각의 Post 정보를 가져옴
       const postList = await Promise.all(
         user.FavoritePosts.map((el) => {
-          const post = Post.findOne({ where: { id: el.postId } })
+          const post = Post.findOne({ 
+            include: [{ model: Ground, attributes: ['placeName'] }],
+            where: { id: el.postId } 
+          })
           return post
         })
       )
       if (postList.length === 0) {
         res.status(204).send({ message: '관심 등록한 게시글이 없습니다' })
       } else {
-        // 게시글을 최신순으로 정렬
-        postList.sort((a, b) => b.id - a.id)
-        res.send(postList)
+        // 작성한 게시글이 존재할 경우
+        const list = await Promise.all(
+          postList.map((el) => {
+          const { id, sports, startTime, endTime, content, status } = el
+          const { placeName } = el.Ground
+          const post = { id, sports, startTime, endTime, placeName, content, status }
+          return post
+        }))
+        // 최신순으로 정렬
+        list.sort((a, b) => b.id - a.id)
+        res.send(list)
       }
     })
   },
