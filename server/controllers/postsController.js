@@ -65,7 +65,7 @@ module.exports = {
           {
             model: Ground,
             attributes: [
-              'PlaceName',
+              'placeName',
               'addressName',
               'longitude',
               'latitude',
@@ -90,7 +90,7 @@ module.exports = {
               status,
               phoneOpen,
               userId,
-              Ground: { PlaceName, addressName, longitude, latitude, phone },
+              Ground: { placeName, addressName, longitude, latitude, phone },
               User: { nickname, userPhone }
             } = data
 
@@ -120,7 +120,7 @@ module.exports = {
                   startTime,
                   endTime,
                   status,
-                  PlaceName,
+                  placeName,
                   addressName,
                   longitude,
                   latitude,
@@ -138,7 +138,7 @@ module.exports = {
                   startTime,
                   endTime,
                   status,
-                  PlaceName,
+                  placeName,
                   addressName,
                   longitude,
                   latitude,
@@ -297,22 +297,110 @@ module.exports = {
         console.log(`writeGround Error: ${err.message}`)
       })
   },
-  updateStatus: (req, res, next) => {
+  updateStatus: async (req, res, next) => {
     let postId = req.params.postId
     let status = req.body.status
-    Post.update(
-      {
-        status
-      },
-      { where: { id: postId } }
-    )
-      .then(async () => {
-        let updatePostData = await Post.findOne({ where: { id: postId } })
-        res.send(updatePostData)
-      })
-      .catch((err) => {
-        console.log(`updateStatus Error: ${err.message}`)
-      })
+    try {
+      await Post.update({ status }, { where: { id: postId } })
+    } catch (err) {
+      console.log(`updateStatus Error: ${err.message}`)
+    }
+    Post.findOne({
+      include: [
+        {
+          model: Ground,
+          attributes: [
+            'placeName',
+            'addressName',
+            'longitude',
+            'latitude',
+            'phone'
+          ]
+        },
+        { model: User, attributes: ['nickname', 'userPhone'] }
+      ],
+      where: { id: postId }
+    }).then(async (data) => {
+      if (!data) {
+        res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
+      } else {
+        const {
+          id,
+          title,
+          division,
+          content,
+          startTime,
+          endTime,
+          status,
+          phoneOpen,
+          userId,
+          Ground: { placeName, addressName, longitude, latitude, phone },
+          User: { nickname, userPhone }
+        } = data
+
+        let isMyPost = false
+        let isMyFavorite = false
+
+        // 나의 게시물, 즐겨찾기 확인
+        try {
+          let findFavoritePost = await FavoritePost.findOne({
+            where: {
+              userId: res.locals.userId,
+              postId: postId
+            }
+          })
+
+          if (!!findFavoritePost) isMyFavorite = true
+          if (res.locals.userId === userId) isMyPost = true
+
+          let resultData
+          phoneOpen === true
+            ? (resultData = {
+                id,
+                isMyPost,
+                isMyFavorite,
+                title,
+                division,
+                content,
+                startTime,
+                endTime,
+                status,
+                placeName,
+                addressName,
+                longitude,
+                latitude,
+                phone,
+                nickname,
+                userPhone
+              })
+            : (resultData = {
+                id,
+                isMyPost,
+                isMyFavorite,
+                title,
+                division,
+                content,
+                startTime,
+                endTime,
+                status,
+                placeName,
+                addressName,
+                longitude,
+                latitude,
+                phone,
+                nickname
+              })
+          res.locals.message === '인증 완료'
+            ? res.send({ postsData: resultData })
+            : res.send({
+                accessToken: res.locals.isAuth,
+                postsData: resultData
+              })
+        } catch (err) {
+          console.log(`findFavorite Error: ${err.message}`)
+        }
+      }
+    })
   },
   // 게시글 수정
   updatePost: (req, res, next) => {
@@ -365,10 +453,100 @@ module.exports = {
             { where: { id: postId } }
           )
           if (updatePostData[0] === 1) {
-            await Post.findOne({ where: { id: postId } }).then((post) => {
-              reserveMail(post, req)
-              res.send(post)
+            await Post.findOne({
+              include: [
+                {
+                  model: Ground,
+                  attributes: [
+                    'placeName',
+                    'addressName',
+                    'longitude',
+                    'latitude',
+                    'phone'
+                  ]
+                },
+                { model: User, attributes: ['nickname', 'userPhone'] }
+              ],
+              where: { id: postId }
             })
+              .then(async (data) => {
+                if (!data) {
+                  res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
+                } else {
+                  reserveMail(data, req)
+                  const {
+                    id,
+                    title,
+                    division,
+                    content,
+                    startTime,
+                    endTime,
+                    status,
+                    phoneOpen,
+                    userId,
+                    Ground: { placeName, addressName, longitude, latitude, phone },
+                    User: { nickname, userPhone }
+                  } = data
+      
+                  let isMyPost = false
+                  let isMyFavorite = false
+      
+                  // 나의 게시물, 즐겨찾기 확인
+                  let findFavoritePost = await FavoritePost.findOne({
+                    where: {
+                      userId: res.locals.userId,
+                      postId: postId
+                    }
+                  })
+      
+                  if (!!findFavoritePost) isMyFavorite = true
+                  if (res.locals.userId === userId) isMyPost = true
+      
+                  let resultData
+                  phoneOpen === true
+                    ? (resultData = {
+                        id,
+                        isMyPost,
+                        isMyFavorite,
+                        title,
+                        division,
+                        content,
+                        startTime,
+                        endTime,
+                        status,
+                        placeName,
+                        addressName,
+                        longitude,
+                        latitude,
+                        phone,
+                        nickname,
+                        userPhone
+                      })
+                    : (resultData = {
+                        id,
+                        isMyPost,
+                        isMyFavorite,
+                        title,
+                        division,
+                        content,
+                        startTime,
+                        endTime,
+                        status,
+                        placeName,
+                        addressName,
+                        longitude,
+                        latitude,
+                        phone,
+                        nickname
+                      })
+                  res.locals.message === '인증 완료'
+                    ? res.send({ postsData: resultData })
+                    : res.send({
+                        accessToken: res.locals.isAuth,
+                        postsData: resultData
+                      })
+                }
+              })
           } else {
             console.log('게시글이 수정이 되지 않았습니다!')
           }
