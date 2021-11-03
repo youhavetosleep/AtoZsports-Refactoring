@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { 
-  MATCH_DATA, 
+import {
+  MATCH_DATA,
   MATCH_LIST_DATA,
   USER_WRITEMATCH,
-  USER_FAVORITEMATCH 
+  USER_FAVORITEMATCH
 } from './types'
 import instance from '../api'
 // 용병, 경기제안 데이터
@@ -22,71 +22,17 @@ export async function getMatchData(CurrentOrder) {
   }
 }
 
-export async function getMatchListData(
-  offset,
-  startTime,
-  endTime,
-  CurrentOrder,
-  date,
-  region1,
-  region2
-) {
-  const request = await instance
-    .get(
-      `/futsal/posts?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=3`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      }
-    )
-    .then((response) => response.data)
-    .catch((err) => console.log(err))
-
-  return {
-    type: MATCH_LIST_DATA,
-    payload: request
-  }
-}
-
-export async function sortedMatchListData(
-  offset,
-  startTime,
-  endTime,
-  CurrentOrder,
-  date,
-  region1,
-  region2
-) {
-  // console.log(offset, startTime, endTime, CurrentOrder, date, region1, region2)
-  const request = await instance
-    .get(
-      `/futsal/posts?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=3`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      }
-    )
-    .then((response) => response.data)
-    .catch((err) => console.log(err))
-
-  return {
-    type: MATCH_LIST_DATA,
-    payload: request
-  }
-}
 export async function getUserMatchData(Token) {
   const request = await instance
-    .get(`/users/mypost`,
-      {
-        headers: { 
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Token}`
-        },
-        withCredentials: true
-      }
-    )
+    .get(`/users/mypost`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      },
+      withCredentials: true
+    })
     .then((res) => res)
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
 
   return {
     type: USER_WRITEMATCH,
@@ -96,17 +42,15 @@ export async function getUserMatchData(Token) {
 
 export async function getUserFavoriteData(Token) {
   const request = await instance
-    .get(`/users/favorite`,
-      {
-        headers: { 
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Token}`
-        },
-        withCredentials: true
-      }
-    )
+    .get(`/users/favorite`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      },
+      withCredentials: true
+    })
     .then((res) => res)
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
 
   return {
     type: USER_FAVORITEMATCH,

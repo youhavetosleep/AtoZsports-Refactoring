@@ -19,15 +19,17 @@ const Kakao = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const kakaoLogin = async (authorizationCode) => {
-    dispatch(kakaoUser(authorizationCode))
+  const kakaoLogin = (authorizationCode) => {
+    dispatch(kakaoUser(authorizationCode)).then(res=>{
+      window.location.reload()
+    })
+    Swal.fire({
+      title: '회원가입이 완료되었습니다!',
+      icon: 'success',
+      confirmButtonColor: '#d6d6d6',
+      confirmButtonText: '확인'
+    })
     if(authorizationCode) {
-      Swal.fire({
-        title: '회원가입이 완료되었습니다!',
-        icon: 'success',
-        confirmButtonColor: '#d6d6d6',
-        confirmButtonText: '확인'
-      })
       history.push('/')
     }
   }

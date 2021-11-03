@@ -32,47 +32,44 @@ function App() {
   let userInfo = store.getState().user
 
   const [isLogin, setIsLogin] = useState(false)
-  const [scrollPosition, setScrollPosition] = useState(0);
-
+  const [scrollPosition, setScrollPosition] = useState(0)
 
   // 스크롤 이벤트
   useEffect(() => {
-    window.addEventListener("scroll", scrollPositionHandler);
+    window.addEventListener('scroll', scrollPositionHandler)
     return () => {
-      window.removeEventListener("scroll", scrollPositionHandler);
-    };
-  });
+      window.removeEventListener('scroll', scrollPositionHandler)
+    }
+  })
 
   // 스크롤 시 위치를 상태값에 저장하는 코드.
   const scrollPositionHandler = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-  };
-
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop)
+  }
 
   // element가 스크린 아래쪽에 있는지 확인하는 코드
   const isElementUnderBottom = (elem, triggerDiff) => {
-    const { top } = elem.getBoundingClientRect();
-    const { innerHeight } = window;
-    return top > innerHeight + (triggerDiff || 0);
-  };
+    const { top } = elem.getBoundingClientRect()
+    const { innerHeight } = window
+    return top > innerHeight + (triggerDiff || 0)
+  }
 
   // 스크롤 이벤트 발생시 활성화되는 함수
   const handleScroll = () => {
-    const elems = document.querySelectorAll(".scroll");
+    const elems = document.querySelectorAll('.scroll')
     elems.forEach((elem) => {
       if (isElementUnderBottom(elem, -30)) {
-        elem.style.opacity = "0";
-        elem.style.transform = "translateY(40px)";
+        elem.style.opacity = '0'
+        elem.style.transform = 'translateY(40px)'
       } else {
-        elem.style.opacity = "1";
-        elem.style.transform = "translateY(0px)";
+        elem.style.opacity = '1'
+        elem.style.transform = 'translateY(0px)'
       }
-    });
-  };
+    })
+  }
 
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener('scroll', handleScroll)
 
-  
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {
       setIsLogin(true)
@@ -92,8 +89,8 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
-      {scrollPosition > 60 ? <Top /> : null}
-      <ScrollToTop />
+        {scrollPosition > 60 ? <Top /> : null}
+        <ScrollToTop />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />
@@ -140,7 +137,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Post />
+            <Post userInfo={userInfo} />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
@@ -151,13 +148,12 @@ function App() {
             <Write />
           </Route>
           <Route exact path="/mypage">
-          { isLogin ? <NavbarChange 
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          /> : <Navbar /> }
-            <Mypage 
-            userInfo={userInfo}
-            />
+            {isLogin ? (
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            ) : (
+              <Navbar />
+            )}
+            <Mypage userInfo={userInfo} />
           </Route>
           <Route exact path="/signup">
             {isLogin ? (
