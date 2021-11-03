@@ -11,18 +11,16 @@ import SelectBox from '../utils/selectBox'
 import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 
-
 const Write = () => {
   const mapRef = useRef()
   const dispatch = useDispatch()
-  
+
   const changeDate = (date) => {
     return date.toISOString().split('T')[0]
   }
 
   const newdate = new Date()
   const today = changeDate(newdate)
-
 
   const [startDate, setStartDate] = useState(today)
   const [startTime, setStartTime] = useState('')
@@ -46,56 +44,46 @@ const Write = () => {
       <GlobalStyle />
       <WriteContainer>
         <WriteIn>
-          <div className='write_title'>게시글 작성</div>
+          <div className="write_title">게시글 작성</div>
           <WriteMap>
             <WriteContentsMap />
           </WriteMap>
           <WritePlace>
-            <div className='write_palce'>선택한 경기장</div>
-            <input 
-            type='text' 
-            className='write_choiceGround' 
-            />
+            <div className="write_palce">선택한 경기장</div>
+            <input type="text" className="write_choiceGround" />
           </WritePlace>
           <WriteRequest>
-            <div className='write_kindRequest'>요청 종류</div>
+            <div className="write_kindRequest">요청 종류</div>
             <RequestBtn>
-               <div className='write_btn1'>용병모집</div>
-               <div className='write_btn2'>경기제안</div>
+              <div className="write_btn1">용병모집</div>
+              <div className="write_btn2">경기제안</div>
             </RequestBtn>
           </WriteRequest>
           <WriteDate>
-            <div className='write_data'>경기 일정</div>
+            <div className="write_data">경기 일정</div>
             <CalendarWrap>
-            <CalendarWrite 
-              className="Calender"
-              handledate={handledate}
-              startDate={startDate}
-            />
-            <DownWrap>
-            <FaChevronDown />
-            </DownWrap>
-            <TimeWrap>
-              <SelectBoxWrite />
-            </TimeWrap>
+              <CalendarWrite
+                className="Calender"
+                handledate={handledate}
+                startDate={startDate}
+              />
+              <DownWrap>
+                <FaChevronDown />
+              </DownWrap>
+              <TimeWrap>
+                <SelectBoxWrite />
+              </TimeWrap>
             </CalendarWrap>
           </WriteDate>
           <WritePhoneCheck>
-            <div className='write_phonecheck'>전화번호 표시</div>
-            <input
-            type='checkbox' 
-            className='write_checkBox'
-            />
+            <div className="write_phonecheck">전화번호 표시</div>
+            <input type="checkbox" className="write_checkBox" />
           </WritePhoneCheck>
           <WriteEtc>
-            <div className='write_etc'>요청사항</div>
-            <textarea
-            className='write_textArea'
-            ></textarea>
+            <div className="write_etc">요청사항</div>
+            <textarea className="write_textArea"></textarea>
           </WriteEtc>
-          <div className='write_send'>
-            등록하기
-          </div>
+          <div className="write_send">등록하기</div>
         </WriteIn>
       </WriteContainer>
       <Footer />
@@ -142,25 +130,25 @@ const WriteMap = styled.div`
 `
 
 const WritePlace = styled.div`
- display: flex;
- max-width: 800px;
- justify-content: center;
- flex-direction: column;
- margin: 20px auto 20px auto;
- .write_palce {
   display: flex;
-  font-size: 1.3rem;
- }
- .write_choiceGround {
-   width: 780px;
-   height: 30px;
-   margin: 20px 0px 0px 0px;
-   border-top: none;
-   border-left: none;
-   border-right: none;
-   border-bottom: 1px solid black;
-   background-color: #fafafa;
- }
+  max-width: 800px;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px auto 20px auto;
+  .write_palce {
+    display: flex;
+    font-size: 1.3rem;
+  }
+  .write_choiceGround {
+    width: 780px;
+    height: 30px;
+    margin: 20px 0px 0px 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+    background-color: #fafafa;
+  }
 `
 
 const WriteRequest = styled.div`
@@ -171,8 +159,8 @@ const WriteRequest = styled.div`
   margin: 30px auto 20px auto;
   .write_kindRequest {
     display: flex;
-  font-size: 1.3rem;
-  margin: 0px 0px 0px 0px;
+    font-size: 1.3rem;
+    margin: 0px 0px 0px 0px;
   }
   .write_btn1 {
     display: flex;
@@ -202,7 +190,6 @@ const WriteRequest = styled.div`
       cursor: pointer;
     }
   }
-
 `
 const RequestBtn = styled.div`
   display: flex;
@@ -210,26 +197,24 @@ const RequestBtn = styled.div`
 `
 
 const WriteDate = styled.div`
-display: flex;
-flex-direction: column;
- max-width: 800px;
- justify-content: center;
- margin: 20px auto 20px auto;
-.write_data {
-  font-size: 1.3rem;
-  margin-left: 10px;
-}
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  justify-content: center;
+  margin: 20px auto 20px auto;
+  .write_data {
+    font-size: 1.3rem;
+    margin-left: 10px;
+  }
 `
 
-const TimeWrap = styled.div`
-
-`
+const TimeWrap = styled.div``
 
 const CalendarWrap = styled.div`
-display: flex;
-flex-direction: row;
-margin: 20px 0px 0px 0px;
-position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0px 0px 0px;
+  position: relative;
 `
 
 const DownWrap = styled.div`
@@ -243,41 +228,41 @@ const DownWrap = styled.div`
 
 const WritePhoneCheck = styled.div`
   display: flex;
-flex-direction: row;
- max-width: 800px;
- justify-content: left;
- align-items: center;
- margin: 20px auto 20px auto;
- .write_phonecheck {
-   font-size: 1.3rem;
-   margin-right: 20px;
-   margin-top: 3px;
- }
- .write_checkBox {
-  transform : scale(1.5);
-  /* color: #840909; */
-  margin-right: 630px;
- }
+  flex-direction: row;
+  max-width: 800px;
+  justify-content: left;
+  align-items: center;
+  margin: 20px auto 20px auto;
+  .write_phonecheck {
+    font-size: 1.3rem;
+    margin-right: 20px;
+    margin-top: 3px;
+  }
+  .write_checkBox {
+    transform: scale(1.5);
+    /* color: #840909; */
+    margin-right: 630px;
+  }
 `
 
 const WriteEtc = styled.div`
-display: flex;
-flex-direction: column;
- max-width: 800px;
- justify-content: left;
- align-items: center;
- margin: 20px auto 20px auto;
- .write_etc {
-   font-size: 1.3rem;
-   margin-right: 710px;
- }
-.write_textArea {
-  margin-top: 20px;
-  width: 780px;
-  height: 200px;
-  resize:none;
-  font-size: 1.1rem;
-}
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  justify-content: left;
+  align-items: center;
+  margin: 20px auto 20px auto;
+  .write_etc {
+    font-size: 1.3rem;
+    margin-right: 710px;
+  }
+  .write_textArea {
+    margin-top: 20px;
+    width: 780px;
+    height: 200px;
+    resize: none;
+    font-size: 1.1rem;
+  }
 `
 
 export default Write
