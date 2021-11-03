@@ -288,10 +288,7 @@ module.exports = {
             delete userData.password
             // 자체회원가입 후 인증 안 된 상태로 소셜 로그인 시 인증
             if (userData.verified === false) {
-              User.update(
-                { verified: true },
-                { where: { id: userData.id } }
-              )
+              User.update({ verified: true }, { where: { id: userData.id } })
               userData.verified = true
             }
             const accessToken = generateAccessToken(userData)
@@ -308,14 +305,8 @@ module.exports = {
   },
   // 회원가입
   signup: (req, res, next) => {
-    const {
-      email,
-      nickname,
-      password,
-      userPhone,
-      favoriteSports,
-      homeground
-    } = req.body
+    const { email, nickname, password, userPhone, favoriteSports, homeground } =
+      req.body
     if (
       !email ||
       !nickname ||
@@ -563,13 +554,8 @@ module.exports = {
     User.findOne({ where: { id: userId } })
       .then((user) => {
         // 마이페이지에서 필요한 정보만을 뽑아서 전송
-        const {
-          email,
-          nickname,
-          userPhone,
-          homeground,
-          favoriteSports
-        } = user.dataValues
+        const { email, nickname, userPhone, homeground, favoriteSports } =
+          user.dataValues
         const userData = {
           email,
           nickname,

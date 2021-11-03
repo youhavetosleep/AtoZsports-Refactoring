@@ -3,47 +3,36 @@ import GlobalStyle from '../globalStyle/globalStyle'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-
-function MatchCard({ member, setListData, idx }) {
+function MatchCard({ member, setListData }) {
   const matchInfoHadler = () => {
     setListData(member)
   }
+
   return (
     <>
       <GlobalStyle />
       <MatchCardContainer>
-              <div 
-              className="articlebox-listbox"
-              onClick={() => matchInfoHadler()}
-              >
-                <Link to="/entrance" style={{ textDecoration: 'none' }}>
-                  <ul>
-                    <li className="articlebox-title">{member.title}</li>
-                    <li className="articlebox-date">
-                      {member.startTime.slice(0, 10)}&nbsp;
-                      {member.startTime.slice(11, 16)}&nbsp;
-                       ~ &nbsp;
-                       {member.endTime.slice(0, 10)}&nbsp;
-                       {member.endTime.slice(11, 16)}
-                    </li>
-                    <li className="articlebox-ground">{member.placeName}</li>
-                    <li className="articlebox-content">
-                      {member.content}
-                    </li>
-                    <li>
-                    </li>
-                  </ul>
-                      <span className="articlebox-state">
-                        <span
-                         className={
-                           member.status === '모집중' ? 'progress' : 'end'
-                         }
-                        >
-                          {member.status}
-                          </span>
-                      </span>
-                </Link>
-              </div>
+        <div className="articlebox-listbox" onClick={() => matchInfoHadler()}>
+          <Link to="/entrance" style={{ textDecoration: 'none' }}>
+            <ul>
+              <li className="articlebox-title">{member.title}</li>
+              <li className="articlebox-date">
+                {member.startTime.slice(0, 10)}&nbsp;
+                {member.startTime.slice(11, 16)}&nbsp; ~ &nbsp;
+                {member.endTime.slice(0, 10)}&nbsp;
+                {member.endTime.slice(11, 16)}
+              </li>
+              <li className="articlebox-ground">{member.placeName}</li>
+              <li className="articlebox-content">{member.content}</li>
+              <li></li>
+            </ul>
+            <span className="articlebox-state">
+              <span className={member.status === '모집중' ? 'progress' : 'end'}>
+                {member.status}
+              </span>
+            </span>
+          </Link>
+        </div>
       </MatchCardContainer>
     </>
   )
@@ -122,7 +111,7 @@ const MatchCardContainer = styled.div`
       }
       .end {
         color: #353535;
-        background-color: #C4C4C4;
+        background-color: #c4c4c4;
         border-radius: 13px;
         padding: 5px 15px 5px 15px;
       }

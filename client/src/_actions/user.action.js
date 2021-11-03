@@ -5,7 +5,8 @@ import {
   LOGOUT_USER, 
   DELETE_USER, 
   MYPAGE_USER,
-  USER_PASSWORD 
+  USER_PASSWORD,
+  USER_PASSWORDCHECK
 } from './types'
 import instance from '../api'
 
@@ -62,8 +63,6 @@ export async function mypageUser(editUserInfo, Token) {
     .patch(
       '/users', 
     {
-      email: editUserInfo.email, 
-      verifiedKey: null,
       nickname: editUserInfo.nickname, 
       userPhone: editUserInfo.userPhone,
       homeground: editUserInfo.homeground,
@@ -133,7 +132,7 @@ export async function deleteUser(Token) {
    }
 }
 
-export async function userPassword(token, password) {
+export async function userPassword(password, token) {
   const request = await instance
    .post(`/users/security`, {
     password
@@ -146,10 +145,36 @@ export async function userPassword(token, password) {
     withCredentials: true
   }
   )
-   .then(res => console.log(res))
+   .then((res) => 
+     res.data.message
+    )
+   .catch((res) => 
+     '비밀번호가 일치하지 않습니다!'
+    )
 
    return {
      type: USER_PASSWORD,
+     payload: request
+   }
+}
+
+export async function userChangePsword(secondPsword, Token) {
+  const request = await instance
+   .patch(`/users/security`, {
+    password: secondPsword
+  },
+  {
+    headers: { 
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${Token}` 
+    },
+    withCredentials: true
+  }
+  )
+   .then((res) => res.data.message)
+
+   return {
+     type: USER_PASSWORDCHECK,
      payload: request
    }
 }

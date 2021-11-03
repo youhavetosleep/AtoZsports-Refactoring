@@ -9,43 +9,75 @@ import {
   getUserFavoriteData,
   getUserMatchData
 } from '../_actions/matchCard_action'
-import { deleteUser, mypageUser } from '../_actions/user.action'
+import {
+  deleteUser,
+  mypageUser,
+  userChangePsword
+} from '../_actions/user.action'
 import instance from '../api/index.jsx'
 
 const Mypage = ({ userInfo }) => {
   const dispatch = useDispatch()
-  
+
+  // AccessToken
   const Token = userInfo.loginSuccess.accessToken
+
+  // UserInfo
   const userInfoSuccess = userInfo.loginSuccess
-  // console.log(userInfoSuccess)
-  
+  const [phoneNumber, setPhoneNumber] = useState(userInfoSuccess.userPhone)
+  const [nickname, setNickname] = useState('')
+  const [homeGround, setHomeGround] = useState('')
+  const [favoriteSports, setFavoriteSports] = useState('')
+
+  // UserInfo Check
+  const [nickCheck, setNickCheck] = useState(false)
+  const [messagePwCheck, setMessagePwChecks] = useState('')
+
+
+  // 작성한 공고, 관심 공고
   const [changeCard, setChangeCard] = useState('작성한 공고')
   const [writeData, setWriteData] = useState([])
   const [favoriteData, setFavoriteData] = useState([])
-  const [editeInfo, setEditInfo] = useState(false)
+
+
+  // Password Change
+  const [editPsword, setEditPsword] = useState(false)
+  const [firstPsword, setFirstPsword] = useState('')
+  const [secondPsword, setSecondPsword] = useState('')
   const [editPswordModal, setEditPswordModal] = useState(false)
+  const [messagePassword, setMessagePasswords] = useState('')
+  const [pwColor, setPwColor] = useState(false)
+  const [pwCheckColor, setPwCheckColor] = useState(false)
+
+  // 입력한 값의 결과여부 표시
+  const [messageNickname, setMessageNickname] = useState('')
   const [YesOrNo, setYesOrNo] = useState(false)
+
+  // 개인정보 변경 관련
+  const [editeInfo, setEditInfo] = useState(false)
   const [editUserInfo, setEditUserInfo] = useState({})
   const [mypageInfo, setMypageInfo] = useState(userInfoSuccess)
-  const [nickCheck, setNickCheck] = useState(false)
-  const [messageNickname, setMessageNickname] = useState('')
-  const [nickname, setNickname] = useState('')
-  
-  
+
+
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
+  const password_Reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
+
 
   useEffect(() => {
-    dispatch(getUserMatchData(Token)).then((res) => {
-      setWriteData(res.payload.data.postList)
+    dispatch(getUserMatchData(Token))
+    .then((res) => {
+      setWriteData(res.payload)
     })
-  }, [setWriteData])
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(getUserFavoriteData(Token)).then((res) => {
-      setFavoriteData(res.payload.data)
+    dispatch(getUserFavoriteData(Token))
+    .then((res) => {
+      setFavoriteData(res.payload)
     })
-  }, [setFavoriteData])
+  }, [dispatch])
+
 
   const matchBtn = () => {
     setChangeCard('관심 공고')
@@ -60,17 +92,15 @@ const Mypage = ({ userInfo }) => {
   }
 
   const handleSendUserinfo = () => {
-    if(messageNickname === '✔ 사용 가능한 닉네임입니다'){
-    dispatch(mypageUser(editUserInfo, Token))
-    .then((res) => {
-      setMypageInfo(res.payload.userData)
-      // console.log(res.payload.userData)
-    })
-    setEditInfo(false)
-  } else {
-    return;
+    if (messageNickname === '✔ 사용 가능한 닉네임입니다') {
+       dispatch(mypageUser(editUserInfo, Token)).then((res) => {
+        setMypageInfo(res.payload.userData)
+      })
+      setEditInfo(false)
+    } else {
+      return
+    }
   }
-}
 
   // 닉네임 확인
   const checkNickname = async () => {
@@ -94,11 +124,10 @@ const Mypage = ({ userInfo }) => {
         )
         .then((res) => {
           setMessageNickname(res.data.message)
-          // console.log(res.data.message)
           if (res.data.message === '✔ 사용 가능한 닉네임입니다') {
             setNickCheck(true)
             return
-          }else {
+          } else {
             setNickCheck(false)
           }
         })
@@ -122,19 +151,72 @@ const Mypage = ({ userInfo }) => {
         })
     }
   }
+  
+  // setEditUserInfo({
+  //   userPhone: userInfo.loginSuccess.userPhone,
+  //   nickname: nickname,
+  //   homeground: userInfo.loginSuccess.homeground,
+  //   favoriteSports: userInfo.loginSuccess.favoriteSports,
+  //   userId: userInfo.loginSuccess.id
+  // })
 
-  const changeUserInfo = (e) => {
-    setEditUserInfo({
-      email: userInfo.loginSuccess.email,
-      userPhone: userInfo.loginSuccess.userPhone,
-      nickname: e.target.value,
-      homeground: userInfo.loginSuccess.homeground,
-      favoriteSports: userInfo.loginSuccess.favoriteSports,
-      userId: userInfo.loginSuccess.id
-    })
+  const changeUserPhoneNumber = (e) => {
+    if(e){
+    setPhoneNumber(e.target.value)
+    } else {
+      setPhoneNumber(userInfoSuccess.userPhone)
+    }
+  }
+  // console.log(phoneNumber)
+
+  const changeUserNickname = (e) => {
     setNickname(e.target.value)
   }
-  
+
+  const changeUserHomeGround = (e) => {
+    setHomeGround(e.target.value)
+  }
+
+  const changeUserFavoriteSports = (e) => {
+    setFavoriteSports(e.target.value)
+  }
+
+
+
+  // 변경할 비밀번호 작성
+  const checkPassword = () => {
+    if (!password_Reg.test(firstPsword)) {
+      setPwColor(false)
+      setMessagePasswords('(최소 8자) 문자/숫자/특수문자 모두 포함해야합니다')
+      return
+    }
+    setPwColor(true)
+    setMessagePasswords('✔ 사용 가능한 비밀번호입니다')
+  }
+
+  // 비밀번호 확인
+  const doubleCheckPassword = () => {
+    if (
+      messagePassword === '✔ 사용 가능한 비밀번호입니다' &&
+      password_Reg.test(secondPsword)
+    ) {
+      setMessagePwChecks('✔ 비밀번호가 확인되었습니다')
+      setPwCheckColor(true)
+    } else {
+      setMessagePwChecks('✔ 비밀번호가 일치하지 않습니다')
+      setPwCheckColor(false)
+    }
+  }
+  // console.log(secondPsword)
+
+  const handleChangePassword = () => {
+    if (messagePwCheck === '✔ 비밀번호가 확인되었습니다') {
+      dispatch(userChangePsword(secondPsword, Token)).then((res) => {
+        setEditPsword(false)
+        console.log(res.payload)
+      })
+    }
+  }
 
   return (
     <>
@@ -142,12 +224,15 @@ const Mypage = ({ userInfo }) => {
       <MypageContainer>
         <MypageIn>
           {editPswordModal ? (
-            <EditPasswordModal 
-            setEditPswordModal={setEditPswordModal} 
-            token={Token}
+            <EditPasswordModal
+              setEditPswordModal={setEditPswordModal}
+              setEditPsword={setEditPsword}
+              setMessagePasswords={setMessagePasswords}
+              setMessagePwChecks={setMessagePwChecks}
+              token={Token}
             />
           ) : null}
-          {!editeInfo ? (
+          {!editeInfo && !editPsword ? (
             <MypageUserInfo>
               <div className="mypage_title">마이페이지</div>
               <UserInfo>
@@ -186,19 +271,20 @@ const Mypage = ({ userInfo }) => {
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div
+                  <div 
                     className="editInfo"
-                    onClick={handleEditPage}
-                  >
+                    onClick={handleEditPage}>
                     정보수정
                   </div>
-                  <div className="editPassWord" onClick={handleEditPasswordBtn}>
+                  <div 
+                    className="editPassWord" 
+                    onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>
               </UserInfo>
             </MypageUserInfo>
-          ) : (
+          ) : editeInfo && !editPsword ? (
             <MypageUserInfo>
               <div className="mypage_title">개인정보 변경</div>
               <UserInfo>
@@ -217,8 +303,8 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_phoneContents"
-                      value={mypageInfo.userPhone}
-                      disabled
+                      placeholder={mypageInfo.userPhone}
+                      onChange={(e) => changeUserPhoneNumber(e)}
                     />
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
@@ -227,22 +313,22 @@ const Mypage = ({ userInfo }) => {
                       type="text"
                       className="editinfo_nicknameContents"
                       placeholder={mypageInfo.nickname}
-                      onChange={(e) => changeUserInfo(e)}
+                      onChange={(e) => changeUserNickname(e)}
                       onBlur={checkNickname}
                     />
-                      {nickCheck ? (
-                         <PassCheck>{messageNickname}</PassCheck>
-                          ) : (
-                        <Check>{messageNickname}</Check>
-                      )}
+                    {nickCheck ? (
+                      <PassCheck>{messageNickname}</PassCheck>
+                    ) : (
+                      <Check>{messageNickname}</Check>
+                    )}
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
                     <input
                       type="text"
                       className="editinfo_homegroundContents"
-                      value={mypageInfo.homeground}
-                      disabled
+                      placeholder={mypageInfo.homeground}
+                      onChange={(e) => changeUserHomeGround(e)}
                     />
                   </Userinfo_homeground>
                   <Userinfo_favorite>
@@ -252,23 +338,67 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_favorite"
-                      value={mypageInfo.favoriteSports}
-                      disabled
+                      placeholder={mypageInfo.favoriteSports}
+                      onChange={(e) => changeUserFavoriteSports(e)}
                     />
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
                   <div 
-                  className="sendEditInfo" 
-                  onClick={handleSendUserinfo}
-                  >
+                    className="sendEditInfo" 
+                    onClick={handleSendUserinfo}>
                     Send
                   </div>
                   <div 
-                  className="cancelEdit" 
-                  onClick={handelCancelBtn}
-                  >
+                    className="cancelEdit" 
+                    onClick={handelCancelBtn}>
                     Cancel
+                  </div>
+                </EditUserInfo>
+              </UserInfo>
+            </MypageUserInfo>
+          ) : (
+            <MypageUserInfo>
+              <div className="editePsword_title">비밀번호 변경</div>
+              <UserInfo>
+                <UserInfoContents>
+                  <Userinfo_email>
+                    <div className="editePsword_password">변경할 비밀번호</div>
+                    <input
+                      type="password"
+                      className="editePsword_inputPsword"
+                      onChange={(e) => setFirstPsword(e.target.value)}
+                      onBlur={checkPassword}
+                    />
+                    {pwColor ? (
+                      <PassCheck>{messagePassword}</PassCheck>
+                    ) : (
+                      <Check>{messagePassword}</Check>
+                    )}
+                  </Userinfo_email>
+                  <Uuserinfo_phone>
+                    <div className="editePsword_passwordCheck">
+                      비밀번호 확인
+                    </div>
+                    <input
+                      type="password"
+                      className="editePsword_inputPswordCheck"
+                      onChange={(e) => setSecondPsword(e.target.value)}
+                      onBlur={doubleCheckPassword}
+                    />
+                    {pwCheckColor ? (
+                      <PassCheck>{messagePwCheck}</PassCheck>
+                    ) : (
+                      <Check>{messagePwCheck}</Check>
+                    )}
+                  </Uuserinfo_phone>
+                </UserInfoContents>
+                <EditUserInfo>
+                  <div
+                    className="sendEditPsword"
+                    onClick={handleChangePassword}
+                  >
+                    변경하기
                   </div>
                 </EditUserInfo>
               </UserInfo>
@@ -292,7 +422,7 @@ const Mypage = ({ userInfo }) => {
                   }
                   onClick={matchBtn}
                 >
-                  관심공고
+                  관심 공고
                 </span>
               </span>
             </ChoiceState>
@@ -307,10 +437,10 @@ const Mypage = ({ userInfo }) => {
                     return <MatchCard member={member} key={idx} />
                   })}
             </div>
-            {changeCard === '작성한 공고' && writeData === undefined ? (
+            {changeCard === '작성한 공고' && writeData === '' ? (
               <div className="mypage_Match">작성한 공고가 없습니다.</div>
             ) : null}
-            {changeCard === '관심 공고' && favoriteData === undefined ? (
+            {changeCard === '관심 공고' && favoriteData === '' ? (
               <div className="mypage_Match">관심등록한 공고가 없습니다.</div>
             ) : null}
           </MyCard>
@@ -361,6 +491,10 @@ const MypageUserInfo = styled.section`
     font-size: 2rem;
     margin-left: 40px;
   }
+  .editePsword_title {
+    font-size: 2rem;
+    margin-left: 40px;
+  }
 `
 
 const UserInfo = styled.div`
@@ -391,11 +525,22 @@ const Userinfo_email = styled.div`
   .userinfo_emailTitle {
     color: #565656;
   }
+  .editePsword_password {
+    color: #565656;
+  }
   .userinfo_emailContents {
     margin: 0px 0px 0px 127px;
   }
   .editinfo_emailContents {
     margin: 0px 0px 0px 127px;
+    padding: 0px 0px 0px 10px;
+    border: none;
+    height: 25px;
+    font-size: 1rem;
+    background-color: #fafafa;
+  }
+  .editePsword_inputPsword {
+    margin: 0px 0px 0px 80px;
     padding: 0px 0px 0px 10px;
     border: 1px solid #737373;
     border-radius: 5px;
@@ -415,11 +560,23 @@ const Uuserinfo_phone = styled.div`
   .userinfo_phoneTitle {
     color: #565656;
   }
+  .editePsword_passwordCheck {
+    color: #565656;
+  }
   .userinfo_phoneContents {
     margin: 0px 0px 0px 127px;
   }
   .editinfo_phoneContents {
     margin: 0px 0px 0px 127px;
+    padding: 0px 0px 0px 10px;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 1rem;
+    background-color: #fafafa;
+  }
+  .editePsword_inputPswordCheck {
+    margin: 0px 0px 120px 95px;
     padding: 0px 0px 0px 10px;
     border: 1px solid #737373;
     border-radius: 5px;
@@ -523,6 +680,21 @@ const EditUserInfo = styled.div`
     }
   }
   .sendEditInfo {
+    display: flex;
+    position: absolute;
+    justify-content: right;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    bottom: 10px;
+    right: 30px;
+    border-bottom: 1px solid black;
+    :hover {
+      cursor: pointer;
+      border-bottom: 1px solid #840909;
+      color: #840909;
+    }
+  }
+  .sendEditPsword {
     display: flex;
     position: absolute;
     justify-content: right;
@@ -652,6 +824,7 @@ const GoodbyeUser = styled.div`
   .PleaseDontgo {
     width: 90px;
     height: 15px;
+    margin: 10px 35px 0px 0px;
     padding: 8px 0px 3px 0px;
     font-size: 0.9rem;
     text-align: center;
