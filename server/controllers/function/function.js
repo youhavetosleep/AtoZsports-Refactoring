@@ -88,8 +88,8 @@ module.exports = {
     let scheduleTime = new Date(req.body.startTime)
     scheduleTime.setHours(0)
     scheduleTime.setMinutes(0)
-    console.log(new Date())
-    console.log(scheduleTime)
+    // console.log(new Date())
+    // console.log(scheduleTime)
     // 정해진 시간에 메일 전송
     schedule.scheduleJob(scheduleTime, async () => {
       try {
@@ -148,7 +148,7 @@ module.exports = {
                 nickname: '칠칠이',
                 password: '1234',
                 userPhone: '010-7777-7777',
-                favoriteSports: '걷기',
+                favoriteSports: new Date().toISOString(),
                 homeground: '서울 성북구',
                 verified: true,
                 verifiedKey: ''
