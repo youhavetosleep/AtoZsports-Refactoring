@@ -88,6 +88,8 @@ module.exports = {
     let scheduleTime = new Date(req.body.startTime)
     scheduleTime.setHours(0)
     scheduleTime.setMinutes(0)
+    // console.log(new Date())
+    // console.log(scheduleTime)
     // 정해진 시간에 메일 전송
     schedule.scheduleJob(scheduleTime, async () => {
       try {
@@ -97,8 +99,9 @@ module.exports = {
         })
         .then(async (finded) => {
           // 게시글이 있을 때만 메일 전송
-          if (String(startTime) === String(finded.dataValues.startTime)) {
-            const time = String(finded.dataValues.startTime).split(' ')[4].split(':')
+          const findedDate = new Date(finded.dataValues.startTime)
+          if (startTime.toISOString() === findedDate.toISOString()) {
+            const time = findedDate.toISOString().split('T')[1].split(':')
             const { email, nickname } = finded.dataValues.User.dataValues
             const from = `AtoZ sports <atozsports@api.atozsports.link>`
             const mailOptions = {
@@ -138,6 +141,20 @@ module.exports = {
               }
             })
           } else {
+// 배포 시 확인용
+            User.findOrCreate({
+              where: {
+                email: 'seven@gmail.com',
+                nickname: '칠칠이',
+                password: '1234',
+                userPhone: '010-7777-7777',
+                favoriteSports: new Date().toISOString(),
+                homeground: '서울 성북구',
+                verified: true,
+                verifiedKey: ''
+              }
+            })
+// 배포 시 확인용
             console.log('게시글 시간이 수정됨')
           }
         })
