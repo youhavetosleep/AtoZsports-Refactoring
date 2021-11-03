@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import user from './user_reducer'
 import matchCard from './matchCard_reducer'
 import ground from './ground_reducer'
+import post from './post_reducer'
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user,
   matchCard,
-  ground
+  ground,
+  post
 })
 
 export default persistReducer(persistConfig, rootReducer)

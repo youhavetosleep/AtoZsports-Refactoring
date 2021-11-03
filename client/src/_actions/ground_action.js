@@ -1,4 +1,4 @@
-import { GROUND_DATA } from './types'
+import { GROUND_DATA, POST_DATA } from './types'
 import instance from '../api'
 
 export async function getGroundData() {
@@ -11,6 +11,20 @@ export async function getGroundData() {
 
   return {
     type: GROUND_DATA,
+    payload: request
+  }
+}
+
+export async function getPostData(postId) {
+  const request = await instance
+    .get(`/futsal/posts?id=${postId}`, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
+    })
+    .then((res) => res.data)
+
+  return {
+    type: POST_DATA,
     payload: request
   }
 }

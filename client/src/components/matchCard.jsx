@@ -50,7 +50,7 @@ function MatchCard({ member, setListData, idx }) {
 }
 
 const MatchCardContainer = styled.div`
-z-index: 10;
+/* z-index: 10; */
   .articlebox {
     &-listbox {
       background-color: white;

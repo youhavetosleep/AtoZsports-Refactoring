@@ -1,4 +1,4 @@
-import {GROUND_DATA} from '../_actions/types'
+import { GROUND_DATA } from '../_actions/types'
 
 export default function (state = {}, action) {
   switch (action.type) {
