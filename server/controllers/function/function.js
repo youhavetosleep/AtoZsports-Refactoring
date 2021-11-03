@@ -88,6 +88,8 @@ module.exports = {
     let scheduleTime = new Date(req.body.startTime)
     scheduleTime.setHours(0)
     scheduleTime.setMinutes(0)
+    // console.log(new Date())
+    // console.log(scheduleTime)
     // 정해진 시간에 메일 전송
     schedule.scheduleJob(scheduleTime, async () => {
       try {
@@ -97,8 +99,9 @@ module.exports = {
         })
         .then(async (finded) => {
           // 게시글이 있을 때만 메일 전송
-          if (String(startTime) === String(finded.dataValues.startTime)) {
-            const time = String(finded.dataValues.startTime).split(' ')[4].split(':')
+          const findedDate = new Date(finded.dataValues.startTime)
+          if (startTime.toISOString() === findedDate.toISOString()) {
+            const time = findedDate.toISOString().split('T')[1].split(':')
             const { email, nickname } = finded.dataValues.User.dataValues
             const from = `AtoZ sports <atozsports@api.atozsports.link>`
             const mailOptions = {
