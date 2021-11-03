@@ -157,87 +157,88 @@ module.exports = {
           console.log(`findPost Error: ${err.message}`)
         })
     } else {
-    const sports = req.baseUrl.split('/')[1]
-    let Day = new Date(req.query.date)
-    const Division = req.query.division
-    const Do = decodeURIComponent(req.query.do)
-    const City = decodeURIComponent(req.query.city)
-    const StartTime = new Date(`${req.query.date} ${req.query.startTime}`)
-    const EndTime = new Date(`${req.query.date} ${req.query.endTime}`)
-    let pageNum = Number(req.query.offset)
-    let offset = 0
-    let limit = Number(req.query.limit)
-    if (pageNum > 1) offset = limit * (pageNum - 1)
-    const addressName = Do + ' ' + City
-    
-    // 배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
-    // 아래의 코드는 로컬환경에서만 사용한다.
-    // StartTime.setHours(StartTime.getHours() + 9)
-    // EndTime.setHours(EndTime.getHours() + 9)
-    
-    Post.findAll(
-      !req.query.startTime
-        ? {
-            include: [{ model: Ground, attributes: ['placeName'] }],
-            order: [['startTime']],
-            where: {
-              sports: sports,
-              division: Division,
-              addressName: { [Op.like]: '%' + addressName + '%' },
-              startTime: { [Op.gt]: Day }
-            },
-            offset: offset,
-            limit: limit
-          }
-        : {
-            include: [{ model: Ground, attributes: ['placeName'] }],
-            order: [['startTime']],
-            where: {
-              sports: sports,
-              division: Division,
-              addressName: { [Op.like]: '%' + addressName + '%' },
-              [Op.or]: {
-                startTime: {
-                  [Op.gte]: StartTime,
-                  [Op.lte]: EndTime
-                },
-                endTime: {
-                  [Op.gte]: StartTime,
-                  [Op.lte]: EndTime
-                }
-              }
-            },
-            offset: offset,
-            limit: limit
-          }
-    ).then((data) => {
-      if (!data) {
-        res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
-      } else {
-        let sortData = data.map((el) => {
-          const {
-            id,
-            title,
-            startTime,
-            endTime,
-            Ground: { placeName },
-            content,
-            status
-          } = el
+      const sports = req.baseUrl.split('/')[1]
+      let Day = new Date(req.query.date)
+      const Division = req.query.division
+      const Do = decodeURIComponent(req.query.do)
+      const City = decodeURIComponent(req.query.city)
+      const StartTime = new Date(`${req.query.date} ${req.query.startTime}`)
+      const EndTime = new Date(`${req.query.date} ${req.query.endTime}`)
+      let pageNum = Number(req.query.offset)
+      let offset = 0
+      let limit = Number(req.query.limit)
+      if (pageNum > 1) offset = limit * (pageNum - 1)
+      const addressName = Do + ' ' + City
 
-          return {
-            id,
-            title,
-            startTime,
-            endTime,
-            placeName,
-            content,
-            status
-          }
-        })
-        res.send(sortData)
-      }
-    })}
+      // 배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
+      // 아래의 코드는 로컬환경에서만 사용한다.
+      // StartTime.setHours(StartTime.getHours() + 9)
+      // EndTime.setHours(EndTime.getHours() + 9)
+
+      Post.findAll(
+        !req.query.startTime
+          ? {
+              include: [{ model: Ground, attributes: ['placeName'] }],
+              order: [['startTime']],
+              where: {
+                sports: sports,
+                division: Division,
+                addressName: { [Op.like]: '%' + addressName + '%' },
+                startTime: { [Op.gt]: Day }
+              },
+              offset: offset,
+              limit: limit
+            }
+          : {
+              include: [{ model: Ground, attributes: ['placeName'] }],
+              order: [['startTime']],
+              where: {
+                sports: sports,
+                division: Division,
+                addressName: { [Op.like]: '%' + addressName + '%' },
+                [Op.or]: {
+                  startTime: {
+                    [Op.gte]: StartTime,
+                    [Op.lte]: EndTime
+                  },
+                  endTime: {
+                    [Op.gte]: StartTime,
+                    [Op.lte]: EndTime
+                  }
+                }
+              },
+              offset: offset,
+              limit: limit
+            }
+      ).then((data) => {
+        if (!data) {
+          res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
+        } else {
+          let sortData = data.map((el) => {
+            const {
+              id,
+              title,
+              startTime,
+              endTime,
+              Ground: { placeName },
+              content,
+              status
+            } = el
+
+            return {
+              id,
+              title,
+              startTime,
+              endTime,
+              placeName,
+              content,
+              status
+            }
+          })
+          res.send(sortData)
+        }
+      })
+    }
   },
   // 게시글 작성
   writePost: (req, res, next) => {
@@ -284,8 +285,7 @@ module.exports = {
             addressName,
             userId,
             groundId
-          })
-          .then((post) => {
+          }).then((post) => {
             reserveMail(post, req)
             res.send(post.dataValues)
           })
@@ -295,6 +295,23 @@ module.exports = {
       })
       .catch((err) => {
         console.log(`writeGround Error: ${err.message}`)
+      })
+  },
+  updateStatus: (req, res, next) => {
+    let postId = req.params.postId
+    let status = req.body.status
+    Post.update(
+      {
+        status
+      },
+      { where: { id: postId } }
+    )
+      .then(async () => {
+        let updatePostData = await Post.findOne({ where: { id: postId } })
+        res.send(updatePostData)
+      })
+      .catch((err) => {
+        console.log(`updateStatus Error: ${err.message}`)
       })
   },
   // 게시글 수정
@@ -348,8 +365,7 @@ module.exports = {
             { where: { id: postId } }
           )
           if (updatePostData[0] === 1) {
-            await Post.findOne({ where: { id: postId } })
-            .then((post) => {
+            await Post.findOne({ where: { id: postId } }).then((post) => {
               reserveMail(post, req)
               res.send(post)
             })
