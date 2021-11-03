@@ -6,7 +6,13 @@ import GlobalStyle from '../globalStyle/globalStyle'
 import { USER_PASSWORD } from '../_actions/types'
 import { userPassword } from '../_actions/user.action'
 
-function EditPasswordModal({ setEditPswordModal, token, setEditPsword }) {
+function EditPasswordModal({
+  setEditPswordModal,
+  token,
+  setEditPsword,
+  setMessagePasswords,
+  setMessagePwChecks
+}) {
   const modalEl = useRef()
   const dispatch = useDispatch()
 
@@ -40,23 +46,22 @@ function EditPasswordModal({ setEditPswordModal, token, setEditPsword }) {
   // 일치한다면, 응답으로 받은 메세지를 비밀번호의 일치여부를 알려주는 텍스트 상태를 가지고있는
   // setMessagePassword 로 보내 상태를 최신화 한다.
   useEffect(() => {
-    dispatch(userPassword(password, token))
-    .then((res) => {
+    dispatch(userPassword(password, token)).then((res) => {
       setMessagePassword(res.payload)
     })
-  },[password])
+  }, [password])
 
   // 일단 구현은 되는데, 글자를 하나칠때마다 서버로 요청이가기에 정상적인 접근은 아닌거 같다. 백엔드와 상의해보자.
   // console.log(messagePassword)
 
   const hadleChangePassword = () => {
-    if(messagePassword === '✔ 비밀번호가 일치합니다'){ 
-    setEditPswordModal(false)
-    setEditPsword(true)
+    if (messagePassword === '✔ 비밀번호가 일치합니다') {
+      setEditPswordModal(false)
+      setEditPsword(true)
+      setMessagePasswords('')
+      setMessagePwChecks('')
     }
   }
-
-
 
   return (
     <>
@@ -77,21 +82,14 @@ function EditPasswordModal({ setEditPswordModal, token, setEditPsword }) {
                 onChange={(e) => handleCheckPsword(e)}
                 //onBlur={checkPassword}
               ></input>
-              <Check>{
-              messagePassword === '✔ 비밀번호가 일치합니다' ? 
-              (
-                <div className='samePsword'>
-                  {messagePassword}
-                  </div>
-              ) : (
-                <div className='wrongPsword'>
-                  {messagePassword}
-                  </div>
-              )
-              }</Check>
-              <div 
-              className="checkPswordBtn" 
-              onClick={hadleChangePassword}>
+              <Check>
+                {messagePassword === '✔ 비밀번호가 일치합니다' ? (
+                  <div className="samePsword">{messagePassword}</div>
+                ) : (
+                  <div className="wrongPsword">{messagePassword}</div>
+                )}
+              </Check>
+              <div className="checkPswordBtn" onClick={hadleChangePassword}>
                 확인하기
               </div>
             </CheckPasswordModal>
@@ -170,21 +168,21 @@ const CheckPasswordModal = styled.div`
 const Check = styled.div`
   .samePsword {
     margin: 0;
-  margin-top: 0px;
-  position: absolute;
-  left: 50px;
-  bottom: 45px;
-  font-size: 13px;
-  color: #1b7e07;
+    margin-top: 0px;
+    position: absolute;
+    left: 50px;
+    bottom: 45px;
+    font-size: 13px;
+    color: #1b7e07;
   }
   .wrongPsword {
     margin: 0;
-  margin-top: 0px;
-  position: absolute;
-  left: 50px;
-  bottom: 45px;
-  font-size: 13px;
-  color: #840909;
+    margin-top: 0px;
+    position: absolute;
+    left: 50px;
+    bottom: 45px;
+    font-size: 13px;
+    color: #840909;
   }
 `
 

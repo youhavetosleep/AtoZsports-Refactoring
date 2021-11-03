@@ -63,8 +63,6 @@ export async function mypageUser(editUserInfo, Token) {
     .patch(
       '/users', 
     {
-      email: editUserInfo.email, 
-      verifiedKey: null,
       nickname: editUserInfo.nickname, 
       userPhone: editUserInfo.userPhone,
       homeground: editUserInfo.homeground,
@@ -163,7 +161,7 @@ export async function userPassword(password, token) {
 export async function userChangePsword(secondPsword, Token) {
   const request = await instance
    .patch(`/users/security`, {
-    secondPsword
+    password: secondPsword
   },
   {
     headers: { 
