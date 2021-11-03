@@ -22,58 +22,6 @@ export async function getMatchData(CurrentOrder) {
   }
 }
 
-export async function getMatchListData(
-  offset,
-  startTime,
-  endTime,
-  CurrentOrder,
-  date,
-  region1,
-  region2
-) {
-  const request = await instance
-    .get(
-      `/futsal/posts?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=3`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      }
-    )
-    .then((response) => response.data)
-    .catch((err) => console.log(err))
-
-  return {
-    type: MATCH_LIST_DATA,
-    payload: request
-  }
-}
-
-export async function sortedMatchListData(
-  offset,
-  startTime,
-  endTime,
-  CurrentOrder,
-  date,
-  region1,
-  region2
-) {
-  // console.log(offset, startTime, endTime, CurrentOrder, date, region1, region2)
-  const request = await instance
-    .get(
-      `/futsal/posts?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=3`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      }
-    )
-    .then((response) => response.data)
-    .catch((err) => console.log(err))
-
-  return {
-    type: MATCH_LIST_DATA,
-    payload: request
-  }
-}
 export async function getUserMatchData(Token) {
   const request = await instance
     .get(`/users/mypost`, {
@@ -83,7 +31,11 @@ export async function getUserMatchData(Token) {
       },
       withCredentials: true
     })
+<<<<<<< HEAD
     .then((res) => res.data.postList)
+=======
+    .then((res) => res)
+>>>>>>> ca5d326881b102d5ef0ac02b646096c791f8ede7
     .catch((err) => console.log(err))
 
   return {
@@ -101,7 +53,11 @@ export async function getUserFavoriteData(Token) {
       },
       withCredentials: true
     })
+<<<<<<< HEAD
     .then((res) => res.data)
+=======
+    .then((res) => res)
+>>>>>>> ca5d326881b102d5ef0ac02b646096c791f8ede7
     .catch((err) => console.log(err))
 
   return {

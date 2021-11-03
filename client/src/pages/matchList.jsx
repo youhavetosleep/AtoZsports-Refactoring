@@ -4,10 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { FaChevronDown } from 'react-icons/fa'
 import MatchCard from '../components/matchCard'
-import {
-  getMatchListData,
-  sortedMatchListData
-} from '../_actions/matchCard_action'
+import { getMatchListData, sortedMatchListData } from '../_actions/post_action'
 import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
@@ -60,6 +57,36 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
     setCurrentOrder('match')
   }
 
+  // match 버튼 눌렀을 때 첫 매치리스트 세팅
+  useEffect(() => {
+    dispatch(
+      getMatchListData(
+        offset,
+        startTime,
+        endTime,
+        CurrentOrder,
+        startDate,
+        region1,
+        region2
+      )
+    )
+      .then((res) => {
+        if (res.payload.length !== 0) {
+          if (res.payload.length < 6) {
+            setFinMessage('fin.')
+            setListData([...listData, ...res.payload])
+          } else {
+            setListData([...listData, ...res.payload])
+          }
+        } else if (res.payload.length === 0) {
+          setFinMessage('fin.')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [offset])
+
   // sort 값에 따른 매치 리스트 세팅
   useEffect(() => {
     setFinMessage('더보기')
@@ -77,44 +104,15 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
       )
     )
       .then((res) => {
-        if (res.payload.length < 1) {
-          setFinMessage('끝')
-        } else setListData([...listData, ...res.payload])
+        if (res.payload.length < 6) {
+          setFinMessage('fin.')
+        }
+        setListData([...res.payload])
       })
       .catch((err) => {
         console.log(err)
       })
   }, [region2, startTime, endTime, CurrentOrder, startDate])
-
-  // match 버튼 눌렀을 때 첫 매치리스트 세팅
-  useEffect(() => {
-    dispatch(
-      getMatchListData(
-        offset,
-        startTime,
-        endTime,
-        CurrentOrder,
-        startDate,
-        region1,
-        region2
-      )
-    )
-      .then((res) => {
-        if (res.payload.length !== 0) {
-          if (res.payload.length < 3) {
-            setFinMessage('끝')
-            setListData([...listData, ...res.payload])
-          } else {
-            setListData([...listData, ...res.payload])
-          }
-        } else if (res.payload.length === 0) {
-          setFinMessage('끝')
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [offset])
 
   return (
     <FutsalMatchSoonSection>
@@ -150,16 +148,14 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
         <FilterWrap2>
           <span className="ordergroup">
             <span
-              className={CurrentOrder === '최신순' ? 'setbold first' : 'first'}
+              className={CurrentOrder === 'member' ? 'setbold first' : 'first'}
               onClick={latestBtn}
             >
               용병모집
             </span>
             |
             <span
-              className={
-                CurrentOrder === '조회순' ? 'setbold second' : 'second'
-              }
+              className={CurrentOrder === 'match' ? 'setbold second' : 'second'}
               onClick={viewBtn}
             >
               경기제안
@@ -169,7 +165,7 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
         </FilterWrap2>
       </MatchSoonFilter>
       <MatchSoonList>
-        <div className="matchCard">
+        <div className="all_MatchCard">
           {listData &&
             listData.map((member, idx) => {
               return (
@@ -182,16 +178,19 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
             })}
         </div>
       </MatchSoonList>
+      {listData.length === 0 ? (
+        <AlertMessage>
+          게시글이 없습니다
+          <br />
+          <br /> 새로운 매치글을 작성해보세요!
+        </AlertMessage>
+      ) : null}
       <BtnWrap>
         <PlusBtn onClick={handleOffset}> {finMessage} </PlusBtn>
       </BtnWrap>
     </FutsalMatchSoonSection>
   )
 }
-
-// const MatchList = styled.div`
-
-// `
 
 const FutsalMatchSoonSection = styled.section`
   width: 100%;
@@ -220,11 +219,11 @@ const MatchSoonList = styled.div`
   display: flex;
   position: relative;
 
-  .matchCard {
+  .all_MatchCard {
     display: grid;
-    grid-template-columns: repeat(3, 31.8%);
+    grid-template-columns: repeat(3, 360px);
     row-gap: 20px;
-    /* margin-bottom: 20px; */
+    column-gap: 24px;
   }
 
   .moreView {
@@ -238,10 +237,12 @@ const MatchSoonList = styled.div`
 const DateWrap = styled.div`
   display: flex;
 `
+
 const CalendarWrap = styled.div`
   margin-right: 23px;
   position: relative;
 `
+
 const DownWrap = styled.div`
   width: 0.1px;
   position: absolute;
@@ -250,6 +251,7 @@ const DownWrap = styled.div`
   color: #000000;
   z-index: -1;
 `
+
 const TimeWrap = styled.div``
 
 const FilterWrap1 = styled.div`
@@ -257,15 +259,42 @@ const FilterWrap1 = styled.div`
   display: flex;
   margin-bottom: 30px;
 `
+
 const FilterWrap2 = styled.div`
   justify-content: space-between;
   display: flex;
+  font-size: 20px;
+  .setbold {
+    font-weight: bolder;
+  }
+  .ordergroup {
+    color: #353535;
+    left: 0;
+    position: flex;
+    text-align: left;
+    top: 100px;
+
+    .first {
+      margin-right: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    .second {
+      margin-left: 20px;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 `
 const BtnWrap = styled.div`
   width: 100%;
   justify-content: center;
   text-align: center;
 `
+
 const PlusBtn = styled.button`
   margin: 0;
   box-sizing: border-box;
@@ -282,6 +311,12 @@ const WriteBtn = styled.button`
   :hover {
     cursor: pointer;
   }
+`
+const AlertMessage = styled.h1`
+  margin: 100px auto;
+  font-size: 30px;
+  text-align: center;
+  justify-content: center;
 `
 
 export default MatchList

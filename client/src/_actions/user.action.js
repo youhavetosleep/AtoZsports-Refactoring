@@ -31,13 +31,15 @@ export async function loginUser(dataToSubmit) {
       } = response.data.userData
       return {
         accessToken: response.data.accessToken,
-        id,
-        email,
-        nickname,
-        userPhone,
-        homeground,
-        createdAt,
-        favoriteSports
+        userData: {
+          id,
+          email,
+          nickname,
+          userPhone,
+          homeground,
+          createdAt,
+          favoriteSports
+        }
       }
     })
 
