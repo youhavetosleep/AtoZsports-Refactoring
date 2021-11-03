@@ -369,7 +369,7 @@ const BackList = styled.div`
   justify-content: center;
   align-items: center;
   .map_wrap {
-    position: absolute;
+    position: relative;
   }
 `
 
@@ -382,7 +382,7 @@ const MapView = styled.div`
   align-items: center;
   margin: 80px 0px 0px 0px;
   border-radius: 12px;
-  top: 225px;
+  top: -40px;
   right: 0;
 `
 
