@@ -61,7 +61,7 @@ const Nav = styled.div`
 const Logo = styled.div`
   position: absolute;
   top: 0%;
-  left: 49%;
+  left: 48%;
 `
 
 const Menu = styled.div`

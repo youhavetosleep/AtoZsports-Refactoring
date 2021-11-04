@@ -40,7 +40,7 @@ function App() {
     return () => {
       window.removeEventListener('scroll', scrollPositionHandler)
     }
-  })
+  },[])
 
   // 스크롤 시 위치를 상태값에 저장하는 코드.
   const scrollPositionHandler = () => {
@@ -76,7 +76,7 @@ function App() {
     } else {
       setIsLogin(false)
     }
-  }, [])
+  },)
 
   const handleRegion1 = (e) => {
     setRegion1(e.target.value)
@@ -100,7 +100,12 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Futsal />
+            <Futsal 
+            handleRegion1={handleRegion1}
+            handleRegion2={handleRegion2}
+            region1={region1}
+            region2={region2}
+            />
           </Route>
           <Route exact path="/map">
             {isLogin ? (
@@ -153,7 +158,13 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Mypage userInfo={userInfo} />
+            <Mypage 
+            userInfo={userInfo}
+            handleRegion1={handleRegion1}
+            handleRegion2={handleRegion2}
+            region1={region1}
+            region2={region2}
+            />
           </Route>
           <Route exact path="/signup">
             {isLogin ? (
