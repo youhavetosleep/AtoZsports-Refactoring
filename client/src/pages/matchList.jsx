@@ -8,14 +8,16 @@ import { getMatchListData, sortedMatchListData } from '../_actions/post_action'
 import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
+import moment from 'moment'
 
 const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
   // 날짜변환
   const changeDate = (date) => {
     return date.toISOString().split('T')[0]
   }
-
-  const newdate = new Date()
+  // moment 로 붙혔음
+  // 안붙혔을 때도 정상작동
+  const newdate = moment(new Date())
   const today = changeDate(newdate)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -36,8 +38,13 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
 
   // 캘린더 컴포넌트 날짜 value 가져오기
   const handledate = (date) => {
-    let ChangeDate = changeDate(date)
-    setStartDate(ChangeDate)
+    let changeDate =
+      date.getFullYear() +
+      '-' +
+      ('0' + (date.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + date.getDate()).slice(-2)
+    setStartDate(changeDate)
   }
 
   // start, end 셀렉트 박스 컴포넌트 value 가져오기

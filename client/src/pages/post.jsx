@@ -17,8 +17,9 @@ const Post = ({ userInfo }) => {
   const token = userInfo.loginSuccess.accessToken
   const history = useHistory()
   const dispatch = useDispatch()
-  const postId = 3
-  // history.location.pathname.split('=')[1]
+  // const postId = 3
+  const postId = history.location.pathname.split('=')[1]
+  console.log(postId)
   const [postData, setPostData] = useState('')
   const [status, setStatus] = useState('')
 

@@ -1,5 +1,5 @@
 /*global kakao*/
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
@@ -7,6 +7,7 @@ const Map = ({ searchPlace }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
 
+  const [addressName, setAddressName] = useState('')
   const history = useHistory()
   // const Review = () => {
   //   history.push('/review')
@@ -84,6 +85,13 @@ const Map = ({ searchPlace }) => {
             displayInfowindow(marker, title)
           })
 
+          // 클릭시 리뷰페이지로 이동 
+          kakao.maps.event.addListener(marker, 'click', function () {
+            setAddressName(title)
+            console.log(addressName)
+            console.log(title)
+          })
+        
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
           })
@@ -118,8 +126,8 @@ const Map = ({ searchPlace }) => {
       itemStr += '<span>' + places.address_name + '</span>'
       itemStr +=
         '<form class="review">' +
-        `<a class='reviewP'>리뷰 (12)</a>` +
-        `<a href='http://localhost:3000/review'>예약하기</a>` +
+        `<a class='reviewP' href='http://localhost:3000/review/'>리뷰 (12)</a>` +
+        `<a href='http://localhost:3000/write'>예약하기</a>` +
         '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
@@ -204,7 +212,7 @@ const Map = ({ searchPlace }) => {
         el.removeChild(el.lastChild)
       }
     }
-  }, [searchPlace])
+  }, [searchPlace, addressName])
   return (
     <Container>
       <BackList />

@@ -6,6 +6,9 @@ import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 
 const Calendar = ({ handledate, startDate }) => {
+  //selected에 .add(1, 'days') 추가 
+  // 추가하니까 캘린더는 잘 나오는데 
+  // 데이터는 하루 늦게로 나옴
   return (
     <>
       <Dateform
