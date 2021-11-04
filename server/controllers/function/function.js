@@ -86,7 +86,7 @@ module.exports = {
     const startTime = new Date(req.body.startTime)
     // 경기 날짜에 알림 메일을 보내기 위한 설정. (0시 정각에 메일 전송)
     let scheduleTime = new Date(req.body.startTime)
-    scheduleTime.setHours(0)
+    scheduleTime.setHours(-9)
     scheduleTime.setMinutes(0)
     // console.log(new Date())
     // console.log(scheduleTime)
