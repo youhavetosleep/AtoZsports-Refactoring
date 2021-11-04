@@ -15,30 +15,42 @@ import {
   userChangePsword
 } from '../_actions/user.action'
 import instance from '../api/index.jsx'
+import RegionBoxMypage from '../utils/regionBoxMypage'
 
-const Mypage = ({ userInfo }) => {
+const Mypage = ({
+  userInfo,
+  region1,
+  region2,
+  handleRegion1,
+  handleRegion2
+}) => {
   const dispatch = useDispatch()
 
   // AccessToken
   const Token = userInfo.loginSuccess.accessToken
 
   // UserInfo
-  const userInfoSuccess = userInfo.loginSuccess
-  const [phoneNumber, setPhoneNumber] = useState(userInfoSuccess.userPhone)
+  const userInfoSuccess = userInfo.loginSuccess.userData
+  // console.log('기존 사용자  =====> ', userInfoSuccess)
+
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [nickname, setNickname] = useState('')
   const [homeGround, setHomeGround] = useState('')
   const [favoriteSports, setFavoriteSports] = useState('')
+
+  // 사용자지역 도/시 변수 화
+  const userHomeground = userInfo.loginSuccess.userData.homeground
+  const mainRegion = userHomeground.slice(0, 2) // 사용자 지역 - 도
+  const subRegion = userHomeground.slice(3, 6) // 사용자 지역 - 시
 
   // UserInfo Check
   const [nickCheck, setNickCheck] = useState(false)
   const [messagePwCheck, setMessagePwChecks] = useState('')
 
-
   // 작성한 공고, 관심 공고
   const [changeCard, setChangeCard] = useState('작성한 공고')
   const [writeData, setWriteData] = useState([])
   const [favoriteData, setFavoriteData] = useState([])
-
 
   // Password Change
   const [editPsword, setEditPsword] = useState(false)
@@ -55,29 +67,59 @@ const Mypage = ({ userInfo }) => {
 
   // 개인정보 변경 관련
   const [editeInfo, setEditInfo] = useState(false)
-  const [editUserInfo, setEditUserInfo] = useState({})
-  const [mypageInfo, setMypageInfo] = useState(userInfoSuccess)
+  const [editUserInfo, setEditUserInfo] = useState({
+      email: userInfoSuccess.email,
+      userPhone: userInfoSuccess.userPhone,
+      nickname: userInfoSuccess.nickname,
+      homeground: userInfoSuccess.homeground,
+      favoriteSports: userInfoSuccess.favoriteSports,
+      userId: userInfoSuccess.id
+  })
+  const [changeUserInfo, setChangeUserInfo] = useState({})
 
+  // console.log('editUserInfo ====> ', editUserInfo)
+  
 
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
-  const password_Reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
-
+  const password_Reg =
+    /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
 
   useEffect(() => {
-    dispatch(getUserMatchData(Token))
-    .then((res) => {
+    dispatch(getUserMatchData(Token)).then((res) => {
       setWriteData(res.payload)
+      // console.log(res.payload)
     })
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(getUserFavoriteData(Token))
-    .then((res) => {
+    dispatch(getUserFavoriteData(Token)).then((res) => {
       setFavoriteData(res.payload)
+      // console.log(res.payload)
     })
   }, [dispatch])
 
+
+
+  const handleSendUserinfo = () => {
+ 
+  }
+
+  useEffect(() => {
+    setChangeUserInfo({
+      email: userInfoSuccess.email,
+      userPhone: phoneNumber,
+      nickname: nickname,
+      homeground: userInfoSuccess.homeground,
+      favoriteSports: favoriteSports,
+      userId: userInfoSuccess.id
+    })
+    setEditInfo(false)
+  },[])
+
+ 
+
+  // console.log('최신화된 정보 ======> ', editUserInfo)
 
   const matchBtn = () => {
     setChangeCard('관심 공고')
@@ -89,17 +131,6 @@ const Mypage = ({ userInfo }) => {
 
   const handleEditPage = () => {
     setEditInfo(true)
-  }
-
-  const handleSendUserinfo = () => {
-    if (messageNickname === '✔ 사용 가능한 닉네임입니다') {
-       dispatch(mypageUser(editUserInfo, Token)).then((res) => {
-        setMypageInfo(res.payload.userData)
-      })
-      setEditInfo(false)
-    } else {
-      return
-    }
   }
 
   // 닉네임 확인
@@ -151,37 +182,35 @@ const Mypage = ({ userInfo }) => {
         })
     }
   }
-  
-  // setEditUserInfo({
-  //   userPhone: userInfo.loginSuccess.userPhone,
-  //   nickname: nickname,
-  //   homeground: userInfo.loginSuccess.homeground,
-  //   favoriteSports: userInfo.loginSuccess.favoriteSports,
-  //   userId: userInfo.loginSuccess.id
-  // })
 
+  // 핸드폰 번호 변경
   const changeUserPhoneNumber = (e) => {
-    if(e){
-    setPhoneNumber(e.target.value)
+    if (e.target.value) {
+      setPhoneNumber(e.target.value)
     } else {
       setPhoneNumber(userInfoSuccess.userPhone)
     }
   }
+
   // console.log(phoneNumber)
 
+  // 닉네임 변경
   const changeUserNickname = (e) => {
-    setNickname(e.target.value)
+    if (e.target.value) {
+      setNickname(e.target.value)
+    } else {
+      setNickname(userInfoSuccess.nickname)
+    }
   }
 
-  const changeUserHomeGround = (e) => {
-    setHomeGround(e.target.value)
-  }
-
+  // 좋아하는 스포츠 변경
   const changeUserFavoriteSports = (e) => {
-    setFavoriteSports(e.target.value)
+    if (e.target.value) {
+      setFavoriteSports(e.target.value)
+    } else {
+      setFavoriteSports(userInfoSuccess.favoriteSports)
+    }
   }
-
-
 
   // 변경할 비밀번호 작성
   const checkPassword = () => {
@@ -196,10 +225,7 @@ const Mypage = ({ userInfo }) => {
 
   // 비밀번호 확인
   const doubleCheckPassword = () => {
-    if (
-      messagePassword === '✔ 사용 가능한 비밀번호입니다' &&
-      password_Reg.test(secondPsword)
-    ) {
+    if (firstPsword === secondPsword && password_Reg.test(secondPsword)) {
       setMessagePwChecks('✔ 비밀번호가 확인되었습니다')
       setPwCheckColor(true)
     } else {
@@ -240,25 +266,25 @@ const Mypage = ({ userInfo }) => {
                   <Userinfo_email>
                     <div className="userinfo_emailTitle">이메일</div>
                     <div className="userinfo_emailContents">
-                      {mypageInfo.email}
+                      {editUserInfo.email}
                     </div>
                   </Userinfo_email>
                   <Uuserinfo_phone>
                     <div className="userinfo_phoneTitle">핸드폰</div>
                     <div className="userinfo_phoneContents">
-                      {mypageInfo.userPhone}
+                      {editUserInfo.userPhone}
                     </div>
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
                     <div className="userinfo_nicknameContents">
-                      {mypageInfo.nickname}
+                      {editUserInfo.nickname}
                     </div>
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
                     <div className="userinfo_homegroundContents">
-                      {mypageInfo.homeground}
+                      {editUserInfo.homeground}
                     </div>
                   </Userinfo_homeground>
                   <Userinfo_favorite>
@@ -266,19 +292,19 @@ const Mypage = ({ userInfo }) => {
                       좋아하는 스포츠
                     </div>
                     <div className="userinfo_favorite">
-                      {mypageInfo.favoriteSports}
+                      {editUserInfo.favoriteSports}
                     </div>
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
                   <div 
-                    className="editInfo"
-                    onClick={handleEditPage}>
+                  className="editInfo" 
+                  onClick={handleEditPage}>
                     정보수정
                   </div>
                   <div 
-                    className="editPassWord" 
-                    onClick={handleEditPasswordBtn}>
+                  className="editPassWord" 
+                  onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>
@@ -294,7 +320,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_emailContents"
-                      value={mypageInfo.email}
+                      value={userInfoSuccess.email}
                       disabled
                     />
                   </Userinfo_email>
@@ -302,8 +328,9 @@ const Mypage = ({ userInfo }) => {
                     <div className="userinfo_phoneTitle">핸드폰</div>
                     <input
                       type="text"
+                      maxLength="13"
                       className="editinfo_phoneContents"
-                      placeholder={mypageInfo.userPhone}
+                      placeholder={userInfoSuccess.userPhone}
                       onChange={(e) => changeUserPhoneNumber(e)}
                     />
                   </Uuserinfo_phone>
@@ -312,7 +339,7 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_nicknameContents"
-                      placeholder={mypageInfo.nickname}
+                      placeholder={userInfoSuccess.nickname}
                       onChange={(e) => changeUserNickname(e)}
                       onBlur={checkNickname}
                     />
@@ -324,12 +351,21 @@ const Mypage = ({ userInfo }) => {
                   </Userinfo_nickname>
                   <Userinfo_homeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
-                    <input
+                    {/* <input
                       type="text"
                       className="editinfo_homegroundContents"
                       placeholder={mypageInfo.homeground}
                       onChange={(e) => changeUserHomeGround(e)}
-                    />
+                    /> */}
+                    <div className="userinfo_regionBox">
+                      <RegionBoxMypage
+                        region1={region1}
+                        handleRegion1={handleRegion1}
+                        handleRegion2={handleRegion2}
+                        mainRegion={mainRegion}
+                        subRegion={subRegion}
+                      />
+                    </div>
                   </Userinfo_homeground>
                   <Userinfo_favorite>
                     <div className="userinfo_favoriteTitle">
@@ -338,20 +374,16 @@ const Mypage = ({ userInfo }) => {
                     <input
                       type="text"
                       className="editinfo_favorite"
-                      placeholder={mypageInfo.favoriteSports}
+                      placeholder={editUserInfo.favoriteSports}
                       onChange={(e) => changeUserFavoriteSports(e)}
                     />
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div 
-                    className="sendEditInfo" 
-                    onClick={handleSendUserinfo}>
+                  <div className="sendEditInfo" onClick={handleSendUserinfo}>
                     Send
                   </div>
-                  <div 
-                    className="cancelEdit" 
-                    onClick={handelCancelBtn}>
+                  <div className="cancelEdit" onClick={handelCancelBtn}>
                     Cancel
                   </div>
                 </EditUserInfo>
@@ -437,10 +469,10 @@ const Mypage = ({ userInfo }) => {
                     return <MatchCard member={member} key={idx} />
                   })}
             </div>
-            {changeCard === '작성한 공고' && writeData === '' ? (
+            {changeCard === '작성한 공고' && writeData.length === 0 ? (
               <div className="mypage_Match">작성한 공고가 없습니다.</div>
             ) : null}
-            {changeCard === '관심 공고' && favoriteData === '' ? (
+            {changeCard === '관심 공고' && favoriteData.length === 0 ? (
               <div className="mypage_Match">관심등록한 공고가 없습니다.</div>
             ) : null}
           </MyCard>
@@ -517,7 +549,7 @@ const UserInfoContents = styled.div`
 const Userinfo_email = styled.div`
   display: flex;
   width: 70%;
-
+  align-items: center;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 20px 0px;
   border-bottom: 1px solid #dddddd;
@@ -553,6 +585,7 @@ const Userinfo_email = styled.div`
 const Uuserinfo_phone = styled.div`
   display: flex;
   width: 70%;
+  align-items: center;
   margin: 40px 0px 0px 0px;
   padding: 0px 0px 10px 0px;
   border-bottom: 1px solid #dddddd;
@@ -568,7 +601,7 @@ const Uuserinfo_phone = styled.div`
   }
   .editinfo_phoneContents {
     margin: 0px 0px 0px 127px;
-    padding: 0px 0px 0px 10px;
+    padding: 0px 27px 0px 10px;
     border: 1px solid #737373;
     border-radius: 5px;
     height: 25px;
@@ -589,6 +622,7 @@ const Uuserinfo_phone = styled.div`
 const Userinfo_nickname = styled.div`
   display: flex;
   width: 70%;
+  align-items: center;
   margin: 40px 0px 0px 0px;
   padding: 0px 0px 10px 0px;
   border-bottom: 1px solid #dddddd;
@@ -601,7 +635,7 @@ const Userinfo_nickname = styled.div`
   }
   .editinfo_nicknameContents {
     margin: 0px 0px 0px 127px;
-    padding: 0px 0px 0px 10px;
+    padding: 0px 27px 0px 10px;
     border: 1px solid #737373;
     border-radius: 5px;
     height: 25px;
@@ -616,6 +650,7 @@ const Userinfo_nickname = styled.div`
 const Userinfo_homeground = styled.div`
   display: flex;
   width: 70%;
+  align-items: center;
   margin: 40px 0px 0px 0px;
   padding: 0px 0px 10px 0px;
   border-bottom: 1px solid #dddddd;
@@ -628,18 +663,22 @@ const Userinfo_homeground = styled.div`
   }
   .editinfo_homegroundContents {
     margin: 0px 0px 0px 115px;
-    padding: 0px 0px 0px 10px;
+    padding: 0px 27px 0px 10px;
     border: 1px solid #737373;
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
     background-color: #fafafa;
   }
+  .userinfo_regionBox {
+    margin: 0px 0px 0px 112px;
+  }
 `
 
 const Userinfo_favorite = styled.div`
   display: flex;
   width: 70%;
+  align-items: center;
   margin: 40px 0px 50px 0px;
   font-size: 1rem;
   .userinfo_favoriteTitle {
@@ -650,7 +689,7 @@ const Userinfo_favorite = styled.div`
   }
   .editinfo_favorite {
     margin: 0px 0px 0px 68px;
-    padding: 0px 0px 0px 10px;
+    padding: 0px 27px 0px 10px;
     border: 1px solid #737373;
     border-radius: 5px;
     height: 25px;

@@ -4,7 +4,7 @@ import { FaSearch } from 'react-icons/fa'
 import Map from '../../pages/map'
 import WriteContentsSearch from './writeContentsSearch'
 
-const WriteContentsMap = () => {
+const WriteContentsMap = ({ getPlace, getData }) => {
   const [inputText, setInputText] = useState('')
   const [place, setPlace] = useState('안양 풋살')
 
@@ -32,7 +32,11 @@ const WriteContentsMap = () => {
           </SearchBtn>
         </SearchForm>
       </SearchPosition>
-      <WriteContentsSearch searchPlace={place} />
+      <WriteContentsSearch 
+      searchPlace={place}
+      getPlace={getPlace}
+      getData={getData}
+      />
     </Wrapper>
   )
 }

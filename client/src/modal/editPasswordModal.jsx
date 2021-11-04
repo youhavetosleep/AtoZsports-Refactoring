@@ -76,7 +76,7 @@ function EditPasswordModal({
             <CheckPasswordModal>
               <div className="checkPswordTitle">비밀번호 확인</div>
               <input
-                type="text"
+                type="password"
                 className="checkPswordInput"
                 placeholder="현재 비밀번호"
                 onChange={(e) => handleCheckPsword(e)}

@@ -585,9 +585,9 @@ module.exports = {
           // 작성한 게시글이 존재할 경우
           const list = await Promise.all(
             postList.map((el) => {
-            const { id, sports, startTime, endTime, content, status } = el
+            const { id, sports, title, startTime, endTime, content, status } = el
             const { placeName } = el.Ground
-            const post = { id, sports, startTime, endTime, placeName, content, status }
+            const post = { id, sports, title, startTime, endTime, placeName, content, status }
             return post
           }))
           // 최신순으로 정렬
@@ -624,9 +624,9 @@ module.exports = {
         // 작성한 게시글이 존재할 경우
         const list = await Promise.all(
           postList.map((el) => {
-          const { id, sports, startTime, endTime, content, status } = el
+          const { id, sports, title, startTime, endTime, content, status } = el
           const { placeName } = el.Ground
-          const post = { id, sports, startTime, endTime, placeName, content, status }
+          const post = { id, sports, title, startTime, endTime, placeName, content, status }
           return post
         }))
         // 최신순으로 정렬

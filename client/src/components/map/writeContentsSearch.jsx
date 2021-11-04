@@ -1,9 +1,9 @@
 /*global kakao*/
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
-const WriteContentsSearch = ({ searchPlace }) => {
+const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
 
@@ -11,6 +11,8 @@ const WriteContentsSearch = ({ searchPlace }) => {
   // const Review = () => {
   //   history.push('/review')
   // }
+  // const [clickPlace, setClickPlace] = useState('')
+  // console.log('click =====>', clickPlace)
 
   useEffect(() => {
     let markers = [], // 지도를 표시할 div
@@ -23,6 +25,8 @@ const WriteContentsSearch = ({ searchPlace }) => {
     let map = new kakao.maps.Map(mapRef.current, mapOption)
     const zoomControl = new kakao.maps.ZoomControl()
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
+    
+
 
     // 장소 검색 객체를 생성합니다
     let ps = new kakao.maps.services.Places()
@@ -83,6 +87,11 @@ const WriteContentsSearch = ({ searchPlace }) => {
           kakao.maps.event.addListener(marker, 'mouseover', function () {
             displayInfowindow(marker, title)
           })
+          
+          kakao.maps.event.addListener(marker, 'click', function () {
+            getData(marker, title)
+            
+          })
 
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
@@ -90,6 +99,10 @@ const WriteContentsSearch = ({ searchPlace }) => {
           itemEl.onmouseover = function () {
             displayInfowindow(marker, title)
           }
+          itemEl.onclick = function () {
+            getData(title)
+          }
+
           itemEl.onmouseout = function () {
             infowindow.close()
           }
@@ -118,13 +131,14 @@ const WriteContentsSearch = ({ searchPlace }) => {
       itemStr += '<span>' + places.address_name + '</span>'
       itemStr +=
         '<form class="review">' +
-        `<a class='reviewP'>리뷰 (12)</a>` +
-        `<a href='http://localhost:3000/review'>예약하기</a>` +
+        `<a href='http://localhost:3000/review'>리뷰 (12)</a>` +
+        `<a class='reviewP'>선택하기</a>` +
         '</form>'
-      el.innerHTML = itemStr
-      el.className = 'item'
-      return el
-    }
+        el.innerHTML = itemStr
+        el.className = 'item'
+        return el
+      }
+
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
@@ -196,7 +210,12 @@ const WriteContentsSearch = ({ searchPlace }) => {
 
       infowindow.setContent(content)
       infowindow.open(map, marker)
+      // console.log(title)
     }
+
+    // const choicePlace = (marker, title) => {
+    //   setClickPlace(title)
+    // }
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
     function removeAllChildNods(el) {
@@ -205,6 +224,7 @@ const WriteContentsSearch = ({ searchPlace }) => {
       }
     }
   }, [searchPlace])
+
   return (
     <Container>
       <BackList>
@@ -376,11 +396,11 @@ const BackList = styled.div`
 const MapView = styled.div`
   display: flex;
   position: relative;
-  width: 800px;
+  width: 530px;
   height: 450px;
   justify-content: center;
   align-items: center;
-  margin: 80px 0px 0px 0px;
+  margin: 80px 0px 0px 270px;
   border-radius: 12px;
   top: -40px;
   right: 0;
@@ -434,11 +454,6 @@ top: 70%;
   text-align: center;
   color: #5c5c5c;
 `
-
-
-
-
-
 
 
 export default WriteContentsSearch

@@ -23,23 +23,30 @@ import MatchCard from '../components/matchCard'
 import { Link } from 'react-router-dom'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
+import RegionBoxFutsal from '../utils/regionBoxFutsal'
 
-const Futsal = () => {
+const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
   const dispatch = useDispatch()
 
   const [CurrentOrder, setCurrentOrder] = useState('member')
   const [memberData, setMemberData] = useState([])
   const [dummyData, setDummyData] = useState([{}, {}, {}, {}, {}])
 
+  // console.log('re1 =====>',region1)
+  // console.log('re2 =====>',region2)
+
   useEffect(() => {
-    dispatch(getMatchData(CurrentOrder))
+    dispatch(getMatchData(CurrentOrder, region1, region2))
       .then((res) => {
         setMemberData(res.payload)
+        // console.log('payload ====>', res.payload)
       })
       .catch((err) => {
         console.log(err)
       })
-  }, [CurrentOrder])
+  }, [CurrentOrder, region2])
+
+  // console.log('member =====>', memberData)
 
   const matchBtn = () => {
     setCurrentOrder('match')
@@ -120,7 +127,11 @@ const Futsal = () => {
                 경기제안
               </span>
             </span>
-            <div className="dropBox"></div>
+            <RegionBoxFutsal
+            region1={region1}
+            handleRegion1={handleRegion1}
+            handleRegion2={handleRegion2}
+            />
           </MatchSoonFilter>
           <MatchSoonList>
             <div className="all_MatchCard">
@@ -310,6 +321,10 @@ const MatchSoonTitle = styled.div`
 `
 
 const MatchSoonFilter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   font-size: 1.2rem;
   .setbold {

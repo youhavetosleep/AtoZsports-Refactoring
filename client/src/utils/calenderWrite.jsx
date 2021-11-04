@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ko } from 'date-fns/esm/locale'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const CalendarWrite = ({ handledate, startDate }) => {
+const CalendarWrite = ({ handledate, setStartDate, startDate }) => {
+
+
   return (
     <>
       <Dateform
-        selected={moment(startDate).toDate()}
-        onChange={(date) => handledate(date)}
         dateFormat="yyyy-MM-dd"
+        selected={moment(startDate).toDate()}
+        onChange={(date) => setStartDate(date)}
         locale={ko}
       />
     </>

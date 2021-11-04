@@ -8,9 +8,9 @@ import {
 import instance from '../api'
 
 // 용병, 경기제안 데이터
-export async function getMatchData(CurrentOrder) {
+export async function getMatchData(CurrentOrder, region1, region2) {
   const request = await instance
-    .get(`/futsal?division=${CurrentOrder}&do=경기&city=용인시`, {
+    .get(`/futsal?division=${CurrentOrder}&do=${region1}&city=${region2}`, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
@@ -31,11 +31,7 @@ export async function getUserMatchData(Token) {
       },
       withCredentials: true
     })
-<<<<<<< HEAD
-    .then((res) => res.data.postList)
-=======
-    .then((res) => res)
->>>>>>> ca5d326881b102d5ef0ac02b646096c791f8ede7
+    .then((res) => res.data)
     .catch((err) => console.log(err))
 
   return {
@@ -53,11 +49,7 @@ export async function getUserFavoriteData(Token) {
       },
       withCredentials: true
     })
-<<<<<<< HEAD
     .then((res) => res.data)
-=======
-    .then((res) => res)
->>>>>>> ca5d326881b102d5ef0ac02b646096c791f8ede7
     .catch((err) => console.log(err))
 
   return {

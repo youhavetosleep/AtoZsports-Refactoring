@@ -8,9 +8,9 @@ function MoreViewCard() {
   return (
     <>
       <GlobalStyle />
+        <Link to="/matchlist" style={{ textDecoration: 'none' }}>
       <MoreViewCardContainer>
       <div className="moreMatch-listbox">
-        <Link to="/matchlist" style={{ textDecoration: 'none' }}>
           <ul>
             <li className="moreMatch-title">
               더 많은 공고를 보고싶다면?
@@ -19,9 +19,9 @@ function MoreViewCard() {
                 더 많은 공고 보러가기
               </span>
           </ul>
-        </Link>
       </div>
       </MoreViewCardContainer>
+        </Link>
     </>
   )
 }

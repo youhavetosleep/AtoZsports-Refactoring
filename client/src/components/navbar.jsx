@@ -109,7 +109,7 @@ const Menu = styled.div`
 const Logo = styled.div`
   position: absolute;
   top: 0%;
-  left: 49%;
+  left: 48%;
 `
 
 const LogoImage = styled.img`

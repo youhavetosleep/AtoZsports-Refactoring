@@ -60,16 +60,17 @@ export async function logoutUser() {
   }
 }
 
-export async function mypageUser(editUserInfo, Token) {
+export async function mypageUser(changeUserInfo, Token, region1, region2) {
   const request = await instance
     .patch(
       '/users', 
     {
-      nickname: editUserInfo.nickname, 
-      userPhone: editUserInfo.userPhone,
-      homeground: editUserInfo.homeground,
-      favoriteSports: editUserInfo.favoriteSports,
-      userId: editUserInfo.userId
+      email: changeUserInfo.email,
+      nickname: changeUserInfo.nickname, 
+      userPhone: changeUserInfo.userPhone,
+      homeground: `${region1} ${region2}`,
+      favoriteSports: changeUserInfo.favoriteSports,
+      userId: changeUserInfo.userId
     },
     {
       headers: { 

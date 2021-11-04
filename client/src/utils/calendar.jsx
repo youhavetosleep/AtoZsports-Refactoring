@@ -11,7 +11,7 @@ const Calendar = ({ handledate, startDate }) => {
       <Dateform
         selected={moment(startDate).toDate()}
         onChange={(date) => handledate(date)}
-        dateFormat="yyyy-MM-dd"
+        dateFormat={moment().format('YYYY-MM-DD')}
         locale={ko}
       />
     </>

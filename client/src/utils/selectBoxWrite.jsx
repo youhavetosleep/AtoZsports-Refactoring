@@ -39,9 +39,10 @@ const Select = styled.select`
   margin: 0;
   min-width: 0;
   display: block;
+  text-align: center;
   width: 180px;
   box-sizing: border-box;
-  padding: 11px 0px 11px 50px;
+  padding: 11px 0px 11px 0px;
   margin-right :20px; 
   font-size: inherit;
   border: 1px solid #c6c6c6;
