@@ -86,23 +86,23 @@ const Mypage = ({
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
 
   useEffect(() => {
-    dispatch(getUserMatchData(Token)).then((res) => {
+    dispatch(getUserMatchData(Token))
+    .then((res) => {
       setWriteData(res.payload)
       // console.log(res.payload)
     })
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(getUserFavoriteData(Token)).then((res) => {
+    dispatch(getUserFavoriteData(Token))
+    .then((res) => {
       setFavoriteData(res.payload)
       // console.log(res.payload)
     })
   }, [dispatch])
 
-
-
   const handleSendUserinfo = () => {
- 
+    
   }
 
   useEffect(() => {
@@ -225,7 +225,8 @@ const Mypage = ({
 
   // 비밀번호 확인
   const doubleCheckPassword = () => {
-    if (firstPsword === secondPsword && password_Reg.test(secondPsword)) {
+    if (firstPsword === secondPsword && password_Reg
+      .test(secondPsword)) {
       setMessagePwChecks('✔ 비밀번호가 확인되었습니다')
       setPwCheckColor(true)
     } else {
@@ -237,7 +238,8 @@ const Mypage = ({
 
   const handleChangePassword = () => {
     if (messagePwCheck === '✔ 비밀번호가 확인되었습니다') {
-      dispatch(userChangePsword(secondPsword, Token)).then((res) => {
+      dispatch(userChangePsword(secondPsword, Token))
+      .then((res) => {
         setEditPsword(false)
         console.log(res.payload)
       })
