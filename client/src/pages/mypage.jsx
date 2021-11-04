@@ -86,23 +86,23 @@ const Mypage = ({
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
 
   useEffect(() => {
-    dispatch(getUserMatchData(Token)).then((res) => {
+    dispatch(getUserMatchData(Token))
+    .then((res) => {
       setWriteData(res.payload)
       // console.log(res.payload)
     })
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(getUserFavoriteData(Token)).then((res) => {
+    dispatch(getUserFavoriteData(Token))
+    .then((res) => {
       setFavoriteData(res.payload)
       // console.log(res.payload)
     })
   }, [dispatch])
 
-
-
   const handleSendUserinfo = () => {
- 
+    
   }
 
   useEffect(() => {
