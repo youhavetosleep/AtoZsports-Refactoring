@@ -141,20 +141,6 @@ module.exports = {
               }
             })
           } else {
-// 배포 시 확인용
-            User.findOrCreate({
-              where: {
-                email: 'seven@gmail.com',
-                nickname: '칠칠이',
-                password: '1234',
-                userPhone: '010-7777-7777',
-                favoriteSports: new Date().toISOString(),
-                homeground: '서울 성북구',
-                verified: true,
-                verifiedKey: ''
-              }
-            })
-// 배포 시 확인용
             console.log('게시글 시간이 수정됨')
           }
         })

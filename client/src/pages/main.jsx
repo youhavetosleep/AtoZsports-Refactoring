@@ -1,20 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import GlobalStyle from '../globalStyle/globalStyle'
-import mainLogo from '../image/mainLogo.png'
 import { Link } from 'react-router-dom'
+import mainLogo from '../image/mainLogo.png'
 import Footer from '../components/footer'
 
 const Main = () => {
-
   return (
     <>
-      <GlobalStyle />
       <MainPage>
         <MainLogoPage>
           <MainLogo>
-            <img src={mainLogo} className="logo"></img>
-            <div className="logo_text">우리동네 스포츠의 A 부터 Z 까지</div>
+            <img src={mainLogo} alt="mainLogo" className="logo"></img>
+            <div className="logo_text">우리 동네 스포츠의 A 부터 Z 까지</div>
             <Link to="/entrance" className="logo_button">
               입장하기
             </Link>
@@ -29,16 +26,16 @@ const Main = () => {
           </DownArrow>
         </MainLogoPage>
         <Landing1>
-          <Landing_Container>
-            <Landing_In>
-              <Landing_text className="text scroll">
+          <LandingContainer>
+            <LandingIn>
+              <LandingText className="text scroll">
                 <div className="landing_mainText">
-                  우리동네의
+                  우리 동네의
                   <br />
                   경기장을 찾아보세요.
                 </div>
                 <div className="landing_subText">
-                  우리동네 경기장에서부터
+                  우리 동네 경기장에서부터
                   <br />
                   전국의 경기장 정보를 제공합니다.
                   <br />
@@ -47,16 +44,16 @@ const Main = () => {
                   <br />
                   지금도 그곳에선 뜨거운 경기가 열리고 있습니다!
                 </div>
-              </Landing_text>
-              <img src={mainLogo} className="landing_gif scroll"></img>
-            </Landing_In>
-          </Landing_Container>
+              </LandingText>
+              <img src={mainLogo} alt="mainLogo" className="landing_gif scroll"></img>
+            </LandingIn>
+          </LandingContainer>
         </Landing1>
         <Landing2>
-          <Landing_Container>
-            <Landing_In>
-            <img src={mainLogo} className="landing_gif scroll"></img>
-              <Landing_text className="text scroll">
+          <LandingContainer>
+            <LandingIn>
+              <img src={mainLogo} alt="mainLogo" className="landing_gif scroll"></img>
+              <LandingText className="text scroll">
                 <div className="landing_mainText2">
                   팀원을 모집할 수 있고
                   <br />
@@ -74,14 +71,14 @@ const Main = () => {
                   <br />
                   다른팀에게 경기를 제안할 수 있습니다.
                 </div>
-              </Landing_text>
-            </Landing_In>
-          </Landing_Container>
+              </LandingText>
+            </LandingIn>
+          </LandingContainer>
         </Landing2>
         <Landing1>
-          <Landing_Container>
-            <Landing_In>
-              <Landing_text className="text scroll">
+          <LandingContainer>
+            <LandingIn>
+              <LandingText className="text scroll">
                 <div className="landing_mainText">
                   다양한 소통의 기능을
                   <br />
@@ -90,20 +87,20 @@ const Main = () => {
                 <div className="landing_subText">
                   같은 경기장을 사용했던 사람들의 솔직한 리뷰나
                   <br />
-                  사용하고싶은 경기장의 리뷰를 확인할 수 있습니다.
+                  사용하고 싶은 경기장의 리뷰를 확인할 수 있습니다.
                   <br />
                   <br />
                   팀원간의 커뮤니케이션을 위해
                   <br />
                   실시간 채팅기능을 제공합니다.
                 </div>
-              </Landing_text>
-              <img src={mainLogo} className="landing_gif scroll"></img>
-            </Landing_In>
-          </Landing_Container>
+              </LandingText>
+              <img src={mainLogo} alt="mainLogo" className="landing_gif scroll"></img>
+            </LandingIn>
+          </LandingContainer>
         </Landing1>
         <LandingFinal>
-          <LandingFinal_Text>
+          <LandingFinalText>
             <div className="landing_finalText">
               A to Z Sports 는<br />
               당신의 참여를 기다리고 있습니다.
@@ -114,7 +111,7 @@ const Main = () => {
             <Link to="/entrance" className="logo_button">
               입장하기
             </Link>
-          </LandingFinal_Text>
+          </LandingFinalText>
         </LandingFinal>
       </MainPage>
       <Footer />
@@ -229,7 +226,7 @@ const Landing1 = styled.section`
   margin-top: 40px;
 `
 
-const Landing_Container = styled.div`
+const LandingContainer = styled.div`
   max-width: 1920px;
   height: 100vh;
   display: flex;
@@ -238,7 +235,7 @@ const Landing_Container = styled.div`
   overflow: hidden;
 `
 
-const Landing_In = styled.div`
+const LandingIn = styled.div`
   width: 100vw;
   height: 50%;
   margin: 12rem 0;
@@ -248,17 +245,17 @@ const Landing_In = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 0.2rem;
- 
+
   .landing_gif {
     display: flex;
     width: 40vw;
   }
 `
 
-const Landing_text = styled.div`
-display: flex;
-flex-direction: column;
-color: #353535;
+const LandingText = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: #353535;
   .landing_mainText {
     font-size: 35px;
     display: flex;
@@ -300,7 +297,7 @@ const LandingFinal = styled.div`
   margin-bottom: 200px;
 `
 
-const LandingFinal_Text = styled.div`
+const LandingFinalText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -308,7 +305,7 @@ const LandingFinal_Text = styled.div`
   color: #353535;
   .landing_finalText {
     font-size: 40px;
-  text-align: center;
+    text-align: center;
   }
   .landing_subText {
     margin-top: 30px;

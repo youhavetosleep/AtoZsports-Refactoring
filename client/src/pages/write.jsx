@@ -1,25 +1,14 @@
 /*global kakao*/
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { FaChevronDown } from 'react-icons/fa'
 import GlobalStyle from '../globalStyle/globalStyle'
 import Footer from '../components/footer'
-import styled from 'styled-components'
 import WriteContentsMap from '../components/map/writeContentsMap'
-import Calendar from '../utils/calendar'
-import { useDispatch } from 'react-redux'
-import { FaChevronDown } from 'react-icons/fa'
-import SelectBox from '../utils/selectBox'
 import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 
 const Write = () => {
-  
-  const mapRef = useRef()
-  const dispatch = useDispatch()
-
-  const changeDate = (date) => {
-    return date.toISOString().split('T')[0]  // 미국시간 기준이라 하루가 늦음
-  }
-
   const handledate = (date) => {
     let ChangeDate =
       date.getFullYear() +
@@ -30,8 +19,8 @@ const Write = () => {
     setStartDate(ChangeDate)
   }
 
-  const newdate = new Date()
-  const today = changeDate(newdate)
+  // const newdate = new Date()
+  // const today = changeDate(newdate)
   // console.log(today)
 
   const [startDate, setStartDate] = useState(new Date())
@@ -46,8 +35,6 @@ const Write = () => {
   // console.log('종료시간 ====>', endTime)
   // console.log('사용여부 ===>', phoneCheck)
   // console.log('요청사항 =====>', textBox)
-
- 
 
   // start, end 셀렉트 박스 컴포넌트 value 가져오기
   const handleStartHour = (e) => {
@@ -69,12 +56,11 @@ const Write = () => {
     setTextBox(e.target.value)
   }
 
-  
   const [getPlace, setGetPlace] = useState('')
 
   const getData = (getPlace) => {
-      setGetPlace(getPlace)
-    }
+    setGetPlace(getPlace)
+  }
   // console.log('getPlace ====> ', getPlace)
 
   return (
@@ -84,33 +70,35 @@ const Write = () => {
         <WriteIn>
           <div className="write_title">게시글 작성</div>
           <WriteMap>
-            <WriteContentsMap 
-            getPlace={getPlace}
-            getData={getData}
-            />
+            <WriteContentsMap getPlace={getPlace} getData={getData} />
           </WriteMap>
           <WritePlace>
             <div className="write_palce">선택한 경기장</div>
-            <input 
-            type="text" 
-            value={getPlace}
-            className="write_choiceGround" />
+            <input
+              type="text"
+              value={getPlace}
+              className="write_choiceGround"
+            />
           </WritePlace>
           <WriteRequest>
             <div className="write_kindRequest">요청 종류</div>
             <RequestBtn>
-              <div 
-              className={
-                memberMatch === '용병모집' ?
-                'write_btn1Click' : 'write_btn1'}
-              onClick={handleClickMember}
-              >용병모집</div>
-              <div 
-              className={
-                memberMatch === '경기제안' ?
-                'write_btn2Click' : 'write_btn2'}
-              onClick={handleClickMatch}
-              >경기제안</div>
+              <div
+                className={
+                  memberMatch === '용병모집' ? 'write_btn1Click' : 'write_btn1'
+                }
+                onClick={handleClickMember}
+              >
+                용병모집
+              </div>
+              <div
+                className={
+                  memberMatch === '경기제안' ? 'write_btn2Click' : 'write_btn2'
+                }
+                onClick={handleClickMatch}
+              >
+                경기제안
+              </div>
             </RequestBtn>
           </WriteRequest>
           <WriteDate>
@@ -126,26 +114,26 @@ const Write = () => {
               </DownWrap>
               <TimeWrap>
                 <SelectBoxWrite
-                handleStartHour={handleStartHour}
-                handleEndHour={handleEndHour}
+                  handleStartHour={handleStartHour}
+                  handleEndHour={handleEndHour}
                 />
               </TimeWrap>
             </CalendarWrap>
           </WriteDate>
           <WritePhoneCheck>
             <div className="write_phonecheck">전화번호 표시</div>
-            <input 
-            type="checkbox" 
-            className="write_checkBox"
-            onChange={(e) => handlePhoneCheck(e)} 
+            <input
+              type="checkbox"
+              className="write_checkBox"
+              onChange={(e) => handlePhoneCheck(e)}
             />
           </WritePhoneCheck>
           <WriteEtc>
             <div className="write_etc">요청사항</div>
             <textarea
-             className="write_textArea"
-             onChange={(e) => handleInputText(e)}
-             ></textarea>
+              className="write_textArea"
+              onChange={(e) => handleInputText(e)}
+            ></textarea>
           </WriteEtc>
           <div className="write_send">등록하기</div>
         </WriteIn>
@@ -244,13 +232,13 @@ const WriteRequest = styled.div`
   }
   .write_btn1Click {
     display: flex;
-  justify-content: left;
-  margin: 20px 0px 0px 0px;
-  padding: 15px 154px 10px 154px;
-  background-color: #840909;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  color: #fafafa;
+    justify-content: left;
+    margin: 20px 0px 0px 0px;
+    padding: 15px 154px 10px 154px;
+    background-color: #840909;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    color: #fafafa;
   }
   .write_btn2 {
     display: flex;
@@ -268,13 +256,13 @@ const WriteRequest = styled.div`
   }
   .write_btn2Click {
     display: flex;
-  justify-content: left;
-  margin: 20px 0px 0px 20px;
-  padding: 15px 154px 10px 154px;
-  background-color: #840909;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  color: #fafafa;
+    justify-content: left;
+    margin: 20px 0px 0px 20px;
+    padding: 15px 154px 10px 154px;
+    background-color: #840909;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    color: #fafafa;
   }
 `
 const RequestBtn = styled.div`

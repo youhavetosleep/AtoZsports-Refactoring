@@ -1,61 +1,60 @@
 import React from 'react'
 import styled from 'styled-components'
-import GlobalStyle from '../globalStyle/globalStyle'
+import { Link } from 'react-router-dom'
+
 import futsal from '../image/futsal.jpg'
 import running from '../image/running.jpeg'
 import basketball from '../image/basketball.jpeg'
 import comming from '../image/comming.jpeg'
-import { Link } from 'react-router-dom'
 
 const Entrance = () => {
   return (
     <>
-      <GlobalStyle />
-      <Sports_Main>
-        <Sports_Sub>
+      <SportsMain>
+        <SportsSub>
           <Link to="/futsal" style={{ textDecoration: 'none' }}>
             <Footsal>
-              <img src={futsal} className="entrance_img" />
+              <img src={futsal} alt="futsal" className="entrance_img" />
               <div className="entrance_Text">
                 <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
                 <div className="entrance_subText">FUTSAL</div>
               </div>
             </Footsal>
           </Link>
-        </Sports_Sub>
-        <Sports_Sub>
+        </SportsSub>
+        <SportsSub>
           <Running>
-            <img src={running} className="entrance_img" />
+            <img src={running} alt="running" className="entrance_img" />
             <div className="entrance_mainText">함께 달릴 준비가 되었나요?</div>
             <div className="entrance_subText">COMMING SOON</div>
           </Running>
-        </Sports_Sub>
-        <Sports_Sub>
+        </SportsSub>
+        <SportsSub>
           <BasketBall>
-            <img src={basketball} className="entrance_img" />
+            <img src={basketball} alt="basketball" className="entrance_img" />
             <div className="entrance_mainText">왼손은 거들뿐</div>
             <div className="entrance_subText">COMMING SOON</div>
           </BasketBall>
-        </Sports_Sub>
-        <Sports_Sub>
+        </SportsSub>
+        <SportsSub>
           <CommingSoon>
-            <img src={comming} className="entrance_img" />
+            <img src={comming} alt="comming" className="entrance_img" />
             <div className="entrance_mainText">계속 업데이트 됩니다</div>
             <div className="entrance_subText">COMMING SOON</div>
           </CommingSoon>
-        </Sports_Sub>
-      </Sports_Main>
+        </SportsSub>
+      </SportsMain>
     </>
   )
 }
 
-const Sports_Main = styled.section`
+const SportsMain = styled.section`
   height: 100%;
   display: flex;
   background-color: none;
 `
 
-const Sports_Sub = styled.div`
+const SportsSub = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -65,7 +64,7 @@ const Sports_Sub = styled.div`
   position: relative;
   background-size: cover;
   :hover {
-    .entrance_mainText{
+    .entrance_mainText {
       color: white;
     }
     .entrance_subText {
@@ -84,7 +83,7 @@ const Footsal = styled.div`
   position: relative;
   .entrance_mainText {
     top: 45%;
-	  left: 26%;
+    left: 26%;
     font-size: 1.3vw;
     font-weight: bold;
     color: #353535;
@@ -93,7 +92,7 @@ const Footsal = styled.div`
   }
   .entrance_subText {
     top: 50%;
-	  left: 37%;
+    left: 37%;
     font-size: 2vw;
     font-weight: bold;
     color: #353535;
@@ -112,11 +111,10 @@ const Footsal = styled.div`
 const Running = styled.div`
   position: relative;
   .entrance_Text {
-  
   }
   .entrance_mainText {
     top: 45%;
-	  left: 22%;
+    left: 22%;
     font-size: 1.3vw;
     font-weight: bold;
     color: #353535;
@@ -125,7 +123,7 @@ const Running = styled.div`
   }
   .entrance_subText {
     top: 50%;
-	  left: 19%;
+    left: 19%;
     font-size: 2vw;
     font-weight: bold;
     color: #353535;
@@ -144,11 +142,10 @@ const Running = styled.div`
 const BasketBall = styled.div`
   position: relative;
   .entrance_Text {
-  
   }
   .entrance_mainText {
     top: 45%;
-	  left: 36%;
+    left: 36%;
     font-size: 1.3vw;
     font-weight: bold;
     color: #353535;
@@ -157,7 +154,7 @@ const BasketBall = styled.div`
   }
   .entrance_subText {
     top: 50%;
-	  left: 20%;
+    left: 20%;
     font-size: 2vw;
     font-weight: bold;
     color: #353535;
@@ -176,11 +173,10 @@ const BasketBall = styled.div`
 const CommingSoon = styled.div`
   position: relative;
   .entrance_Text {
-  
   }
   .entrance_mainText {
     top: 45%;
-	  left: 28%;
+    left: 28%;
     font-size: 1.3vw;
     font-weight: bold;
     color: #353535;
@@ -189,7 +185,7 @@ const CommingSoon = styled.div`
   }
   .entrance_subText {
     top: 50%;
-	  left: 19%;
+    left: 19%;
     font-size: 2vw;
     font-weight: bold;
     color: #353535;
