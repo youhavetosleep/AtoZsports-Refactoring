@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import instance from '../api'
-import GlobalStyle from '../globalStyle/globalStyle'
-import { USER_PASSWORD } from '../_actions/types'
-import { userPassword } from '../_actions/user.action'
+import { userPassword } from '../_actions/user_action'
 
 function EditPasswordModal({
   setEditPswordModal,
@@ -18,7 +15,6 @@ function EditPasswordModal({
 
   const [password, setPassword] = useState('')
   const [messagePassword, setMessagePassword] = useState('')
-  const [beforeUserPsword, setbeforeUserPsword] = useState('')
 
   // 모달창 밖을 클릭하면 모달창이 꺼지는 함수
   const handleCloseEditPasswordModal = (e) => {
@@ -65,7 +61,6 @@ function EditPasswordModal({
 
   return (
     <>
-      <GlobalStyle />
       <CheckPasswordContainer>
         <CheckPassword>
           <ModalBackground

@@ -297,6 +297,7 @@ const ContentName = styled.p`
 `
 
 const ContentEl = styled.p``
+
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;

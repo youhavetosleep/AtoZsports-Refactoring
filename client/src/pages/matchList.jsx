@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { FaChevronDown } from 'react-icons/fa'
+import moment from 'moment'
+
 import MatchCard from '../components/matchCard'
 import { getMatchListData, sortedMatchListData } from '../_actions/post_action'
 import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
-import moment from 'moment'
 
 const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
   // 날짜변환

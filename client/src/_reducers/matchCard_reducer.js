@@ -5,7 +5,7 @@ import {
   USER_FAVORITEMATCH 
 } from '../_actions/types'
 
-export default function (state = {}, action) {
+export default function matchCardReducer (state = {}, action) {
   switch (action.type) {
     case MATCH_DATA:
       return { ...state, matchData: action.payload }

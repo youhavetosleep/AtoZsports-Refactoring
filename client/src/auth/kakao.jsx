@@ -3,8 +3,7 @@ import dotenv from 'dotenv'
 import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-import { kakaoUser } from '../_actions/user.action'
-
+import { kakaoUser } from '../_actions/user_action'
 
 dotenv.config()
 

@@ -6,7 +6,7 @@ import {
   DELETE_USER,
   MYPAGE_USER,
   USER_PASSWORDCHECK
- } from '../_actions/types'
+} from '../_actions/types'
 
 export default function userReducer (state = {}, action) {
   switch (action.type) {
