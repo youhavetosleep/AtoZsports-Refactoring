@@ -88,7 +88,11 @@ const Post = ({ userInfo }) => {
   // 게시글 수정 (작성페이지로 이동)
   const editContent = () => {
     dispatch(editPostData(postId, token))
-    history.push(`/write/id=${postId}`)
+    .then((res) => {
+      console.log(res)
+    })
+
+    // history.push(`/write`)
   }
 
   // 게시글 삭제 버튼

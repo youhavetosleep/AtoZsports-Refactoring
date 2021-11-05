@@ -12,7 +12,7 @@ import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 
 const Write = () => {
-
+  
   const mapRef = useRef()
   const dispatch = useDispatch()
 
