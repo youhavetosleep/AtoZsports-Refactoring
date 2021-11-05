@@ -157,7 +157,8 @@ const Mypage = ({
         .post(
           '/users/nick-check',
           {
-            nickname
+            nickname,
+            curNickname : userInfoSuccess.nickname
           },
           {
             headers: {

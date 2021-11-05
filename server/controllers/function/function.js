@@ -79,6 +79,67 @@ module.exports = {
     }
     return randomString
   },
+  // 회원가입 시 인증 메일 전송
+  sendAuthMail: async (user) => {
+    // 유효 시간을 3분으로 설정
+    const scheduleTime = new Date(user.dataValues.updatedAt)
+    scheduleTime.setMinutes(scheduleTime.getMinutes() + 4)
+    scheduleTime.setSeconds(0)
+    const { id, nickname, email, verifiedKey } = user.dataValues
+    const time = scheduleTime.toISOString().split('T')[1].split('.')[0].split(':')
+    // 메일 전송을 위한 정보
+    const domain =
+      process.env.NODE_ENV === 'production'
+        ? 'atozsports.link'
+        : 'http://localhost:3000'
+    const from = `AtoZ sports <atozsports@api.atozsports.link>`
+    const mailOptions = {
+      from: from,
+      to: email,
+      subject: `${nickname}님 ! AtoZ sports 이메일 인증입니다.`,
+      html: `
+      <style>
+        div { 
+          border: 1px solid black; 
+          text-align: center; 
+          padding: 20px; 
+          width: 70%;
+        }
+        a { color: white; text-decoration-line: none }
+        h1 { margin-bottom: 20px; font-size: 50px; }
+        p { font-size: 15px; margin-botton: 10px; }
+        span { font-weight: bold; }
+        button { background-color: black; width: 50px; height: 35px; border-radius: 6px; }
+      </style>
+      <div>
+        <h1>AtoZ sports</h1><br />
+        <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p>
+        <br />
+        <p><span>${time[0]}시 ${time[1]}분</span> 전에 아래의 버튼을 클릭하여 이메일 인증을 완료해주세요.</p>
+        <br />
+        <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>
+        <br />
+        <button><a href="${domain}/auth/?email=${email}&verifiedKey=${verifiedKey}">인증</a></button>
+      </div>
+    `
+    }
+    smtpTransport.use('compile', inlineCss())
+    // 메일 전송
+    await smtpTransport.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(info.response)
+      }
+    })
+    // 유효 시간이 지난 후 인증을 만료
+    schedule.scheduleJob(scheduleTime, async () => {
+      await User.update(
+        { verifiedKey: '' },
+        { where : { id } }
+      )
+    })
+  },
   // 게시글 생성, 수정 시 안내 메일 예약
   reserveMail: (post, req) => {
     const postId = post.dataValues.id
@@ -88,8 +149,6 @@ module.exports = {
     let scheduleTime = new Date(req.body.startTime)
     scheduleTime.setHours(-9)
     scheduleTime.setMinutes(0)
-    // console.log(new Date())
-    // console.log(scheduleTime)
     // 정해진 시간에 메일 전송
     schedule.scheduleJob(scheduleTime, async () => {
       try {
