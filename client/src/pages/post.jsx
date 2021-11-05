@@ -23,6 +23,10 @@ const Post = ({ userInfo }) => {
   const getPostInfo = async () => {
     dispatch(getPostData(postId, token)).then((res) => {
       setPostData(res.payload.postsData)
+      if(res.payload.postsData.status === '모집중') {
+        setStatus('모집중')
+      }
+      console.log(res.payload.postsData.status)
       // 지도 표시를 위한 코드 (시작)
       let container = document.getElementById('map')
       let options = {
@@ -107,6 +111,7 @@ const Post = ({ userInfo }) => {
   // status 상태 바꾸는 버튼
   const changeStatus = () => {
     setStatus('모집완료')
+    console.log(status)
     dispatch(changeStatusData(postId, token, status))
   }
 
@@ -135,7 +140,7 @@ const Post = ({ userInfo }) => {
             <Place>{postData.placeName}</Place>
             <MainEl>{postData.addressName}</MainEl>
             <MainEl>{postData.phone}</MainEl>
-            {postData.status === '모집완료' ? (
+            {status === '모집완료' ? (
               <Status className="fin">모집완료</Status>
             ) : (
               <Status>{postData.status}</Status>
