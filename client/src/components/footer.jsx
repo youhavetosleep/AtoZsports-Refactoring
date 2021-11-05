@@ -1,28 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import GlobalStyle from '../globalStyle/globalStyle'
-import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
     <>
-    <GlobalStyle />
       <Footerbar>
-        <Github href='https://github.com/codestates/AtoZsports'>
+        <Github href="https://github.com/codestates/AtoZsports">
           A to Z Sports Repository
-          </Github>
+        </Github>
         <Copyright>© Copyright 2021 AtoZ Sports All Rights Reserved</Copyright>
         <Team>
-          <Href href='https://github.com/steel-hyuk'>
+          <Href href="https://github.com/steel-hyuk">
             <div>김은혁 (BE) |</div>
           </Href>
-          <Href href='https://github.com/jsjsjskjs'>
+          <Href href="https://github.com/jsjsjskjs">
             <div>김재식 (BE) |</div>
           </Href>
-          <Href href='https://github.com/shinseungmin-kor'>
+          <Href href="https://github.com/shinseungmin-kor">
             <div>신승민 (FE) |</div>
           </Href>
-          <Href href='https://github.com/youhavetosleep'>
+          <Href href="https://github.com/youhavetosleep">
             <div>진정수 (FE)</div>
           </Href>
         </Team>
@@ -32,7 +29,7 @@ const Footer = () => {
 }
 
 const Footerbar = styled.div`
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   width: 100%;
   height: 60px;
   display: flex;
@@ -49,9 +46,9 @@ const Github = styled.a`
   transform: translate(15%, -50%);
   text-decoration: none;
   color: #747474;
-:hover {
-  color: #353535;
-}
+  :hover {
+    color: #353535;
+  }
 `
 
 const Team = styled.div`
@@ -63,12 +60,12 @@ const Team = styled.div`
 `
 
 const Href = styled.a`
-  padding: 3px; 
+  padding: 3px;
   text-decoration: none;
   color: #747474;
-:hover {
-  color: #353535;
-}
+  :hover {
+    color: #353535;
+  }
 `
 
 const Copyright = styled.div`
@@ -77,6 +74,5 @@ const Copyright = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `
-
 
 export default Footer

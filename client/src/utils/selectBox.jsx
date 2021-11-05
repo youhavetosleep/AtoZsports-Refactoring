@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { STARTOPTIONS, ENDOPTIONS } from './data'
+
 const SelectBox = ({ handleEndHour, handleStartHour }) => {
   return (
     <SelectBoxWrapper>

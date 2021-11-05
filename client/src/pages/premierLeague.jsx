@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import GlobalStyle from '../globalStyle/globalStyle'
+import React from 'react'
 import styled from 'styled-components'
 import premier from '../image/premier_league.png'
 import Footer from '../components/footer'
@@ -9,23 +8,15 @@ const PremierLeague = () => {
   const nowData = new Date()
   const year = nowData.getFullYear()
 
-  const [leagueInfo, serLeagueInfo] = useState([])
-
-  useEffect(() => {
-    
-  })
-
   return (
     <>
-      <GlobalStyle />
       <LeagueContainer>
         <LeagueIn>
           <LeagueLogo>
-            <img src={premier} className='league_logo' />
+            <img src={premier} alt="premier" className='league_logo' />
           </LeagueLogo>
           <LeagueList>
             <div className='league_year'>{year}</div>
-
           </LeagueList>
         </LeagueIn>
       </LeagueContainer>
@@ -68,6 +59,5 @@ justify-content: center;
   text-align: center;
 }
 `
-
 
 export default PremierLeague

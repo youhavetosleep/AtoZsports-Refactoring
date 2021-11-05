@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { ko } from 'date-fns/esm/locale'
 import DatePicker from 'react-datepicker'
@@ -6,8 +6,6 @@ import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 
 const CalendarWrite = ({ handledate, setStartDate, startDate }) => {
-
-
   return (
     <>
       <Dateform
