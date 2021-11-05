@@ -57,7 +57,7 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
     // 검색 결과 목록과 마커를 표출하는 함수입니다
     function displayPlaces(places) {
       // for(let i = 0 ; i < places.len)
-      setGetGroundData(places)
+      // setGetGroundData(places)
       let listEl = document.getElementById('placesList'),
         menuEl = MenuRef.current,
         fragment = document.createDocumentFragment(),

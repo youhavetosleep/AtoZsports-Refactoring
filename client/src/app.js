@@ -44,12 +44,14 @@ function App() {
     }
   },[])
 
-  // 스크롤 시 위치를 상태값에 저장하는 코드.
+  
+
+  // // 스크롤 시 위치를 상태값에 저장하는 코드.
   const scrollPositionHandler = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop)
   }
 
-  // element가 스크린 아래쪽에 있는지 확인하는 코드
+  // // element가 스크린 아래쪽에 있는지 확인하는 코드
   const isElementUnderBottom = (elem, triggerDiff) => {
     const { top } = elem.getBoundingClientRect()
     const { innerHeight } = window
@@ -69,7 +71,6 @@ function App() {
       }
     })
   }
-
   window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {

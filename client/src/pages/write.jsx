@@ -117,9 +117,9 @@ const Write = () => {
       Token
     ))
     .then((res) => {
-      console.log(res.payload)
+      // console.log(res.payload)
+      history.push(`/post/id=${res.payload.id}`)
     })
-    // history.push(`/post`)
   }
 
   return (

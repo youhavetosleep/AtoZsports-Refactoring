@@ -117,7 +117,7 @@ export async function writePostData(
       },
       withCredentials: true
     })
-    .then((res) => console.log(res))
+    .then((res) => res.data)
     .catch((err) => console.log(err))
 
   return {
