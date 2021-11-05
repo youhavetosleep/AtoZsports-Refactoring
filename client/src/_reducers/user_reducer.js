@@ -4,7 +4,8 @@ import {
   KAKAO_USER, 
   GOOGLE_USER,
   DELETE_USER,
-  MYPAGE_USER
+  MYPAGE_USER,
+  USER_PASSWORDCHECK
  } from '../_actions/types'
 
 export default function userReducer (state = {}, action) {
@@ -21,6 +22,8 @@ export default function userReducer (state = {}, action) {
       return { ...state, loginSuccess: action.payload }
     case DELETE_USER:
       return (state = {});
+    case USER_PASSWORDCHECK:
+        return { ...state, loginSuccess: action.payload }
     default:
       return state
   }

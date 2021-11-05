@@ -23,32 +23,38 @@ import MatchCard from '../components/matchCard'
 import { Link } from 'react-router-dom'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
+import RegionBoxFutsal from '../utils/regionBoxFutsal'
 
-const Futsal = () => {
+const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
   const dispatch = useDispatch()
 
   const [CurrentOrder, setCurrentOrder] = useState('member')
   const [memberData, setMemberData] = useState([])
-  const [dummyData, setDummyData] = useState([{},{},{},{},{}])
+  const [dummyData, setDummyData] = useState([{}, {}, {}, {}, {}])
+
+  // console.log('re1 =====>',region1)
+  // console.log('re2 =====>',region2)
 
   useEffect(() => {
-    dispatch(getMatchData(CurrentOrder))
-    .then((res) => {
-      setMemberData(res.payload)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [CurrentOrder])
+    dispatch(getMatchData(CurrentOrder, region1, region2))
+      .then((res) => {
+        setMemberData(res.payload)
+        // console.log('payload ====>', res.payload)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [CurrentOrder, region2])
+
+  // console.log('member =====>', memberData)
 
   const matchBtn = () => {
     setCurrentOrder('match')
   }
-  
+
   const memberBtn = () => {
     setCurrentOrder('member')
   }
-
 
   // console.log("memberData ========> ",memberData)
   // console.log("dummyData ========> ",dummyData.length)
@@ -121,62 +127,59 @@ const Futsal = () => {
                 경기제안
               </span>
             </span>
-            <div className="dropBox"></div>
+            <RegionBoxFutsal
+            region1={region1}
+            handleRegion1={handleRegion1}
+            handleRegion2={handleRegion2}
+            />
           </MatchSoonFilter>
           <MatchSoonList>
             <div className="all_MatchCard">
-              {//카드가 전부 차있을 경우
-              memberData.length === 5 ? (
-                memberData && memberData.map((member, idx) => {
-                  return (
-                    <MatchCard 
-                    member={member}
-                    key={idx}
-                    />
-                  )
-                })
-              ) : null}
-              {memberData.length === 5 ? (<MoreViewCard />) : null}
+              {
+                //카드가 전부 차있을 경우
+                memberData.length === 5
+                  ? memberData &&
+                    memberData.map((member, idx) => {
+                      return <MatchCard member={member} key={idx} />
+                    })
+                  : null
+              }
+              {memberData.length === 5 ? <MoreViewCard /> : null}
             </div>
-            <div className='notAll_MatchCard'>
-              {// 공고가 1개 이상 4개 이하일때
-              memberData.length < 5 && memberData.length > 0 ? (
-                memberData && memberData.slice(0, 5).map((member, idx) => {
-                  return (
-                    <MatchCard 
-                    member={member}
-                    key={idx}
-                    />
-                  )
-                })
-              ) : (
-                null
-              )}
+            <div className="notAll_MatchCard">
+              {
+                // 공고가 1개 이상 4개 이하일때
+                memberData.length < 5 && memberData.length > 0
+                  ? memberData &&
+                    memberData.slice(0, 5).map((member, idx) => {
+                      return <MatchCard member={member} key={idx} />
+                    })
+                  : null
+              }
+              {memberData.length < 5 && memberData.length > 0
+                ? dummyData &&
+                  dummyData.slice(0, 5 - memberData.length).map((el) => {
+                    return <LogoCard />
+                  })
+                : null}
               {memberData.length < 5 && memberData.length > 0 ? (
-              dummyData && dummyData.slice(0, 5-memberData.length).map((el) => {
-                return (
-                  <LogoCard />
-                )
-              })) : null}
-              {memberData.length < 5 && memberData.length > 0 ? (<MoreViewCard />) : null}
+                <MoreViewCard />
+              ) : null}
             </div>
             {memberData.length === 0 ? (
               <>
-               <div className='empty_MatchCard'>
-               <div className='gotoWrite'>
-                  해당지역의 공고가 없습니다,<br />
-                  직접 작성해보시겠어요?
-               </div>
-               <Link to='/write' style={{textDecoration: 'none'}}>
-               <div className='linkWrite'>
-                 게시글 작성
-               </div>
-               </Link>
-            </div>
+                <div className="empty_MatchCard">
+                  <div className="gotoWrite">
+                    해당지역의 공고가 없습니다,
+                    <br />
+                    직접 작성해보시겠어요?
+                  </div>
+                  <Link to="/write" style={{ textDecoration: 'none' }}>
+                    <div className="linkWrite">게시글 작성</div>
+                  </Link>
+                </div>
               </>
-            ) : (null)}
-           
-            
+            ) : null}
           </MatchSoonList>
         </FutsalMatchSoonSection>
         <FutsalAnotherSection>
@@ -235,7 +238,7 @@ const FutsalLandingPage = styled.div`
 const FutsalSliderSection = styled.section`
   width: 100%;
   .slider {
-    color: #FAFAFA;
+    color: #fafafa;
   }
 `
 
@@ -298,14 +301,12 @@ const GotoMap = styled.div`
   }
 `
 
-
-
 const FutsalMatchSoonSection = styled.section`
   width: 100%;
   max-width: 1110px;
   justify-content: center;
-  border-top: 1px solid #C4C4C4;
-  border-bottom: 1px solid #C4C4C4;
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
   padding: 60px 0px 50px 0px;
   margin: auto;
 `
@@ -320,11 +321,15 @@ const MatchSoonTitle = styled.div`
 `
 
 const MatchSoonFilter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   font-size: 1.2rem;
   .setbold {
-      font-weight: bolder;
-    }
+    font-weight: bolder;
+  }
   .ordergroup {
     color: #353535;
     left: 0;
@@ -337,7 +342,7 @@ const MatchSoonFilter = styled.div`
       :hover {
         cursor: pointer;
       }
-    } 
+    }
 
     .second {
       margin-left: 20px;
@@ -351,7 +356,7 @@ const MatchSoonFilter = styled.div`
 const MatchSoonList = styled.div`
   display: grid;
   position: relative;
-  
+
   .all_MatchCard {
     display: grid;
     grid-template-columns: repeat(3, 360px);
@@ -522,4 +527,3 @@ function PrevArrow(props) {
     </>
   )
 }
-

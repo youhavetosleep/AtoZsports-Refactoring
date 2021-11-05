@@ -280,14 +280,12 @@ const FilterWrap2 = styled.div`
     position: flex;
     text-align: left;
     top: 100px;
-
     .first {
       margin-right: 20px;
       :hover {
         cursor: pointer;
       }
     }
-
     .second {
       margin-left: 20px;
       :hover {
@@ -296,6 +294,7 @@ const FilterWrap2 = styled.div`
     }
   }
 `
+
 const BtnWrap = styled.div`
   width: 100%;
   justify-content: center;
@@ -319,6 +318,7 @@ const WriteBtn = styled.button`
     cursor: pointer;
   }
 `
+
 const AlertMessage = styled.h1`
   margin: 100px auto;
   font-size: 30px;

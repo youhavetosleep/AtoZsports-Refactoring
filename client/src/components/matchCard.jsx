@@ -1,17 +1,15 @@
 import React from 'react'
 import GlobalStyle from '../globalStyle/globalStyle'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
-function MatchCard({ member, setListData, idx }) {
+function MatchCard({ member }) {
   const history = useHistory()
 
   const matchInfoHadler = () => {
-    // setListData(member)
-    console.log(member)
     history.push(`/post/id=${member.id}`)
   }
+
   return (
     <>
       <GlobalStyle />

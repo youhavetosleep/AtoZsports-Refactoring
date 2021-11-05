@@ -11,7 +11,7 @@ import StarRating from '../../utils/starRating'
 
 const CommentList = ({ groundId, list, token, nickname }) => {
   const [content, setContent] = useState(list.comment)
-  const [score, setScore] = useState(5)
+  const [score, setScore] = useState(list.score)
   const [editMode, setEditMode] = useState('normal')
 
   const _content = useRef()
@@ -30,9 +30,7 @@ const CommentList = ({ groundId, list, token, nickname }) => {
   const updateComment = () => {
     dispatch(updateCommentData(groundId, list.id, token, content, score)).then(
       (res) => {
-        console.log(res)
         setEditMode('normal')
-        // window.location.reload()
       }
     )
   }
@@ -52,21 +50,17 @@ const CommentList = ({ groundId, list, token, nickname }) => {
     })
   }
 
-  // 별점 상태를 바로 반영하기 위한 useEffect
-  useEffect(() => {
-    console.log('123')
-  }, [content])
-
   return (
     <ElWrap>
       <Line1>
         {editMode === 'normal' ? (
-          // <Score>{rating.map((el) => el)}</Score>
-          <Score>{STAR.map(el => {
-            if(el.star === list.score) {
-              return el.name
-            }
-          })}</Score>
+          <Score>
+            {STAR.map((el) => {
+              if (el.star === score) {
+                return el.name
+              }
+            })}
+          </Score>
         ) : (
           <StarRating sendStar={sendStar} />
         )}
@@ -77,8 +71,8 @@ const CommentList = ({ groundId, list, token, nickname }) => {
         </Info>
       </Line1>
       <Line2>
-        { content && editMode === 'normal' ? (
-          <Comment>{list.comment}</Comment>
+        {content && editMode === 'normal' ? (
+          <Comment>{content}</Comment>
         ) : (
           <InputWrap>
             <Input
@@ -102,6 +96,7 @@ const CommentList = ({ groundId, list, token, nickname }) => {
     </ElWrap>
   )
 }
+
 const ElWrap = styled.div`
   height: 90px;
   border-bottom: 1px solid #a0a0a0;
@@ -114,11 +109,13 @@ const Line1 = styled.div`
   justify-content: space-between;
   margin-bottom: 15px;
 `
+
 const Score = styled.div`
   width: 100px;
   height: 20px;
   color: #fcc419;
 `
+
 const Info = styled.div`
   font-size: 20px;
   display: flex;
@@ -127,17 +124,21 @@ const Info = styled.div`
     margin-left: 20px;
   }
 `
+
 const Line2 = styled.div`
   display: flex;
   justify-content: space-between;
 `
+
 const Comment = styled.p`
   font-size: 20px;
 `
+
 const BtnWrap = styled.div`
   display: flex;
   margin-right: 10px;
 `
+
 const Edit = styled.button`
   font-size: 15px;
   margin-right: 10px;
@@ -156,16 +157,17 @@ const Delete = styled.button`
 const Input = styled.input`
   width: 500px;
   height: 25px;
-  border : none;
-  border-bottom : solid 1px #d2d2d2;
+  border: none;
+  border-bottom: solid 1px #d2d2d2;
   padding: 2px 5px;
-  font-size:17px;
+  font-size: 17px;
   box-sizing: border-box;
   :focus {
     border-bottom: solid 1px #840909;
     outline: none;
   }
 `
+
 const EditBtn = styled.button`
   font-size: 15px;
   margin-left: 10px;
@@ -173,6 +175,7 @@ const EditBtn = styled.button`
   background-color: #ffffff;
   border-bottom: 1px solid #5e5e5e;
 `
+
 const InputWrap = styled.div`
   display: flex;
 `

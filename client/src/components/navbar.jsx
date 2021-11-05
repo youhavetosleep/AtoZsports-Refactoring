@@ -52,6 +52,8 @@ const Nav = styled.div`
   position: relative;
   justify-content: space-between;
   align-items: center;
+  z-index: 5;
+  
 `
 
 // const Menu = styled.div`
@@ -66,6 +68,7 @@ const Menu = styled.div`
   top: 50%;
   right: 20vw;
   font-size: 1rem;
+  z-index: 2;
   .nav_home {
     color: #353535;
     :hover {
@@ -106,7 +109,7 @@ const Menu = styled.div`
 const Logo = styled.div`
   position: absolute;
   top: 0%;
-  left: 49%;
+  left: 48%;
 `
 
 const LogoImage = styled.img`

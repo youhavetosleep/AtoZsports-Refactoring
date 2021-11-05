@@ -32,7 +32,6 @@ export async function selectGroundData(groundId, token) {
   }
 }
 
-
 export async function getCommentData(groundId, offset) {
   const request = await instance
   .get(`/futsal/ground/${groundId}/review?offset=${offset}&limit=5`, {
@@ -51,7 +50,6 @@ export async function getCommentData(groundId, offset) {
 }
 
 export async function addCommentData(groundId, token, score, userId, comment) {
-  console.log(groundId, token, score, userId, comment)
   const request = await instance
   .post(`/futsal/ground/${groundId}/review`,{
     userId,
@@ -74,7 +72,6 @@ export async function addCommentData(groundId, token, score, userId, comment) {
 }
 
 export async function updateCommentData(groundId, commentId, token, comment, score) {
-  console.log(groundId, commentId, token, comment, score)
   const request = await instance
   .patch(`/futsal/ground/${groundId}/review/${commentId}`,{
     comment,

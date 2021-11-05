@@ -1,16 +1,14 @@
-import axios from 'axios'
 import {
   MATCH_DATA,
-  MATCH_LIST_DATA,
   USER_WRITEMATCH,
   USER_FAVORITEMATCH
 } from './types'
 import instance from '../api'
-// 용병, 경기제안 데이터
 
-export async function getMatchData(CurrentOrder) {
+// 용병, 경기제안 데이터
+export async function getMatchData(CurrentOrder, region1, region2) {
   const request = await instance
-    .get(`/futsal?division=${CurrentOrder}&do=경기&city=용인시`, {
+    .get(`/futsal?division=${CurrentOrder}&do=${region1}&city=${region2}`, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
@@ -31,7 +29,7 @@ export async function getUserMatchData(Token) {
       },
       withCredentials: true
     })
-    .then((res) => res)
+    .then((res) => res.data)
     .catch((err) => console.log(err))
 
   return {
@@ -49,7 +47,7 @@ export async function getUserFavoriteData(Token) {
       },
       withCredentials: true
     })
-    .then((res) => res)
+    .then((res) => res.data)
     .catch((err) => console.log(err))
 
   return {

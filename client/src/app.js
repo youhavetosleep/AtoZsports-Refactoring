@@ -4,7 +4,6 @@ import GlobalStyle from './globalStyle/globalStyle'
 import Entrance from './pages/entrance'
 import Futsal from './pages/futsal'
 import Main from './pages/main'
-import Map from './pages/map'
 import MatchList from './pages/matchList'
 import Mypage from './pages/mypage'
 import Post from './pages/post'
@@ -30,7 +29,6 @@ function App() {
   // 지역선택 드롭박스를 위한 상태
   const [region1, setRegion1] = useState('')
   const [region2, setRegion2] = useState('')
-
   const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -40,7 +38,7 @@ function App() {
     return () => {
       window.removeEventListener('scroll', scrollPositionHandler)
     }
-  })
+  },[])
 
   // 스크롤 시 위치를 상태값에 저장하는 코드.
   const scrollPositionHandler = () => {
@@ -78,7 +76,7 @@ function App() {
     } else {
       setIsLogin(false)
     }
-  }, [])
+  },[])
 
   const handleRegion1 = (e) => {
     setRegion1(e.target.value)
@@ -102,7 +100,12 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Futsal />
+            <Futsal 
+            handleRegion1={handleRegion1}
+            handleRegion2={handleRegion2}
+            region1={region1}
+            region2={region2}
+            />
           </Route>
           <Route exact path="/map">
             {isLogin ? (
@@ -161,7 +164,13 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Mypage userInfo={userInfo} />
+            <Mypage 
+            userInfo={userInfo}
+            handleRegion1={handleRegion1}
+            handleRegion2={handleRegion2}
+            region1={region1}
+            region2={region2}
+            />
           </Route>
           <Route exact path="/signup">
             {isLogin ? (

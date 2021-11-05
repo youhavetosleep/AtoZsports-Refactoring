@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import store from '../../store/store'
@@ -10,9 +10,7 @@ const Comment = ({ groundData, groundSelect }) => {
   const dispatch = useDispatch()
   const [write, setWrite] = useState('')
   const [content, setContent] = useState([])
-  const _content = useRef()
   const [score, setScore] = useState(5)
-
 
   // 로그인된 유저의 데이터
   const userInfo = store.getState().user
@@ -32,7 +30,6 @@ const Comment = ({ groundData, groundSelect }) => {
   const addComment = () => {
     dispatch(addCommentData(groundSelect, token, score, userId, write)).then(
       (res) => {
-        console.log(res)
         // window.location.reload()
       }
     )
@@ -50,11 +47,11 @@ const Comment = ({ groundData, groundSelect }) => {
   for (let i = 1; i <= Math.ceil(totalComment / 5); i++) {
     pageNumbers.push(i)
   }
+  
   const paginate = (pageNum) => {
     setContent([])
     setCurrentPage(pageNum)
   }
- 
 
   return (
     <CommentWrap>
@@ -63,7 +60,6 @@ const Comment = ({ groundData, groundSelect }) => {
         <Input
           type="text"
           placeholder="댓글을 작성하세요"
-          ref={_content}
           onChange={(e) => {
             setWrite(e.target.value)
           }}
@@ -86,13 +82,13 @@ const Comment = ({ groundData, groundSelect }) => {
         })
       )}
       <Pagination>
-        {pageNumbers.map((num) => (
+        {pageNumbers.map((num, idx) => (
           <li
             className="number"
             onClick={() => {
               paginate(num)
             }}
-            key={num}
+            key={idx}
           >
             {num}
           </li>
