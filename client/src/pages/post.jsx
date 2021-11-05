@@ -9,7 +9,6 @@ import instance from '../api'
 import {
   getPostData,
   deletePostData,
-  editPostData,
   changeStatusData
 } from '../_actions/post_action'
 
@@ -17,13 +16,9 @@ const Post = ({ userInfo }) => {
   const token = userInfo.loginSuccess.accessToken
   const history = useHistory()
   const dispatch = useDispatch()
-  const postId = 3
-  // history.location.pathname.split('=')[1]
+  const postId = history.location.pathname.split('=')[1]
   const [postData, setPostData] = useState('')
   const [status, setStatus] = useState('')
-
-  // let start1 = postData.endTime.split('T')[0]
-  // let start2 = postData.endTime.split('T')[1].split('.')[0]
 
   const getPostInfo = async () => {
     dispatch(getPostData(postId, token)).then((res) => {
@@ -87,8 +82,7 @@ const Post = ({ userInfo }) => {
 
   // 게시글 수정 (작성페이지로 이동)
   const editContent = () => {
-    dispatch(editPostData(postId, token))
-    history.push(`/write/id=${postId}`)
+    history.push(`/write`)
   }
 
   // 게시글 삭제 버튼
@@ -165,11 +159,9 @@ const Post = ({ userInfo }) => {
           <ContentWrap>
             <ContentName>날짜</ContentName>
             <ContentEl>
-              {/* {postData.startTime.slice(0, 10)}&nbsp;
-              {postData.startTime.slice(11, 16)}&nbsp;~&nbsp;
-              {postData.endTime.slice(11, 16)}&nbsp; */}
-              {postData.startTime}&nbsp; ~&nbsp;
-              {postData.endTime}&nbsp;
+              {postData && postData.startTime.slice(0, 10)}&nbsp;
+              {postData && postData.startTime.slice(11, 16)}&nbsp;~&nbsp;
+              {postData && postData.endTime.slice(11, 16)}
             </ContentEl>
           </ContentWrap>
           <ContentWrap className="content">
@@ -248,7 +240,7 @@ const Main = styled.div`
     background-color: #840909;
   }
   .add {
-    color : #840909;
+    color: #840909;
   }
 `
 

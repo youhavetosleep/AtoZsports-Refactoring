@@ -1,49 +1,46 @@
-import { ImStarHalf } from 'react-icons/im'
-import { ImStarFull } from 'react-icons/im'
+import { FaStar } from 'react-icons/fa'
 
 export const STAR = [
   {
-    value: '5',
-    name: `
-    ${<ImStarFull />}
-    ${<ImStarFull />}
-    ${<ImStarFull />}
-    ${<ImStarFull />}
-    ${<ImStarFull />}
-    `
-    
+    star: 5,
+    name: [
+      <FaStar />,
+      <FaStar />,
+      <FaStar />,
+      <FaStar />,
+      <FaStar />
+    ]
   },
   {
-    value: '4',
-    name: `
-    ${(<ImStarFull />)}
-    ${(<ImStarFull />)}
-    ${(<ImStarFull />)}
-    ${(<ImStarFull />)}
-    `
+    star: 4,
+    name: [
+      <FaStar />,
+      <FaStar />,
+      <FaStar />,
+      <FaStar />
+    ]
   },
   {
-    value: '3',
-    name: `
-    ${(<ImStarFull />)}
-    ${(<ImStarFull />)}
-    ${(<ImStarFull />)}
-    `
+    star: 3,
+    name: [
+      <FaStar />,
+      <FaStar />,
+      <FaStar />
+    ]
   },
   {
-    value: '2',
-    name: `
-    ${(<ImStarFull />)}
-    ${(<ImStarFull />)}
-    `
+    star: 2,
+    name: [
+      <FaStar />,
+      <FaStar />
+    ]
   },
   {
-    value: '1',
-    name: `
-    ${(<ImStarFull />)}
-    `
-  },
-  
+    star: 1,
+    name: [
+      <FaStar />
+    ]
+  }
 ]
 
 export const STARTOPTIONS = [
