@@ -1,5 +1,4 @@
 import React from 'react'
-import GlobalStyle from '../globalStyle/globalStyle'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
@@ -12,7 +11,6 @@ function MatchCard({ member }) {
 
   return (
     <>
-      <GlobalStyle />
       <MatchCardContainer>
         <div className="articlebox-listbox" onClick={() => matchInfoHadler()}>
           <ul>

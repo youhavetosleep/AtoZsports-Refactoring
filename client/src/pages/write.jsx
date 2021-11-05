@@ -1,13 +1,10 @@
 /*global kakao*/
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { FaChevronDown } from 'react-icons/fa'
 import GlobalStyle from '../globalStyle/globalStyle'
 import Footer from '../components/footer'
-import styled from 'styled-components'
 import WriteContentsMap from '../components/map/writeContentsMap'
-import Calendar from '../utils/calendar'
-import { useDispatch } from 'react-redux'
-import { FaChevronDown } from 'react-icons/fa'
-import SelectBox from '../utils/selectBox'
 import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 
@@ -30,8 +27,8 @@ const Write = () => {
     setStartDate(ChangeDate)
   }
 
-  const newdate = new Date()
-  const today = changeDate(newdate)
+  // const newdate = new Date()
+  // const today = changeDate(newdate)
   // console.log(today)
 
   const [startDate, setStartDate] = useState(new Date())

@@ -1,5 +1,5 @@
 /*global kakao*/
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
@@ -25,8 +25,6 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
     let map = new kakao.maps.Map(mapRef.current, mapOption)
     const zoomControl = new kakao.maps.ZoomControl()
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
-    
-
 
     // 장소 검색 객체를 생성합니다
     let ps = new kakao.maps.services.Places()
@@ -83,7 +81,7 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        ;(function (marker, title) {
+        (function (marker, title) {
           kakao.maps.event.addListener(marker, 'mouseover', function () {
             displayInfowindow(marker, title)
           })
@@ -454,6 +452,5 @@ top: 70%;
   text-align: center;
   color: #5c5c5c;
 `
-
 
 export default WriteContentsSearch

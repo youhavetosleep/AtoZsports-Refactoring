@@ -3,7 +3,7 @@ import {
   POST_DATA
 } from '../_actions/types'
 
-export default function (state = {}, action) {
+export default function postReducer (state = {}, action) {
   switch (action.type) {
     case MATCH_LIST_DATA:
       return { ...state, postData: action.payload }

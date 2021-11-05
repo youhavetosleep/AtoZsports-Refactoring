@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { getMatchData, getMatchList } from '../_actions/matchCard_action'
-import Footer from '../components/footer'
-import gotomap from '../image/gotomap.jpg'
-import sublogo from '../image/subLogo.png'
-import stadium from '../image/stadium.jpg'
-import premier from '../image/premier_league.png'
-import '../styles/slick.css'
+import { Link } from 'react-router-dom'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import GlobalStyle from '../globalStyle/globalStyle'
-import Slide_01 from '../components/futsalSlide/slide_01'
-import Slide_02 from '../components/futsalSlide/slide_02'
-import Slide_03 from '../components/futsalSlide/slide_03'
+
+import '../styles/slick.css'
+import { getMatchData } from '../_actions/matchCard_action'
+import Footer from '../components/footer'
+import gotomap from '../image/gotomap.jpg'
+import sublogo from '../image/subLogo.png'
+import stadium from '../image/stadium.jpg'
+import premier from '../image/premier_league.png'
+import Slide01 from '../components/futsalSlide/slide01'
+import Slide02 from '../components/futsalSlide/slide02'
+import Slide03 from '../components/futsalSlide/slide03'
 import MatchCard from '../components/matchCard'
-import { Link } from 'react-router-dom'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
 import RegionBoxFutsal from '../utils/regionBoxFutsal'
@@ -73,31 +73,30 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
 
   return (
     <>
-      <GlobalStyle />
       <FutsalLandingPage>
         <FutsalSliderSection>
           <Slider {...setting} className="slider">
             <div witdh="100%">
-              <Slide_01 />
+              <Slide01 />
             </div>
             <div witdh="100%">
-              <Slide_02 />
+              <Slide02 />
             </div>
             <div witdh="100%">
-              <Slide_03 />
+              <Slide03 />
             </div>
           </Slider>
         </FutsalSliderSection>
         <FutsalBackMapSection>
           <Link to="/entrance" style={{ textDecoration: 'none' }}>
             <BackPage>
-              <img src={sublogo} className="backPage"></img>
+              <img src={sublogo} alt="sublogo" className="backPage"></img>
               <div className="back_to_main">메인페이지로 가기</div>
             </BackPage>
           </Link>
           <Link to="/map" style={{ textDecoration: 'none' }}>
             <GotoMap>
-              <img src={gotomap} className="mapImage"></img>
+              <img src={gotomap} alt="gotomap" className="mapImage"></img>
               <div className="go_to_mapText">우리동네 풋살장 검색하기</div>
               <div className="go_to_map">지도로 이동하기</div>
             </GotoMap>
@@ -128,9 +127,9 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
               </span>
             </span>
             <RegionBoxFutsal
-            region1={region1}
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
+              region1={region1}
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
             />
           </MatchSoonFilter>
           <MatchSoonList>
@@ -186,7 +185,7 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
           <div className="reviewLeague">
             <Link to="/review" style={{ textDecoration: 'none' }}>
               <StadiumReview>
-                <img src={stadium} className="stadiumImg"></img>
+                <img src={stadium} alt="stadium" className="stadiumImg"></img>
                 <div className="stadiumReview1">풋살장 리뷰</div>
                 <div className="stadiumReview2">
                   경기장을 직접 사용한 사람들의 리뷰
@@ -196,7 +195,11 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
             </Link>
             <Link to="/premierleague" style={{ textDecoration: 'none' }}>
               <PremierLeague>
-                <img src={premier} className="premierLeagueImg"></img>
+                <img
+                  src={premier}
+                  alt="premier"
+                  className="premierLeagueImg"
+                ></img>
                 <div className="premierLeagueText">프리미어리그 바로가기</div>
               </PremierLeague>
             </Link>

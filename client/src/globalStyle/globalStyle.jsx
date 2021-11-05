@@ -31,7 +31,7 @@ body {
 	background-color: #FAFAFA;
 	line-height: 1;
 	font-family: "NotoSans", sans-serif;
-  	font-weight: normal;
+  font-weight: normal;
 }
 ol, ul {
 	list-style: none;

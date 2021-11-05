@@ -8,7 +8,7 @@ import post from './post_reducer'
 
 const persistConfig = {
   key: 'root',
-  // localStoreag에 저장
+  // localStorage에 저장
   storage
 }
 
