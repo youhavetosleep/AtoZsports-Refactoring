@@ -4,7 +4,6 @@ import GlobalStyle from './globalStyle/globalStyle'
 import Entrance from './pages/entrance'
 import Futsal from './pages/futsal'
 import Main from './pages/main'
-import Map from './pages/map'
 import MatchList from './pages/matchList'
 import Mypage from './pages/mypage'
 import Post from './pages/post'
@@ -24,14 +23,12 @@ import Top from './components/Top'
 import ScrollToTop from './components/scrollTop'
 
 function App() {
-
-  // 지역선택 드롭박스를 위한 상태
-  const [region1, setRegion1] = useState('세종')
-  const [region2, setRegion2] = useState('전동면')
-
   // 로그인 정보 저장
   let userInfo = store.getState().user
 
+  // 지역선택 드롭박스를 위한 상태
+  const [region1, setRegion1] = useState('')
+  const [region2, setRegion2] = useState('')
   const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -74,10 +71,12 @@ function App() {
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {
       setIsLogin(true)
+      setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
+      setRegion2(userInfo.loginSuccess.userData.homeground.split(' ')[1])
     } else {
       setIsLogin(false)
     }
-  },)
+  },[])
 
   const handleRegion1 = (e) => {
     setRegion1(e.target.value)
@@ -122,7 +121,13 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Review />
+            <Review
+              userInfo={userInfo}
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
+            />
           </Route>
           <Route exact path="/matchlist">
             {isLogin ? (
@@ -137,7 +142,7 @@ function App() {
               region2={region2}
             />
           </Route>
-          <Route exact path="/post">
+          <Route exact path="/post/:id">
             {isLogin ? (
               <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (

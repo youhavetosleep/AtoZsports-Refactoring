@@ -1,0 +1,25 @@
+# Use the official image as a parent image.
+FROM node:14
+
+RUN apt-get update
+RUN apt-get install wget
+
+ENV DOCKERIZE_VERSION v0.2.0
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \  
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+# Set the working directory.
+WORKDIR /app/atozsports/server
+# Copy the file from your host to your current location.
+COPY . .
+# Run the command inside your image filesystem.
+RUN npm install
+
+RUN chmod +x docker-entrypoint.sh
+ENTRYPOINT ./docker-entrypoint.sh
+
+# Inform Docker that the container is listening on the spectified port at runtime.
+EXPOSE 80
+
+# Run the specified command within the container.
+# CMD [ "npm", "start" ]

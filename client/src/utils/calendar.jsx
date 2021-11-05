@@ -24,9 +24,9 @@ const Dateform = styled(DatePicker)`
   box-sizing: border-box;
   padding: 8px 10px;
   border-radius: 4px;
-  border : 1px solid #c6c6c6;
+  border: 1px solid #c6c6c6;
   font-size: 16px;
-  opacity : 90%;
+  opacity: 90%;
   :hover {
     cursor: pointer;
   }
