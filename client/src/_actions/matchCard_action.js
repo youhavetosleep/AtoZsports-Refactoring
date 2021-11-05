@@ -1,7 +1,5 @@
-import axios from 'axios'
 import {
   MATCH_DATA,
-  MATCH_LIST_DATA,
   USER_WRITEMATCH,
   USER_FAVORITEMATCH
 } from './types'

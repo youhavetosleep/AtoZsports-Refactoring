@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import Footer from '../components/footer'
@@ -25,6 +25,9 @@ const Mypage = ({
   handleRegion2
 }) => {
   const dispatch = useDispatch()
+  const nicknameRef = useRef()
+  const userPhoneRef = useRef()
+  const favoriteRef = useRef()
 
   // AccessToken
   const Token = userInfo.loginSuccess.accessToken
@@ -33,10 +36,23 @@ const Mypage = ({
   const userInfoSuccess = userInfo.loginSuccess.userData
   // console.log('기존 사용자  =====> ', userInfoSuccess)
 
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [nickname, setNickname] = useState('')
-  const [homeGround, setHomeGround] = useState('')
-  const [favoriteSports, setFavoriteSports] = useState('')
+  // 개인정보 변경 관련
+  const [editeInfo, setEditInfo] = useState(false)
+  const [editUserInfo, setEditUserInfo] = useState({
+    email: userInfoSuccess.email,
+    userPhone: userInfoSuccess.userPhone,
+    nickname: userInfoSuccess.nickname,
+    homeground: userInfoSuccess.homeground,
+    favoriteSports: userInfoSuccess.favoriteSports,
+    userId: userInfoSuccess.id
+  })
+
+  const [changeUserInfo, setChangeUserInfo] = useState({})
+
+  const [phoneNumber, setPhoneNumber] = useState(editUserInfo.userPhone)
+  const [nickname, setNickname] = useState(editUserInfo.nickname)
+  const [homeGround, setHomeGround] = useState(editUserInfo.homeground)
+  const [favoriteSports, setFavoriteSports] = useState(editUserInfo.favoriteSports)
 
   // 사용자지역 도/시 변수 화
   const userHomeground = userInfo.loginSuccess.userData.homeground
@@ -44,6 +60,7 @@ const Mypage = ({
   const subRegion = userHomeground.slice(3, 6) // 사용자 지역 - 시
 
   // UserInfo Check
+  const [phoneCheck, setPhoneCheck] = useState(false)
   const [nickCheck, setNickCheck] = useState(false)
   const [messagePwCheck, setMessagePwChecks] = useState('')
 
@@ -63,64 +80,47 @@ const Mypage = ({
 
   // 입력한 값의 결과여부 표시
   const [messageNickname, setMessageNickname] = useState('')
+  const [messageUserPhone, setMessageUserName] = useState('')
   const [YesOrNo, setYesOrNo] = useState(false)
-
-  // 개인정보 변경 관련
-  const [editeInfo, setEditInfo] = useState(false)
-  const [editUserInfo, setEditUserInfo] = useState({
-      email: userInfoSuccess.email,
-      userPhone: userInfoSuccess.userPhone,
-      nickname: userInfoSuccess.nickname,
-      homeground: userInfoSuccess.homeground,
-      favoriteSports: userInfoSuccess.favoriteSports,
-      userId: userInfoSuccess.id
-  })
-  const [changeUserInfo, setChangeUserInfo] = useState({})
+  const [sendOrNot, setSendOrNot] = useState(false)
 
   // console.log('editUserInfo ====> ', editUserInfo)
-  
 
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
   const password_Reg =
     /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/
+  const userPhone_Reg = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;  
 
   useEffect(() => {
-    dispatch(getUserMatchData(Token))
+    instance
+    .get(`/users`,{
+      headers: { 
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Token}` 
+        },withCredentials: true})
+        .then((res) => {
+          setEditUserInfo(res.data.userData)
+          // console.log(res.data.userData)
+        })
+  },[editeInfo])
+
+  // 작성한공고, 모집공고 가져오기
+  useEffect(async () => {
+    await dispatch(getUserMatchData(Token))
     .then((res) => {
       setWriteData(res.payload)
-      // console.log(res.payload)
     })
-  }, [dispatch])
-
-  useEffect(() => {
-    dispatch(getUserFavoriteData(Token))
+    await dispatch(getUserFavoriteData(Token))
     .then((res) => {
       setFavoriteData(res.payload)
-      // console.log(res.payload)
     })
   }, [dispatch])
 
-  const handleSendUserinfo = () => {
-    
-  }
 
-  useEffect(() => {
-    setChangeUserInfo({
-      email: userInfoSuccess.email,
-      userPhone: phoneNumber,
-      nickname: nickname,
-      homeground: userInfoSuccess.homeground,
-      favoriteSports: favoriteSports,
-      userId: userInfoSuccess.id
-    })
-    setEditInfo(false)
-  },[])
+  
 
- 
-
-  // console.log('최신화된 정보 ======> ', editUserInfo)
-
+  
   const matchBtn = () => {
     setChangeCard('관심 공고')
   }
@@ -129,9 +129,33 @@ const Mypage = ({
     setChangeCard('작성한 공고')
   }
 
+  // 개인정보수정 칸을 여는기능
   const handleEditPage = () => {
     setEditInfo(true)
   }
+  // 개인정보수정 칸을 닫는기능
+  const handelCancelBtn = () => {
+    setEditInfo(false)
+  }
+  // 비밀번호 수정 모달창을 여는기능
+  const handleEditPasswordBtn = () => {
+    setEditPswordModal(true)
+  }
+  
+  // 핸드폰 번호 변경
+  const changeUserPhoneNumber = (e) => {
+    if (!userPhone_Reg.test(e.target.value)) {
+      setPhoneNumber(e.target.value)
+      setMessageUserName('- 을 포함한 번호를 입력해주세요')
+      setPhoneCheck(false)
+    } else if (userPhone_Reg.test(e.target.value)){
+      setPhoneNumber(e.target.value)
+      setPhoneCheck(true)
+      setMessageUserName('✔ 확인되었습니다.')
+    }
+  }
+  
+  // console.log('핸드폰번호 상태 ====> ', phoneNumber)
 
   // 닉네임 확인
   const checkNickname = async () => {
@@ -165,51 +189,39 @@ const Mypage = ({
     }
   }
 
-  const handleEditPasswordBtn = () => {
-    setEditPswordModal(true)
-  }
-
-  const handelCancelBtn = () => {
-    setEditInfo(false)
-  }
-
-  const withdrawal = () => {
-    if (YesOrNo) {
-      return dispatch(deleteUser(Token))
-        .then((res) => (window.location.href = '/'))
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  }
-
-  // 핸드폰 번호 변경
-  const changeUserPhoneNumber = (e) => {
-    if (e.target.value) {
-      setPhoneNumber(e.target.value)
-    } else {
-      setPhoneNumber(userInfoSuccess.userPhone)
-    }
-  }
-
-  // console.log(phoneNumber)
-
   // 닉네임 변경
   const changeUserNickname = (e) => {
-    if (e.target.value) {
       setNickname(e.target.value)
-    } else {
-      setNickname(userInfoSuccess.nickname)
-    }
   }
+  // console.log('닉네임 상태 ====> ', nickname)
 
   // 좋아하는 스포츠 변경
   const changeUserFavoriteSports = (e) => {
-    if (e.target.value) {
       setFavoriteSports(e.target.value)
-    } else {
-      setFavoriteSports(userInfoSuccess.favoriteSports)
-    }
+  }
+  // console.log('스포츠 상태 ====> ', nickname)
+
+   // 개인정보 변경 send 버튼 클릭시 발생하는 이벤트
+   const handleSendUserinfo = () => {
+     console.log(nickname, phoneNumber, region1, region2, favoriteSports)
+    instance
+    .patch(`/users`,{
+      nickname: nickname,
+      userPhone: phoneNumber,
+      homeground: `${region1} ${region2}`,
+      favoriteSports: favoriteSports,
+      userId: userInfoSuccess.id
+    },{
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}` 
+      },
+      withCredentials: true
+    })
+    .then((res) => {
+      setEditInfo(false)
+      window.location.reload()
+    })
   }
 
   // 변경할 비밀번호 작성
@@ -225,8 +237,7 @@ const Mypage = ({
 
   // 비밀번호 확인
   const doubleCheckPassword = () => {
-    if (firstPsword === secondPsword && password_Reg
-      .test(secondPsword)) {
+    if (firstPsword === secondPsword && password_Reg.test(secondPsword)) {
       setMessagePwChecks('✔ 비밀번호가 확인되었습니다')
       setPwCheckColor(true)
     } else {
@@ -234,17 +245,27 @@ const Mypage = ({
       setPwCheckColor(false)
     }
   }
-  // console.log(secondPsword)
 
   const handleChangePassword = () => {
     if (messagePwCheck === '✔ 비밀번호가 확인되었습니다') {
-      dispatch(userChangePsword(secondPsword, Token))
-      .then((res) => {
+      dispatch(userChangePsword(secondPsword, Token)).then((res) => {
         setEditPsword(false)
         console.log(res.payload)
       })
     }
   }
+
+ // 회원탈퇴
+ const withdrawal = () => {
+  if (YesOrNo) {
+    return dispatch(deleteUser(Token))
+      .then((res) => (window.location.href = '/'))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+ 
 
   return (
     <>
@@ -299,14 +320,10 @@ const Mypage = ({
                   </Userinfo_favorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div 
-                  className="editInfo" 
-                  onClick={handleEditPage}>
+                  <div className="editInfo" onClick={handleEditPage}>
                     정보수정
                   </div>
-                  <div 
-                  className="editPassWord" 
-                  onClick={handleEditPasswordBtn}>
+                  <div className="editPassWord" onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>
@@ -322,7 +339,7 @@ const Mypage = ({
                     <input
                       type="text"
                       className="editinfo_emailContents"
-                      value={userInfoSuccess.email}
+                      value={editUserInfo.email}
                       disabled
                     />
                   </Userinfo_email>
@@ -332,18 +349,25 @@ const Mypage = ({
                       type="text"
                       maxLength="13"
                       className="editinfo_phoneContents"
-                      placeholder={userInfoSuccess.userPhone}
+                      value={phoneNumber}
                       onChange={(e) => changeUserPhoneNumber(e)}
+                      ref={userPhoneRef}
                     />
+                    {phoneCheck ? (
+                      <PassCheck>{messageUserPhone}</PassCheck>
+                    ) : (
+                      <Check>{messageUserPhone}</Check>
+                    )}
                   </Uuserinfo_phone>
                   <Userinfo_nickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
                     <input
                       type="text"
                       className="editinfo_nicknameContents"
-                      placeholder={userInfoSuccess.nickname}
+                      value={nickname}
                       onChange={(e) => changeUserNickname(e)}
                       onBlur={checkNickname}
+                      ref={nicknameRef}
                     />
                     {nickCheck ? (
                       <PassCheck>{messageNickname}</PassCheck>
@@ -376,8 +400,9 @@ const Mypage = ({
                     <input
                       type="text"
                       className="editinfo_favorite"
-                      placeholder={editUserInfo.favoriteSports}
+                      value={favoriteSports}
                       onChange={(e) => changeUserFavoriteSports(e)}
+                      ref={favoriteRef}
                     />
                   </Userinfo_favorite>
                 </UserInfoContents>
@@ -596,7 +621,10 @@ const Uuserinfo_phone = styled.div`
     color: #565656;
   }
   .editePsword_passwordCheck {
+    display: flex;
+    align-items: center;
     color: #565656;
+    margin: 0px 0px 0px 0px;
   }
   .userinfo_phoneContents {
     margin: 0px 0px 0px 127px;
