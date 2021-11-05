@@ -11,7 +11,7 @@ import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
 
-const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
+const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost }) => {
   // 날짜변환
   const changeDate = (date) => {
     return date.toISOString().split('T')[0]
@@ -169,7 +169,12 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2 }) => {
               경기제안
             </span>
           </span>
-          <WriteBtn onClick={() => history.push('/write')}>글 작성</WriteBtn>
+          <WriteBtn 
+          onClick={() => {
+            setEditPost(false)
+            history.push('/write')
+          }}
+          >글 작성</WriteBtn>
         </FilterWrap2>
       </MatchSoonFilter>
       <MatchSoonList>

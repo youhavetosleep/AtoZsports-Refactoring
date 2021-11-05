@@ -1,4 +1,4 @@
-import { MATCH_LIST_DATA, POST_DATA } from './types'
+import { MATCH_LIST_DATA, POST_DATA, POST_WRITE } from './types'
 import instance from '../api'
 
 export async function getMatchListData(
@@ -85,6 +85,43 @@ export async function deletePostData(postId, token) {
 
   return {
     type: POST_DATA,
+    payload: request
+  }
+}
+
+export async function writePostData(
+  postTitle, 
+  postDivision,
+  startDate, 
+  postStartTime, 
+  postEndTime, 
+  sports, 
+  postContent,
+  groundData,
+  postPhoneOpen,
+  Token) {
+  const request = await instance
+    .post(`/futsal/posts`, {
+      sports: sports,
+      title: postTitle,
+      division: postDivision,
+      startTime: `${startDate} ${postStartTime}`,
+      endTime: `${startDate} ${postEndTime}`,
+      phoneOpen: postPhoneOpen,
+      content: postContent,
+      ground: groundData,
+    }, {
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      },
+      withCredentials: true
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
+
+  return {
+    type: POST_WRITE,
     payload: request
   }
 }

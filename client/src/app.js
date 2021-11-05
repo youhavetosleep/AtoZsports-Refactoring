@@ -21,6 +21,7 @@ import NavbarChange from './components/navbarChange'
 import MapSearch from './components/map/mapSearch'
 import Top from './components/Top'
 import ScrollToTop from './components/scrollTop'
+import EditWrite from './components/editWrite'
 
 function App() {
   // 로그인 정보 저장
@@ -31,6 +32,9 @@ function App() {
   const [region2, setRegion2] = useState('')
   const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
+
+  const [editPost, setEditPost] = useState(false)
+  // console.log(editPost)
 
   // 스크롤 이벤트
   useEffect(() => {
@@ -140,6 +144,7 @@ function App() {
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              setEditPost={setEditPost}
             />
           </Route>
           <Route exact path="/post/:id">
@@ -148,7 +153,10 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Post userInfo={userInfo} />
+            <Post 
+            userInfo={userInfo} 
+            setEditPost={setEditPost}
+            />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
@@ -156,7 +164,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Write />
+            { !editPost ? <Write /> : <EditWrite /> }
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (

@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
-const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
+const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGroundData }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
 
@@ -37,6 +37,7 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
+        // console.log(data, status, pagination)
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
@@ -55,6 +56,8 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
 
     // 검색 결과 목록과 마커를 표출하는 함수입니다
     function displayPlaces(places) {
+      // for(let i = 0 ; i < places.len)
+      setGetGroundData(places)
       let listEl = document.getElementById('placesList'),
         menuEl = MenuRef.current,
         fragment = document.createDocumentFragment(),
@@ -69,14 +72,14 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
 
       for (let i = 0; i < places.length; i++) {
         // 마커를 생성하고 지도에 표시합니다
-
+        // console.log(places[i])
         let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
           marker = addMarker(placePosition, i),
           itemEl = getListItem(i, places[i]) // 검색 결과 항목 Element를 생성합니다
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition)
+        bounds.extend(placePosition);
 
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
@@ -85,12 +88,9 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
           kakao.maps.event.addListener(marker, 'mouseover', function () {
             displayInfowindow(marker, title)
           })
-          
-          kakao.maps.event.addListener(marker, 'click', function () {
-            getData(marker, title)
-            
-          })
-
+          // kakao.maps.event.addListener(marker, 'click', function () {
+          //   getData(places[i].place_name)         
+          // })
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
           })
@@ -98,7 +98,7 @@ const WriteContentsSearch = ({ searchPlace, getPlace, getData }) => {
             displayInfowindow(marker, title)
           }
           itemEl.onclick = function () {
-            getData(title)
+            getData(places[i])
           }
 
           itemEl.onmouseout = function () {
