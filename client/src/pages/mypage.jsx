@@ -242,7 +242,7 @@ const Mypage = ({
     if (messagePwCheck === '✔ 비밀번호가 확인되었습니다') {
       dispatch(userChangePsword(secondPsword, Token)).then((res) => {
         setEditPsword(false)
-        console.log(res.payload)
+        // console.log(res.payload)
       })
     }
   }
