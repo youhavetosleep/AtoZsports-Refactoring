@@ -11,6 +11,7 @@ import {
   deletePostData,
   changeStatusData
 } from '../_actions/post_action'
+import PostChat from '../components/postChat'
 
 const Post = ({ userInfo, setEditPost }) => {
   const token = userInfo.loginSuccess.accessToken
@@ -190,6 +191,7 @@ const Post = ({ userInfo, setEditPost }) => {
             </BtnWrap>
           ) : null}
         </FormWrapper>
+        <PostChat postId={postId} />
       </FormContainer>
     </>
   )

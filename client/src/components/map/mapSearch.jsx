@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { FaSearch } from 'react-icons/fa'
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import Map from '../../pages/map'
+import { mapData } from '../../_actions/ground_action'
+
 const MapSearch = () => {
   const history = useHistory()
+  const dispatch = useDispatch()
+
   const [inputText, setInputText] = useState('')
   const [place, setPlace] = useState('안양 풋살')
 
   const [getPlace, setGetPlace] = useState('')
-  const [groundData, setGroundData] = useState({})
+
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
@@ -26,24 +31,22 @@ const MapSearch = () => {
   }
 
   useEffect(() => {
-    // setGroundData({
-    //   placeName: getPlace.place_name,
-    //   addressName: getPlace.address_name,
-    //   phone: getPlace.phone,
-    //   longitude: getPlace.x,
-    //   latitude: getPlace.y,
-    //   placeUrl: getPlace.place_url
-    // })
-    console.log(getPlace)
     if (getPlace !== '') {
       Swal.fire({
-        title: '게시글 작성을 원하시나요?',
+        title: '원하는 서비스를 선택하세요',
+        showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: 'yes',
-        confirmButtonColor: '#5ca415'
+        confirmButtonText: '경기잡기',
+        denyButtonText: '리뷰검색',
+        confirmButtonColor: '#5ca415',
+        denyButtonColor: '#919191'
       }).then((result) => {
         if (result.isConfirmed) {
+          dispatch(mapData(getPlace))
           history.push('/write')
+        }
+        if (result.isDenied) {
+          history.push('/review')
         }
       })
     }
