@@ -145,8 +145,9 @@ export async function editPostData(postId, token) {
 }
 
 export async function changeStatusData(postId, token, status) {
+  console.log(postId, token, status)
   const request = await instance
-    .patch(`/futsal/posts?id=${postId}/status`, {
+    .patch(`/futsal/posts/${postId}/status`, {
       status
     }, {
       headers: { 

@@ -9,12 +9,12 @@ import {
 import { STAR } from '../../utils/data'
 import StarRating from '../../utils/starRating'
 
-const CommentList = ({ groundId, list, token, nickname }) => {
-  const [content, setContent] = useState(list.comment)
+const CommentList = ({setContent, setTotalComment, groundId, list, token, nickname }) => {
+  const [content1, setContent1] = useState(list.comment)
   const [score, setScore] = useState(list.score)
   const [editMode, setEditMode] = useState('normal')
 
-  const _content = useRef()
+  const _content1 = useRef()
 
   const dispatch = useDispatch()
 
@@ -28,7 +28,7 @@ const CommentList = ({ groundId, list, token, nickname }) => {
   }
 
   const updateComment = () => {
-    dispatch(updateCommentData(groundId, list.id, token, content, score)).then(
+    dispatch(updateCommentData(groundId, list.id, token, content1, score)).then(
       (res) => {
         setEditMode('normal')
       }
@@ -44,7 +44,8 @@ const CommentList = ({ groundId, list, token, nickname }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         dispatch(deleteCommentData(groundId, list.id, token)).then((res) => {
-          window.location.reload()
+          setContent([])
+          setTotalComment(res.payload.data.length)
         })
       }
     })
@@ -71,16 +72,16 @@ const CommentList = ({ groundId, list, token, nickname }) => {
         </Info>
       </Line1>
       <Line2>
-        {content && editMode === 'normal' ? (
-          <Comment>{content}</Comment>
+        {content1 && editMode === 'normal' ? (
+          <Comment>{content1}</Comment>
         ) : (
           <InputWrap>
             <Input
               type="text"
-              value={content}
-              ref={_content}
+              value={content1}
+              ref={_content1}
               onChange={(e) => {
-                setContent(e.target.value)
+                setContent1(e.target.value)
               }}
             />
             <EditBtn onClick={updateComment}>수정완료</EditBtn>

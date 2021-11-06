@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 const ARRAY = [0, 1, 2, 3, 4]
 
-function StarRating({ sendStar }) {
-  const [clicked, setClicked] = useState([true, true, true, true, true])
+function StarRating({clicked, setClicked, sendStar }) {
+  // const [clicked, setClicked] = useState([true, true, true, true, true])
 
   const handleStarClick = (index) => {
     let clickStates = [...clicked]

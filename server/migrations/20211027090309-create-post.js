@@ -46,6 +46,9 @@ module.exports = {
       addressName: {
         type: Sequelize.STRING
       },
+      lastReadTime: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

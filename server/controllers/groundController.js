@@ -62,6 +62,7 @@ module.exports = {
     GroundReview.findAll({
       include: { model: User, attributes: ['nickname']},
       where: { groundId },
+      order: [['id', 'desc']],
       offset,
       limit
     })

@@ -121,7 +121,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <MapSearch />
+            <MapSearch setEditPost={setEditPost}/>
           </Route>
           <Route exact path="/review">
             {isLogin ? (
