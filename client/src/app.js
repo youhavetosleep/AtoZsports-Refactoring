@@ -34,44 +34,41 @@ function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
-  // console.log(editPost)
 
-  // 스크롤 이벤트
-  useEffect(() => {
-    window.addEventListener('scroll', scrollPositionHandler)
-    return () => {
-      window.removeEventListener('scroll', scrollPositionHandler)
-    }
-  },[])
+  // // 스크롤 이벤트
+  // useEffect(() => {
+  //   window.addEventListener('scroll', scrollPositionHandler)
+  //   return () => {
+  //     window.removeEventListener('scroll', scrollPositionHandler)
+  //   }
+  // },[])
 
-  
+  // // // 스크롤 시 위치를 상태값에 저장하는 코드.
+  // const scrollPositionHandler = () => {
+  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop)
+  // }
 
-  // // 스크롤 시 위치를 상태값에 저장하는 코드.
-  const scrollPositionHandler = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop)
-  }
+  // // // element가 스크린 아래쪽에 있는지 확인하는 코드
+  // const isElementUnderBottom = (elem, triggerDiff) => {
+  //   const { top } = elem.getBoundingClientRect()
+  //   const { innerHeight } = window
+  //   return top > innerHeight + (triggerDiff || 0)
+  // }
 
-  // // element가 스크린 아래쪽에 있는지 확인하는 코드
-  const isElementUnderBottom = (elem, triggerDiff) => {
-    const { top } = elem.getBoundingClientRect()
-    const { innerHeight } = window
-    return top > innerHeight + (triggerDiff || 0)
-  }
-
-  // 스크롤 이벤트 발생시 활성화되는 함수
-  const handleScroll = () => {
-    const elems = document.querySelectorAll('.scroll')
-    elems.forEach((elem) => {
-      if (isElementUnderBottom(elem, -30)) {
-        elem.style.opacity = '0'
-        elem.style.transform = 'translateY(40px)'
-      } else {
-        elem.style.opacity = '1'
-        elem.style.transform = 'translateY(0px)'
-      }
-    })
-  }
-  window.addEventListener('scroll', handleScroll)
+  // // 스크롤 이벤트 발생시 활성화되는 함수
+  // const handleScroll = () => {
+  //   const elems = document.querySelectorAll('.scroll')
+  //   elems.forEach((elem) => {
+  //     if (isElementUnderBottom(elem, -30)) {
+  //       elem.style.opacity = '0'
+  //       elem.style.transform = 'translateY(40px)'
+  //     } else {
+  //       elem.style.opacity = '1'
+  //       elem.style.transform = 'translateY(0px)'
+  //     }
+  //   })
+  // }
+  // window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {
@@ -81,7 +78,7 @@ function App() {
     } else {
       setIsLogin(false)
     }
-  },[])
+  }, [])
 
   const handleRegion1 = (e) => {
     setRegion1(e.target.value)
@@ -105,11 +102,11 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Futsal 
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
-            region1={region1}
-            region2={region2}
+            <Futsal
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
             />
           </Route>
           <Route exact path="/map">
@@ -118,7 +115,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <MapSearch setEditPost={setEditPost}/>
+            <MapSearch setEditPost={setEditPost} />
           </Route>
           <Route exact path="/review">
             {isLogin ? (
@@ -154,10 +151,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Post 
-            userInfo={userInfo} 
-            setEditPost={setEditPost}
-            />
+            <Post userInfo={userInfo} setEditPost={setEditPost} />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
@@ -165,7 +159,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            { !editPost ? <Write /> : <EditWrite /> }
+            {!editPost ? <Write /> : <EditWrite />}
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (
@@ -173,12 +167,12 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Mypage 
-            userInfo={userInfo}
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
-            region1={region1}
-            region2={region2}
+            <Mypage
+              userInfo={userInfo}
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
             />
           </Route>
           <Route exact path="/signup">
