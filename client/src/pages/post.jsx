@@ -12,7 +12,7 @@ import {
   changeStatusData
 } from '../_actions/post_action'
 
-const Post = ({ userInfo }) => {
+const Post = ({ userInfo, setEditPost }) => {
   const token = userInfo.loginSuccess.accessToken
   const history = useHistory()
   const dispatch = useDispatch()
@@ -82,6 +82,7 @@ const Post = ({ userInfo }) => {
 
   // 게시글 수정 (작성페이지로 이동)
   const editContent = () => {
+    setEditPost(true)
     history.push(`/write`)
   }
 

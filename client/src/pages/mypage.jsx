@@ -193,7 +193,6 @@ const Mypage = ({
 
   // 개인정보 변경 send 버튼 클릭시 발생하는 이벤트
   const handleSendUserinfo = () => {
-    console.log(nickname, phoneNumber, region1, region2, favoriteSports)
     instance
       .patch(
         `/users`,
@@ -312,10 +311,14 @@ const Mypage = ({
                   </UserinfoFavorite>
                 </UserInfoContents>
                 <EditUserInfo>
-                  <div className="editInfo" onClick={handleEditPage}>
+                  <div 
+                  className="editInfo" 
+                  onClick={handleEditPage}>
                     정보수정
                   </div>
-                  <div className="editPassWord" onClick={handleEditPasswordBtn}>
+                  <div 
+                  className="editPassWord" 
+                  onClick={handleEditPasswordBtn}>
                     비밀번호 변경
                   </div>
                 </EditUserInfo>

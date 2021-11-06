@@ -17,6 +17,7 @@ export const COMMENT_DATA = 'comment_data'
 
 // post 정보
 export const POST_DATA = 'post_data'
+export const POST_WRITE = 'post_write'
 export const MATCH_LIST_DATA = 'match_list'
 export const USER_WRITEMATCH = 'user_writematch'
 export const USER_FAVORITEMATCH = 'user_favoritmatch'

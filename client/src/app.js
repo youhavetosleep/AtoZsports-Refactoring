@@ -21,6 +21,7 @@ import NavbarChange from './components/navbarChange'
 import MapSearch from './components/map/mapSearch'
 import Top from './components/Top'
 import ScrollToTop from './components/scrollTop'
+import EditWrite from './components/editWrite'
 
 function App() {
   // 로그인 정보 저장
@@ -32,6 +33,9 @@ function App() {
   const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
+  const [editPost, setEditPost] = useState(false)
+  // console.log(editPost)
+
   // 스크롤 이벤트
   useEffect(() => {
     window.addEventListener('scroll', scrollPositionHandler)
@@ -40,12 +44,14 @@ function App() {
     }
   },[])
 
-  // 스크롤 시 위치를 상태값에 저장하는 코드.
+  
+
+  // // 스크롤 시 위치를 상태값에 저장하는 코드.
   const scrollPositionHandler = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop)
   }
 
-  // element가 스크린 아래쪽에 있는지 확인하는 코드
+  // // element가 스크린 아래쪽에 있는지 확인하는 코드
   const isElementUnderBottom = (elem, triggerDiff) => {
     const { top } = elem.getBoundingClientRect()
     const { innerHeight } = window
@@ -65,7 +71,6 @@ function App() {
       }
     })
   }
-
   window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {
@@ -140,6 +145,7 @@ function App() {
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              setEditPost={setEditPost}
             />
           </Route>
           <Route exact path="/post/:id">
@@ -148,7 +154,10 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Post userInfo={userInfo} />
+            <Post 
+            userInfo={userInfo} 
+            setEditPost={setEditPost}
+            />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
@@ -156,7 +165,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Write />
+            { !editPost ? <Write /> : <EditWrite /> }
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (
