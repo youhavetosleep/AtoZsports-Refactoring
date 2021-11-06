@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 
-import { loginUser } from '../_actions/user_action'
+import { loginUser, authMailResend } from '../_actions/user_action'
 import login1 from '../image/login1.png'
 import googleLogo from '../image/googleLogo.jpg'
 import kakaoLogo from '../image/kakaoLogo.png'
@@ -56,13 +56,23 @@ const LoginModal = ({ setLoginOpen }) => {
           window.location.reload()
         })
         .catch((err) => {
-          console.log(err.response)
           if (err.response.status === 409) {
             Swal.fire({
               text: '이메일인증을 진행해주세요',
               icon: 'warning',
-              confirmButtonColor: '#d2d2d2',
-              confirmButtonText: '확인'
+              showCancelButton: true,
+              cancelButtonText: '확인',
+              confirmButtonColor: '#8F2929',
+              confirmButtonText: '메일 재전송'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(authMailResend(email))
+                Swal.fire({
+                  text: '인증 메일이 전송되었습니다.',
+                  confirmButtonColor: '#d2d2d2',
+                  confirmButtonText: '확인'
+                })
+              }
             })
           } else if (err.response.status === 404) {
             Swal.fire({
