@@ -11,7 +11,7 @@ const Comment = ({ groundData, groundSelect }) => {
   const [write, setWrite] = useState('')
   const [content, setContent] = useState([])
   const [score, setScore] = useState(5)
-
+  
   // 로그인된 유저의 데이터
   const userInfo = store.getState().user
   const token = userInfo.loginSuccess.accessToken
@@ -19,8 +19,12 @@ const Comment = ({ groundData, groundSelect }) => {
   const userId = userInfo.loginSuccess.userData.id
 
   // 페이지네이션
-  const [totalComment] = useState(groundData.score.length)
+  const [totalComment, setTotalComment] = useState(groundData.score.length)
   const [currentPage, setCurrentPage] = useState(1)
+
+  // 글쓰기 버튼 누를 때마다 초기화를 하기 위해 
+  // StarRating 파일에서 가져온 status
+  const [clicked, setClicked] = useState([true, true, true, true, true])
 
   const sendStar = (star) => {
     setScore(star)
@@ -28,26 +32,32 @@ const Comment = ({ groundData, groundSelect }) => {
 
   // 글쓰기 버튼
   const addComment = () => {
+    setContent([])
     dispatch(addCommentData(groundSelect, token, score, userId, write)).then(
       (res) => {
+        setTotalComment(res.payload.list.length)
+        setClicked([true, true, true, true, true])
         // window.location.reload()
       }
     )
   }
 
   useEffect(() => {
+    //글쓰기 버튼 수정하다 추가한 content 초기화
     setContent([])
     dispatch(getCommentData(groundSelect, currentPage)).then((res) => {
       setContent([...content, ...res.payload])
+      setWrite('')
+      setScore(5)
     })
-  }, [currentPage])
+  }, [currentPage, totalComment])
 
-   // 페이지네이션
+  // 페이지네이션
   const pageNumbers = []
   for (let i = 1; i <= Math.ceil(totalComment / 5); i++) {
     pageNumbers.push(i)
   }
-  
+
   const paginate = (pageNum) => {
     setContent([])
     setCurrentPage(pageNum)
@@ -56,10 +66,11 @@ const Comment = ({ groundData, groundSelect }) => {
   return (
     <CommentWrap>
       <WriteWrap>
-        <StarRating sendStar={sendStar} />
+        <StarRating clicked={clicked} setClicked={setClicked} sendStar={sendStar} />
         <Input
           type="text"
           placeholder="댓글을 작성하세요"
+          value={write}
           onChange={(e) => {
             setWrite(e.target.value)
           }}
@@ -67,11 +78,13 @@ const Comment = ({ groundData, groundSelect }) => {
         <CommentBtn onClick={addComment}>글쓰기</CommentBtn>
       </WriteWrap>
       {content && content.length === 0 ? (
-        <Alert>첫 번째 댓글을 작성해주세요!</Alert>
+        <Alert>댓글을 작성해주세요!</Alert>
       ) : (
         content.map((el, idx) => {
           return (
             <CommentList
+              setContent={setContent}
+              setTotalComment={setTotalComment}
               token={token}
               nickname={nickname}
               groundId={groundSelect}

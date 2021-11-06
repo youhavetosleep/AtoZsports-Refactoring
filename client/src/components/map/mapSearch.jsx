@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { FaSearch } from 'react-icons/fa'
+import Swal from 'sweetalert2'
+import { useHistory } from 'react-router'
 import Map from '../../pages/map'
-
 const MapSearch = () => {
+  const history = useHistory()
   const [inputText, setInputText] = useState('')
   const [place, setPlace] = useState('안양 풋살')
+
+  const [getPlace, setGetPlace] = useState('')
+  const [groundData, setGroundData] = useState({})
+  const getData = (getPlace) => {
+    setGetPlace(getPlace)
+  }
 
   const onChange = (e) => {
     setInputText(e.target.value)
@@ -16,6 +24,30 @@ const MapSearch = () => {
     setPlace(inputText)
     setInputText('')
   }
+
+  useEffect(() => {
+    // setGroundData({
+    //   placeName: getPlace.place_name,
+    //   addressName: getPlace.address_name,
+    //   phone: getPlace.phone,
+    //   longitude: getPlace.x,
+    //   latitude: getPlace.y,
+    //   placeUrl: getPlace.place_url
+    // })
+    console.log(getPlace)
+    if (getPlace !== '') {
+      Swal.fire({
+        title: '게시글 작성을 원하시나요?',
+        showCancelButton: true,
+        confirmButtonText: 'yes',
+        confirmButtonColor: '#5ca415'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push('/write')
+        }
+      })
+    }
+  }, [getPlace])
 
   return (
     <Wrapper>
@@ -31,7 +63,7 @@ const MapSearch = () => {
           </SearchBtn>
         </SearchForm>
       </SearchPosition>
-      <Map searchPlace={place} />
+      <Map searchPlace={place} getData={getData} />
     </Wrapper>
   )
 }
