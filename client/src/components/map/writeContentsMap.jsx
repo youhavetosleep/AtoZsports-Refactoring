@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { FaSearch } from 'react-icons/fa'
 import WriteContentsSearch from './writeContentsSearch'
 
-const WriteContentsMap = ({ getPlace, getData }) => {
+const WriteContentsMap = ({ getData, setGetGroundData,getGroundData }) => {
   const [inputText, setInputText] = useState('')
   const [place, setPlace] = useState('안양 풋살')
 
@@ -33,8 +33,9 @@ const WriteContentsMap = ({ getPlace, getData }) => {
       </SearchPosition>
       <WriteContentsSearch 
       searchPlace={place}
-      getPlace={getPlace}
       getData={getData}
+      setGetGroundData={setGetGroundData}
+      getGroundData={getGroundData}
       />
     </Wrapper>
   )

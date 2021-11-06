@@ -105,7 +105,19 @@ module.exports = {
         if (!created) {
           res.status(409).send({ message: '도배는 삼가주세요' })
         } else {
-          res.status(201).send({ review })
+          GroundReview.findAll({
+            where: { groundId }
+          })
+          .then(async (reviews) => {
+            const list = await Promise.all(
+              reviews.map((el) => {
+                return el.dataValues.score
+              })
+            )
+            const { id, comment, score, userId, groundId, createdAt } = review.dataValues
+            const result = { id, comment, score, userId, groundId, createdAt, list }
+            res.status(201).send(result)
+          })
         }
       })
       .catch((error) => {
@@ -152,6 +164,7 @@ module.exports = {
   },
   // 경기장 리뷰 삭제
   deleteReview: (req, res, next) => {
+    const groundId = req.params.groundId
     const reviewId = req.params.reviewId
     // 이미 삭제된 리뷰에 대해 에러를 송출하기 위해 find
     GroundReview.findOne({ 
@@ -164,7 +177,17 @@ module.exports = {
           where: { id: reviewId }
         })
         .then(() => {
-          res.send({ message: '리뷰가 삭제되었습니다' })
+          GroundReview.findAll({
+            where: { groundId }
+          })
+          .then(async (reviews) => {
+            const list = await Promise.all(
+              reviews.map((el) => {
+                return el.dataValues.score
+              })
+            )
+            res.send({ data: list, message: '리뷰가 삭제되었습니다' })
+          })
         })
         .catch((error) => {
           console.log('리뷰 삭제 에러')

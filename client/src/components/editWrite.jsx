@@ -12,14 +12,21 @@ import store from '../store/store'
 import { useDispatch } from 'react-redux'
 import { writePostData } from '../_actions/post_action'
 
-const Write = () => {
+const EditWrite = () => {
   const history = useHistory()
-  const mapRef = useRef()
   const dispatch = useDispatch()
+
+  let userPost = store.getState().post
   let userInfo = store.getState().user
 
+  const titleRef = useRef()
+  const groundRef = useRef()
+  const content = useRef()
+
+
   const Token = userInfo.loginSuccess.accessToken
-  
+  const postData = userPost.postData.postsData
+  console.log(postData)
 
   const handledate = (date) => {
     let ChangeDate =
@@ -30,28 +37,39 @@ const Write = () => {
       ('0' + date.getDate()).slice(-2)
     setStartDate(ChangeDate)
   }
-  
-  const [startDate, setStartDate] = useState(new Date())
 
-  const [postTitle, setPostTitle] = useState('')             // title
-  const [postDivision, setPostDivision] = useState('')       // division
-  const [postStartTime, setPostStartTime] = useState('')     // startTime
-  const [postEndTime, setPostEndTime] = useState('')         // endTime
-  const sports = 'futsal'                                    // sports
-  const [postContent, setPostContent] = useState('')         // content
-  const [postGround, setPostGround] = useState('')           // ground
-  const [postPhoneOpen, setphoneOpen] = useState(false)      // phoneOpen
-  const [postAdressName, setAdressName] = useState('')       // adressName
+  useEffect(() => {
+      if(postData.userPhone === "") {
+        setphoneOpen(false)
+      } else {
+        setphoneOpen(true)
+      }
+  },[])
+
+  const startTime = postData.startTime.slice(11, 19)
+  const endTime = postData.endTime.slice(11, 19)
+
+  const [startDate, setStartDate] = useState(postData.startTime)
+
+  const [postTitle, setPostTitle] = useState(postData.title) // title
+  const [postDivision, setPostDivision] = useState(postData.division) // division
+  const [postStartTime, setPostStartTime] = useState(startTime) // startTime
+  const [postEndTime, setPostEndTime] = useState(endTime) // endTime
+  const sports = 'futsal' // sports
+  const [postContent, setPostContent] = useState('') // content
+  const [postGround, setPostGround] = useState('') // ground
+  const [postPhoneOpen, setphoneOpen] = useState(false) // phoneOpen
+  const [postAdressName, setAdressName] = useState('') // adressName
   const userId = userInfo.loginSuccess.userData.id
 
-  const [getPlace, setGetPlace] = useState('')
+//   console.log(postDivision)
+
+  const [getPlace, setGetPlace] = useState(postData.placeName)
   const [getGroundData, setGetGroundData] = useState([])
   const [groundData, setGroundData] = useState({})
 
   // const a = [...getGroundData, getGroundData]
   // console.log(startDate)
-
-        
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -70,7 +88,7 @@ const Write = () => {
   const handleClickMatch = () => {
     setPostDivision('경기제안')
   }
-  const handlePhoneCheck = (e) => {
+  const handlePhoneCheck = (checked) => {
     postPhoneOpen ? setphoneOpen(false) : setphoneOpen(true)
   }
   const handleInputText = (e) => {
@@ -81,13 +99,13 @@ const Write = () => {
     setGetPlace(getPlace)
   }
   // console.log('getPlace ====> ', getPlace)
-  // console.log('placeName ====> ', getPlace.place_name)
-  // console.log('addressName ====> ', getPlace.address_name)
-  // console.log('phone ====> ', getPlace.phone)
-  // console.log('longitude ====> ', getPlace.x)
-  // console.log('latitude ====> ', getPlace.y)
-  // console.log('placeUrl ====> ', getPlace.place_url)
-  // console.log(postStartTime, postEndTime)
+//   console.log('placeName ====>=========== ', getPlace.place_name)
+//   console.log('addressName ====> ', getPlace.address_name)
+//   console.log('phone ====> ', getPlace.phone)
+//   console.log('longitude ====> ', getPlace.x)
+//   console.log('latitude ====> ', getPlace.y)
+//   console.log('placeUrl ====> ', getPlace.place_url)
+//   console.log(postStartTime, postEndTime)
 
   useEffect(() => {
     setGroundData({
@@ -98,27 +116,28 @@ const Write = () => {
       latitude: getPlace.y,
       placeUrl: getPlace.place_url
     })
-  },[getPlace])
+  }, [getPlace])
 
-  // console.log(`${startDate} ${postStartTime}`) 
+  // console.log(`${startDate} ${postStartTime}`)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
-    dispatch(writePostData(
-      postTitle, 
-      postDivision, 
-      startDate,
-      postStartTime, 
-      postEndTime, 
-      sports, 
-      postContent,
-      groundData,
-      postPhoneOpen,
-      Token
-    ))
-    .then((res) => {
+    dispatch(
+      writePostData(
+        postTitle,
+        postDivision,
+        startDate,
+        postStartTime,
+        postEndTime,
+        sports,
+        postContent,
+        groundData,
+        postPhoneOpen,
+        Token
+      )
+    ).then((res) => {
       // console.log(res.payload)
-      history.push(`/post/id=${res.payload.id}`)
+      history.push(`/post/id=${postData.id}`)
     })
   }
 
@@ -126,31 +145,35 @@ const Write = () => {
     <>
       <GlobalStyle />
       <WriteContainer>
-          <WriteIn>
-          <div className="write_title">게시글 작성</div>
+        <WriteIn>
+          <div className="write_title">게시글 수정</div>
           <WriteTitle>
-            <input 
-            type='text' 
-            placeholder='게시글 제목을 입력해 주세요'
-            className='write_postTitle' 
-            onChange={(e) => {handleInputTitle(e)}}
+            <input
+              type="text"
+              value={postData.title}
+              className="write_postTitle"
+              onChange={(e) => {
+                  handleInputTitle(e)
+                }}
+              ref={titleRef}
             />
           </WriteTitle>
           <WriteMap>
-            <WriteContentsMap 
-            getPlace={getPlace} 
-            getData={getData} 
-            setGetGroundData={setGetGroundData}
-            getGroundData={getGroundData}
+            <WriteContentsMap
+              getPlace={getPlace}
+              getData={getData}
+              setGetGroundData={setGetGroundData}
+              getGroundData={getGroundData}
             />
           </WriteMap>
-         
+
           <WritePlace>
             <div className="write_palce">선택한 경기장</div>
             <input
               type="text"
               value={getPlace.place_name}
               className="write_choiceGround"
+              ref={groundRef}
             />
           </WritePlace>
           <WriteRequest>
@@ -198,6 +221,7 @@ const Write = () => {
             <input
               type="checkbox"
               className="write_checkBox"
+              checked={postPhoneOpen ? "checked" : false}
               onChange={(e) => handlePhoneCheck(e)}
             />
           </WritePhoneCheck>
@@ -205,13 +229,14 @@ const Write = () => {
             <div className="write_etc">요청사항</div>
             <textarea
               className="write_textArea"
+              value={postData.content}
               onChange={(e) => handleInputText(e)}
+              ref={content}
             ></textarea>
           </WriteEtc>
-          <div 
-          className="write_send"
-          onClick={handelSendPost}
-          >등록하기</div>
+          <div className="write_send" onClick={handelSendPost}>
+            등록하기
+          </div>
         </WriteIn>
       </WriteContainer>
       <Footer />
@@ -248,21 +273,21 @@ const WriteIn = styled.div`
 `
 
 const WriteTitle = styled.div`
-display: flex;
-justify-content: center;
-.write_postTitle {
-  max-width: 800px;
-  width: 780px;
-  height: 50px;
-  font-size: 1.6rem;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  background-color: #fafafa;
-  :focus {
-    outline: none;
+  display: flex;
+  justify-content: center;
+  .write_postTitle {
+    max-width: 800px;
+    width: 780px;
+    height: 50px;
+    font-size: 1.6rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: #fafafa;
+    :focus {
+      outline: none;
+    }
   }
-}
 `
 
 const WriteMap = styled.div`
@@ -432,4 +457,4 @@ const WriteEtc = styled.div`
   }
 `
 
-export default Write
+export default EditWrite

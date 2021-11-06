@@ -8,7 +8,7 @@ const {
   sendAccessToken,
   sendRefreshToken
 } = require('./token/tokenController')
-const { isAuth, generateRandomPassword } = require('./function/function')
+const { isAuth, generateRandomPassword, sendAuthMail } = require('./function/function')
 const { User, Post, Ground, FavoritePost } = require('../models')
 const smtpTransport = require('../config/mailConfig')
 
@@ -305,8 +305,7 @@ module.exports = {
   },
   // 회원가입
   signup: (req, res, next) => {
-    const { email, nickname, password, userPhone, favoriteSports, homeground } =
-      req.body
+    const { email, nickname, password, userPhone, favoriteSports, homeground } = req.body
     if (
       !email ||
       !nickname ||
@@ -344,51 +343,7 @@ module.exports = {
             message: '이미 존재하는 이메일입니다'
           })
         } else {
-          // 메일 전송을 위한 정보
-          const domain =
-            process.env.NODE_ENV === 'production'
-              ? 'atozsports.link'
-              : 'http://localhost:3000'
-          const from = `AtoZ sports <atozsports@api.atozsports.link>`
-          const mailOptions = {
-            from: from,
-            to: email,
-            subject: `${nickname}님 ! AtoZ sports 이메일 인증입니다.`,
-            html: `
-            <style>
-              div { 
-                border: 1px solid black; 
-                text-align: center; 
-                padding: 20px; 
-                width: 70%;
-              }
-              a { color: white; text-decoration-line: none }
-              h1 { margin-bottom: 20px; font-size: 50px; }
-              p { font-size: 15px; margin-botton: 10px; }
-              span { font-weight: bold; }
-              button { background-color: black; width: 50px; height: 35px; border-radius: 6px; }
-            </style>
-            <div>
-              <h1>AtoZ sports</h1><br />
-              <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p>
-              <br />
-              <p>아래의 버튼을 클릭하여 이메일 인증을 완료해주세요.</p>
-              <br />
-              <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>
-              <br />
-              <button><a href="${domain}/auth/?email=${email}&verifiedKey=${verifiedKey}">인증</a></button>
-            </div>
-          `
-          }
-          smtpTransport.use('compile', inlineCss())
-          // 메일 전송
-          await smtpTransport.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              console.log(error)
-            } else {
-              console.log(info.response)
-            }
-          })
+          sendAuthMail(data)
           res.status(201).send({
             data,
             message: '성공적으로 회원가입되었습니다'
@@ -399,6 +354,28 @@ module.exports = {
         console.log('회원가입 에러')
         next(error)
       })
+  },
+  // 이메일 재 인증
+  emailReAuth: (req, res, next) => {
+    const email = req.body.email
+    // 이메일 인증에 필요한 인증키를 만듦
+    const key1 = crypto.randomBytes(256).toString('hex').substr(100, 10)
+    const key2 = crypto.randomBytes(256).toString('base64').substr(50, 10)
+    const verifiedKey = key1 + key2
+    // 유저 인증키 갱신
+    User.update(
+      { verifiedKey },
+      { where: { email } }
+    )
+    .then(() => {
+      User.findOne({
+        where: { email }
+      })
+      .then((user) => {
+        sendAuthMail(user)
+        res.send(user.dataValues)
+      })
+    })
   },
   // 이메일 중복 검사
   mailCheck: (req, res, next) => {
@@ -422,7 +399,7 @@ module.exports = {
     User.findOne({
       where: { nickname: req.body.nickname }
     }).then((user) => {
-      if (!user) {
+      if (!user || user.dataValues.nickname === req.body.curNickname) {
         res.send({ message: '✔ 사용 가능한 닉네임입니다' })
       } else {
         res.send({ message: '존재하는 닉네임입니다' })
@@ -461,7 +438,15 @@ module.exports = {
           where: { email, verifiedKey }
         }
       )
-        .then(() => res.send({ message: '이메일 인증이 완료되었습니다' }))
+        .then((user) => {
+          // 인증 성공
+          if (user[0] === 1){
+            res.status(200).send({ message: '이메일 인증이 완료되었습니다' })
+          } else {
+            // 인증 실패
+            res.status(409).send({ message: '인증 유효시간이 만료되었습니다' })
+          }
+        })
         .catch((error) => {
           console.log('이메일 인증 에러')
           next(error)
