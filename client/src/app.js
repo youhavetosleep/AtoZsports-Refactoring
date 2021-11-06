@@ -25,53 +25,54 @@ import EditWrite from './components/editWrite'
 
 function App() {
   // 로그인 정보 저장
-  let userInfo = store.getState().user
+  let userInfo = store.getState()
+  console.log(userInfo)
 
+  const [isLogin, setIsLogin] = useState(false)
   // 지역선택 드롭박스를 위한 상태
   const [region1, setRegion1] = useState('')
   const [region2, setRegion2] = useState('')
-  const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
   // console.log(editPost)
 
   // 스크롤 이벤트
-  useEffect(() => {
-    window.addEventListener('scroll', scrollPositionHandler)
-    return () => {
-      window.removeEventListener('scroll', scrollPositionHandler)
-    }
-  },[])
+  // useEffect(() => {
+  //   window.addEventListener('scroll', scrollPositionHandler)
+  //   return () => {
+  //     window.removeEventListener('scroll', scrollPositionHandler)
+  //   }
+  // },[])
 
   
 
   // // 스크롤 시 위치를 상태값에 저장하는 코드.
-  const scrollPositionHandler = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop)
-  }
+  // const scrollPositionHandler = () => {
+  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop)
+  // }
 
   // // element가 스크린 아래쪽에 있는지 확인하는 코드
-  const isElementUnderBottom = (elem, triggerDiff) => {
-    const { top } = elem.getBoundingClientRect()
-    const { innerHeight } = window
-    return top > innerHeight + (triggerDiff || 0)
-  }
+  // const isElementUnderBottom = (elem, triggerDiff) => {
+  //   const { top } = elem.getBoundingClientRect()
+  //   const { innerHeight } = window
+  //   return top > innerHeight + (triggerDiff || 0)
+  // }
 
   // 스크롤 이벤트 발생시 활성화되는 함수
-  const handleScroll = () => {
-    const elems = document.querySelectorAll('.scroll')
-    elems.forEach((elem) => {
-      if (isElementUnderBottom(elem, -30)) {
-        elem.style.opacity = '0'
-        elem.style.transform = 'translateY(40px)'
-      } else {
-        elem.style.opacity = '1'
-        elem.style.transform = 'translateY(0px)'
-      }
-    })
-  }
-  window.addEventListener('scroll', handleScroll)
+  // const handleScroll = () => {
+  //   const elems = document.querySelectorAll('.scroll')
+  //   elems.forEach((elem) => {
+  //     if (isElementUnderBottom(elem, -30)) {
+  //       elem.style.opacity = '0'
+  //       elem.style.transform = 'translateY(40px)'
+  //     } else {
+  //       elem.style.opacity = '1'
+  //       elem.style.transform = 'translateY(0px)'
+  //     }
+  //   })
+  // }
+  // window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {
@@ -114,7 +115,9 @@ function App() {
           </Route>
           <Route exact path="/map">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -122,7 +125,9 @@ function App() {
           </Route>
           <Route exact path="/review">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -136,7 +141,9 @@ function App() {
           </Route>
           <Route exact path="/matchlist">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -150,7 +157,9 @@ function App() {
           </Route>
           <Route exact path="/post/:id">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -161,7 +170,9 @@ function App() {
           </Route>
           <Route exact path="/write">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -169,7 +180,9 @@ function App() {
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -183,7 +196,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -196,7 +211,9 @@ function App() {
           </Route>
           <Route exact path="/premierleague">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              etIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
