@@ -11,7 +11,7 @@ const Comment = ({ groundData, groundSelect }) => {
   const [write, setWrite] = useState('')
   const [content, setContent] = useState([])
   const [score, setScore] = useState(5)
-  
+
   // 로그인된 유저의 데이터
   const userInfo = store.getState().user
   const token = userInfo.loginSuccess.accessToken
@@ -19,10 +19,24 @@ const Comment = ({ groundData, groundSelect }) => {
   const userId = userInfo.loginSuccess.userData.id
 
   // 페이지네이션
+  // 데이터베이스에 등록되어 있는 운동장의 총 리뷰 갯수를 5로 나눠 댓글 아래 페이지네이션 숫자(1, 2, 3 ....) 구현!
+  // currentpage가 늘어날 때마다 (ex. 1-> 2) 서버에 요청을 보내면 기존(ex. 1)에 있던 5개의 데이터는 지워지고 새로(ex. 2) 요청 받은 5개의 리뷰가 상태에 채워짐
   const [totalComment, setTotalComment] = useState(groundData.score.length)
   const [currentPage, setCurrentPage] = useState(1)
 
-  // 글쓰기 버튼 누를 때마다 초기화를 하기 위해 
+  // 페이지네이션
+  // 댓글의 페이지의 수를 나눠주는 반복문
+  const pageNumbers = []
+  for (let i = 1; i <= Math.ceil(totalComment / 5); i++) {
+    pageNumbers.push(i)
+  }
+  // 숫자 버튼을 누를 때 숫자에 맞는 offset으로 currentpage 상태를 업데이트!
+  const paginate = (pageNum) => {
+    setContent([])
+    setCurrentPage(pageNum)
+  }
+
+  // 글쓰기 버튼 누를 때마다 초기화를 하기 위해
   // StarRating 파일에서 가져온 status
   const [clicked, setClicked] = useState([true, true, true, true, true])
 
@@ -42,8 +56,9 @@ const Comment = ({ groundData, groundSelect }) => {
     )
   }
 
+  // 숫자 버튼을 누를 때마다(currentPage가 바뀔 때마다) 숫자에 맞는 리뷰들을 가져오기 위해 요청을 보내고, 
+  // 글쓰기 버튼을 누르면 리뷰의 총 수(totalComment)도 달라지기 때문에 다시 요청을 보내야 한다. 
   useEffect(() => {
-    //글쓰기 버튼 수정하다 추가한 content 초기화
     setContent([])
     dispatch(getCommentData(groundSelect, currentPage)).then((res) => {
       setContent([...content, ...res.payload])
@@ -52,21 +67,14 @@ const Comment = ({ groundData, groundSelect }) => {
     })
   }, [currentPage, totalComment])
 
-  // 페이지네이션
-  const pageNumbers = []
-  for (let i = 1; i <= Math.ceil(totalComment / 5); i++) {
-    pageNumbers.push(i)
-  }
-
-  const paginate = (pageNum) => {
-    setContent([])
-    setCurrentPage(pageNum)
-  }
-
   return (
     <CommentWrap>
       <WriteWrap>
-        <StarRating clicked={clicked} setClicked={setClicked} sendStar={sendStar} />
+        <StarRating
+          clicked={clicked}
+          setClicked={setClicked}
+          sendStar={sendStar}
+        />
         <Input
           type="text"
           placeholder="댓글을 작성하세요"

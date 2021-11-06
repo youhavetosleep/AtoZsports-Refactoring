@@ -1,4 +1,4 @@
-import { GROUND_DATA, COMMENT_DATA } from './types'
+import { GROUND_DATA, COMMENT_DATA, MAP_DATA } from './types'
 import instance from '../api'
 
 export async function getGroundData(region1, region2) {
@@ -18,7 +18,7 @@ export async function getGroundData(region1, region2) {
 export async function selectGroundData(groundId, token) {
   const request = await instance
     .get(`/futsal/ground?id=${groundId}`, {
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
@@ -34,14 +34,14 @@ export async function selectGroundData(groundId, token) {
 
 export async function getCommentData(groundId, offset) {
   const request = await instance
-  .get(`/futsal/ground/${groundId}/review?offset=${offset}&limit=5`, {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    withCredentials: true
-  })
-  .then((res) => res.data )
-  .catch((err) => console.log(err))
+    .get(`/futsal/ground/${groundId}/review?offset=${offset}&limit=5`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    })
+    .then((res) => res.data)
+    .catch((err) => console.log(err))
 
   return {
     type: COMMENT_DATA,
@@ -51,19 +51,23 @@ export async function getCommentData(groundId, offset) {
 
 export async function addCommentData(groundId, token, score, userId, comment) {
   const request = await instance
-  .post(`/futsal/ground/${groundId}/review`,{
-    userId,
-    comment,
-    score
-  } ,{
-    headers: { 
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    withCredentials: true
-  })
-  .then((res) => res.data )
-  .catch((err) => console.log(err))
+    .post(
+      `/futsal/ground/${groundId}/review`,
+      {
+        userId,
+        comment,
+        score
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err))
 
   return {
     type: COMMENT_DATA,
@@ -71,20 +75,30 @@ export async function addCommentData(groundId, token, score, userId, comment) {
   }
 }
 
-export async function updateCommentData(groundId, commentId, token, comment, score) {
+export async function updateCommentData(
+  groundId,
+  commentId,
+  token,
+  comment,
+  score
+) {
   const request = await instance
-  .patch(`/futsal/ground/${groundId}/review/${commentId}`,{
-    comment,
-    score
-  } ,{
-    headers: { 
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    withCredentials: true
-  })
-  .then((res) => res.data )
-  .catch((err) => console.log(err))
+    .patch(
+      `/futsal/ground/${groundId}/review/${commentId}`,
+      {
+        comment,
+        score
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err))
 
   return {
     type: COMMENT_DATA,
@@ -94,18 +108,27 @@ export async function updateCommentData(groundId, commentId, token, comment, sco
 
 export async function deleteCommentData(groundId, commentId, token) {
   const request = await instance
-  .delete(`/futsal/ground/${groundId}/review/${commentId}`, {
-    headers: { 
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    withCredentials: true
-  })
-  .then((res) => res.data )
-  .catch((err) => console.log(err))
+    .delete(`/futsal/ground/${groundId}/review/${commentId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      withCredentials: true
+    })
+    .then((res) => res.data)
+    .catch((err) => console.log(err))
 
   return {
     type: COMMENT_DATA,
     payload: request
+  }
+}
+
+export async function mapData(groundData) {
+  const info = groundData
+
+  return {
+    type: MAP_DATA,
+    payload: info
   }
 }

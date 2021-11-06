@@ -2,10 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import logo from '../image/subLogo.png'
 import { logoutUser } from '../_actions/user_action'
 
 const NavbarChange = ({ isLogin, setIsLogin }) => {
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const hadleLogout = () => {
@@ -49,6 +51,10 @@ const NavbarChange = ({ isLogin, setIsLogin }) => {
           </Link>
           <Link
             to="/mypage"
+            onClick={() => {
+              history.push('/mypage')
+              window.location.reload()
+            }}
             className="nav_mypage"
             style={{ textDecoration: 'none' }}
           >
