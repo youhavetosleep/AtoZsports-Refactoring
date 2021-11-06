@@ -1,9 +1,9 @@
-import { 
-  LOGIN_USER, 
-  KAKAO_USER, 
-  GOOGLE_USER, 
-  LOGOUT_USER, 
-  DELETE_USER, 
+import {
+  LOGIN_USER,
+  KAKAO_USER,
+  GOOGLE_USER,
+  LOGOUT_USER,
+  DELETE_USER,
   MYPAGE_USER,
   USER_PASSWORD,
   USER_PASSWORDCHECK
@@ -52,7 +52,7 @@ export async function loginUser(dataToSubmit) {
 export async function logoutUser() {
   const request = await instance
     .post(`/users/logout`)
-    .then(res => res.data.message)
+    .then((res) => res.data.message)
 
   return {
     type: LOGOUT_USER,
@@ -63,29 +63,29 @@ export async function logoutUser() {
 export async function mypageUser(changeUserInfo, Token, region1, region2) {
   const request = await instance
     .patch(
-      '/users', 
-    {
-      email: changeUserInfo.email,
-      nickname: changeUserInfo.nickname, 
-      userPhone: changeUserInfo.userPhone,
-      homeground: `${region1} ${region2}`,
-      favoriteSports: changeUserInfo.favoriteSports,
-      userId: changeUserInfo.userId
-    },
-    {
-      headers: { 
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Token}` 
+      '/users',
+      {
+        email: changeUserInfo.email,
+        nickname: changeUserInfo.nickname,
+        userPhone: changeUserInfo.userPhone,
+        homeground: `${region1} ${region2}`,
+        favoriteSports: changeUserInfo.favoriteSports,
+        userId: changeUserInfo.userId
       },
-      withCredentials: true
-    }
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Token}`
+        },
+        withCredentials: true
+      }
     )
-    .then(res => res.data);
+    .then((res) => res.data)
 
   return {
     type: MYPAGE_USER,
-    payload: request,
-  };
+    payload: request
+  }
 }
 
 export async function kakaoUser(authorizationCode) {
@@ -120,64 +120,64 @@ export async function googleUser(authorizationCode) {
 
 export async function deleteUser(Token) {
   const request = await instance
-   .delete(`/users`, {
-     headers: {
-       'Content-Type': 'application/json',
-       Authorization: `Bearer ${Token}` 
+    .delete(`/users`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
       },
       withCredentials: true
-   })
-   .then(res => res.data.message)
+    })
+    .then((res) => res.data.message)
 
-   return {
-     type: DELETE_USER,
-     payload: request
-   }
+  return {
+    type: DELETE_USER,
+    payload: request
+  }
 }
 
 export async function userPassword(password, token) {
   const request = await instance
-   .post(`/users/security`, {
-    password
-  },
-  {
-    headers: { 
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}` 
-    },
-    withCredentials: true
-  }
-  )
-   .then((res) => 
-     res.data.message
+    .post(
+      `/users/security`,
+      {
+        password
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      }
     )
-   .catch((res) => 
-     '비밀번호가 일치하지 않습니다!'
-    )
+    .then((res) => res.data.message)
+    .catch((res) => '비밀번호가 일치하지 않습니다!')
 
-   return {
-     type: USER_PASSWORD,
-     payload: request
-   }
+  return {
+    type: USER_PASSWORD,
+    payload: request
+  }
 }
 
 export async function userChangePsword(secondPsword, Token) {
   const request = await instance
-   .patch(`/users/security`, {
-    password: secondPsword
-  },
-  {
-    headers: { 
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${Token}` 
-    },
-    withCredentials: true
-  }
-  )
-   .then((res) => res.data.message)
+    .patch(
+      `/users/security`,
+      {
+        password: secondPsword
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Token}`
+        },
+        withCredentials: true
+      }
+    )
+    .then((res) => res.data.message)
 
-   return {
-     type: USER_PASSWORDCHECK,
-     payload: request
-   }
+  return {
+    type: USER_PASSWORDCHECK,
+    payload: request
+  }
 }

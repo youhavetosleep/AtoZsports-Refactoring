@@ -18,15 +18,13 @@ const Post = ({ userInfo }) => {
   const dispatch = useDispatch()
   const postId = history.location.pathname.split('=')[1]
   const [postData, setPostData] = useState('')
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState()
 
-  const getPostInfo = async () => {
+  const getPostInfo = () => {
     dispatch(getPostData(postId, token)).then((res) => {
       setPostData(res.payload.postsData)
-      if(res.payload.postsData.status === '모집중') {
-        setStatus('모집중')
-      }
-      console.log(res.payload.postsData.status)
+      setStatus(res.payload.postsData.status)
+
       // 지도 표시를 위한 코드 (시작)
       let container = document.getElementById('map')
       let options = {
@@ -108,17 +106,17 @@ const Post = ({ userInfo }) => {
     })
   }
 
-  // status 상태 바꾸는 버튼
-  const changeStatus = () => {
-    setStatus('모집완료')
-    console.log(status)
-    dispatch(changeStatusData(postId, token, status))
-  }
-
   // post 페이지 들어왔을 때 post 정보를 뿌려주기 위한 useEffect
   // status 변경시 다시 데이터를 불러온다.
   useEffect(() => {
     getPostInfo()
+  }, [])
+
+  // 모집완료 상태를 바꾸기 위한 useEffect
+  // 페이지 들어올 때마다 요청을 서버에 보내기 때문에 비효율적이다.
+  // 모집완료 버튼을 눌럿을 때 요청을 보내려고 했지만 status의 상태업데이트가 한 발짝 늦어 일단 이 방법을 사용한다.
+  useEffect(() => {
+    dispatch(changeStatusData(postId, token, status))
   }, [status])
 
   return (
@@ -143,7 +141,7 @@ const Post = ({ userInfo }) => {
             {status === '모집완료' ? (
               <Status className="fin">모집완료</Status>
             ) : (
-              <Status>{postData.status}</Status>
+              <Status>{status}</Status>
             )}
           </Main>
           <ContentWrap>
@@ -183,7 +181,9 @@ const Post = ({ userInfo }) => {
           </ContentWrap>
           {postData.isMyPost ? (
             <BtnWrap>
-              <ContentBtn onClick={changeStatus}>모집완료</ContentBtn>
+              <ContentBtn onClick={() => setStatus('모집완료')}>
+                모집완료
+              </ContentBtn>
               <ContentBtn onClick={editContent}>수정</ContentBtn>
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>

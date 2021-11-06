@@ -1,12 +1,30 @@
 /*global kakao*/
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import {useHistory} from 'react-router'
 
 const Map = ({ searchPlace }) => {
+  const history = useHistory()
   const mapRef = useRef()
   const MenuRef = useRef()
 
   const [addressName, setAddressName] = useState('')
+
+
+  const [list, setList] = useState([])
+
+  const [selectGround, setSelectGround] = useState([])
+
+  // 선택된 해당 경기장의 정보를 상태로 업데이트! 
+  const selected = () => {
+    list && list.map(el => {
+      if(el.place_name === addressName) {
+        setSelectGround(el)
+        console.log(el)
+      }
+    })
+  }
+
 
   useEffect(() => {
     let markers = [], // 지도를 표시할 div
@@ -55,6 +73,9 @@ const Map = ({ searchPlace }) => {
         bounds = new kakao.maps.LatLngBounds(),
         listStr = ''
 
+        // 검색리스트 상태에 담기!
+        setList(places)
+
       // 검색 결과 목록에 추가된 항목들을 제거합니다
       removeAllChildNods(listEl)
 
@@ -75,7 +96,7 @@ const Map = ({ searchPlace }) => {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function (marker, title) {
+        ;(function (marker, title) {
           kakao.maps.event.addListener(marker, 'mouseover', function () {
             displayInfowindow(marker, title)
           })
@@ -83,6 +104,7 @@ const Map = ({ searchPlace }) => {
           // 클릭시 리뷰페이지로 이동 
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
+            console.log(title)
           })
         
           kakao.maps.event.addListener(marker, 'mouseout', function () {
@@ -105,6 +127,7 @@ const Map = ({ searchPlace }) => {
       map.setBounds(bounds)
     }
 
+    // `<a href='http://localhost:3000/write'>
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
       let el = document.createElement('li'),
@@ -120,13 +143,14 @@ const Map = ({ searchPlace }) => {
       itemStr +=
         '<form class="review">' +
         `<a class='reviewP' href='http://localhost:3000/review/'>리뷰 (12)</a>` +
-        `<a href='http://localhost:3000/write'>글쓰기</a>` +
+        `<a href='http://localhost:3000/write'>글쓰기</p>` +
         '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
+      //검색 리스트 상태 관리
+      // console.log(places)
       return el
     }
-
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
       let imageSrc =
@@ -205,6 +229,9 @@ const Map = ({ searchPlace }) => {
         el.removeChild(el.lastChild)
       }
     }
+
+    selected()
+
   }, [searchPlace, addressName])
   return (
     <Container>
