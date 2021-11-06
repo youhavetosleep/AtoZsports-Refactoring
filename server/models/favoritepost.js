@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   FavoritePost.init(
-    {},
+    { lastReadTime: DataTypes.DATE },
     {
       tableName: 'FavoritePost',
       sequelize,

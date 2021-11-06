@@ -15,7 +15,7 @@ dotenv.config()
 const app = express()
 const httpServer = http.createServer(app)
 const PORT = process.env.PORT || 80
-const io = socketIo(httpServer)
+const io = socketIo(httpServer, { cors: { origin: '*', credentials: true}})
 const chatController = require('./controllers/chatController')(io)
 
 if (process.env.NODE_ENV === 'production') {
