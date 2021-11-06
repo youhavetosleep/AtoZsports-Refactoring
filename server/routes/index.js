@@ -5,7 +5,7 @@ const usersRoutes = require('./usersRoutes')
 const sportsRoutes =  require('./sportsRoutes')
 
 router.use('/users', usersRoutes)
-router.use('/:sports', sportsRoutes)
+router.use('/futsal', sportsRoutes)
 router.use('/', homeRoutes)
 router.use('/', errorRoutes)
 
