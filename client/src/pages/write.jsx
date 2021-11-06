@@ -18,6 +18,10 @@ const Write = () => {
   const dispatch = useDispatch()
   let userInfo = store.getState().user
 
+  // map page에서 경기잡기 버튼 누를 때 리덕스에 상태가 저장되고
+  // 저장된 경기장의 이름을 가져오기 위한 getState
+  let mapData =store.getState().ground
+
   const Token = userInfo.loginSuccess.accessToken
   
 
@@ -50,8 +54,6 @@ const Write = () => {
 
   // const a = [...getGroundData, getGroundData]
   // console.log(startDate)
-
-        
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -144,12 +146,14 @@ const Write = () => {
             getGroundData={getGroundData}
             />
           </WriteMap>
-         
           <WritePlace>
             <div className="write_palce">선택한 경기장</div>
             <input
               type="text"
+              // map 페이지에서 넘어올 때 map에서 선택한 경기장의 이름
+              // value={mapData.mapData.place_name}
               value={getPlace.place_name}
+              ref={mapRef}
               className="write_choiceGround"
             />
           </WritePlace>

@@ -1,7 +1,7 @@
 /*global kakao*/
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import {useHistory} from 'react-router'
+import { useHistory } from 'react-router'
 
 const Map = ({ getData, searchPlace }) => {
   const history = useHistory()
@@ -10,21 +10,9 @@ const Map = ({ getData, searchPlace }) => {
 
   const [addressName, setAddressName] = useState('')
 
-
   const [list, setList] = useState([])
 
   const [selectGround, setSelectGround] = useState([])
-
-  // 선택된 해당 경기장의 정보를 상태로 업데이트! 
-  // const selected = () => {
-  //   list && list.map(el => {
-  //     if(el.place_name === addressName) {
-  //       setSelectGround(el)
-  //       console.log(el)
-  //     }
-  //   })
-  // }
-
 
   useEffect(() => {
     let markers = [], // 지도를 표시할 div
@@ -73,8 +61,8 @@ const Map = ({ getData, searchPlace }) => {
         bounds = new kakao.maps.LatLngBounds(),
         listStr = ''
 
-        // 검색리스트 상태에 담기!
-        setList(places)
+      // 검색리스트 상태에 담기!
+      setList(places)
 
       // 검색 결과 목록에 추가된 항목들을 제거합니다
       removeAllChildNods(listEl)
@@ -101,12 +89,12 @@ const Map = ({ getData, searchPlace }) => {
             displayInfowindow(marker, title)
           })
 
-          // 클릭시 리뷰페이지로 이동 
+          // 클릭시 리뷰페이지로 이동
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
             getData(places[i])
           })
-        
+
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
           })
@@ -150,8 +138,7 @@ const Map = ({ getData, searchPlace }) => {
         '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
-      //검색 리스트 상태 관리
-      // console.log(places)
+
       return el
     }
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
@@ -211,7 +198,6 @@ const Map = ({ getData, searchPlace }) => {
             }
           })(i)
         }
-
         fragment.appendChild(el)
       }
       paginationEl.appendChild(fragment)
@@ -232,7 +218,6 @@ const Map = ({ getData, searchPlace }) => {
         el.removeChild(el.lastChild)
       }
     }
-
   }, [searchPlace, addressName])
   return (
     <Container>

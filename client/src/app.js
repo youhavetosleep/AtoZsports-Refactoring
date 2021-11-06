@@ -35,7 +35,6 @@ function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
-  // console.log(editPost)
 
   // 스크롤 이벤트
   // useEffect(() => {
@@ -82,7 +81,7 @@ function App() {
     } else {
       setIsLogin(false)
     }
-  },[])
+  }, [])
 
   const handleRegion1 = (e) => {
     setRegion1(e.target.value)
@@ -106,11 +105,11 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Futsal 
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
-            region1={region1}
-            region2={region2}
+            <Futsal
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
             />
           </Route>
           <Route exact path="/map">
@@ -121,7 +120,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <MapSearch setEditPost={setEditPost}/>
+            <MapSearch setEditPost={setEditPost} />
           </Route>
           <Route exact path="/review">
             {isLogin ? (
@@ -163,10 +162,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Post 
-            userInfo={userInfo} 
-            setEditPost={setEditPost}
-            />
+            <Post userInfo={userInfo} setEditPost={setEditPost} />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
@@ -176,7 +172,7 @@ function App() {
             ) : (
               <Navbar />
             )}
-            { !editPost ? <Write /> : <EditWrite /> }
+            {!editPost ? <Write /> : <EditWrite />}
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (
@@ -186,12 +182,12 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Mypage 
-            userInfo={userInfo}
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
-            region1={region1}
-            region2={region2}
+            <Mypage
+              userInfo={userInfo}
+              handleRegion1={handleRegion1}
+              handleRegion2={handleRegion2}
+              region1={region1}
+              region2={region2}
             />
           </Route>
           <Route exact path="/signup">
