@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import {useHistory} from 'react-router'
 
-const Map = ({ searchPlace }) => {
+const Map = ({ getData, searchPlace }) => {
   const history = useHistory()
   const mapRef = useRef()
   const MenuRef = useRef()
@@ -16,14 +16,14 @@ const Map = ({ searchPlace }) => {
   const [selectGround, setSelectGround] = useState([])
 
   // 선택된 해당 경기장의 정보를 상태로 업데이트! 
-  const selected = () => {
-    list && list.map(el => {
-      if(el.place_name === addressName) {
-        setSelectGround(el)
-        console.log(el)
-      }
-    })
-  }
+  // const selected = () => {
+  //   list && list.map(el => {
+  //     if(el.place_name === addressName) {
+  //       setSelectGround(el)
+  //       console.log(el)
+  //     }
+  //   })
+  // }
 
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const Map = ({ searchPlace }) => {
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
+        bounds.extend(placePosition)
 
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
@@ -101,12 +101,12 @@ const Map = ({ searchPlace }) => {
             displayInfowindow(marker, title)
           })
 
-          // 클릭시 리뷰페이지로 이동
+          // 클릭시 리뷰페이지로 이동 
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
-            console.log(title)
+            getData(places[i])
           })
-
+        
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
           })
@@ -115,6 +115,9 @@ const Map = ({ searchPlace }) => {
           }
           itemEl.onmouseout = function () {
             infowindow.close()
+          }
+          itemEl.onclick = function () {
+            getData(places[i])
           }
         })(marker, places[i].place_name)
         fragment.appendChild(itemEl)
@@ -229,8 +232,6 @@ const Map = ({ searchPlace }) => {
         el.removeChild(el.lastChild)
       }
     }
-
-    selected()
 
   }, [searchPlace, addressName])
   return (
