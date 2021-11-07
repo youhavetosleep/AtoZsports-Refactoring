@@ -48,6 +48,21 @@ module.exports = {
       res.status(404).send({ message: '쿼리 요청이 잘못 작성됨'})
     }
   },
+  // 리뷰가 있는 경기장인지 확인
+  checkGround: (req, res, next) => {
+    const placeName = req.body.placeName
+    // placeName에 해당하는 경기장 찾기
+    Ground.findOne({
+      where: { placeName }
+    })
+    .then((place) => {
+      if (place) {
+        res.status(200).send({ message: 'ok' })
+      } else {
+        res.status(404).send({ message: 'not exist' })
+      }
+    })
+  },
   // 댓글 조회
   findReview: (req, res, next) => {
     const groundId = req.params.groundId

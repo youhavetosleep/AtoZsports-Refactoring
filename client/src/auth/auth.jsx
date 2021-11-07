@@ -60,7 +60,14 @@ const Auth = () => {
                     withCredentials: true
                   }
                 )
-                history.push('/')
+                .then(() => {
+                  Swal.fire({
+                    text: '인증 메일이 전송되었습니다.',
+                    confirmButtonColor: '#d2d2d2',
+                    confirmButtonText: '확인'
+                  })
+                  history.push('/')
+                })
             }
           })
         }
