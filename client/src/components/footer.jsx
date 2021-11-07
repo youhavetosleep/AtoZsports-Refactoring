@@ -29,6 +29,7 @@ const Footer = () => {
 }
 
 const Footerbar = styled.div`
+position: fixed;
   background-color: #fafafa;
   width: 100%;
   height: 60px;

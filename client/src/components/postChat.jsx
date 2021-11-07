@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import dotenv from 'dotenv'
 import store from '../store/store'
+import styled from 'styled-components'
 
 dotenv.config()
 
@@ -83,17 +84,17 @@ const PostChat = ({ postId }) => {
 
   return (
     <>
-      <div className="card">
+      <ChatContainer>
         <form onSubmit={onMessageSubmit}>
-          <h1>Message</h1>
-          <div className="name-field">
+          {/* <h1>Message</h1> */}
+          {/* <div className="name-field">
             <input
               name="name"
               onChange={(e) => onTextChange(e)}
               value={state.name}
               label="Name"
             />
-          </div>
+          </div> */}
           <div>
             <input
               name="message"
@@ -104,15 +105,53 @@ const PostChat = ({ postId }) => {
               label="Message"
             />
           </div>
-          <button>Send Message</button>
+          <button className='chat_btn'>전 송</button>
         </form>
         <div className="render-chat">
-          <h1>Chat log</h1>
+          {/* <h1>Chat log</h1> */}
           {renderChat()}
         </div>
-      </div>
+        </ChatContainer>
     </>
   )
 }
+
+const ChatContainer = styled.div`
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid black;
+  max-width: 800px;
+  width: 800px;
+  height: 300px;
+  padding: 20px 20px 20px 20px;
+  margin: 0px 0px 50px 0px;
+  .render-chat {
+    display: grid;
+    flex-direction: column;
+    position: absolute;
+    /* grid-template-columns: repeat(2, 360px); */
+    max-height: 200px;
+    height: 100px;
+    top: 0;
+  }
+  #outlined-multiline-static {
+    display: flex;
+    position: absolute;
+    width: 580px;
+    height: 25px;
+    bottom: 20px;
+
+  }
+  .chat_btn {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    /* height: 31px; */
+    padding: 6px 10px 6px 10px;
+  }
+`
 
 export default PostChat
