@@ -128,10 +128,7 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
           '</h5>'
       itemStr += '<span>' + places.address_name + '</span>'
       itemStr +=
-        '<form class="review">' +
-        `<a href='http://localhost:3000/review'>리뷰 (12)</a>` +
-        `<a class='reviewP'>선택하기</a>` +
-        '</form>'
+        '<form class="review"></form>'
         el.innerHTML = itemStr
         el.className = 'item'
         return el
@@ -251,7 +248,7 @@ const Container = styled.div`
   #placesList li {
     position: relative;
     list-style: none;
-    height: 121px;
+    height: 90px;
   }
   #placesList .item {
     border-bottom: 1px solid #888;
@@ -277,7 +274,7 @@ const Container = styled.div`
     padding: 30px 0 10px 55px;
   }
   #placesList .item h5 {
-    font-size: 16px;
+    font-size: 15px;
   }
   #placesList .info .gray {
     color: #8a8a8a;

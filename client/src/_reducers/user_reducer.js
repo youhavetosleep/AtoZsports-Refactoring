@@ -16,7 +16,7 @@ export default function userReducer (state = {}, action) {
     case LOGOUT_USER:
       return (state = {})
     case MYPAGE_USER:
-      return { ...state, getSuccess: action.payload }
+      return { ...state, loginSuccess: action.payload }
     case KAKAO_USER:
       return { ...state, loginSuccess: action.payload }
     case GOOGLE_USER:
@@ -24,10 +24,11 @@ export default function userReducer (state = {}, action) {
     case DELETE_USER:
       return (state = {});
     case USER_PASSWORD:
-        return { ...state, loginSuccess: action.payload }
+        return { ...state, passwordSuccess: action.payload }
     case USER_PASSWORDCHECK:
-        return { ...state, loginSuccess: action.payload }
+        return { ...state, passwordSuccess: action.payload }
     default:
       return state
   }
 }
+

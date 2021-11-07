@@ -126,16 +126,37 @@ export async function writePostData(
   }
 }
 
-export async function editPostData(postId, token) {
+export async function editPostData(
+  postTitle,
+        postDivision,
+        startDate,
+        postStartTime,
+        postEndTime,
+        postStatus,
+        postContent,
+        groundData,
+        postPhoneOpen,
+        userId,
+        Token
+) {
   const request = await instance
-    .patch(`/futsal/posts?id=${postId}`, {}, {
+    .patch(`/futsal/posts/${userId}`, {
+      status: postStatus,
+      title: postTitle,
+      division: postDivision,
+      startTime: `${startDate} ${postStartTime}`,
+      endTime: `${startDate} ${postEndTime}`,
+      content: postContent,
+      ground: groundData,
+      phoneOpen: postPhoneOpen,
+    }, {
       headers: { 
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${Token}`
       },
       withCredentials: true
     })
-    .then((res) => res.data)
+    .then((res) => res.data.postsData)
     .catch((err) => console.log(err))
 
   return {

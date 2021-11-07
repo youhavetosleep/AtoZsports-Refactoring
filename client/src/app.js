@@ -26,6 +26,7 @@ import EditWrite from './components/editWrite'
 function App() {
   // 로그인 정보 저장
   let userInfo = store.getState().user
+  // 왜 비밀번호를 바꾸면 loginsuccess 가 날라갈까..?
   console.log(userInfo)
 
   const [isLogin, setIsLogin] = useState(false)
@@ -35,6 +36,9 @@ function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
+
+  console.log(region1)
+  console.log(region2)
 
   // 스크롤 이벤트
   // useEffect(() => {
@@ -162,7 +166,9 @@ function App() {
             ) : (
               <Navbar />
             )}
-            <Post userInfo={userInfo} setEditPost={setEditPost} />
+            <Post 
+            userInfo={userInfo} 
+            setEditPost={setEditPost} />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
