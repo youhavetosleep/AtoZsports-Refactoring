@@ -140,6 +140,8 @@ function App() {
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              setRegion1={setRegion1}
+              setRegion2={setRegion2}
             />
           </Route>
           <Route exact path="/matchlist">
