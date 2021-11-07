@@ -4,20 +4,28 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import review from '../image/review.jpeg'
-import { getGroundData, selectGroundData } from '../_actions/ground_action'
+import {
+  getGroundData,
+  selectGroundData,
+  mapData,
+  accordGroundData
+} from '../_actions/ground_action'
 import Comment from '../components/comment/comment'
 import ReviewInfo from '../components/reviewInfo'
 import RegionBox from '../utils/regionBox'
+import store from '../store/store'
 
 const Review = ({
   userInfo,
+  setRegion1,
+  setRegion2,
   region1,
   region2,
   handleRegion1,
   handleRegion2
 }) => {
   const dispatch = useDispatch()
-  const token = userInfo.loginSuccess.accessToken
+  // const token = userInfo.loginSuccess.accessToken
   const [groundData, setGroundData] = useState([])
   const [markerData, setMarkerData] = useState([])
   const [selected, setSelected] = useState('normal')
@@ -106,7 +114,7 @@ const Review = ({
         infowindow.close(map, markers)
       })
       kakao.maps.event.addListener(markers, 'click', function () {
-        dispatch(selectGroundData(el.id, token)).then((res) => {
+        dispatch(selectGroundData(el.id)).then((res) => {
           setGroundData(res.payload)
           markerDetail(res.payload.id)
         })
@@ -121,10 +129,47 @@ const Review = ({
   }
 
   useEffect(() => {
+    // 지도를 그려주기 위한 useEffect
+    // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
+    // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
+    //
+    if (store.getState().ground.mapData !== undefined) {
+      const data = store.getState().ground.mapData
+      data.address_name && setRegion1(data.address_name.split(' ')[0])
+      data.address_name && setRegion2(data.address_name.split(' ')[1])
+      data.y && setLocation1(data.y)
+      data.x && setLocation2(data.x)
+    }
+    // if (userInfo.loginSuccess !== undefined) {
+    //   if(userInfo.loginSuccess.userData.homeground.split(' ')[0] === region1) {
+    //     setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
+    //   }
+    //   if(userInfo.loginSuccess.userData.homeground.split(' ')[1] === region2) {
+    //     setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
+    //   }
+    // }
+    // setRegion1('')
+    // setRegion2('')
     Ground()
   }, [region2])
 
+  // 지도가 그려지면 해당 지역에 등록된 경기장을 보여주기 위한 useEffect
+  //  map페이지에서 리뷰보기 클릭시 넘어올 때는 store.getState().ground.accordData가 있는지 없는지로 확인
   useEffect(() => {
+    if (store.getState().ground.mapData !== undefined) {
+      const data = store.getState().ground.mapData
+      if (data.address_name !== undefined) {
+        if (store.getState().ground.accordData !== undefined) {
+          dispatch(
+            selectGroundData(store.getState().ground.accordData.data)
+          ).then((res) => {
+            setGroundData(res.payload)
+            markerDetail(res.payload.id)
+            dispatch(mapData({}))
+          })
+        }
+      }
+    }
     mapscript()
   }, [markerData, groundData, center])
 

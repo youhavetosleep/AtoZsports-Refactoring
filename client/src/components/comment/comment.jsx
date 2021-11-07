@@ -12,12 +12,19 @@ const Comment = ({ groundData, groundSelect }) => {
   const [content, setContent] = useState([])
   const [score, setScore] = useState(5)
 
-  // 로그인된 유저의 데이터
-  const userInfo = store.getState().user
-  const token = userInfo.loginSuccess.accessToken
-  const nickname = userInfo.loginSuccess.userData.nickname
-  const userId = userInfo.loginSuccess.userData.id
+  // 로그인 안한 회원의 경우엔 review page에서 마커를 클릭할 때 token이 없기 때문에 오류가 뜬다
+  // 그럼 app.js에서 props로 로그인 데이터를 넘겨줘야하는 걸까?
 
+  // 로그인된 유저의 데이터 && 비회원 구분
+  const userInfo = store.getState().user.loginSuccess
+  let token =''
+  let nickname =''
+  let userId =''
+  if (userInfo) {
+    token = userInfo.accessToken
+    nickname = userInfo.userData.nickname
+    userId = userInfo.userData.id
+  }
   // 페이지네이션
   // 데이터베이스에 등록되어 있는 운동장의 총 리뷰 갯수를 5로 나눠 댓글 아래 페이지네이션 숫자(1, 2, 3 ....) 구현!
   // currentpage가 늘어날 때마다 (ex. 1-> 2) 서버에 요청을 보내면 기존(ex. 1)에 있던 5개의 데이터는 지워지고 새로(ex. 2) 요청 받은 5개의 리뷰가 상태에 채워짐
@@ -56,8 +63,8 @@ const Comment = ({ groundData, groundSelect }) => {
     )
   }
 
-  // 숫자 버튼을 누를 때마다(currentPage가 바뀔 때마다) 숫자에 맞는 리뷰들을 가져오기 위해 요청을 보내고, 
-  // 글쓰기 버튼을 누르면 리뷰의 총 수(totalComment)도 달라지기 때문에 다시 요청을 보내야 한다. 
+  // 숫자 버튼을 누를 때마다(currentPage가 바뀔 때마다) 숫자에 맞는 리뷰들을 가져오기 위해 요청을 보내고,
+  // 글쓰기 버튼을 누르면 리뷰의 총 수(totalComment)도 달라지기 때문에 다시 요청을 보내야 한다.
   useEffect(() => {
     setContent([])
     dispatch(getCommentData(groundSelect, currentPage)).then((res) => {

@@ -1,4 +1,4 @@
-import { GROUND_DATA, COMMENT_DATA, MAP_DATA } from './types'
+import { GROUND_DATA, COMMENT_DATA, MAP_DATA,ACCORD_DATA } from './types'
 import instance from '../api'
 
 export async function getGroundData(region1, region2) {
@@ -15,12 +15,11 @@ export async function getGroundData(region1, region2) {
   }
 }
 
-export async function selectGroundData(groundId, token) {
+export async function selectGroundData(groundId) {
   const request = await instance
     .get(`/futsal/ground?id=${groundId}`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
       },
       withCredentials: true
     })
@@ -130,5 +129,25 @@ export async function mapData(groundData) {
   return {
     type: MAP_DATA,
     payload: info
+  }
+}
+
+export async function accordGroundData(placeName) {
+  const request = placeName
+  // await instance
+  // .post(`/futsal/ground/check`, {
+  //   placeName : placeName
+  // }, {
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   withCredentials: true
+  // })
+  // .then((res)=> res.data)
+  // .catch((err) => console.log(err))
+
+  return {
+    type : ACCORD_DATA,
+    payload: request
   }
 }
