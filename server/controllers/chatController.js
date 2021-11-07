@@ -69,12 +69,14 @@ module.exports = (io) => {
             postId: nowPostId
           }
         })
+        if(!!findLastChat) {
         await Post.update(
           {
             lastReadTime: findLastChat.dataValues.createdAt
           },
           { where: { id: nowPostId } }
         )
+        }
       }
 
       if (isMyFavorite === true) {
@@ -84,12 +86,14 @@ module.exports = (io) => {
             postId: nowPostId
           }
         })
+        if(!!findLastChat) {
         await FavoritePost.update(
           {
             lastReadTime: findLastChat.dataValues.createdAt
           },
           { where: { userId: nowUserId, postId: nowPostId } }
         )
+        }
       }
       socket.rooms.forEach((room) =>
         socket.to(room).emit('bye', socket.nickname)

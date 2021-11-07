@@ -1,9 +1,14 @@
 const dotenv = require('dotenv')
 const schedule = require('node-schedule')
 const inlineCss = require('nodemailer-juice')
-const { isAuthorized, checkRefreshToken, generateAccessToken } = require('../token/tokenController')
+const { Op } = require('sequelize')
+const {
+  isAuthorized,
+  checkRefreshToken,
+  generateAccessToken
+} = require('../token/tokenController')
 const smtpTransport = require('../../config/mailConfig')
-const { User, Post } = require('../../models')
+const { User, Post, Chat } = require('../../models')
 
 dotenv.config()
 
@@ -13,12 +18,14 @@ module.exports = {
     const accessTokenData = isAuthorized(req)
     // 복호화되지 않은 refresh 토큰 정보
     const refreshToken = req.cookies.refreshToken
-    
-    if (!accessTokenData) { // accessToken이 만료된 상황
-      if (!refreshToken) { // refreshToken마저 만료
-        return res.status(403).send({ 
+
+    if (!accessTokenData) {
+      // accessToken이 만료된 상황
+      if (!refreshToken) {
+        // refreshToken마저 만료
+        return res.status(403).send({
           data: null,
-          message: '로그인이 필요한 권한입니다.' 
+          message: '로그인이 필요한 권한입니다.'
         })
       }
       // 복호화된 리프레시 토큰 유저 정보
@@ -31,7 +38,7 @@ module.exports = {
       }
       // 토큰 정보에서 email(고유값)을 기준으로 유저 찾기
       const { email } = refreshTokenData
-      User.findOne({ where: { email }})
+      User.findOne({ where: { email } })
         .then((user) => {
           if (!user) {
             return res.status(401).send({
@@ -54,7 +61,7 @@ module.exports = {
     } else {
       // accessToken이 존재하는 상황
       const { email } = accessTokenData
-      User.findOne({ where: { email }})
+      User.findOne({ where: { email } })
         .then((user) => {
           if (user) {
             res.locals.userId = user.dataValues.id
@@ -69,11 +76,12 @@ module.exports = {
   },
   // 랜덤 비밀번호 생성
   generateRandomPassword: () => {
-    const chars =  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz!@#$%^&*"
+    const chars =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz!@#$%^&*'
     const stringLength = 8
 
     let randomString = ''
-    for(let n=0; n < stringLength; n++) {
+    for (let n = 0; n < stringLength; n++) {
       let randomNum = Math.floor(Math.random() * chars.length)
       randomString += chars.substring(randomNum, randomNum + 1)
     }
@@ -87,7 +95,11 @@ module.exports = {
     scheduleTime.setMinutes(scheduleTime.getMinutes() + 4)
     scheduleTime.setSeconds(0)
     const { id, nickname, email, verifiedKey } = user.dataValues
-    const time = scheduleTime.toISOString().split('T')[1].split('.')[0].split(':')
+    const time = scheduleTime
+      .toISOString()
+      .split('T')[1]
+      .split('.')[0]
+      .split(':')
     // 메일 전송을 위한 정보
     const domain =
       process.env.NODE_ENV === 'production'
@@ -136,10 +148,7 @@ module.exports = {
     })
     // 유효 시간이 지난 후 인증을 만료
     schedule.scheduleJob(scheduleTime, async () => {
-      await User.update(
-        { verifiedKey: '' },
-        { where : { id } }
-      )
+      await User.update({ verifiedKey: '' }, { where: { id } })
     })
   },
   // 게시글 생성, 수정 시 안내 메일 예약
@@ -157,8 +166,7 @@ module.exports = {
         await Post.findOne({
           include: [{ model: User, attributes: ['nickname', 'email'] }],
           where: { id: postId }
-        })
-        .then(async (finded) => {
+        }).then(async (finded) => {
           // 게시글이 있을 때만 메일 전송
           const findedDate = new Date(finded.dataValues.startTime)
           if (startTime.toISOString() === findedDate.toISOString()) {
@@ -209,5 +217,22 @@ module.exports = {
         console.log('해당 게시글을 찾을 수 없습니다')
       }
     })
+  },
+  findLastReadMessage: async (postId, lastReadTime) => {
+    let result
+    if (lastReadTime === null) {
+      await Chat.count({
+        where: { postId: postId }
+      }).then((count) => {
+        result = count
+      })
+    } else {
+      await Chat.count({
+        where: { postId: postId, createdAt: { [Op.gt]: lastReadTime } }
+      }).then((count) => {
+        result = count
+      })
+    }
+    return result
   }
 }
