@@ -20,8 +20,7 @@ module.exports = {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production' ? true : false,
-      path: '/',
-      sameSite: 'Lax'
+      path: '/'
     })
   },
   // 인증 확인

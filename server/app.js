@@ -50,6 +50,7 @@ const sessionOption = {
   cookie: {
     httpOnly: true,
     secure: false,
+    sameSite: false,
     maxAge: 24 * 6 * 60 * 10000,
   },
   name: 'session-cookie'
@@ -57,6 +58,7 @@ const sessionOption = {
 if (process.env.NODE_ENV === 'production') {
   sessionOption.proxy = true
   sessionOption.cookie.secure = true
+  sessionOption.cookie.sameSite = 'none'
 }
 app.use(session(sessionOption))
 
