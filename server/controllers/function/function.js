@@ -83,6 +83,7 @@ module.exports = {
   sendAuthMail: async (user) => {
     // 유효 시간을 3분으로 설정
     const scheduleTime = new Date(user.dataValues.updatedAt)
+    scheduleTime.setHours(scheduleTime.getHours() + 9)
     scheduleTime.setMinutes(scheduleTime.getMinutes() + 4)
     scheduleTime.setSeconds(0)
     const { id, nickname, email, verifiedKey } = user.dataValues
@@ -115,6 +116,7 @@ module.exports = {
         <h1>AtoZ sports</h1><br />
         <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p>
         <br />
+        ${scheduleTime}
         <p><span>${time[0]}시 ${time[1]}분</span> 전에 아래의 버튼을 클릭하여 이메일 인증을 완료해주세요.</p>
         <br />
         <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>

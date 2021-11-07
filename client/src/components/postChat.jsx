@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
+import dotenv from 'dotenv'
 import store from '../store/store'
 
-const socket = io.connect('http://localhost:80')
+dotenv.config()
+
+const domain = process.env.REACT_APP_API_URL || 'http://localhost:80'
+const socket = io.connect(domain)
 
 const PostChat = ({ postId }) => {
   let userInfo = store.getState().user
