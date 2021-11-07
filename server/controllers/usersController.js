@@ -8,7 +8,7 @@ const {
   sendAccessToken,
   sendRefreshToken
 } = require('./token/tokenController')
-const { isAuth, generateRandomPassword, sendAuthMail } = require('./function/function')
+const { isAuth, generateRandomPassword, sendAuthMail, findLastReadMessage } = require('./function/function')
 const { User, Post, Ground, FavoritePost } = require('../models')
 const smtpTransport = require('../config/mailConfig')
 
@@ -569,10 +569,11 @@ module.exports = {
         } else {
           // 작성한 게시글이 존재할 경우
           const list = await Promise.all(
-            postList.map((el) => {
-            const { id, sports, title, startTime, endTime, content, status } = el
+            postList.map(async (el) => {
+            const { id, sports, title, startTime, endTime, content, status, lastReadTime } = el
             const { placeName } = el.Ground
-            const post = { id, sports, title, startTime, endTime, placeName, content, status }
+            const notReadMessage = await findLastReadMessage(id, lastReadTime)
+            const post = { id, sports, title, startTime, endTime, placeName, content, status, notReadMessage }
             return post
           }))
           // 최신순으로 정렬
@@ -590,16 +591,19 @@ module.exports = {
     const userId = res.locals.userId
     // 로그인된 유저 정보에 join하여 FavoritePost 조회
     User.findOne({
-      include: [{ model: FavoritePost, attributes: ['postId'] }],
+      include: [{ model: FavoritePost, attributes: ['postId', 'lastReadTime'] }],
       where: { id: userId }
     }).then(async (user) => {
       // Promise를 통해 postId 각각의 Post 정보를 가져옴
+      let notReadMessageList = []
       const postList = await Promise.all(
-        user.FavoritePosts.map((el) => {
+        user.FavoritePosts.map(async (el) => {
           const post = Post.findOne({ 
             include: [{ model: Ground, attributes: ['placeName'] }],
             where: { id: el.postId } 
           })
+          const notReadMessage = await findLastReadMessage(el.postId, el.lastReadTime)
+          notReadMessageList.push(notReadMessage)
           return post
         })
       )
@@ -608,10 +612,11 @@ module.exports = {
       } else {
         // 작성한 게시글이 존재할 경우
         const list = await Promise.all(
-          postList.map((el) => {
+          postList.map((el, idx) => {
           const { id, sports, title, startTime, endTime, content, status } = el
+          const notReadMessage = notReadMessageList[idx]
           const { placeName } = el.Ground
-          const post = { id, sports, title, startTime, endTime, placeName, content, status }
+          const post = { id, sports, title, startTime, endTime, placeName, content, status, notReadMessage }
           return post
         }))
         // 최신순으로 정렬
