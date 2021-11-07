@@ -27,7 +27,7 @@ function App() {
   // 로그인 정보 저장
   let userInfo = store.getState().user
   // 왜 비밀번호를 바꾸면 loginsuccess 가 날라갈까..?
-  console.log(userInfo)
+  // console.log(userInfo)
 
   const [isLogin, setIsLogin] = useState(false)
   // 지역선택 드롭박스를 위한 상태
@@ -37,8 +37,8 @@ function App() {
 
   const [editPost, setEditPost] = useState(false)
 
-  console.log(region1)
-  console.log(region2)
+  // console.log(region1)
+  // console.log(isLogin)
 
   // 스크롤 이벤트
   // useEffect(() => {
@@ -114,6 +114,8 @@ function App() {
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              setIsLogin={setIsLogin}
+              isLogin={isLogin}
             />
           </Route>
           <Route exact path="/map">

@@ -11,7 +11,7 @@ const Navbar = () => {
     <>
       <Nav>
         <Logo>
-          <Link to="/entrance" >
+          <Link to="/" >
             <LogoImage src={logo} />
           </Link>
         </Logo>
