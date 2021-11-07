@@ -52,6 +52,10 @@ const SportsMain = styled.section`
   height: 100%;
   display: flex;
   background-color: none;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 const SportsSub = styled.div`
@@ -89,6 +93,11 @@ const Footsal = styled.div`
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+  }
   }
   .entrance_subText {
     top: 50%;
@@ -98,13 +107,23 @@ const Footsal = styled.div`
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+  }
   }
   .entrance_img {
     opacity: 0.3;
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
@@ -135,7 +154,12 @@ const Running = styled.div`
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
@@ -166,7 +190,12 @@ const BasketBall = styled.div`
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
@@ -197,7 +226,12 @@ const CommingSoon = styled.div`
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
