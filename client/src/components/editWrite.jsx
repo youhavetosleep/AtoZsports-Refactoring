@@ -10,7 +10,7 @@ import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
 import { useDispatch } from 'react-redux'
-import { writePostData } from '../_actions/post_action'
+import { editPostData } from '../_actions/post_action'
 
 const EditWrite = () => {
   const history = useHistory()
@@ -23,10 +23,8 @@ const EditWrite = () => {
   const groundRef = useRef()
   const content = useRef()
 
-
   const Token = userInfo.loginSuccess.accessToken
   const postData = userPost.postData.postsData
-  console.log(postData)
 
   const handledate = (date) => {
     let ChangeDate =
@@ -46,30 +44,35 @@ const EditWrite = () => {
       }
   },[])
 
-  const startTime = postData.startTime.slice(11, 19)
-  const endTime = postData.endTime.slice(11, 19)
+  const sliceStartData = postData.startTime.slice(0, 10)
+  const sliceStartTime = postData.startTime.slice(11, 19)
+  const sliceEndTime = postData.endTime.slice(11, 19)
+  // console.log(postData)
 
   const [startDate, setStartDate] = useState(postData.startTime)
-
   const [postTitle, setPostTitle] = useState(postData.title) // title
   const [postDivision, setPostDivision] = useState(postData.division) // division
-  const [postStartTime, setPostStartTime] = useState(startTime) // startTime
-  const [postEndTime, setPostEndTime] = useState(endTime) // endTime
+  const [postStartTime, setPostStartTime] = useState(sliceStartTime) // startTime
+  const [postEndTime, setPostEndTime] = useState(sliceEndTime) // endTime
   const sports = 'futsal' // sports
-  const [postContent, setPostContent] = useState('') // content
+  const [postContent, setPostContent] = useState(postData.content) // content
   const [postGround, setPostGround] = useState('') // ground
   const [postPhoneOpen, setphoneOpen] = useState(false) // phoneOpen
   const [postAdressName, setAdressName] = useState('') // adressName
-  const userId = userInfo.loginSuccess.userData.id
+  const userId = postData.id
+  const postStatus = postData.status
 
-//   console.log(postDivision)
+  // console.log(getPlace)
+  console.log(postStartTime)
+  console.log(postEndTime)
 
-  const [getPlace, setGetPlace] = useState(postData.placeName)
-  const [getGroundData, setGetGroundData] = useState([])
+
+  const [getPlace, setGetPlace] = useState(postData)
+  const [getGroundData, setGetGroundData] = useState({})
   const [groundData, setGroundData] = useState({})
 
   // const a = [...getGroundData, getGroundData]
-  // console.log(startDate)
+  // console.log(groundData)
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -120,24 +123,35 @@ const EditWrite = () => {
 
   // console.log(`${startDate} ${postStartTime}`)
 
+  
+  // console.log('타이틀 ====>', postTitle)
+  // console.log('모집유형 ====>', postDivision)
+  // console.log('날짜 ====>', startDate)
+  // console.log('시작시간 ====>', postStartTime)
+  // console.log('종료시간 ====>', postEndTime)
+  // console.log('요청사항 ====>',postContent)
+  // console.log('경기장 정보 ====>',groundData)
+  // console.log('폰사용 ====>',postPhoneOpen)
+
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
     dispatch(
-      writePostData(
+      editPostData(
         postTitle,
         postDivision,
         startDate,
         postStartTime,
         postEndTime,
-        sports,
+        postStatus,
         postContent,
         groundData,
         postPhoneOpen,
+        userId,
         Token
       )
     ).then((res) => {
-      // console.log(res.payload)
-      history.push(`/post/id=${postData.id}`)
+      setGroundData(groundData)
+      history.push(`/post/id=${userId}`)
     })
   }
 
@@ -150,7 +164,7 @@ const EditWrite = () => {
           <WriteTitle>
             <input
               type="text"
-              value={postData.title}
+              value={postTitle}
               className="write_postTitle"
               onChange={(e) => {
                   handleInputTitle(e)
@@ -229,7 +243,7 @@ const EditWrite = () => {
             <div className="write_etc">요청사항</div>
             <textarea
               className="write_textArea"
-              value={postData.content}
+              value={postContent}
               onChange={(e) => handleInputText(e)}
               ref={content}
             ></textarea>
@@ -247,6 +261,7 @@ const EditWrite = () => {
 const WriteContainer = styled.div`
   display: flex;
   width: 100%;
+  background-color: #fafafa;
 `
 
 const WriteIn = styled.div`

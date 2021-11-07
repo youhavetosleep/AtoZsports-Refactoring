@@ -1,18 +1,18 @@
 /*global kakao*/
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { useHistory } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { accordGroundData } from '../_actions/ground_action'
+import instance from '../api'
 
 const Map = ({ getData, searchPlace }) => {
-  const history = useHistory()
   const mapRef = useRef()
   const MenuRef = useRef()
+  const dispatch = useDispatch()
 
   const [addressName, setAddressName] = useState('')
 
   const [list, setList] = useState([])
-
-  const [selectGround, setSelectGround] = useState([])
 
   useEffect(() => {
     let markers = [], // 지도를 표시할 div
@@ -93,6 +93,30 @@ const Map = ({ getData, searchPlace }) => {
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
             getData(places[i])
+            instance
+              .post(
+                `/futsal/ground/check`,
+                {
+                  placeName: places[i].place_name
+                },
+                {
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  withCredentials: true
+                }
+              )
+              .then((res) => {
+                dispatch(accordGroundData({}))
+                dispatch(accordGroundData(res.data))
+                  .then((res) => console.log(res))
+                  .catch((err) => dispatch(accordGroundData({})))
+              })
+              .catch((err) => dispatch(accordGroundData({})))
+            // console.log(places[i].place_name)
+            // dispatch(accordGroundData(places[i].place_name))
+            //   .then((res) => console.log(res))
+            //   .catch((err) => console.log(err))
           })
 
           kakao.maps.event.addListener(marker, 'mouseout', function () {
@@ -105,6 +129,30 @@ const Map = ({ getData, searchPlace }) => {
             infowindow.close()
           }
           itemEl.onclick = function () {
+            console.log(places[i].place_name)
+            instance
+              .post(
+                `/futsal/ground/check`,
+                {
+                  placeName: places[i].place_name
+                },
+                {
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  withCredentials: true
+                }
+              )
+              .then((res) => {
+                dispatch(accordGroundData({}))
+                dispatch(accordGroundData(res.data))
+                  .then((res) => console.log(res))
+                  .catch((err) => dispatch(accordGroundData({})))
+              })
+              .catch((err) => dispatch(accordGroundData({})))
+            // dispatch(accordGroundData(places[i].place_name)).then(
+            //   (res) => console.log(res)
+            // ).catch((err) => console.log(err))
             getData(places[i])
           }
         })(marker, places[i].place_name)
@@ -118,7 +166,6 @@ const Map = ({ getData, searchPlace }) => {
       map.setBounds(bounds)
     }
 
-    // `<a href='http://localhost:3000/write'>
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
       let el = document.createElement('li'),
@@ -131,11 +178,7 @@ const Map = ({ getData, searchPlace }) => {
           places.place_name +
           '</h5>'
       itemStr += '<span>' + places.address_name + '</span>'
-      itemStr +=
-        '<form class="review">' +
-        `<a class='reviewP' href='http://localhost:3000/review/'>리뷰 (12)</a>` +
-        `<a href='http://localhost:3000/write'>글쓰기</p>` +
-        '</form>'
+      itemStr += '<form class="review">' + `<p>버튼</p>` + '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
 
@@ -219,6 +262,7 @@ const Map = ({ getData, searchPlace }) => {
       }
     }
   }, [searchPlace, addressName])
+
   return (
     <Container>
       <BackList />
@@ -255,7 +299,7 @@ const Container = styled.div`
   #placesList li {
     position: relative;
     list-style: none;
-    height: 121px;
+    height: 100px;
   }
   #placesList .item {
     border-bottom: 1px solid #888;
@@ -297,10 +341,10 @@ const Container = styled.div`
   #placesList .review {
     display: flex;
     position: absolute;
-    bottom: 7%;
+    bottom: 35%;
     right: 1%;
   }
-  #placesList .review a {
+  #placesList .review p {
     margin: 0;
     padding: 0;
     margin-right: 10px;

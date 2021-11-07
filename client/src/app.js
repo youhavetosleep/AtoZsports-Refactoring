@@ -26,16 +26,21 @@ import EditWrite from './components/editWrite'
 function App() {
   // 로그인 정보 저장
   let userInfo = store.getState().user
+  // 왜 비밀번호를 바꾸면 loginsuccess 가 날라갈까..?
+  console.log(userInfo)
 
+  const [isLogin, setIsLogin] = useState(false)
   // 지역선택 드롭박스를 위한 상태
   const [region1, setRegion1] = useState('')
   const [region2, setRegion2] = useState('')
-  const [isLogin, setIsLogin] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
 
-  // // 스크롤 이벤트
+  console.log(region1)
+  console.log(region2)
+
+  // 스크롤 이벤트
   // useEffect(() => {
   //   window.addEventListener('scroll', scrollPositionHandler)
   //   return () => {
@@ -43,19 +48,21 @@ function App() {
   //   }
   // },[])
 
-  // // // 스크롤 시 위치를 상태값에 저장하는 코드.
+  
+
+  // // 스크롤 시 위치를 상태값에 저장하는 코드.
   // const scrollPositionHandler = () => {
   //   setScrollPosition(window.scrollY || document.documentElement.scrollTop)
   // }
 
-  // // // element가 스크린 아래쪽에 있는지 확인하는 코드
+  // // element가 스크린 아래쪽에 있는지 확인하는 코드
   // const isElementUnderBottom = (elem, triggerDiff) => {
   //   const { top } = elem.getBoundingClientRect()
   //   const { innerHeight } = window
   //   return top > innerHeight + (triggerDiff || 0)
   // }
 
-  // // 스크롤 이벤트 발생시 활성화되는 함수
+  // 스크롤 이벤트 발생시 활성화되는 함수
   // const handleScroll = () => {
   //   const elems = document.querySelectorAll('.scroll')
   //   elems.forEach((elem) => {
@@ -111,7 +118,9 @@ function App() {
           </Route>
           <Route exact path="/map">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -119,7 +128,9 @@ function App() {
           </Route>
           <Route exact path="/review">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -129,11 +140,15 @@ function App() {
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              setRegion1={setRegion1}
+              setRegion2={setRegion2}
             />
           </Route>
           <Route exact path="/matchlist">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -147,15 +162,21 @@ function App() {
           </Route>
           <Route exact path="/post/:id">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
-            <Post userInfo={userInfo} setEditPost={setEditPost} />
+            <Post 
+            userInfo={userInfo} 
+            setEditPost={setEditPost} />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -163,7 +184,9 @@ function App() {
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -177,7 +200,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -190,7 +215,9 @@ function App() {
           </Route>
           <Route exact path="/premierleague">
             {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+              <NavbarChange 
+              isLogin={isLogin} 
+              etIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}

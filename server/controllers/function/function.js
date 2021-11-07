@@ -103,7 +103,7 @@ module.exports = {
     // 메일 전송을 위한 정보
     const domain =
       process.env.NODE_ENV === 'production'
-        ? 'atozsports.link'
+        ? 'https://atozsports.link'
         : 'http://localhost:3000'
     const from = `AtoZ sports <atozsports@api.atozsports.link>`
     const mailOptions = {
@@ -128,7 +128,6 @@ module.exports = {
         <h1>AtoZ sports</h1><br />
         <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p>
         <br />
-        ${scheduleTime}
         <p><span>${time[0]}시 ${time[1]}분</span> 전에 아래의 버튼을 클릭하여 이메일 인증을 완료해주세요.</p>
         <br />
         <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>

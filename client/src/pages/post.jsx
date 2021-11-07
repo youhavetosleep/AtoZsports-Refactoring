@@ -12,6 +12,7 @@ import {
   changeStatusData
 } from '../_actions/post_action'
 import PostChat from '../components/postChat'
+import Footer from '../components/footer'
 
 const Post = ({ userInfo, setEditPost }) => {
   const token = userInfo.loginSuccess.accessToken
@@ -190,9 +191,12 @@ const Post = ({ userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
+        <PostChating>
+        {/* <PostChat postId={postId} /> */}
+        </PostChating>
         </FormWrapper>
-        <PostChat postId={postId} />
       </FormContainer>
+      {/* <Footer /> */}
     </>
   )
 }
@@ -322,6 +326,13 @@ const ContentBtn = styled.button`
     border: none;
     background-color: #840909;
   }
+`
+
+const PostChating = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0px 0px 0px;
 `
 
 export default Post

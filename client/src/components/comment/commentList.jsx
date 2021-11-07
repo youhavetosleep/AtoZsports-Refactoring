@@ -9,10 +9,20 @@ import {
 import { STAR } from '../../utils/data'
 import StarRating from '../../utils/starRating'
 
-const CommentList = ({setContent, setTotalComment, groundId, list, token, nickname }) => {
+const CommentList = ({
+  setContent,
+  setTotalComment,
+  groundId,
+  list,
+  token,
+  nickname
+}) => {
   const [content1, setContent1] = useState(list.comment)
   const [score, setScore] = useState(list.score)
   const [editMode, setEditMode] = useState('normal')
+
+  // starRating.jsx에 필요한 status
+  const [clicked, setClicked] = useState([true, true, true, true, true])
 
   const _content1 = useRef()
 
@@ -63,7 +73,11 @@ const CommentList = ({setContent, setTotalComment, groundId, list, token, nickna
             })}
           </Score>
         ) : (
-          <StarRating sendStar={sendStar} />
+          <StarRating
+            clicked={clicked}
+            setClicked={setClicked}
+            sendStar={sendStar}
+          />
         )}
 
         <Info>

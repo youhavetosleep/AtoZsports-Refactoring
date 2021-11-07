@@ -235,7 +235,7 @@ module.exports = {
               // 임시 비밀번호 공지를 위한 메일 전송
               const domain =
                 process.env.NODE_ENV === 'production'
-                  ? 'atozsports.link'
+                  ? 'https://atozsports.link'
                   : 'http://localhost:3000'
               const from = `AtoZ sports <atozsports@api.atozsports.link>`
               const mailOptions = {
