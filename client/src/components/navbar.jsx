@@ -1,119 +1,282 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from '../image/subLogo.png'
 import LoginModal from '../modal/loginModal'
 
 const Navbar = () => {
+  const history = useHistory()
+
   const [loginOpen, setLoginOpen] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
+
+  const handleNavClose = () => {
+    setNavOpen(false)
+  }
+  const handleNavOpen = () => {
+    setNavOpen(true)
+    console.log(navOpen)
+  }
+
+  const clickLogo = () => {
+    history.push('/')
+  }
 
   return (
     <>
-      <Nav>
-        <Logo>
-          <Link to="/" >
-            <LogoImage src={logo} />
-          </Link>
-        </Logo>
-        <Menu>
-        <Link to="/futsal" className="nav_home" style={{textDecoration: 'none'}}>
-            Home
-          </Link>
-          <Link to="/matchlist" className="nav_matchlist" style={{textDecoration: 'none'}}>
-            Match
-          </Link>
-          <Link to="/map" className="nav_map" style={{textDecoration: 'none'}}>
-            Map
-          </Link>
-          <span className="nav_login" onClick={() => setLoginOpen(true)}>
-            Login
-          </span>
-          <Link to="/signup" className="nav_signup" style={{textDecoration: 'none'}}>
-            Signup
-          </Link>
-        </Menu>
-        {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
-      </Nav>
+      <NavBarContainer>
+        <NavbarIn>
+          {navOpen ? (
+          <div className='navHam'>
+            <ul className="navBtns">
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/futsal')
+                  setNavOpen(false)
+                }}
+              >
+                Home
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/matchlist')
+                  setNavOpen(false)
+                }}
+              >
+                Match
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/map')
+                  setNavOpen(false)
+                }}
+              >
+                Map
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/futsal')
+                  setNavOpen(false)
+                }}
+              >
+                Login
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/signup')
+                  setNavOpen(false)
+                }}
+              >
+                Signup
+              </li>
+            </ul>
+            <span className="closeBtn" onClick={handleNavClose}>
+              <i className="fas fa-times"></i>
+            </span>
+          </div>
+          ) : (
+            <div className='navTop'>
+            <ul className="navBtns">
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/futsal')
+                  setNavOpen(false)
+                }}
+              >
+                Home
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/matchlist')
+                  setNavOpen(false)
+                }}
+              >
+                Match
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/map')
+                  setNavOpen(false)
+                }}
+              >
+                Map
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/futsal')
+                  setNavOpen(false)
+                }}
+              >
+                Login
+              </li>
+              <li
+                className="navBtn"
+                onClick={() => {
+                  history.push('/signup')
+                  setNavOpen(false)
+                }}
+              >
+                Signup
+              </li>
+            </ul>
+          </div>
+          )}
+          <NavLogo>
+          <span className="moreOpt" onClick={handleNavOpen}>
+              <i className="fas fa-bars"></i>
+            </span>
+            <img
+              className="navLogoImg"
+              src={logo}
+              alt="logo"
+              onClick={clickLogo}
+            />
+          </NavLogo>
+        </NavbarIn>
+      </NavBarContainer>
     </>
   )
 }
 
-const Nav = styled.div`
-  background-color: #fafafa;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+const NavBarContainer = styled.section`
   width: 100%;
   height: 60px;
+  background-color: #fafafa;
+  /* position: fixed; */
+  top: 0;
+  z-index: 10;
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+  }
+`
+
+const NavbarIn = styled.div`
+  width: 100%;
+  max-width: Container;
+  margin: 0 auto;
+
+  .navBtns {
+    position: absolute;
+    list-style: none;
+    color: rgb(53, 53, 53);
+    display: flex;
+    right: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 5rem;
+  }
+
+  .navBtn {
+    display: inline-block;
+    width: auto;
+    margin: 2em 2rem 0rem 0.8rem;
+    text-align: right;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    white-space: nowrap;
+    :hover {
+      color: #890909;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .navBtns {
+      all: unset;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 3rem;
+      row-gap: 1.5rem;
+      text-align: center;
+    }
+    .navBtn {
+      text-align: center;
+      :hover {
+        font-weight: bold;
+        color: #890909;
+      }
+    }
+    .navHam {
+      all: unset;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 19rem;
+      height: 25rem;
+      background-color: rgb(251, 251, 251);
+      opacity: 0.95;
+      /* border-right: 1px solid rgb(238, 238, 238); */
+      box-shadow: 5px 0 15px rgba(83, 83, 83, 0.15);
+      transition: 1.2s;
+      border-radius: 15px;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+    }
+    .navTop {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 19rem;
+      height: 25rem;
+      background-color: rgb(251, 251, 251);
+      opacity: 0.95;
+      box-shadow: 5px 0 15px rgba(83, 83, 83, 0.15);
+      transition: 1.2s;
+      border-radius: 15px;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+    }
+    .closeBtn {
+      all: unset;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #747474;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      transition: 0.3s;
+    }
+  }
+`
+
+const NavLogo = styled.div`
   display: flex;
   position: relative;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  z-index: 5;
-  
-`
-
-// const Menu = styled.div`
-//   margin-top: 20px;
-//   margin-right: 80px;
-//   font-size: 14px;
-//   text-decoration: none;
-// `
-
-const Menu = styled.div`
+  .moreOpt {
+    display: none;
+  }
+  .navLogoImg {
   position: absolute;
-  top: 50%;
-  right: 20vw;
-  font-size: 1rem;
-  z-index: 2;
-  .nav_home {
-    color: #353535;
-    :hover {
-      color: #840909;
-    }
-  }
-  .nav_matchlist {
-    margin-left: 30%;
-    color: #353535;
-    :hover {
-      color: #840909;
-    }
-  }
-  .nav_map {
-    margin-left: 30%;
-    color: #353535;
-    :hover {
-      color: #840909;
-    }
-  }
-  .nav_login {
-    margin-left: 30%;
-    color: #353535;
-    :hover {
-      color: #840909;
-      cursor: pointer;
-    }
-  }
-  .nav_signup {
-    margin-left: 30%;
-    color: #353535;
-    :hover {
-      color: #840909;
-    }
-  }
-`
-
-const Logo = styled.div`
-  position: absolute;
-  top: 0%;
-  left: 48%;
-`
-
-const LogoImage = styled.img`
-  width: 60px;
+  top: 0;
   height: 60px;
-  margin-top: 2px;
+  transition: 0.3s;
+  cursor: pointer;
+  }
+  @media screen and (max-width: 767px) {
+    .moreOpt {
+      text-align: center;
+      all: unset;
+      cursor: pointer;
+      position: absolute;
+      color: black;
+      top: 1.45rem;
+      left: 1.45rem;
+      font-size: 1.3rem;
+    }
+  }
 `
 
 export default Navbar
