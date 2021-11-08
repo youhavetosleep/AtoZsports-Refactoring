@@ -244,17 +244,26 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
+  @media screen and (max-width: 767px) {
+   /* height: 100vh; */
+  }
   
   #placesList li {
     position: relative;
     list-style: none;
     height: 90px;
+    @media screen and (max-width: 767px) {
+      height: 70px;
+  }
   }
   #placesList .item {
     border-bottom: 1px solid #888;
     overflow: hidden;
     cursor: pointer;
     min-height: 65px;
+    @media screen and (max-width: 767px) {
+      min-height: 30px;
+  }
     :hover {
       background-color: #f4f4f4;
     }
@@ -262,16 +271,22 @@ const Container = styled.div`
   #placesList .item span {
     display: block;
     margin-top: 10px;
+    
   }
+  // 지도 주소
   #placesList .item h5,
   #placesList .item .info {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     font-size: 12px;
+    
   }
   #placesList .item .info {
     padding: 30px 0 10px 55px;
+    @media screen and (max-width: 767px) {
+      padding: 20px 0 10px 10px;
+  }
   }
   #placesList .item h5 {
     font-size: 15px;
@@ -284,30 +299,11 @@ const Container = styled.div`
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png')
       no-repeat;
   }
-  #placesList .info .tel {
-    color: #009900;
-  }
   #placesList .review {
     display: flex;
     position: absolute;
     bottom: 10%;
     right: 1%;
-  }
-  #placesList .review a {
-    margin: 0;
-    padding: 0;
-    margin-right: 13px;
-    border: 1px solid #cecece;
-    padding: 5px 5px 2px 5px;
-    border-radius: 25px;
-    text-align: center;
-    width: 50px;
-    text-decoration: none;
-    color: black;
-    :hover {
-      background-color: #840909;
-      color: white;
-    }
   }
   #placesList .item .markerbg {
     float: left;
@@ -317,6 +313,9 @@ const Container = styled.div`
     margin: 30px 0 0 10px;
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png')
       no-repeat;
+      @media screen and (max-width: 767px) {
+    display: none;
+  }
   }
   #placesList .item .marker_1 {
     background-position: 0 -10px;
@@ -399,6 +398,13 @@ const MapView = styled.div`
   border-radius: 12px;
   top: -40px;
   right: 0;
+  @media screen and (max-width: 767px) {
+    left: 0px;
+    width: 300px;
+    margin: 100px 0px 0px 0px;
+    border-radius: 5px;
+    justify-content: left;
+  }
 `
 
 const MenuWrap = styled.div`
@@ -414,6 +420,13 @@ const MenuWrap = styled.div`
   font-size: 12px;
   border-radius: 10px;
   z-index: 2;
+  @media screen and (max-width: 767px) {
+    width: 300px;
+    top: 520px;
+    left: 40px;
+    height: 190px;
+  }
+  
 `
 
 // const SearchLine = styled.div`
@@ -429,6 +442,9 @@ const List = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 767px) {
+    height: 0px;
+  }
 `
 
 const ListLine = styled.div`
@@ -437,6 +453,9 @@ const ListLine = styled.div`
   left: 0;
   width: 100%;
   border: 1px solid #5c5c5c;
+  @media screen and (max-width: 767px) {
+    top: 0px;
+  }
 `
 
 const ListTitle = styled.h1`
@@ -448,6 +467,9 @@ top: 70%;
   background-color: white;
   text-align: center;
   color: #5c5c5c;
+  @media screen and (max-width: 767px) {
+    top: -5px;
+  }
 `
 
 export default WriteContentsSearch

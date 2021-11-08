@@ -20,10 +20,9 @@ const Write = () => {
 
   // map page에서 경기잡기 버튼 누를 때 리덕스에 상태가 저장되고
   // 저장된 경기장의 이름을 가져오기 위한 getState
-  let mapData =store.getState().ground
+  let mapData = store.getState().ground
 
   const Token = userInfo.loginSuccess.accessToken
-  
 
   const handledate = (date) => {
     let ChangeDate =
@@ -34,18 +33,18 @@ const Write = () => {
       ('0' + date.getDate()).slice(-2)
     setStartDate(ChangeDate)
   }
-  
+
   const [startDate, setStartDate] = useState(new Date())
 
-  const [postTitle, setPostTitle] = useState('')             // title
-  const [postDivision, setPostDivision] = useState('')       // division
-  const [postStartTime, setPostStartTime] = useState('')     // startTime
-  const [postEndTime, setPostEndTime] = useState('')         // endTime
-  const sports = 'futsal'                                    // sports
-  const [postContent, setPostContent] = useState('')         // content
-  const [postGround, setPostGround] = useState('')           // ground
-  const [postPhoneOpen, setphoneOpen] = useState(false)      // phoneOpen
-  const [postAdressName, setAdressName] = useState('')       // adressName
+  const [postTitle, setPostTitle] = useState('') // title
+  const [postDivision, setPostDivision] = useState('') // division
+  const [postStartTime, setPostStartTime] = useState('') // startTime
+  const [postEndTime, setPostEndTime] = useState('') // endTime
+  const sports = 'futsal' // sports
+  const [postContent, setPostContent] = useState('') // content
+  const [postGround, setPostGround] = useState('') // ground
+  const [postPhoneOpen, setphoneOpen] = useState(false) // phoneOpen
+  const [postAdressName, setAdressName] = useState('') // adressName
   const userId = userInfo.loginSuccess.userData.id
 
   const [getPlace, setGetPlace] = useState('')
@@ -100,25 +99,26 @@ const Write = () => {
       latitude: getPlace.y,
       placeUrl: getPlace.place_url
     })
-  },[getPlace])
+  }, [getPlace])
 
-  // console.log(`${startDate} ${postStartTime}`) 
+  // console.log(`${startDate} ${postStartTime}`)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
-    dispatch(writePostData(
-      postTitle, 
-      postDivision, 
-      startDate,
-      postStartTime, 
-      postEndTime, 
-      sports, 
-      postContent,
-      groundData,
-      postPhoneOpen,
-      Token
-    ))
-    .then((res) => {
+    dispatch(
+      writePostData(
+        postTitle,
+        postDivision,
+        startDate,
+        postStartTime,
+        postEndTime,
+        sports,
+        postContent,
+        groundData,
+        postPhoneOpen,
+        Token
+      )
+    ).then((res) => {
       // console.log(res.payload)
       history.push(`/post/id=${res.payload.id}`)
     })
@@ -128,22 +128,24 @@ const Write = () => {
     <>
       <GlobalStyle />
       <WriteContainer>
-          <WriteIn>
+        <WriteIn>
           <div className="write_title">게시글 작성</div>
           <WriteTitle>
-            <input 
-            type='text' 
-            placeholder='게시글 제목을 입력해 주세요'
-            className='write_postTitle' 
-            onChange={(e) => {handleInputTitle(e)}}
+            <input
+              type="text"
+              placeholder="게시글 제목을 입력해 주세요"
+              className="write_postTitle"
+              onChange={(e) => {
+                handleInputTitle(e)
+              }}
             />
           </WriteTitle>
           <WriteMap>
-            <WriteContentsMap 
-            getPlace={getPlace} 
-            getData={getData} 
-            setGetGroundData={setGetGroundData}
-            getGroundData={getGroundData}
+            <WriteContentsMap
+              getPlace={getPlace}
+              getData={getData}
+              setGetGroundData={setGetGroundData}
+              getGroundData={getGroundData}
             />
           </WriteMap>
           <WritePlace>
@@ -212,10 +214,9 @@ const Write = () => {
               onChange={(e) => handleInputText(e)}
             ></textarea>
           </WriteEtc>
-          <div 
-          className="write_send"
-          onClick={handelSendPost}
-          >등록하기</div>
+          <div className="write_send" onClick={handelSendPost}>
+            등록하기
+          </div>
         </WriteIn>
       </WriteContainer>
       <Footer />
@@ -238,6 +239,12 @@ const WriteIn = styled.div`
     font-size: 2rem;
     font-weight: bold;
     margin: 80px 0px 20px 0px;
+    @media screen and (max-width: 767px) {
+      display: flex;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 30px 0px 20px 0px;
+    }
   }
   .write_send {
     display: flex;
@@ -252,21 +259,27 @@ const WriteIn = styled.div`
 `
 
 const WriteTitle = styled.div`
-display: flex;
-justify-content: center;
-.write_postTitle {
-  max-width: 800px;
-  width: 780px;
-  height: 50px;
-  font-size: 1.6rem;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  background-color: #fafafa;
-  :focus {
-    outline: none;
+  display: flex;
+  justify-content: center;
+  .write_postTitle {
+    max-width: 800px;
+    width: 780px;
+    height: 50px;
+    font-size: 1.6rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: #fafafa;
+    :focus {
+      outline: none;
+    }
+    @media screen and (max-width: 767px) {
+      max-width: 375px;
+      width: 300px;
+      height: 30px;
+      font-size: 1rem;
+    }
   }
-}
 `
 
 const WriteMap = styled.div`
@@ -276,6 +289,9 @@ const WriteMap = styled.div`
   margin: 0px auto 0px auto;
   z-index: 1;
   /* height: 100px; */
+  @media screen and (max-width: 767px) {
+    /* width: 1vw; */
+  }
 `
 
 const WritePlace = styled.div`
@@ -287,6 +303,10 @@ const WritePlace = styled.div`
   .write_palce {
     display: flex;
     font-size: 1.3rem;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      margin: 170px 0px 20px 0px;
+    }
   }
   .write_choiceGround {
     width: 780px;
@@ -299,6 +319,13 @@ const WritePlace = styled.div`
     border-right: none;
     border-bottom: 1px solid black;
     background-color: #fafafa;
+    @media screen and (max-width: 767px) {
+      width: 290px;
+    height: 30px;
+    margin: -10px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    font-size: 1.2rem;
+    }
   }
 `
 
@@ -312,6 +339,10 @@ const WriteRequest = styled.div`
     display: flex;
     font-size: 1.3rem;
     margin: 0px 0px 0px 0px;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      margin: -20px 0px 0px 5px;
+    }
   }
   .write_btn1 {
     display: flex;
@@ -326,6 +357,13 @@ const WriteRequest = styled.div`
       color: #fafafa;
       cursor: pointer;
     }
+    @media screen and (max-width: 767px) {
+      width: 50px;
+      height: 20px;   
+      padding: 8px 44px 1px 44px;
+      margin: 10px 0px 0px 5px;
+      font-size: .9rem;
+    }
   }
   .write_btn1Click {
     display: flex;
@@ -336,6 +374,13 @@ const WriteRequest = styled.div`
     border-radius: 10px;
     font-size: 1.3rem;
     color: #fafafa;
+    @media screen and (max-width: 767px) {
+      width: 50px;
+      height: 20px;   
+      padding: 8px 44px 1px 44px;
+      margin: 10px 0px 0px 5px;
+      font-size: .9rem;
+    }
   }
   .write_btn2 {
     display: flex;
@@ -350,6 +395,13 @@ const WriteRequest = styled.div`
       color: #fafafa;
       cursor: pointer;
     }
+    @media screen and (max-width: 767px) {
+      width: 50px;
+      height: 20px;   
+      padding: 8px 44px 1px 44px;
+      margin: 10px 0px 0px 10px;
+      font-size: .9rem;
+    }
   }
   .write_btn2Click {
     display: flex;
@@ -360,7 +412,15 @@ const WriteRequest = styled.div`
     border-radius: 10px;
     font-size: 1.3rem;
     color: #fafafa;
+    @media screen and (max-width: 767px) {
+      width: 50px;
+      height: 20px;   
+      padding: 8px 44px 1px 44px;
+      margin: 10px 0px 0px 10px;
+      font-size: .9rem;
+    }
   }
+  
 `
 const RequestBtn = styled.div`
   display: flex;
@@ -376,16 +436,32 @@ const WriteDate = styled.div`
   .write_data {
     font-size: 1.3rem;
     margin-left: 10px;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      margin-top: -10px;
+    margin-left: 30px;
+    }
   }
 `
 
-const TimeWrap = styled.div``
+const TimeWrap = styled.div`
+@media screen and (max-width: 767px) {
+    width: 310px;
+    margin: 15px 0px 0px 31px;
+    }
+`
 
 const CalendarWrap = styled.div`
   display: flex;
   flex-direction: row;
   margin: 20px 0px 0px 0px;
   position: relative;
+  @media screen and (max-width: 767px) {
+    display: flex;
+  flex-direction: column;
+  margin: 10px 0px 0px 0px;
+  position: relative;
+    }
 `
 
 const DownWrap = styled.div`
@@ -395,6 +471,9 @@ const DownWrap = styled.div`
   right: 17%;
   color: #000000;
   z-index: -1;
+  @media screen and (max-width: 767px) {
+    right: 19%;
+    }
 `
 
 const WritePhoneCheck = styled.div`
@@ -404,15 +483,24 @@ const WritePhoneCheck = styled.div`
   justify-content: left;
   align-items: center;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    margin: 10px 0px 0px 50px;
+    }
   .write_phonecheck {
     font-size: 1.3rem;
     margin-right: 20px;
     margin-top: 3px;
+    @media screen and (max-width: 767px) {
+    font-size: 1rem;
+    }
   }
   .write_checkBox {
     transform: scale(1.5);
     /* color: #840909; */
     margin-right: 630px;
+    @media screen and (max-width: 767px) {
+      margin-right: 130px;
+    }
   }
 `
 
@@ -423,9 +511,16 @@ const WriteEtc = styled.div`
   justify-content: left;
   align-items: center;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    margin: 30px auto -110px auto;
+    }
   .write_etc {
     font-size: 1.3rem;
     margin-right: 710px;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      margin-right: 220px;
+    }
   }
   .write_textArea {
     margin-top: 20px;
@@ -433,6 +528,13 @@ const WriteEtc = styled.div`
     height: 200px;
     resize: none;
     font-size: 1.1rem;
+    @media screen and (max-width: 767px) {
+      width: 275px;
+    height: 200px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    }
   }
 `
 

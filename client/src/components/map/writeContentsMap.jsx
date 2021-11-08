@@ -53,6 +53,10 @@ const SearchForm = styled.form`
   left: 28px;
   margin-top: 20px;
   z-index: 3;
+  @media screen and (max-width: 767px) {
+    top: 0px;
+    left: 38px;
+  }
 `
 
 const Input = styled.input`
@@ -61,6 +65,10 @@ const Input = styled.input`
   padding: 15px 20px;
   border-radius: 10px;
   border: solid 1px #c6c6c6;
+  @media screen and (max-width: 767px) {
+    width: 258px;
+    border-radius: 5px;
+  }
 `
 
 const SearchPosition = styled.div`
