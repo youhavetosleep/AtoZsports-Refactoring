@@ -41,12 +41,15 @@ const Slider03 = styled.div`
   position: relative;
 
   .slider_img {
-    width: 100%;
     height: 100%;
     filter: brightness(70%);
     opacity: 0.85;
     background-size: cover;
     vertical-align: middle;
+  }
+  @media screen and (max-width: 767px) {
+    height: 100vh;
+    object-fit: cover;
   }
 `
 
@@ -66,6 +69,10 @@ const SliderText = styled.div`
     text-align: center;
     font-weight: bold;
     line-height: 60px;
+    @media screen and (max-width: 767px) {
+      font-size: 1.7em;
+      line-height: 30px;
+    }
   }
   .slider_subText {
     font-size: 1.2em;
@@ -74,6 +81,10 @@ const SliderText = styled.div`
     text-align: center;
     line-height: 25px;
     font-weight: lighter;
+    @media screen and (max-width: 767px) {
+      font-size: 1em;
+      line-height: 20px;
+    }
   }
   .slider_button {
     top: 62%;

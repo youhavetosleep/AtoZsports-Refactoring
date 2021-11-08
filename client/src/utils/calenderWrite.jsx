@@ -31,6 +31,13 @@ const Dateform = styled(DatePicker)`
   :hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 767px) {
+    width: 290px;
+  height: 35px;
+  box-sizing: border-box;
+  margin: 0px 20px 0px 30px;
+  padding: 20px 0px 20px 10px;
+    }
 `
 
 export default CalendarWrite

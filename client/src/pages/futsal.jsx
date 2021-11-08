@@ -268,7 +268,7 @@ const FutsalSliderSection = styled.section`
     color: #fafafa;
   }
   @media screen and (max-width: 767px) {
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
   }
 `
@@ -278,6 +278,9 @@ const FutsalBackMapSection = styled.section`
   display: flex;
   align-items: center;
   margin: 40px auto 60px;
+  @media screen and (max-width: 767px) {
+    margin: 40px auto -40px 0px;
+  }
 `
 
 const BackPage = styled.div`
@@ -294,11 +297,20 @@ const BackPage = styled.div`
     color: #747474;
     position: absolute;
     bottom: 18px;
+    @media screen and (max-width: 767px) {
+    display: none;
+  }
   }
   .backPage {
     top: 0px;
     width: 90%;
     height: 90%;
+  }
+  @media screen and (max-width: 767px) {
+    /* width: 100vw; */
+    margin-top: -84px;
+    width: 10vw;
+    height: 5.7vh;
   }
 `
 
@@ -310,10 +322,18 @@ const GotoMap = styled.div`
   padding: 0px 10px 0px 0px;
   /* transition: all 0.5s; */
   position: relative;
+
   .mapImage {
     opacity: 0.9;
     filter: brightness(75%);
     border-radius: 5px;
+        @media screen and (max-width: 767px) {
+    /* width: 100vw; */
+    
+    width: 73vw;
+    height: 12vh;
+    object-fit: cover;
+  }
   }
   .go_to_mapText {
     display: flex;
@@ -322,6 +342,14 @@ const GotoMap = styled.div`
     position: absolute;
     right: -30px;
     bottom: 60px;
+    @media screen and (max-width: 767px) {
+      font-size: 1.1rem;
+      color: #fafafa;
+      position: absolute;
+      left: 80px;
+      top: 48px;
+  }
+    
   }
   .go_to_map {
     font-size: 1.3em;
@@ -329,7 +357,13 @@ const GotoMap = styled.div`
     position: absolute;
     right: -30px;
     bottom: 15px;
+
   }
+  @media screen and (max-width: 767px) {
+    margin-top: -20px;
+    margin-left: 20px;
+  }
+
 `
 
 const FutsalMatchSoonSection = styled.section`
@@ -340,6 +374,10 @@ const FutsalMatchSoonSection = styled.section`
   border-bottom: 1px solid #c4c4c4;
   padding: 60px 0px 50px 0px;
   margin: auto;
+  @media screen and (max-width: 767px) {
+    /* height: 100vh; */
+    padding: 20px 0px 15px 0px;
+  }
 `
 
 const MatchSoonTitle = styled.div`
@@ -348,6 +386,9 @@ const MatchSoonTitle = styled.div`
   margin-bottom: 20px;
   .matchSoon_title {
     font-size: 3rem;
+    @media screen and (max-width: 767px) {
+      font-size: 2rem;
+  }
   }
 `
 
@@ -358,6 +399,11 @@ const MatchSoonFilter = styled.div`
   align-items: center;
   margin-bottom: 20px;
   font-size: 1.2rem;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+  }
   .setbold {
     font-weight: bolder;
   }
@@ -367,6 +413,9 @@ const MatchSoonFilter = styled.div`
     position: flex;
     text-align: left;
     top: 100px;
+    @media screen and (max-width: 767px) {
+    margin-bottom: 10px;
+  }
 
     .first {
       margin-right: 20px;
@@ -394,12 +443,26 @@ const MatchSoonList = styled.div`
     row-gap: 20px;
     column-gap: 24px;
     /* margin-bottom: 20px; */
+    @media screen and (max-width: 767px) {
+      display: grid;
+    grid-template-columns: repeat(1, 360px);
+    row-gap: 0px;
+    column-gap: 24px;
+    margin-left: 17px;
+  }
   }
   .notAll_MatchCard {
     display: grid;
     grid-template-columns: repeat(3, 360px);
     row-gap: 20px;
     column-gap: 24px;
+    @media screen and (max-width: 767px) {
+      display: grid;
+    grid-template-columns: repeat(1, 360px);
+    row-gap: 0px;
+    column-gap: 24px;
+    margin-left: 17px;
+  }
   }
   .moreView {
     display: grid;
@@ -453,12 +516,30 @@ const StadiumReview = styled.div`
   height: 290px;
   padding: 0px 0px 30px 0px;
   border-radius: 5px;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    /* justify-content: l; */
+    align-items: center;
+    position: absolute;
+    width: 740px;
+    height: 100px;
+    left: 0px;
+    margin-top: -25px;
+  }
+ 
   .stadiumReview1 {
     position: absolute;
     font-size: 2.5em;
     color: #fafafa;
     top: 40px;
     left: 30px;
+    @media screen and (max-width: 767px) {
+    display: flex;
+    font-size: 1.8rem;
+    position: absolute;
+    top: 10px;
+    left: 35px;
+  }
   }
   .stadiumReview2 {
     position: absolute;
@@ -467,6 +548,13 @@ const StadiumReview = styled.div`
     top: 90px;
     left: 30px;
     font-weight: lighter;
+    @media screen and (max-width: 767px) {
+    display: flex;
+    font-size: 1rem;
+    position: absolute;
+    top: 45px;
+    left: 35px;
+  }
   }
   .stadiumReview3 {
     position: absolute;
@@ -474,6 +562,9 @@ const StadiumReview = styled.div`
     color: #fafafa;
     right: 70px;
     bottom: 20px;
+    @media screen and (max-width: 767px) {
+    display: none;
+  }
   }
   .stadiumImg {
     width: 800px;
@@ -481,6 +572,16 @@ const StadiumReview = styled.div`
     border-radius: 5px;
     opacity: 0.9;
     filter: brightness(60%);
+    @media screen and (max-width: 767px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    width: 338px;
+    height: 20vh;
+    object-fit: cover;
+  }
   }
 `
 
@@ -494,12 +595,29 @@ const PremierLeague = styled.div`
   padding: 37px 28px 4px 10px;
   margin-top: 30px;
   border-radius: 5px;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 21px;
+    top: 75px;
+    width: 296px;
+    height: 8vh;
+    object-fit: cover;
+  }
   .premierLeagueImg {
     display: flex;
     position: absolute;
     width: 400px;
     height: 130px;
     top: 0px;
+    @media screen and (max-width: 767px) {
+    left: 15px;
+    top: 3px;
+    width: 300px;
+    height: 90px;
+  }
   }
   .premierLeagueText {
     position: absolute;
@@ -507,6 +625,9 @@ const PremierLeague = styled.div`
     color: #373737;
     right: 70px;
     bottom: 20px;
+    @media screen and (max-width: 767px) {
+      display: none;
+  }
   }
 `
 
@@ -519,14 +640,32 @@ const Notice = styled.div`
   padding: 20px;
   margin-left: 30px;
   border-radius: 5px;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    position: relative;
+  margin-top: 215px;
+  margin-left: 3px;
+  margin-bottom: 0px;
+  width: 292px;
+  height: 180px;
+  }
+  
   .notice {
     font-size: 1.2rem;
     font-weight: bold;
+    @media screen and (max-width: 767px) {
+    display: flex;
+    /* position: absolute; */
+    justify-content: left;
+    align-items: center;
+    
+  }
   }
   .notice_list {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
+   
     .notice_title {
       color: #840909;
     }
