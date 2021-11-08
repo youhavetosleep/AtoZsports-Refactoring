@@ -226,7 +226,7 @@ const Signup = ({ region1, region2, handleRegion1, handleRegion2 }) => {
   useEffect(() => {
     setHomeground(`${region1} ${region2}`)
   }, [region2])
-  
+
   return (
     <>
       <TitleWrapper>
@@ -368,15 +368,18 @@ const TitleWrapper = styled.div`
   height: 350px;
   position: relative;
   background-color: #535353;
+  @media screen and (max-width: 767px) {
+    height: 150px;
+  }
 `
 
 const TitleImg = styled.img`
   opacity: 50%;
   width: 100%;
   height: 100%;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 100%;
-    }
+  }
 `
 
 const TitleText = styled.h1`
@@ -388,6 +391,9 @@ const TitleText = styled.h1`
   color: #ffffff;
   font-size: 50px;
   font-weight: bold;
+  @media screen and (max-width: 767px) {
+    font-size: 30px;
+  }
 `
 
 const FormContainer = styled.div`
@@ -407,9 +413,12 @@ const FormWrapper = styled.div`
   padding: 50px;
   box-sizing: border-box;
   border-radius: 5px;
-  @media screen and (max-width:767px) {
-    width: 375px;
-    }
+  @media screen and (max-width: 767px) {
+    top: 40%;
+    width: calc(100% - 40px);
+    padding: 20px 15px;
+    height: auto;
+  }
 `
 
 const Element = styled.div`
@@ -457,6 +466,11 @@ const Check = styled.div`
   right: 0;
   font-size: 13px;
   color: #840909;
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+    bottom: -80%;
+    right: 1%;
+  }
 `
 
 const PassCheck = styled.div`
@@ -475,6 +489,10 @@ const DropWrapper = styled.div`
 const SignWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 767px) {
+    position: relative;
+    height: 30px;
+  }
 `
 
 const EmailText = styled.p`
@@ -484,6 +502,12 @@ const EmailText = styled.p`
   text-align: bottom;
   font-size: 15px;
   color: #7e7e7e;
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+  }
 `
 
 const Sign = styled.button`
@@ -496,6 +520,14 @@ const Sign = styled.button`
   font-size: 25px;
   :hover {
     color: #840909;
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+    margin-top: 0;
+    position: fixed;
+    right: 10px;
+    border-bottom: solid 2px;
+    height: 30px;
   }
 `
 

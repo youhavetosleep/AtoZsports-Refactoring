@@ -138,6 +138,9 @@ const Info = styled.div`
     color: #676767;
     margin-left: 20px;
   }
+  @media screen and (max-width:767px) {
+font-size:15px;
+  }
 `
 
 const Line2 = styled.div`
@@ -147,6 +150,9 @@ const Line2 = styled.div`
 
 const Comment = styled.p`
   font-size: 20px;
+  @media screen and (max-width:767px) {
+font-size:15px;
+  }
 `
 
 const BtnWrap = styled.div`
@@ -160,6 +166,9 @@ const Edit = styled.button`
   border: none;
   background-color: #ffffff;
   border-bottom: 1px solid #5e5e5e;
+  @media screen and (max-width:767px) {
+font-size:13px;
+  }
 `
 
 const Delete = styled.button`
@@ -167,6 +176,9 @@ const Delete = styled.button`
   border: none;
   background-color: #ffffff;
   border-bottom: 1px solid #5e5e5e;
+  @media screen and (max-width:767px) {
+font-size:13px;
+  }
 `
 
 const Input = styled.input`

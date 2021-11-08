@@ -133,7 +133,6 @@ const Review = ({
   // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
   // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
   useEffect(() => {
-    console.log(store.getState().ground.mapData)
     if (store.getState().ground.mapData !== undefined) {
       const data = store.getState().ground.mapData
       data.address_name && setRegion1(data.address_name.split(' ')[0])
@@ -141,7 +140,6 @@ const Review = ({
       data.y && setLocation1(data.y)
       data.x && setLocation2(data.x)
     }
-    console.log(userInfo.loginSuccess)
     if (userInfo.loginSuccess === undefined) {
       // setRegion1('경기')
       // setRegion2('용인시')
@@ -155,7 +153,6 @@ const Review = ({
   useEffect(() => {
     // 로그인을 안하거나 사용자가 살고 있는 지역의 경기장 데이터가 없을 경우
     if (markerData.length === 0 || userInfo.loginSuccess === undefined) {
-      console.log('1번')
       dispatch(selectGroundData(1)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -167,7 +164,6 @@ const Review = ({
 
     // 로그인 후 사용자의 지역 데이터의 0번째로 등록된 경기장 정보
     if (markerData.length !== 0 && userInfo.loginSuccess) {
-      console.log('2번')
       dispatch(selectGroundData(markerData[2].id)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -178,7 +174,6 @@ const Review = ({
 
     // map페이지에서 리뷰보기 선택 후 넘어오는 조건문
     if (store.getState().ground.mapData !== undefined) {
-      console.log('3번')
       const data = store.getState().ground.mapData
       if (data.address_name !== undefined) {
         if (store.getState().ground.accordData !== undefined) {
@@ -198,9 +193,6 @@ const Review = ({
     const tick = setTimeout(() => {
       dispatch(mapData({}))
     }, 500)
-    // window.onbeforeunload = function () {
-    //   localStorage.clear()
-    // }
     return () => clearTimeout(tick)
   }, [markerData, center])
 
@@ -244,6 +236,10 @@ const TitleWrapper = styled.div`
   height: 300px;
   position: relative;
   background-color: #535353;
+  @media screen and (max-width: 767px) {
+    height: 150px;
+    width: 100%;
+  }
 `
 
 const TitleImg = styled.img`
@@ -266,19 +262,34 @@ const TitleText = styled.h1`
     font-weight: 20;
     margin-left: 5px;
     margin-top: 5px;
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
   }
 `
 
 const FormContainer = styled.div`
-  background-color: #ffffff;
+  background-color: #fafafa;
   height: 1500px;
   position: relative;
+  width: 1050px;
+  margin: 0 auto;
+  @media screen and (max-width: 767px) {
+    width: auto;
+  }
 `
 
 const RegionWrapper = styled.div`
   position: absolute;
-  top: 3.5%;
-  left: 22.4%;
+  top: 80px;
+  left: 0;
+  @media screen and (max-width: 767px) {
+    left: 9px;
+  }
 `
 
 const FormWrapper = styled.div`
@@ -287,19 +298,33 @@ const FormWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border: solid 3px #bebebe;
-  height: 1300px;
+  height: auto;
   width: 1050px;
   border-radius: 5px;
+  background-color: #ffffff;
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 20px);
+    height: auto;
+    top: 630px;
+    border: solid 1px #bebebe;
+  }
 `
 
 const MapWrap = styled.div`
   width: 1050px;
   height: 400px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 200px;
+  }
 `
 
 const ContentWrap = styled.div`
   padding: 50px 100px;
   box-sizing: border-box;
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
 `
 
 const InitText = styled.h1`

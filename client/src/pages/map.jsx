@@ -265,8 +265,7 @@ const Map = ({ getData, searchPlace }) => {
 
   return (
     <Container>
-      <MapWrap>
-      </MapWrap>
+      <MapWrap></MapWrap>
       <BackList />
       <div class="map_wrap">
         <MapView ref={mapRef} />
@@ -281,7 +280,6 @@ const Map = ({ getData, searchPlace }) => {
         <div id="pagination"></div>
       </MenuWrap>
     </Container>
-
   )
 }
 
@@ -323,12 +321,18 @@ const Container = styled.div`
     overflow: hidden;
     white-space: nowrap;
     font-size: 15px;
+    @media screen and (max-width:767px) {
+      font-size: 12px;
+  }
   }
   #placesList .item .info {
     padding: 35px 0 10px 55px;
   }
   #placesList .item h5 {
     font-size: 20px;
+    @media screen and (max-width:767px) {
+      font-size: 15px;
+  }
   }
   #placesList .info .gray {
     color: #8a8a8a;
@@ -346,16 +350,14 @@ const Container = styled.div`
     position: absolute;
     bottom: 35%;
     right: 1%;
-    top:40%;
+    top: 40%;
   }
   #placesList .review p {
     margin: 0;
     padding: 0;
     margin-right: 1px;
     font-size: 30px;
-    color : #c4c4c4;
-    /* border: 1px solid #cecece; */
-    /* padding: 5px 10px; */
+    color: #c4c4c4;
     border-radius: 25px;
     text-align: center;
     width: 60px;
@@ -433,20 +435,27 @@ const MapWrap = styled.div`
   width: 25vw;
   height: 100vh;
   position: absolute;
-  background-color : white;
+  background-color: #fafafa;
   top: 0;
   right: 1;
   overflow: hidden;
   z-index: -100px;
-  `
+  @media screen and (max-width:767px) {
+  }
+`
 
 const MapView = styled.div`
-  width: 75vw;
+  width: calc(100vw - 473px);
   height: 100vh;
   position: absolute;
   top: 0;
   right: 1;
   overflow: hidden;
+  @media screen and (max-width:767px) {
+    width: 100vw;
+    height : 200px;
+    left: 0;
+  }
 `
 
 const List = styled.div`
@@ -472,7 +481,7 @@ const ListTitle = styled.h1`
   width: 175px;
   height: 10px;
   font-size: 20px;
-  background-color: white;
+  background-color: #fafafa;
   text-align: center;
   color: #5c5c5c;
 `
@@ -491,15 +500,23 @@ const MenuWrap = styled.div`
   padding: 5px 30px;
   box-sizing: border-box;
   overflow-y: auto;
-  background: rgba(255, 255, 255);
+  background: #fafafa;
   z-index: 1;
   font-size: 12px;
   border-radius: 10px;
+  @media screen and (max-width:767px) {
+  top: 350px;
+  width: 100%;
+  bottom : 0;
+  }
 `
 
 const BackList = styled.div`
   height: 100%;
   width: 473px;
+  @media screen and (max-width:767px) {
+    width: 0;
+  }
 `
 
 export default Map
