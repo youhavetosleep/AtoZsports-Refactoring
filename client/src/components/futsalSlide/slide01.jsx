@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import futsalSliderImg from '../../image/futsal_main.jpg'
+import mfutsalImg from '../../image/running_m.jpg'
 
 const Slide01 = () => {
   return (
@@ -45,6 +46,11 @@ const Slider01 = styled.div`
     opacity: 0.85;
     background-size: cover;
     vertical-align: middle;
+  }
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    height: 90vh;
+    object-fit: cover;
   }
 `
 
