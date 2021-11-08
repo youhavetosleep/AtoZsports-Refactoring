@@ -137,6 +137,10 @@ const WriteWrap = styled.div`
   padding: 20px;
   box-sizing: border-box;
   border-bottom: 1px solid #a0a0a0;
+  @media screen and (max-width:767px) {
+    padding: 20px 10px;
+    flex-direction: column;
+  }
 `
 
 const Input = styled.input`
@@ -156,6 +160,10 @@ const Input = styled.input`
     line-height: 1.5;
     color: #b5b5b5;
   }
+  @media screen and (max-width:767px) {
+    margin-top: 10px;
+    width: auto;
+  }
 `
 
 const CommentBtn = styled.button`
@@ -167,6 +175,12 @@ const CommentBtn = styled.button`
   background-color: #ffffff;
   border-radius: 10px;
   border: solid 2px #d2d2d2;
+  @media screen and (max-width:767px) {
+    margin-top: 10px;
+    width: auto;
+    text-align :right;
+    border: none;
+  }
 `
 
 const Pagination = styled.ul`
