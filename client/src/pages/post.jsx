@@ -15,7 +15,14 @@ import PostChat from '../components/postChat'
 import Footer from '../components/footer'
 
 const Post = ({ userInfo, setEditPost }) => {
-  const token = userInfo.loginSuccess.accessToken
+  
+  // const userInfo = store.getState().user.loginSuccess
+  let token =''
+  if (userInfo.loginSuccess) {
+  token = userInfo.loginSuccess.accessToken
+  }
+
+
   const history = useHistory()
   const dispatch = useDispatch()
   const postId = history.location.pathname.split('=')[1]
@@ -260,6 +267,7 @@ const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
   margin-top: 10px;
+  font-size: 23px;
   color: #929292;
   .delete {
   }
@@ -312,8 +320,8 @@ const BtnWrap = styled.div`
 
 const ContentBtn = styled.button`
   width: 70px;
-  border: 1px solid #d1d1d1;
-  color: #d1d1d1;
+  border: 1px solid #727272;
+  color: #727272;
   border-radius: 10px;
   margin-right: 15px;
   margin-top: 10px;

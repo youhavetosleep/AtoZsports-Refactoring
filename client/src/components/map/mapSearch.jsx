@@ -13,7 +13,7 @@ const MapSearch = () => {
   const dispatch = useDispatch()
 
   const [inputText, setInputText] = useState('')
-  const [place, setPlace] = useState('안양 풋살')
+  const [place, setPlace] = useState('')
 
   const [getPlace, setGetPlace] = useState('')
 
@@ -39,6 +39,7 @@ const MapSearch = () => {
     // 아래 동작 수행
     // 이렇게 되면 한 템포 늦게 반영되는 것이 해결  
     const tick = setTimeout(() => {
+      console.log(getPlace)
       if (getPlace !== '') {
         if (Object.keys(store.getState().ground.accordData).length !== 0) {
           Swal.fire({
@@ -109,7 +110,8 @@ const Wrapper = styled.div`
 `
 
 const SearchForm = styled.form`
-  margin-left: 45px;
+bottom: 93%;
+  margin-left: 27px;
   position: absolute;
   left: -23.5%;
   margin-top: 20px;
@@ -117,21 +119,26 @@ const SearchForm = styled.form`
 `
 
 const Input = styled.input`
-  width: 343px;
-  padding: 15px 20px;
+  width: 400px;
+  padding: 20px 25px;
+  box-sizing: border-box;
   border-radius: 10px;
+  font-size : 17px;
   border: solid 1px #c6c6c6;
+  ::placeholder{
+    font-size : 17px;
+  }
 `
 
 const SearchPosition = styled.div`
   position: relative;
-  z-index: 20;
+  z-index: 1;
 `
 
 const SearchBtn = styled.button`
   position: absolute;
   border: none;
-  top: 5%;
+  top: 12%;
   right: 2%;
   width: 50px;
   height: 50px;
