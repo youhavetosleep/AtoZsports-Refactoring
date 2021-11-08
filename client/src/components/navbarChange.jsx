@@ -44,6 +44,9 @@ const NavbarChange = ({ isLogin, setIsLogin }) => {
           </Link>
           <Link
             to="/map"
+            onClick={() => {
+              window.location.reload()
+            }}
             className="nav_map"
             style={{ textDecoration: 'none' }}
           >
