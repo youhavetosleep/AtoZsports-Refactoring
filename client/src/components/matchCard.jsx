@@ -1,44 +1,88 @@
 import React from 'react'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import { useHistory } from 'react-router'
 
-function MatchCard({ member }) {
+function MatchCard({ member, isLogin}) {
   const history = useHistory()
 
   const matchInfoHadler = () => {
+    if(!isLogin){
+      Swal.fire({
+        text: '로그인이 필요한 서비스 입니다!',
+        icon: 'warning',
+        confirmButtonColor: '#d2d2d2',
+        confirmButtonText: '확인'
+      })
+      return
+    }else{
     history.push(`/post/id=${member.id}`)
   }
+}
+
+  // console.log(member.notReadMessage)
 
   return (
-    <>
+    <>{member.notReadMessage === undefined ? (
       <MatchCardContainer>
-        <div className="articlebox-listbox" onClick={() => matchInfoHadler()}>
+        <div className="matchCard-listbox" onClick={() => matchInfoHadler()}>
           <ul>
-            <li className="articlebox-title">{member.title}</li>
-            <li className="articlebox-date">
+            <li className="matchCard-title">{member.title}</li>
+            <li className="matchCard-date">
               {member.startTime.slice(0, 10)}&nbsp;
               {member.startTime.slice(11, 16)}&nbsp; ~ &nbsp;
               {member.endTime.slice(0, 10)}&nbsp;
               {member.endTime.slice(11, 16)}
             </li>
-            <li className="articlebox-ground">{member.placeName}</li>
-            <li className="articlebox-content">{member.content}</li>
+            <li className="matchCard-ground">{member.placeName}</li>
+            <li className="matchCard-content">{member.content}</li>
             <li></li>
           </ul>
-          <span className="articlebox-state">
+          <span className="matchCard-state">
             <span className={member.status === '모집중' ? 'progress' : 'end'}>
               {member.status}
             </span>
           </span>
         </div>
       </MatchCardContainer>
+    ) : (
+      <MatchCardContainer>
+        <div className="matchCard-listbox" onClick={() => matchInfoHadler()}>
+          <ul>
+            <li className="matchCard-title">{member.title}</li>
+            <li className=
+            {member.notReadMessage === 0 && !member.notReadMessage? 
+              "matchCard-ReadMsg"
+            :
+            "matchCard-notReadMsg"
+            }>{member.notReadMessage}</li>
+            <li className="matchCard-date">
+              {member.startTime.slice(0, 10)}&nbsp;
+              {member.startTime.slice(11, 16)}&nbsp; ~ &nbsp;
+              {member.endTime.slice(0, 10)}&nbsp;
+              {member.endTime.slice(11, 16)}
+            </li>
+            <li className="matchCard-ground">{member.placeName}</li>
+            <li className="matchCard-content">{member.content}</li>
+            <li></li>
+          </ul>
+          <div className="matchCard-sports"># {member.sports}</div>
+          <span className="matchCard-state">
+            <span className={member.status === '모집중' ? 'progress' : 'end'}>
+              {member.status}
+            </span>
+          </span>
+        </div>
+      </MatchCardContainer>
+    )}
+      
     </>
   )
 }
 
 const MatchCardContainer = styled.div`
   /* z-index: 10; */
-  .articlebox {
+  .matchCard {
     &-listbox {
       background-color: white;
       border: 1px solid #747474;
@@ -73,6 +117,34 @@ const MatchCardContainer = styled.div`
       color: #353535;
     }
 
+    &-ReadMsg {
+      position: absolute;
+      right: 110px;
+      bottom: 25px;
+      width: 20px;
+      height: 15px;
+      text-align: center;
+      font-weight: bold;
+      padding: 5px 1px 3px 2px;
+      border-radius: 15px;
+      color: #fafafa;
+      background-color: white;
+    }
+
+    &-notReadMsg {
+      position: absolute;
+      right: 110px;
+      bottom: 25px;
+      width: 20px;
+      height: 15px;
+      text-align: center;
+      font-weight: bold;
+      padding: 5px 1px 3px 2px;
+      border-radius: 15px;
+      color: #fafafa;
+      background-color: #890909;
+    }
+
     &-date {
       font-size: 1rem;
       margin-bottom: 4px;
@@ -92,6 +164,14 @@ const MatchCardContainer = styled.div`
       font-size: 1.2rem;
       line-height: 1.7rem;
       color: #353535;
+    }
+    
+    &-sports {
+      position: absolute;
+      bottom: 25px;
+      left: 30px;
+      font-size: 1.3rem;
+      color: #747474;
     }
 
     &-state {
