@@ -267,6 +267,10 @@ const FutsalSliderSection = styled.section`
   .slider {
     color: #fafafa;
   }
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    height: 100vh;
+  }
 `
 
 const FutsalBackMapSection = styled.section`
