@@ -15,7 +15,12 @@ import PostChat from '../components/postChat'
 import Footer from '../components/footer'
 
 const Post = ({ userInfo, setEditPost }) => {
-  const token = userInfo.loginSuccess.accessToken
+  // 로그인 안한 유저가 post로 들어올 경우 에러 방지
+  let token = ''
+  if (userInfo.loginSuccess) {
+    token = userInfo.loginSuccess.accessToken
+  }
+
   const history = useHistory()
   const dispatch = useDispatch()
   const postId = history.location.pathname.split('=')[1]
@@ -129,7 +134,11 @@ const Post = ({ userInfo, setEditPost }) => {
       </TitleWrapper>
       <FormContainer>
         <FormWrapper>
-          <div id="map" style={{ width: '100%', height: '200px' }}></div>
+          <div
+            className="miniMap"
+            id="map"
+            style={{ width: '100%', height: '200px' }}
+          ></div>
           <Main>
             <FavorteMark className="favorite">
               {postData.isMyFavorite ? (
@@ -171,8 +180,8 @@ const Post = ({ userInfo, setEditPost }) => {
             </ContentEl>
           </ContentWrap>
           <ContentWrap className="content">
-            <ContentName>요청 사항</ContentName>
-            <ContentEl>{postData.content}</ContentEl>
+            <ContentName className="need">요청 사항</ContentName>
+            <ContentEl className="text">{postData.content}</ContentEl>
           </ContentWrap>
           <ContentWrap>
             <ContentName>전화번호</ContentName>
@@ -191,9 +200,7 @@ const Post = ({ userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-        <PostChating>
-        <PostChat postId={postId} />
-        </PostChating>
+          <PostChating>{/* <PostChat postId={postId} /> */}</PostChating>
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}
@@ -220,6 +227,13 @@ const FormWrapper = styled.div`
     height: 70px;
     padding: 30px 30px;
     border-bottom: none;
+    @media screen and (max-width: 767px) {
+      padding: 30px 20px;
+  }
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 360px;
   }
 `
 
@@ -227,6 +241,9 @@ const TitleWrapper = styled.div`
   height: 100px;
   position: relative;
   background-color: white;
+  @media screen and (max-width: 767px) {
+    height: 60px;
+  }
 `
 
 const TitleText = styled.h1`
@@ -237,11 +254,17 @@ const TitleText = styled.h1`
   margin: 0;
   font-size: 50px;
   font-weight: bold;
+  @media screen and (max-width: 767px) {
+    font-size: 30px;
+  }
 `
 
 const Main = styled.div`
   text-align: center;
-  border: 1px solid #c4c4c4;
+  border-right: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+  border-left: 1px solid #c4c4c4;
+  /* border : 1px solid #c4c4c4; */
   padding-bottom: 20px;
   .favorite {
     text-align: left;
@@ -260,8 +283,15 @@ const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
   margin-top: 10px;
+  font-size: 23px;
   color: #929292;
   .delete {
+  }
+  @media screen and (max-width: 767px) {
+    margin-top: 0;
+    font-size: 17px;
+    padding-top: 5px;
+    margin-left: 5px;
   }
 `
 
@@ -292,6 +322,10 @@ const ContentWrap = styled.div`
   border-right: 1px solid #c4c4c4;
   border-left: 1px solid #c4c4c4;
   display: flex;
+  @media screen and (max-width: 767px) {
+    position: relative;
+    padding: 20px 20px;
+  }
 `
 
 const ContentTitle = styled.h1`
@@ -300,10 +334,20 @@ const ContentTitle = styled.h1`
 
 const ContentName = styled.p`
   font-size: 15px;
-  width: 100px;
+  width: 30%;
+  line-height: 20px;
+  @media screen and (max-width: 767px) {
+    width: 22%;
+  }
 `
 
-const ContentEl = styled.p``
+const ContentEl = styled.p`
+  width: 70%;
+  line-height: 20px;
+  @media screen and (max-width: 767px) {
+    width: 78%;
+  }
+`
 
 const BtnWrap = styled.div`
   display: flex;
@@ -312,8 +356,8 @@ const BtnWrap = styled.div`
 
 const ContentBtn = styled.button`
   width: 70px;
-  border: 1px solid #d1d1d1;
-  color: #d1d1d1;
+  border: 1px solid #727272;
+  color: #727272;
   border-radius: 10px;
   margin-right: 15px;
   margin-top: 10px;

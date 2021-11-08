@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import io from 'socket.io-client'
 import dotenv from 'dotenv'
 import store from '../store/store'
-import styled from 'styled-components'
 
 dotenv.config()
 
@@ -10,9 +10,13 @@ const domain = process.env.REACT_APP_API_URL || 'http://localhost:80'
 const socket = io.connect(domain)
 
 const PostChat = ({ postId }) => {
-  let userInfo = store.getState().user
-  let userNickName = userInfo.loginSuccess.userData.nickname
-  let userId = userInfo.loginSuccess.userData.id
+  const userInfo = store.getState().user.loginSuccess
+  let userNickName = ''
+  let userId = ''
+  if (userInfo) {
+    userNickName = userInfo.loginSuccess.userData.nickname
+    userId = userInfo.loginSuccess.userData.id
+  }
 
   // 메세지, 사용자 닉네임, 게시물 id값을 저장해주자
   const [state, setState] = useState({
@@ -105,13 +109,13 @@ const PostChat = ({ postId }) => {
               label="Message"
             />
           </div>
-          <button className='chat_btn'>전 송</button>
+          <button className="chat_btn">전 송</button>
         </form>
         <div className="render-chat">
           {/* <h1>Chat log</h1> */}
           {renderChat()}
         </div>
-        </ChatContainer>
+      </ChatContainer>
     </>
   )
 }
@@ -142,7 +146,6 @@ const ChatContainer = styled.div`
     width: 580px;
     height: 25px;
     bottom: 20px;
-
   }
   .chat_btn {
     display: flex;

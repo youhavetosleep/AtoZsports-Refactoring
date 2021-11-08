@@ -25,7 +25,7 @@ const Review = ({
   handleRegion2
 }) => {
   const dispatch = useDispatch()
-  // const token = userInfo.loginSuccess.accessToken
+
   const [groundData, setGroundData] = useState([])
   const [markerData, setMarkerData] = useState([])
   const [selected, setSelected] = useState('normal')
@@ -115,6 +115,7 @@ const Review = ({
       })
       kakao.maps.event.addListener(markers, 'click', function () {
         dispatch(selectGroundData(el.id)).then((res) => {
+          // dispatch(mapData(res.payload))
           setGroundData(res.payload)
           markerDetail(res.payload.id)
         })
@@ -128,11 +129,10 @@ const Review = ({
     changeComment()
   }
 
+  // 지도를 그려주기 위한 useEffect
+  // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
+  // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
   useEffect(() => {
-    // 지도를 그려주기 위한 useEffect
-    // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
-    // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
-    //
     if (store.getState().ground.mapData !== undefined) {
       const data = store.getState().ground.mapData
       data.address_name && setRegion1(data.address_name.split(' ')[0])
@@ -140,22 +140,39 @@ const Review = ({
       data.y && setLocation1(data.y)
       data.x && setLocation2(data.x)
     }
-    // if (userInfo.loginSuccess !== undefined) {
-    //   if(userInfo.loginSuccess.userData.homeground.split(' ')[0] === region1) {
-    //     setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
-    //   }
-    //   if(userInfo.loginSuccess.userData.homeground.split(' ')[1] === region2) {
-    //     setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
-    //   }
-    // }
-    // setRegion1('')
-    // setRegion2('')
+    if (userInfo.loginSuccess === undefined) {
+      // setRegion1('경기')
+      // setRegion2('용인시')
+    }
+
     Ground()
   }, [region2])
 
   // 지도가 그려지면 해당 지역에 등록된 경기장을 보여주기 위한 useEffect
   //  map페이지에서 리뷰보기 클릭시 넘어올 때는 store.getState().ground.accordData가 있는지 없는지로 확인
   useEffect(() => {
+    // 로그인을 안하거나 사용자가 살고 있는 지역의 경기장 데이터가 없을 경우
+    if (markerData.length === 0 || userInfo.loginSuccess === undefined) {
+      dispatch(selectGroundData(1)).then((res) => {
+        setGroundData(res.payload)
+        markerDetail(res.payload.id)
+        // setMarkerData([])
+        mapscript()
+        return
+      })
+    }
+
+    // 로그인 후 사용자의 지역 데이터의 0번째로 등록된 경기장 정보
+    if (markerData.length !== 0 && userInfo.loginSuccess) {
+      dispatch(selectGroundData(markerData[2].id)).then((res) => {
+        setGroundData(res.payload)
+        markerDetail(res.payload.id)
+        mapscript()
+        return
+      })
+    }
+
+    // map페이지에서 리뷰보기 선택 후 넘어오는 조건문
     if (store.getState().ground.mapData !== undefined) {
       const data = store.getState().ground.mapData
       if (data.address_name !== undefined) {
@@ -165,13 +182,19 @@ const Review = ({
           ).then((res) => {
             setGroundData(res.payload)
             markerDetail(res.payload.id)
-            dispatch(mapData({}))
+            mapscript()
+            return
           })
         }
       }
     }
-    mapscript()
-  }, [markerData, groundData, center])
+
+    //리뷰를 보여준 뒤에 map데이터 초기화
+    const tick = setTimeout(() => {
+      dispatch(mapData({}))
+    }, 500)
+    return () => clearTimeout(tick)
+  }, [markerData, center])
 
   return (
     <>
@@ -213,6 +236,10 @@ const TitleWrapper = styled.div`
   height: 300px;
   position: relative;
   background-color: #535353;
+  @media screen and (max-width: 767px) {
+    height: 150px;
+    width: 100%;
+  }
 `
 
 const TitleImg = styled.img`
@@ -235,19 +262,34 @@ const TitleText = styled.h1`
     font-weight: 20;
     margin-left: 5px;
     margin-top: 5px;
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
   }
 `
 
 const FormContainer = styled.div`
-  background-color: #ffffff;
+  background-color: #fafafa;
   height: 1500px;
   position: relative;
+  width: 1050px;
+  margin: 0 auto;
+  @media screen and (max-width: 767px) {
+    width: auto;
+  }
 `
 
 const RegionWrapper = styled.div`
   position: absolute;
-  top: 3.5%;
-  left: 22.4%;
+  top: 80px;
+  left: 0;
+  @media screen and (max-width: 767px) {
+    left: 9px;
+  }
 `
 
 const FormWrapper = styled.div`
@@ -256,19 +298,33 @@ const FormWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border: solid 3px #bebebe;
-  height: 1300px;
+  height: auto;
   width: 1050px;
   border-radius: 5px;
+  background-color: #ffffff;
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 20px);
+    height: auto;
+    top: 630px;
+    border: solid 1px #bebebe;
+  }
 `
 
 const MapWrap = styled.div`
   width: 1050px;
   height: 400px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 200px;
+  }
 `
 
 const ContentWrap = styled.div`
   padding: 50px 100px;
   box-sizing: border-box;
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
 `
 
 const InitText = styled.h1`

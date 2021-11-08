@@ -283,9 +283,11 @@ const FilterWrap2 = styled.div`
   .ordergroup {
     color: #353535;
     left: 0;
+    padding :5px 10px;
+    box-sizing: border-box;
     position: flex;
     text-align: left;
-    top: 100px;
+    margin : auto 0;
     .first {
       margin-right: 20px;
       :hover {
@@ -318,7 +320,13 @@ const PlusBtn = styled.button`
 
 const WriteBtn = styled.button`
   border: none;
+  border : 1px solid #6f6f6f;
+  color : #6f6f6f;
+  padding :5px 10px;
+  box-sizing: border-box;
+  margin-bottom : 10px;
   background-color: inherit;
+  border-radius : 5px;
   font-size: 1.2rem;
   :hover {
     cursor: pointer;

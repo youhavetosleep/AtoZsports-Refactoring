@@ -178,7 +178,7 @@ const Map = ({ getData, searchPlace }) => {
           places.place_name +
           '</h5>'
       itemStr += '<span>' + places.address_name + '</span>'
-      itemStr += '<form class="review">' + `<p>버튼</p>` + '</form>'
+      itemStr += '<form class="review">' + `<p>></p>` + '</form>'
       el.innerHTML = itemStr
       el.className = 'item'
 
@@ -265,6 +265,7 @@ const Map = ({ getData, searchPlace }) => {
 
   return (
     <Container>
+      <MapWrap></MapWrap>
       <BackList />
       <div class="map_wrap">
         <MapView ref={mapRef} />
@@ -320,12 +321,18 @@ const Container = styled.div`
     overflow: hidden;
     white-space: nowrap;
     font-size: 15px;
+    @media screen and (max-width:767px) {
+      font-size: 12px;
+  }
   }
   #placesList .item .info {
-    padding: 30px 0 10px 55px;
+    padding: 35px 0 10px 55px;
   }
   #placesList .item h5 {
     font-size: 20px;
+    @media screen and (max-width:767px) {
+      font-size: 15px;
+  }
   }
   #placesList .info .gray {
     color: #8a8a8a;
@@ -343,29 +350,25 @@ const Container = styled.div`
     position: absolute;
     bottom: 35%;
     right: 1%;
+    top: 40%;
   }
   #placesList .review p {
     margin: 0;
     padding: 0;
-    margin-right: 10px;
-    border: 1px solid #cecece;
-    padding: 5px 10px;
+    margin-right: 1px;
+    font-size: 30px;
+    color: #c4c4c4;
     border-radius: 25px;
     text-align: center;
     width: 60px;
     text-decoration: none;
-    color: black;
-    :hover {
-      background-color: #840909;
-      color: white;
-    }
   }
   #placesList .item .markerbg {
     float: left;
     position: absolute;
     width: 36px;
     height: 37px;
-    margin: 30px 0 0 10px;
+    margin: 35px 0 0 10px;
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png')
       no-repeat;
   }
@@ -428,20 +431,37 @@ const Container = styled.div`
     color: #777;
   }
 `
+const MapWrap = styled.div`
+  width: 25vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #fafafa;
+  top: 0;
+  right: 1;
+  overflow: hidden;
+  z-index: -100px;
+  @media screen and (max-width:767px) {
+  }
+`
 
 const MapView = styled.div`
-  width: 75vw;
+  width: calc(100vw - 473px);
   height: 100vh;
   position: absolute;
   top: 0;
   right: 1;
   overflow: hidden;
+  @media screen and (max-width:767px) {
+    width: 100vw;
+    height : 200px;
+    left: 0;
+  }
 `
 
 const List = styled.div`
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -461,34 +481,42 @@ const ListTitle = styled.h1`
   width: 175px;
   height: 10px;
   font-size: 20px;
-  background-color: white;
+  background-color: #fafafa;
   text-align: center;
   color: #5c5c5c;
 `
 
 const SearchLine = styled.div`
-  height: 50px;
+  height: 10px;
 `
 
 const MenuWrap = styled.div`
   position: absolute;
-  top: 60px;
+  top: 130px;
   left: 0;
   bottom: 0;
   width: 473px;
-  height: 100vh;
-  padding: 30px;
+  height: 93vh;
+  padding: 5px 30px;
   box-sizing: border-box;
   overflow-y: auto;
-  background: rgba(255, 255, 255);
+  background: #fafafa;
   z-index: 1;
   font-size: 12px;
   border-radius: 10px;
+  @media screen and (max-width:767px) {
+  top: 350px;
+  width: 100%;
+  bottom : 0;
+  }
 `
 
 const BackList = styled.div`
   height: 100%;
   width: 473px;
+  @media screen and (max-width:767px) {
+    width: 0;
+  }
 `
 
 export default Map

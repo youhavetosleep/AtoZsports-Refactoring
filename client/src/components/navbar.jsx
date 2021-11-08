@@ -59,8 +59,8 @@ const Navbar = () => {
               <li
                 className="navBtn"
                 onClick={() => {
-                  history.push('/futsal')
                   setNavOpen(false)
+                  setLoginOpen(true)
                 }}
               >
                 Login
@@ -74,6 +74,7 @@ const Navbar = () => {
               >
                 Signup
               </li>
+              {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
             </ul>
             <span className="closeBtn" onClick={handleNavClose}>
               <i className="fas fa-times"></i>
@@ -112,7 +113,7 @@ const Navbar = () => {
               <li
                 className="navBtn"
                 onClick={() => {
-                  history.push('/futsal')
+                  setLoginOpen(true)
                   setNavOpen(false)
                 }}
               >
@@ -127,6 +128,7 @@ const Navbar = () => {
               >
                 Signup
               </li>
+              {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
             </ul>
           </div>
           )}
