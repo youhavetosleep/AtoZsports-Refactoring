@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 const crypto = require('crypto')
 const axios = require('axios')
 const inlineCss = require('nodemailer-juice')
+const bcrypt = require('bcrypt')
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -19,7 +20,7 @@ module.exports = {
     const { email, password } = req.body
     // 입력한 정보와 일치하는 유저 정보를 찾음
     User.findOne({
-      where: { email, password }
+      where: { email }
     })
       .then((user) => {
         // 이메일이나 비밀번호가 일치하지 않은 경우
@@ -30,6 +31,14 @@ module.exports = {
           })
         }
         let userData = user.dataValues
+        const dataBasePW = userData.password
+        const isSamePw = bcrypt.compareSync(password, dataBasePW)
+        if (!isSamePw) {
+          return res.status(404).send({
+            data: null,
+            message: '비밀번호가 일치하지 않습니다'
+          })
+        }
         // 이메일 인증이 완료되지 않은 계정
         if (!userData.verified) {
           return res.status(409).send({
@@ -76,9 +85,11 @@ module.exports = {
             })
 
             if (!findUser) {
+              let password = generateRandomPassword()
+              let encryptedPassword = bcrypt.hashSync(password, 10)
               User.create({
                 email: userKakaoEmail,
-                password: generateRandomPassword(),
+                password: encryptedPassword,
                 nickname: userKakaoNick,
                 userPhone: '010-xxxx-xxxx',
                 homeground: '',
@@ -115,7 +126,7 @@ module.exports = {
                       <h1>AtoZ sports</h1>
                       <p>안녕하세요. <span>${userData.nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p><br />
                       <p>임시 비밀번호를 다음과 같이 발급해드렸습니다.</p><br />
-                      <p>임시 비밀번호 : <span>${userData.password}</span></p><br />
+                      <p>임시 비밀번호 : <span>${password}</span></p><br />
                       <p>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</p><br />
                       <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p><br />
                       <button><a href="${DOMAIN}">홈페이지로 이동</a></button>
@@ -324,11 +335,12 @@ module.exports = {
     const key2 = crypto.randomBytes(256).toString('base64').substr(50, 10)
     const verifiedKey = key1 + key2
     // 데이터에 입력된 회원정보를 만들어 넣음
+    let encryptedPassword = bcrypt.hashSync(password, 10)
     User.findOrCreate({
       where: {
         email: email,
         nickname: nickname,
-        password: password,
+        password: encryptedPassword,
         userPhone: userPhone,
         favoriteSports: favoriteSports,
         homeground: homeground,
