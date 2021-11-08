@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { useHistory } from 'react-router'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -25,8 +27,14 @@ import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
 import RegionBoxFutsal from '../utils/regionBoxFutsal'
 
-const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
+const Futsal = ({ 
+  region1, 
+  region2, 
+  handleRegion1, 
+  handleRegion2,
+  isLogin }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const [CurrentOrder, setCurrentOrder] = useState('member')
   const [memberData, setMemberData] = useState([])
@@ -54,6 +62,20 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
 
   const memberBtn = () => {
     setCurrentOrder('member')
+  }
+
+  const handleGotoReview = () => {
+    if(!isLogin){
+      Swal.fire({
+        text: '로그인이 필요한 서비스 입니다!',
+        icon: 'warning',
+        confirmButtonColor: '#d2d2d2',
+        confirmButtonText: '확인'
+      })
+      return
+    } else {
+      history.push(`/review`)
+    }
   }
 
   // console.log("memberData ========> ",memberData)
@@ -95,12 +117,12 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
             </BackPage>
           </Link>
           <Link to="/map" style={{ textDecoration: 'none' }}>
-            <GotoMap>
+            <GotoMap >
               <img src={gotomap} alt="gotomap" className="mapImage"></img>
               <div className="go_to_mapText">우리동네 풋살장 검색하기</div>
               <div className="go_to_map">지도로 이동하기</div>
             </GotoMap>
-          </Link>
+            </Link>
         </FutsalBackMapSection>
         <FutsalMatchSoonSection>
           <MatchSoonTitle>
@@ -139,7 +161,11 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
                 memberData.length === 5
                   ? memberData &&
                     memberData.map((member, idx) => {
-                      return <MatchCard member={member} key={idx} />
+                      return <MatchCard 
+                      member={member} 
+                      key={idx}
+                      isLogin={isLogin}
+                      />
                     })
                   : null
               }
@@ -183,8 +209,7 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
         </FutsalMatchSoonSection>
         <FutsalAnotherSection>
           <div className="reviewLeague">
-            <Link to="/review" style={{ textDecoration: 'none' }}>
-              <StadiumReview>
+              <StadiumReview onClick={handleGotoReview}>
                 <img src={stadium} alt="stadium" className="stadiumImg"></img>
                 <div className="stadiumReview1">풋살장 리뷰</div>
                 <div className="stadiumReview2">
@@ -192,7 +217,6 @@ const Futsal = ({ region1, region2, handleRegion1, handleRegion2 }) => {
                 </div>
                 <div className="stadiumReview3">리뷰 바로가기</div>
               </StadiumReview>
-            </Link>
             <Link to="/premierleague" style={{ textDecoration: 'none' }}>
               <PremierLeague>
                 <img

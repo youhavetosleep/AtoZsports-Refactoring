@@ -199,7 +199,7 @@ const Post = ({ userInfo, setEditPost }) => {
             </BtnWrap>
           ) : null}
         <PostChating>
-        {/* <PostChat postId={postId} /> */}
+        <PostChat postId={postId} />
         </PostChating>
         </FormWrapper>
       </FormContainer>

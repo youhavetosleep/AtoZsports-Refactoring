@@ -31,6 +31,7 @@ const Mypage = ({
   const userInfoSuccess = userInfo.loginSuccess.userData
   // console.log('기존 사용자  =====> ', userInfoSuccess)
 
+
   // 개인정보 변경 관련
   const [editeInfo, setEditInfo] = useState(false)
   const [editUserInfo, setEditUserInfo] = useState({
@@ -486,7 +487,10 @@ const Mypage = ({
               {changeCard === '작성한 공고'
                 ? writeData &&
                   writeData.map((member, idx) => {
-                    return <MatchCard member={member} key={idx} />
+                    return <MatchCard 
+                    member={member} 
+                    key={idx}
+                    />
                   })
                 : favoriteData &&
                   favoriteData.map((member, idx) => {

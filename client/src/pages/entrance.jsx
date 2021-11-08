@@ -15,10 +15,8 @@ const Entrance = () => {
           <Link to="/futsal" style={{ textDecoration: 'none' }}>
             <Footsal>
               <img src={futsal} alt="futsal" className="entrance_img" />
-              <div className="entrance_Text">
                 <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
                 <div className="entrance_subText">FUTSAL</div>
-              </div>
             </Footsal>
           </Link>
         </SportsSub>
@@ -52,6 +50,10 @@ const SportsMain = styled.section`
   height: 100%;
   display: flex;
   background-color: none;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 const SportsSub = styled.div`
@@ -82,60 +84,89 @@ const SportsSub = styled.div`
 const Footsal = styled.div`
   position: relative;
   .entrance_mainText {
-    top: 45%;
-    left: 26%;
-    font-size: 1.3vw;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.1vw;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      font-size: 1.1rem;
+  }
   }
   .entrance_subText {
-    top: 50%;
-    left: 37%;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 2vw;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      margin-top: 20px;
+      font-size: 1.4rem;
+  }
   }
   .entrance_img {
     opacity: 0.3;
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
 const Running = styled.div`
   position: relative;
-  .entrance_Text {
-  }
   .entrance_mainText {
-    top: 45%;
-    left: 22%;
-    font-size: 1.3vw;
+    width: 210px;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1vw;
+    text-align: center;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      font-size: 1.1rem;
+  }
   }
   .entrance_subText {
-    top: 50%;
-    left: 19%;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 2vw;
+    text-align: center;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      margin-top: 20px;
+      font-size: 1.4rem;
+  }
   }
   .entrance_img {
     opacity: 0.3;
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
@@ -144,60 +175,92 @@ const BasketBall = styled.div`
   .entrance_Text {
   }
   .entrance_mainText {
-    top: 45%;
-    left: 36%;
-    font-size: 1.3vw;
+    width: 210px;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1vw;
+    text-align: center;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      font-size: 1.1rem;
+  }
   }
   .entrance_subText {
-    top: 50%;
-    left: 20%;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 2vw;
+    text-align: center;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      margin-top: 20px;
+      font-size: 1.4rem;
+  }
   }
   .entrance_img {
     opacity: 0.3;
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 
 const CommingSoon = styled.div`
   position: relative;
-  .entrance_Text {
-  }
   .entrance_mainText {
-    top: 45%;
-    left: 28%;
-    font-size: 1.3vw;
+    width: 210px;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1vw;
+    text-align: center;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      font-size: 1.1rem;
+  }
   }
   .entrance_subText {
-    top: 50%;
-    left: 19%;
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 2vw;
+    text-align: center;
     font-weight: bold;
     color: #353535;
     position: absolute;
     z-index: 10;
+    @media screen and (max-width: 767px) {
+      margin-top: 20px;
+      font-size: 1.4rem;
+  }
   }
   .entrance_img {
     opacity: 0.3;
     width: 25vw;
     height: 100vh;
     background-size: cover;
+    object-fit: cover;
     vertical-align: middle;
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: 25vh;
+    }
   }
 `
 

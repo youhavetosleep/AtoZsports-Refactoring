@@ -45,14 +45,14 @@ const Main = () => {
                   지금도 그곳에선 뜨거운 경기가 열리고 있습니다!
                 </div>
               </LandingText>
-              <img src={mainLogo} alt="mainLogo" className="landing_gif scroll"></img>
+              <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img>
             </LandingIn>
           </LandingContainer>
         </Landing1>
         <Landing2>
           <LandingContainer>
             <LandingIn>
-              <img src={mainLogo} alt="mainLogo" className="landing_gif scroll"></img>
+              <img src={mainLogo} alt="mainLogo" className="landing_gif2 scroll"></img>
               <LandingText className="text scroll">
                 <div className="landing_mainText2">
                   팀원을 모집할 수 있고
@@ -95,7 +95,7 @@ const Main = () => {
                   실시간 채팅기능을 제공합니다.
                 </div>
               </LandingText>
-              <img src={mainLogo} alt="mainLogo" className="landing_gif scroll"></img>
+              <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img>
             </LandingIn>
           </LandingContainer>
         </Landing1>
@@ -131,6 +131,8 @@ const MainLogoPage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width:767px) {
+  }
 `
 
 const MainLogo = styled.div`
@@ -141,12 +143,18 @@ const MainLogo = styled.div`
   z-index: 2;
   .logo {
     width: 27rem;
+    @media screen and (max-width:767px) {
+    width: 20rem;
+  }
   }
   .logo_text {
     margin-top: 5px;
     font-size: 23px;
     text-align: center;
     font-weight: lighter;
+    @media screen and (max-width:767px) {
+    font-size: 17px;
+  }
   }
   .logo_button {
     margin-top: 32px;
@@ -165,6 +173,11 @@ const MainLogo = styled.div`
       border: 2.5px solid #840909;
       transition: 0.3s ease-out;
     }
+    @media screen and (max-width:767px) {
+      margin-top: 22px;
+      width: 110px;
+    height: 12px;
+  }
   }
 `
 
@@ -178,6 +191,7 @@ const DownArrow = styled.section`
   justify-content: center;
   align-items: center;
   background-color: transparent;
+ 
 `
 
 const DownArrow2 = styled.div`
@@ -201,6 +215,11 @@ const DownArrowSpan = styled.div`
     transform: rotate(45deg);
     margin: -8px;
     animation: animate-arrows 2s infinite;
+
+    @media screen and (max-width:767px) {
+    width: 1.2em;
+    height: 1.2em;
+  }
 
     @keyframes animate-arrows {
       0% {
@@ -228,7 +247,7 @@ const Landing1 = styled.section`
 
 const LandingContainer = styled.div`
   max-width: 1920px;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -236,19 +255,35 @@ const LandingContainer = styled.div`
 `
 
 const LandingIn = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 50%;
-  margin: 12rem 0;
+  margin: 300px 0px 300px 0px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 0 0.2rem;
+  @media screen and (max-width:767px) {
+  display: flex;
+  flex-direction: column;
+  }
 
-  .landing_gif {
+  .landing_gif1 {
+    margin: 0px 0px 0px 30px;
     display: flex;
-    width: 40vw;
+    width: 500px;
+    @media screen and (max-width:767px) {
+      width: 400px;
+  }
+  }
+  .landing_gif2 {
+    margin: 0px 30px 0px 0px;
+    display: flex;
+    width: 500px;
+    @media screen and (max-width:767px) {
+      width: 400px;
+  }
   }
 `
 
@@ -256,17 +291,27 @@ const LandingText = styled.div`
   display: flex;
   flex-direction: column;
   color: #353535;
+  @media screen and (max-width:767px) {
+    text-align: center;
+  }
+  
   .landing_mainText {
     font-size: 35px;
     display: flex;
     flex-direction: column;
     font-weight: bold;
     line-height: 40px;
+    @media screen and (max-width:767px) {
+    font-size: 30px;
+  }
   }
   .landing_subText {
     font-size: 16px;
     margin-top: 20px;
     line-height: 19px;
+    @media screen and (max-width:767px) {
+    font-size: 14px;
+  }
   }
   .landing_mainText2 {
     font-size: 35px;
@@ -274,11 +319,17 @@ const LandingText = styled.div`
     flex-direction: column;
     font-weight: bold;
     line-height: 40px;
+    @media screen and (max-width:767px) {
+    font-size: 30px;
+  }
   }
   .landing_subText2 {
     font-size: 16px;
     margin-top: 20px;
     line-height: 19px;
+    @media screen and (max-width:767px) {
+    font-size: 14px;
+  }
   }
 `
 
@@ -306,9 +357,15 @@ const LandingFinalText = styled.div`
   .landing_finalText {
     font-size: 40px;
     text-align: center;
+    @media screen and (max-width:767px) {
+    font-size: 30px;
+  }
   }
   .landing_subText {
     margin-top: 30px;
+    @media screen and (max-width:767px) {
+    font-size: 16px;
+  }
   }
   .logo_button {
     margin-top: 32px;
@@ -327,7 +384,13 @@ const LandingFinalText = styled.div`
       border: 2.5px solid #840909;
       transition: 0.3s ease-out;
     }
+    @media screen and (max-width:767px) {
+      margin-top: 22px;
+      width: 110px;
+    height: 12px;
+  }
   }
 `
+
 
 export default Main
