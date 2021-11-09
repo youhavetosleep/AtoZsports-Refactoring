@@ -552,13 +552,12 @@ const StadiumReview = styled.div`
   border-radius: 5px;
   @media screen and (max-width: 767px) {
     display: flex;
-    /* justify-content: l; */
     align-items: center;
     position: absolute;
-    width: 200px;
-    height: 100px;
+    width: 220px;
+    height: 50px;
     left: 0px;
-    margin-top: -25px;
+    margin-top: 0px;
   }
  
   .stadiumReview1 {
@@ -569,9 +568,9 @@ const StadiumReview = styled.div`
     left: 30px;
     @media screen and (max-width: 767px) {
     display: flex;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     position: absolute;
-    top: 10px;
+    top: -10px;
     left: 35px;
   }
   }
@@ -584,9 +583,9 @@ const StadiumReview = styled.div`
     font-weight: lighter;
     @media screen and (max-width: 767px) {
     display: flex;
-    font-size: 1rem;
+    font-size: .8rem;
     position: absolute;
-    top: 45px;
+    top: 20px;
     left: 35px;
   }
   }
@@ -613,7 +612,7 @@ const StadiumReview = styled.div`
     position: absolute;
     left: 20px;
     width: 338px;
-    height: 20vh;
+    height: 120px;
     object-fit: cover;
   }
   }
@@ -635,7 +634,7 @@ const PremierLeague = styled.div`
     align-items: center;
     position: absolute;
     left: 21px;
-    top: 75px;
+    top: 70px;
     width: 296px;
     height: 8vh;
     object-fit: cover;
@@ -648,7 +647,7 @@ const PremierLeague = styled.div`
     top: 0px;
     @media screen and (max-width: 767px) {
     left: 15px;
-    top: 3px;
+    top: 8px;
     width: 300px;
     height: 90px;
   }
@@ -677,7 +676,7 @@ const Notice = styled.div`
   @media screen and (max-width: 767px) {
     display: flex;
     position: relative;
-  margin-top: 215px;
+  margin-top: 228px;
   margin-left: 3px;
   margin-bottom: 0px;
   width: 292px;
@@ -698,7 +697,7 @@ const Notice = styled.div`
   .notice_list {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 15px;
    
     .notice_title {
       color: #840909;

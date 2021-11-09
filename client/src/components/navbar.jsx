@@ -18,7 +18,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
   }
   const handleNavOpen = () => {
     setNavOpen(true)
-    console.log(navOpen)
+    // console.log(navOpen)
   }
 
   const hadleLogout = () => {
@@ -26,7 +26,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
       dispatch(logoutUser())
       .then((res) => {
         setIsLogin(false)
-        
+        history.push('/futsal')
         window.location.reload()
       })
     }
@@ -107,7 +107,6 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                   onClick={() => {
                     hadleLogout()
                     setNavOpen(false)
-                    history.push('/futsal')
                   }}
                   >
                     Logout
@@ -323,6 +322,7 @@ const NavLogo = styled.div`
   align-items: center;
   .moreOpt {
     display: none;
+    z-index: 10;
   }
   .navLogoImg {
     position: absolute;

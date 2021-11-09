@@ -8,7 +8,7 @@ import {
   getUserFavoriteData,
   getUserMatchData
 } from '../_actions/matchCard_action'
-import { deleteUser, userChangePsword } from '../_actions/user_action'
+import { deleteUser, userChangeFirstPsword, userChangePsword, userChangeSecoundPsword } from '../_actions/user_action'
 import instance from '../api/index.jsx'
 import RegionBoxMypage from '../utils/regionBoxMypage'
 import Navbar from '../components/navbar'
@@ -27,11 +27,27 @@ const Mypage = ({
   const userPhoneRef = useRef()
   const favoriteRef = useRef()
 
+  let Token = ''
+  if (userInfo.loginSuccess) {
+    Token = userInfo.loginSuccess.accessToken
+  }
+
+  let userInfoSuccess = ''
+  if (userInfo.loginSuccess) {
+    userInfoSuccess = userInfo.loginSuccess.userData
+  }
+
+  let userHomeground = ''
+  if (userInfo.loginSuccess) {
+    userHomeground = userInfo.loginSuccess.userData.homeground
+  }
+
+
   // AccessToken
-  const Token = userInfo.loginSuccess.accessToken
+  // const Token = userInfo.loginSuccess.accessToken
 
   // UserInfo
-  const userInfoSuccess = userInfo.loginSuccess.userData
+  // const userInfoSuccess = userInfo.loginSuccess.userData
   // console.log('기존 사용자  =====> ', userInfoSuccess)
 
 
@@ -53,7 +69,6 @@ const Mypage = ({
   )
 
   // 사용자지역 도/시 변수 화
-  const userHomeground = userInfo.loginSuccess.userData.homeground
   const mainRegion = userHomeground.slice(0, 2) // 사용자 지역 - 도
   const subRegion = userHomeground.slice(3, 6) // 사용자 지역 - 시
 
@@ -224,13 +239,11 @@ const Mypage = ({
 
   // 변경할 비밀번호 작성
   const checkPassword = () => {
-    if (!password_Reg.test(firstPsword)) {
-      setPwColor(false)
-      setMessagePasswords('(최소 8자) 문자/숫자/특수문자 모두 포함해야합니다')
-      return
-    }
-    setPwColor(true)
-    setMessagePasswords('✔ 사용 가능한 비밀번호입니다')
+    dispatch((userChangeFirstPsword(firstPsword, Token))
+      .then((res) => {
+        setMessagePasswords(res.payload.response.data.message)
+      })
+    )
   }
 
   // 비밀번호 확인
@@ -246,7 +259,7 @@ const Mypage = ({
 
   const handleChangePassword = () => {
     if (messagePwCheck === '✔ 비밀번호가 확인되었습니다') {
-      dispatch(userChangePsword(secondPsword, Token))
+      dispatch(userChangeSecoundPsword(secondPsword, Token))
       .then((res) => {
         setEditPsword(false)
         console.log(res.payload)
