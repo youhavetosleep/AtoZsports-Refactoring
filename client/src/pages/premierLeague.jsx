@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import instance from '../api'
 import premier from '../image/premier_league.png'
 import Footer from '../components/footer'
+import Navbar from '../components/navbar'
 
-const PremierLeague = () => {
+const PremierLeague = ({ isLogin, setIsLogin }) => {
   const nowData = new Date()
   const year = nowData.getFullYear()
   const [matches, setMatches] = useState([])
@@ -109,6 +110,10 @@ const PremierLeague = () => {
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <LeagueContainer>
         <LeagueIn>
           <LeagueLogo>

@@ -26,13 +26,16 @@ import Slide03 from '../components/futsalSlide/slide03'
 import MatchCard from '../components/matchCard'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
+import Navbar from '../components/navbar'
 
 const Futsal = ({ 
   region1, 
   region2, 
   handleRegion1, 
   handleRegion2,
-  isLogin }) => {
+  isLogin,
+  setIsLogin
+}) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -95,6 +98,10 @@ const Futsal = ({
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <FutsalLandingPage>
         <FutsalSliderSection>
           <Slider {...setting} className="slider">
@@ -119,8 +126,8 @@ const Futsal = ({
           <Link to="/map" style={{ textDecoration: 'none' }}>
             <GotoMap >
               <img src={gotomap} alt="gotomap" className="mapImage"></img>
-              <div className="go_to_mapText">우리동네 풋살장 검색하기</div>
-              <div className="go_to_map">지도로 이동하기</div>
+              <div className="go_to_mapText">우리동네 풋살장 검색하기 ➝ </div>
+              <div className="go_to_map">지도로 이동하기 </div>
             </GotoMap>
             </Link>
         </FutsalBackMapSection>
@@ -177,7 +184,11 @@ const Futsal = ({
                 memberData.length < 5 && memberData.length > 0
                   ? memberData &&
                     memberData.slice(0, 5).map((member, idx) => {
-                      return <MatchCard member={member} key={idx} />
+                      return <MatchCard 
+                      member={member} 
+                      key={idx}
+                      isLogin={isLogin}
+                      />
                     })
                   : null
               }
@@ -260,16 +271,25 @@ const Futsal = ({
 
 const FutsalLandingPage = styled.div`
   width: 100%;
+  @media screen and (max-width: 767px) {
+   max-width: 375px;
+  }
 `
 
 const FutsalSliderSection = styled.section`
   width: 100%;
   .slider {
     color: #fafafa;
+    @media screen and (max-width: 767px) {
+    /* width: 100vw; */
+    max-width: 375px;
+    height: 490px;
+  }
   }
   @media screen and (max-width: 767px) {
     /* width: 100vw; */
-    height: 100vh;
+    max-width: 375px;
+    height: 64vh;
   }
 `
 
@@ -279,7 +299,8 @@ const FutsalBackMapSection = styled.section`
   align-items: center;
   margin: 40px auto 60px;
   @media screen and (max-width: 767px) {
-    margin: 40px auto -40px 0px;
+    max-width: 375px;
+    margin: 0px auto -35px 0px;
   }
 `
 
@@ -292,6 +313,12 @@ const BackPage = styled.div`
   justify-content: center;
   border-radius: 5px;
   position: relative;
+  @media screen and (max-width: 767px) {
+  margin: 0px 0px 0px 12px;
+  width: 100px;
+  height: 50px;
+  padding: 20px;
+  }
   .back_to_main {
     font-size: 13px;
     color: #747474;
@@ -308,9 +335,9 @@ const BackPage = styled.div`
   }
   @media screen and (max-width: 767px) {
     /* width: 100vw; */
-    margin-top: -84px;
-    width: 10vw;
-    height: 5.7vh;
+    margin-top: -8.3vh;
+    width: 40px;
+    height: 40px;
   }
 `
 
@@ -322,6 +349,12 @@ const GotoMap = styled.div`
   padding: 0px 10px 0px 0px;
   /* transition: all 0.5s; */
   position: relative;
+  @media screen and (max-width: 767px) {
+    width: 210px;
+    height: 130px;
+    margin-top: -2.8vh;
+    margin-left: 10px;
+  }
 
   .mapImage {
     opacity: 0.9;
@@ -330,8 +363,8 @@ const GotoMap = styled.div`
         @media screen and (max-width: 767px) {
     /* width: 100vw; */
     
-    width: 73vw;
-    height: 12vh;
+    width: 265px;
+    height: 83px;
     object-fit: cover;
   }
   }
@@ -343,11 +376,11 @@ const GotoMap = styled.div`
     right: -30px;
     bottom: 60px;
     @media screen and (max-width: 767px) {
-      font-size: 1.1rem;
+      font-size: .9rem;
       color: #fafafa;
       position: absolute;
       left: 80px;
-      top: 48px;
+      top: 55px;
   }
     
   }
@@ -357,12 +390,13 @@ const GotoMap = styled.div`
     position: absolute;
     right: -30px;
     bottom: 15px;
+    @media screen and (max-width: 767px) {
+      color:red;
+      display: none;
+  }
 
   }
-  @media screen and (max-width: 767px) {
-    margin-top: -20px;
-    margin-left: 20px;
-  }
+  
 
 `
 
@@ -414,7 +448,7 @@ const MatchSoonFilter = styled.div`
     text-align: left;
     top: 100px;
     @media screen and (max-width: 767px) {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
     .first {
@@ -521,7 +555,7 @@ const StadiumReview = styled.div`
     /* justify-content: l; */
     align-items: center;
     position: absolute;
-    width: 740px;
+    width: 200px;
     height: 100px;
     left: 0px;
     margin-top: -25px;

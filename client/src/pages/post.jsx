@@ -13,8 +13,9 @@ import {
 } from '../_actions/post_action'
 import PostChat from '../components/postChat'
 import Footer from '../components/footer'
+import Navbar from '../components/navbar'
 
-const Post = ({ userInfo, setEditPost }) => {
+const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   // 로그인 안한 유저가 post로 들어올 경우 에러 방지
   let token = ''
   if (userInfo.loginSuccess) {
@@ -129,6 +130,10 @@ const Post = ({ userInfo, setEditPost }) => {
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <TitleWrapper>
         <TitleText>경기 정보</TitleText>
       </TitleWrapper>
@@ -200,7 +205,9 @@ const Post = ({ userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-          <PostChating>{/* <PostChat postId={postId} /> */}</PostChating>
+          <PostChating>
+            <PostChat postId={postId} />
+          </PostChating>
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}

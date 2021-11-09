@@ -64,6 +64,9 @@ const SelectBoxContainer = styled.div`
 `
 const SelectWrap = styled.div`
   position: relative;
+  @media screen and (max-width: 767px) {
+    /* width: 30px; */
+  }
 `
 const DownWrap = styled.div`
   width: 0.1px;
@@ -72,6 +75,9 @@ const DownWrap = styled.div`
   right: 20%;
   color: #000000;
   z-index: -1;
+  @media screen and (max-width: 767px) {
+    /* width: 30px; */
+  }
 `
 export const Select = styled.select`
   margin: 0px 0px 0px 0px;
@@ -87,6 +93,13 @@ export const Select = styled.select`
   -moz-appearance: none;
   appearance: none;
   opacity: 90%;
+  @media screen and (max-width: 767px) {
+    font-size: .8rem;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    padding: 5px 5px 5px 10px;
+  }
   :hover {
     cursor: pointer;
   }

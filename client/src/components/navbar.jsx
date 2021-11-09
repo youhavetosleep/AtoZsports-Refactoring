@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import logo from '../image/subLogo.png'
 import LoginModal from '../modal/loginModal'
+import { logoutUser } from '../_actions/user_action'
 
-const Navbar = () => {
+const Navbar = ({ isLogin, setIsLogin }) => {
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const [loginOpen, setLoginOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -18,6 +21,17 @@ const Navbar = () => {
     console.log(navOpen)
   }
 
+  const hadleLogout = () => {
+    if (isLogin) {
+      dispatch(logoutUser())
+      .then((res) => {
+        setIsLogin(false)
+        
+        window.location.reload()
+      })
+    }
+  }
+
   const clickLogo = () => {
     history.push('/')
   }
@@ -27,113 +41,163 @@ const Navbar = () => {
       <NavBarContainer>
         <NavbarIn>
           {navOpen ? (
-          <div className='navHam'>
-            <ul className="navBtns">
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/futsal')
-                  setNavOpen(false)
-                }}
-              >
-                Home
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/matchlist')
-                  setNavOpen(false)
-                }}
-              >
-                Match
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/map')
-                  setNavOpen(false)
-                }}
-              >
-                Map
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  setNavOpen(false)
-                  setLoginOpen(true)
-                }}
-              >
-                Login
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/signup')
-                  setNavOpen(false)
-                }}
-              >
-                Signup
-              </li>
-              {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
-            </ul>
-            <span className="closeBtn" onClick={handleNavClose}>
-              <i className="fas fa-times"></i>
-            </span>
-          </div>
+            <div className="navHam">
+              <ul className="navBtns">
+                <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/futsal')
+                    setNavOpen(false)
+                  }}
+                >
+                  Home
+                </li>
+                <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/matchlist')
+                    setNavOpen(false)
+                  }}
+                >
+                  Match
+                </li>
+                <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/map')
+                    setNavOpen(false)
+                  }}
+                >
+                  Map
+                </li>
+                {!isLogin ? (
+                  <li
+                  className="navBtn"
+                  onClick={() => {
+                    setNavOpen(false)
+                    setLoginOpen(true)
+                  }}
+                >
+                  Login
+                </li>
+                ) : (
+                  <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/mypage')
+                    setNavOpen(false)
+                  }}
+                >
+                  Mypage
+                </li>
+                )}
+                {!isLogin ? (
+                  <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/signup')
+                    setNavOpen(false)
+                  }}
+                >
+                  Signup
+                </li>
+                ) : (
+                  <li 
+                  className='navBtn'
+                  onClick={() => {
+                    hadleLogout()
+                    setNavOpen(false)
+                    history.push('/futsal')
+                  }}
+                  >
+                    Logout
+                  </li>
+                )}
+                
+                {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
+              </ul>
+              <span className="closeBtn" onClick={handleNavClose}>
+                <i className="fas fa-times"></i>
+              </span>
+            </div>
           ) : (
-            <div className='navTop'>
-            <ul className="navBtns">
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/futsal')
-                  setNavOpen(false)
-                }}
-              >
-                Home
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/matchlist')
-                  setNavOpen(false)
-                }}
-              >
-                Match
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/map')
-                  setNavOpen(false)
-                }}
-              >
-                Map
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  setLoginOpen(true)
-                  setNavOpen(false)
-                }}
-              >
-                Login
-              </li>
-              <li
-                className="navBtn"
-                onClick={() => {
-                  history.push('/signup')
-                  setNavOpen(false)
-                }}
-              >
-                Signup
-              </li>
-              {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
-            </ul>
-          </div>
+            <div className="navTop">
+              <ul className="navBtns">
+                <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/futsal')
+                    setNavOpen(false)
+                  }}
+                >
+                  Home
+                </li>
+                <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/matchlist')
+                    setNavOpen(false)
+                  }}
+                >
+                  Match
+                </li>
+                <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/map')
+                    setNavOpen(false)
+                  }}
+                >
+                  Map
+                </li>
+                {!isLogin ? (
+                  <li
+                  className="navBtn"
+                  onClick={() => {
+                    setNavOpen(false)
+                    setLoginOpen(true)
+                  }}
+                >
+                  Login
+                </li>
+                ) : (
+                  <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/mypage')
+                    setNavOpen(false)
+                  }}
+                >
+                  Mypage
+                </li>
+                )}
+                {!isLogin ? (
+                  <li
+                  className="navBtn"
+                  onClick={() => {
+                    history.push('/signup')
+                    setNavOpen(false)
+                  }}
+                >
+                  Signup
+                </li>
+                ) : (
+                  <li 
+                  className='navBtn'
+                  onClick={() => {
+                    hadleLogout()
+                    setNavOpen(false)
+                  }}
+                  >
+                    Logout
+                  </li>
+                )}
+                {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
+              </ul>
+            </div>
           )}
           <NavLogo>
-          <span className="moreOpt" onClick={handleNavOpen}>
+            <span className="moreOpt" onClick={handleNavOpen}>
               <i className="fas fa-bars"></i>
             </span>
             <img
@@ -261,11 +325,11 @@ const NavLogo = styled.div`
     display: none;
   }
   .navLogoImg {
-  position: absolute;
-  top: 0;
-  height: 60px;
-  transition: 0.3s;
-  cursor: pointer;
+    position: absolute;
+    top: 0;
+    height: 60px;
+    transition: 0.3s;
+    cursor: pointer;
   }
   @media screen and (max-width: 767px) {
     .moreOpt {

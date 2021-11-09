@@ -97,34 +97,23 @@ function App() {
           <Route exact path="/" component={Main} />
           <Route exact path="/entrance" component={Entrance} />
           <Route exact path="/futsal">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
             <Futsal
               handleRegion1={handleRegion1}
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
-              setIsLogin={setIsLogin}
               isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           </Route>
           <Route exact path="/map">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
-            <MapSearch setEditPost={setEditPost} />
+            <MapSearch 
+            setEditPost={setEditPost} 
+            isLogin={isLogin}
+            setIsLogin={setIsLogin}
+            />
           </Route>
           <Route exact path="/review">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
             <Review
               userInfo={userInfo}
               handleRegion1={handleRegion1}
@@ -133,72 +122,66 @@ function App() {
               region2={region2}
               setRegion1={setRegion1}
               setRegion2={setRegion2}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           </Route>
           <Route exact path="/matchlist">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
             <MatchList
               handleRegion1={handleRegion1}
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
               setEditPost={setEditPost}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           </Route>
           <Route exact path="/post/:id">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
-            <Post userInfo={userInfo} setEditPost={setEditPost} />
+            <Post
+              userInfo={userInfo}
+              setEditPost={setEditPost}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+            />
           </Route>
           <Route exact path="/write">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
+            {!editPost ? (
+              <Write 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             ) : (
-              <Navbar />
+              <EditWrite 
+              isLogin={isLogin} 
+              setIsLogin={setIsLogin} />
             )}
-            {!editPost ? <Write /> : <EditWrite />}
           </Route>
           <Route exact path="/mypage">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
             <Mypage
               userInfo={userInfo}
               handleRegion1={handleRegion1}
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           </Route>
           <Route exact path="/signup">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
             <Signup
               handleRegion1={handleRegion1}
               handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           </Route>
           <Route exact path="/premierleague">
-            {isLogin ? (
-              <NavbarChange isLogin={isLogin} etIsLogin={setIsLogin} />
-            ) : (
-              <Navbar />
-            )}
-            <PremierLeague />
+            <PremierLeague 
+            isLogin={isLogin}
+            setIsLogin={setIsLogin}
+            />
           </Route>
           <Route exact path="/auth" component={Auth} />
           <Route exact path="/google" component={Google} />

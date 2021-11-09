@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { accordGroundData } from '../_actions/ground_action'
 import instance from '../api'
+import Navbar from '../components/navbar'
 
-const Map = ({ getData, searchPlace }) => {
+const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
   const dispatch = useDispatch()
@@ -264,6 +265,7 @@ const Map = ({ getData, searchPlace }) => {
   }, [searchPlace, addressName])
 
   return (
+    <>
     <Container>
       <MapWrap></MapWrap>
       <BackList />
@@ -280,6 +282,7 @@ const Map = ({ getData, searchPlace }) => {
         <div id="pagination"></div>
       </MenuWrap>
     </Container>
+    </>
   )
 }
 
