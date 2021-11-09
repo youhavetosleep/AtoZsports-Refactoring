@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { accordGroundData } from '../_actions/ground_action'
 import instance from '../api'
 
-const Map = ({ getData, searchPlace }) => {
+const Map = ({ getData, searchPlace, changeClick, click }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
   const dispatch = useDispatch()
@@ -92,7 +92,8 @@ const Map = ({ getData, searchPlace }) => {
           // 클릭시 리뷰페이지로 이동
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
-            getData(places[i])
+            console.log('marker click!')
+            changeClick(click + 1)
             instance
               .post(
                 `/futsal/ground/check`,
@@ -117,6 +118,7 @@ const Map = ({ getData, searchPlace }) => {
             // dispatch(accordGroundData(places[i].place_name))
             //   .then((res) => console.log(res))
             //   .catch((err) => console.log(err))
+            getData(places[i])
           })
 
           kakao.maps.event.addListener(marker, 'mouseout', function () {
@@ -129,7 +131,9 @@ const Map = ({ getData, searchPlace }) => {
             infowindow.close()
           }
           itemEl.onclick = function () {
-            console.log(places[i].place_name)
+            console.log('list click!')
+            changeClick(click + 1)
+
             instance
               .post(
                 `/futsal/ground/check`,
@@ -144,7 +148,7 @@ const Map = ({ getData, searchPlace }) => {
                 }
               )
               .then((res) => {
-                dispatch(accordGroundData({}))
+                // dispatch(accordGroundData({}))
                 dispatch(accordGroundData(res.data))
                   .then((res) => console.log(res))
                   .catch((err) => dispatch(accordGroundData({})))
@@ -321,18 +325,18 @@ const Container = styled.div`
     overflow: hidden;
     white-space: nowrap;
     font-size: 15px;
-    @media screen and (max-width:767px) {
+    @media screen and (max-width: 767px) {
       font-size: 12px;
-  }
+    }
   }
   #placesList .item .info {
     padding: 35px 0 10px 55px;
   }
   #placesList .item h5 {
     font-size: 20px;
-    @media screen and (max-width:767px) {
+    @media screen and (max-width: 767px) {
       font-size: 15px;
-  }
+    }
   }
   #placesList .info .gray {
     color: #8a8a8a;
@@ -440,7 +444,7 @@ const MapWrap = styled.div`
   right: 1;
   overflow: hidden;
   z-index: -100px;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
   }
 `
 
@@ -451,9 +455,9 @@ const MapView = styled.div`
   top: 0;
   right: 1;
   overflow: hidden;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 100vw;
-    height : 200px;
+    height: 200px;
     left: 0;
   }
 `
@@ -504,17 +508,17 @@ const MenuWrap = styled.div`
   z-index: 1;
   font-size: 12px;
   border-radius: 10px;
-  @media screen and (max-width:767px) {
-  top: 350px;
-  width: 100%;
-  bottom : 0;
+  @media screen and (max-width: 767px) {
+    top: 350px;
+    width: 100%;
+    bottom: 0;
   }
 `
 
 const BackList = styled.div`
   height: 100%;
   width: 473px;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 0;
   }
 `

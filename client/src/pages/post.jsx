@@ -134,11 +134,11 @@ const Post = ({ userInfo, setEditPost }) => {
       </TitleWrapper>
       <FormContainer>
         <FormWrapper>
-          <div
+          <MapWrap
             className="miniMap"
             id="map"
-            style={{ width: '100%', height: '200px' }}
-          ></div>
+            // style={{ width: '100%', height: '200px' }}
+          ></MapWrap>
           <Main>
             <FavorteMark className="favorite">
               {postData.isMyFavorite ? (
@@ -246,6 +246,15 @@ const TitleWrapper = styled.div`
   }
 `
 
+const MapWrap = styled.div`
+  width: 800px;
+  height: 400px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 200px;
+  }
+`
+
 const TitleText = styled.h1`
   position: absolute;
   top: 80%;
@@ -282,7 +291,7 @@ const Main = styled.div`
 const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 0;
   font-size: 23px;
   color: #929292;
   .delete {

@@ -17,9 +17,19 @@ const MapSearch = () => {
 
   const [getPlace, setGetPlace] = useState('')
 
+    // 중복된 marker & list를 감지하기위한 상태
+  const [click, setClick] = useState([])
+
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
+
+  // 중복된 marker & list를 감지하기위한 함수
+  const changeClick = (num) => {
+    setClick([...click, ...num])
+    console.log(num)
+  }
+
 
   const onChange = (e) => {
     setInputText(e.target.value)
@@ -39,6 +49,10 @@ const MapSearch = () => {
     // 아래 동작 수행
     // 이렇게 되면 한 템포 늦게 반영되는 것이 해결
     const tick = setTimeout(() => {
+      //지도에서 경기장목록 & 마커를 클릭하면 accordData에 데이터가 담기고 
+      // 데이터의 유무에 따라 다른 모달을 표시
+      // console.log(getPlace)
+      // console.log(Object.keys(store.getState().ground.accordData).length)
       if (getPlace !== '') {
         if (Object.keys(store.getState().ground.accordData).length !== 0) {
           Swal.fire({
@@ -84,7 +98,7 @@ const MapSearch = () => {
     }, 100)
 
     return () => clearTimeout(tick)
-  }, [getPlace])
+  }, [getPlace, click])
 
   return (
     <Wrapper>
@@ -100,7 +114,7 @@ const MapSearch = () => {
           </SearchBtn>
         </SearchForm>
       </SearchPosition>
-      <Map searchPlace={place} getData={getData} />
+      <Map searchPlace={place} getData={getData} changeClick={changeClick} click={click} setClick={setClick}/>
     </Wrapper>
   )
 }

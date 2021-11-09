@@ -17,9 +17,9 @@ const Comment = ({ groundData, groundSelect }) => {
 
   // 로그인된 유저의 데이터 && 비회원 구분
   const userInfo = store.getState().user.loginSuccess
-  let token =''
-  let nickname =''
-  let userId =''
+  let token = ''
+  let nickname = ''
+  let userId = ''
   if (userInfo) {
     token = userInfo.accessToken
     nickname = userInfo.userData.nickname
@@ -137,7 +137,7 @@ const WriteWrap = styled.div`
   padding: 20px;
   box-sizing: border-box;
   border-bottom: 1px solid #a0a0a0;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     padding: 20px 10px;
     flex-direction: column;
   }
@@ -160,7 +160,7 @@ const Input = styled.input`
     line-height: 1.5;
     color: #b5b5b5;
   }
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     margin-top: 10px;
     width: auto;
   }
@@ -175,10 +175,10 @@ const CommentBtn = styled.button`
   background-color: #ffffff;
   border-radius: 10px;
   border: solid 2px #d2d2d2;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     margin-top: 10px;
     width: auto;
-    text-align :right;
+    text-align: right;
     border: none;
   }
 `
