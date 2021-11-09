@@ -45,14 +45,16 @@ const Main = () => {
                   지금도 그곳에선 뜨거운 경기가 열리고 있습니다!
                 </div>
               </LandingText>
-              <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img>
+              <div className="landing_gif1 scroll">Gif</div>
+              {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
             </LandingIn>
           </LandingContainer>
         </Landing1>
         <Landing2>
           <LandingContainer>
             <LandingIn>
-              <img src={mainLogo} alt="mainLogo" className="landing_gif2 scroll"></img>
+            <div className="landing_gif2 scroll">Gif</div>
+              {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
               <LandingText className="text scroll">
                 <div className="landing_mainText2">
                   팀원을 모집할 수 있고
@@ -95,7 +97,8 @@ const Main = () => {
                   실시간 채팅기능을 제공합니다.
                 </div>
               </LandingText>
-              <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img>
+              <div className="landing_gif1 scroll">Gif</div>
+              {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
             </LandingIn>
           </LandingContainer>
         </Landing1>
@@ -120,7 +123,7 @@ const Main = () => {
 }
 
 const MainPage = styled.div`
-  background: #fafafa;
+  width: 100%;
 `
 
 const MainLogoPage = styled.div`
@@ -132,6 +135,7 @@ const MainLogoPage = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (max-width:767px) {
+    max-width: 375px;
   }
 `
 
@@ -257,7 +261,7 @@ const LandingContainer = styled.div`
 const LandingIn = styled.div`
   width: 100%;
   height: 50%;
-  margin: 300px 0px 300px 0px;
+  margin: 100px 0px 100px 0px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -274,7 +278,10 @@ const LandingIn = styled.div`
     display: flex;
     width: 500px;
     @media screen and (max-width:767px) {
-      width: 400px;
+      margin: 30px auto 0px auto;
+      width: 300px;
+      height: 500px;
+      border: 1px solid gray;
   }
   }
   .landing_gif2 {
@@ -282,7 +289,12 @@ const LandingIn = styled.div`
     display: flex;
     width: 500px;
     @media screen and (max-width:767px) {
-      width: 400px;
+      margin: 0px auto 40px auto;
+      width: 300px;
+      height: 500px;
+      border: 1px solid gray;
+      justify-content: center;
+      align-items: center;
   }
   }
 `
@@ -358,13 +370,14 @@ const LandingFinalText = styled.div`
     font-size: 40px;
     text-align: center;
     @media screen and (max-width:767px) {
-    font-size: 30px;
+    font-size: 22px;
   }
   }
   .landing_subText {
     margin-top: 30px;
     @media screen and (max-width:767px) {
-    font-size: 16px;
+    font-size: 12px;
+    margin-top: 20px;
   }
   }
   .logo_button {
