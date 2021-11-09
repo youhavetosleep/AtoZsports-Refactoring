@@ -14,18 +14,18 @@ import {
 
 import '../styles/slick.css'
 import { getMatchData } from '../_actions/matchCard_action'
-import Footer from '../components/footer'
+import RegionBoxFutsal from '../utils/regionBoxFutsal'
 import gotomap from '../image/gotomap.jpg'
 import sublogo from '../image/subLogo.png'
 import stadium from '../image/stadium.jpg'
 import premier from '../image/premier_league.png'
+import Footer from '../components/footer'
 import Slide01 from '../components/futsalSlide/slide01'
 import Slide02 from '../components/futsalSlide/slide02'
 import Slide03 from '../components/futsalSlide/slide03'
 import MatchCard from '../components/matchCard'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
-import RegionBoxFutsal from '../utils/regionBoxFutsal'
 import Navbar from '../components/navbar'
 
 const Futsal = ({ 
