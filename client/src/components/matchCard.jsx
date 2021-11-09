@@ -7,7 +7,7 @@ import { useHistory } from 'react-router'
 function MatchCard({ member, isLogin }) {
   const history = useHistory()
   let userInfo = store.getState().user
-  console.log(isLogin)
+  // console.log(isLogin)
 
   const matchInfoHadler = () => {
     if(!isLogin){
