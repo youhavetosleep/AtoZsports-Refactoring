@@ -320,6 +320,7 @@ const FormWrapper = styled.div`
   border: solid 3px #bebebe;
   height: auto;
   width: 800px;
+  height :1200px;
   border-radius: 5px;
   background-color: #ffffff;
   @media screen and (max-width: 767px) {

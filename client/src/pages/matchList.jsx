@@ -168,11 +168,13 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handl
               />
             </TimeWrap>
           </DateWrap>
+          <RegionWrap>
           <RegionBox
             region1={region1}
             handleRegion1={handleRegion1}
             handleRegion2={handleRegion2}
           />
+          </RegionWrap>
         </FilterWrap1>
         <FilterWrap2>
           <span className="ordergroup">
@@ -235,6 +237,9 @@ const FutsalMatchSoonSection = styled.section`
   border-bottom: 1px solid black;
   padding: 0px 0px 50px 0px;
   margin: 50px auto;
+  @media screen and (max-width: 767px) {
+    width : calc(100% - 20px);
+  }
 `
 
 const MatchSoonTitle = styled.div`
@@ -244,6 +249,9 @@ const MatchSoonTitle = styled.div`
   border-bottom: 1px solid black;
   .matchSoon_title {
     font-size: 3rem;
+    @media screen and (max-width: 767px) {
+    font-size: 2rem;
+  }
   }
 `
 
@@ -254,12 +262,20 @@ const MatchSoonFilter = styled.div`
 const MatchSoonList = styled.div`
   display: flex;
   position: relative;
-
+@media screen and (max-width: 767px) {
+  justify-content:center;
+}
   .all_MatchCard {
     display: grid;
     grid-template-columns: repeat(3, 360px);
     row-gap: 20px;
     column-gap: 24px;
+    @media screen and (max-width: 767px) {
+      display: grid;
+    grid-template-columns: repeat(1, 360px);
+    row-gap: 0px;
+    column-gap: 24px;
+  }
   }
 
   .moreView {
@@ -272,11 +288,27 @@ const MatchSoonList = styled.div`
 
 const DateWrap = styled.div`
   display: flex;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+  }
+`
+
+const RegionWrap = styled.div`
+
+  @media screen and (max-width: 767px) {
+    display : flex;
+    justify-content: center;
+    margin-top : 5px;
+  }
 `
 
 const CalendarWrap = styled.div`
   margin-right: 23px;
   position: relative;
+  @media screen and (max-width: 767px) {
+  margin-right : 24px;
+  right : -17px;
+  }
 `
 
 const DownWrap = styled.div`
@@ -294,6 +326,9 @@ const FilterWrap1 = styled.div`
   justify-content: space-between;
   display: flex;
   margin-bottom: 30px;
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
 `
 
 const FilterWrap2 = styled.div`
@@ -353,6 +388,9 @@ const WriteBtn = styled.button`
   font-size: 1.2rem;
   :hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 767px) {
+    margin-right : 12px; 
   }
 `
 
