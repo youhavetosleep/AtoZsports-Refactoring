@@ -14,8 +14,8 @@ const PostChat = ({ postId }) => {
   let userNickName = ''
   let userId = ''
   if (userInfo) {
-    userNickName = userInfo.loginSuccess.userData.nickname
-    userId = userInfo.loginSuccess.userData.id
+    userNickName = userInfo.userData.nickname
+    userId = userInfo.userData.id
   }
 
   // 메세지, 사용자 닉네임, 게시물 id값을 저장해주자

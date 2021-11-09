@@ -11,8 +11,11 @@ import {
 import { deleteUser, userChangePsword } from '../_actions/user_action'
 import instance from '../api/index.jsx'
 import RegionBoxMypage from '../utils/regionBoxMypage'
+import Navbar from '../components/navbar'
 
 const Mypage = ({
+  isLogin, 
+  setIsLogin,
   userInfo,
   region1,
   region2,
@@ -264,6 +267,10 @@ const Mypage = ({
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <MypageContainer>
         <MypageIn>
           {editPswordModal ? (
@@ -490,11 +497,16 @@ const Mypage = ({
                     return <MatchCard 
                     member={member} 
                     key={idx}
+                    isLogin={isLogin}
                     />
                   })
                 : favoriteData &&
                   favoriteData.map((member, idx) => {
-                    return <MatchCard member={member} key={idx} />
+                    return <MatchCard 
+                    member={member} 
+                    key={idx} 
+                    isLogin={isLogin}
+                    />
                   })}
             </div>
             {changeCard === '작성한 공고' && writeData.length === 0 ? (

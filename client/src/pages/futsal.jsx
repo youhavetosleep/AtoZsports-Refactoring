@@ -26,13 +26,16 @@ import MatchCard from '../components/matchCard'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
 import RegionBoxFutsal from '../utils/regionBoxFutsal'
+import Navbar from '../components/navbar'
 
 const Futsal = ({ 
   region1, 
   region2, 
   handleRegion1, 
   handleRegion2,
-  isLogin }) => {
+  isLogin,
+  setIsLogin
+}) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -95,6 +98,10 @@ const Futsal = ({
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <FutsalLandingPage>
         <FutsalSliderSection>
           <Slider {...setting} className="slider">
@@ -177,7 +184,11 @@ const Futsal = ({
                 memberData.length < 5 && memberData.length > 0
                   ? memberData &&
                     memberData.slice(0, 5).map((member, idx) => {
-                      return <MatchCard member={member} key={idx} />
+                      return <MatchCard 
+                      member={member} 
+                      key={idx}
+                      isLogin={isLogin}
+                      />
                     })
                   : null
               }

@@ -7,8 +7,9 @@ import { useHistory } from 'react-router'
 import store from '../../store/store'
 import Map from '../../pages/map'
 import { mapData } from '../../_actions/ground_action'
+import Navbar from '../navbar'
 
-const MapSearch = () => {
+const MapSearch = ({ isLogin, setIsLogin }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -87,6 +88,11 @@ const MapSearch = () => {
   }, [getPlace])
 
   return (
+    <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
     <Wrapper>
       <SearchPosition>
         <SearchForm className="inputForm" onSubmit={handleSubmit}>
@@ -102,6 +108,7 @@ const MapSearch = () => {
       </SearchPosition>
       <Map searchPlace={place} getData={getData} />
     </Wrapper>
+    </>
   )
 }
 

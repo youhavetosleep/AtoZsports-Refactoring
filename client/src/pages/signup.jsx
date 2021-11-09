@@ -5,8 +5,9 @@ import Swal from 'sweetalert2'
 import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../api/index.jsx'
 import RegionBox from '../utils/regionBox'
+import Navbar from '../components/navbar'
 
-const Signup = ({ region1, region2, handleRegion1, handleRegion2 }) => {
+const Signup = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRegion2 }) => {
   const history = useHistory()
 
   // 회원가입 데이터
@@ -229,6 +230,10 @@ const Signup = ({ region1, region2, handleRegion1, handleRegion2 }) => {
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <TitleWrapper>
         <TitleImg src={lockerroom} />
         <TitleText>Sign up</TitleText>

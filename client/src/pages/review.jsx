@@ -14,8 +14,11 @@ import Comment from '../components/comment/comment'
 import ReviewInfo from '../components/reviewInfo'
 import RegionBox from '../utils/regionBox'
 import store from '../store/store'
+import Navbar from '../components/navbar'
 
 const Review = ({
+  isLogin, 
+  setIsLogin,
   userInfo,
   setRegion1,
   setRegion2,
@@ -198,6 +201,10 @@ const Review = ({
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <TitleWrapper>
         <TitleImg src={review} />
         <TitleText>

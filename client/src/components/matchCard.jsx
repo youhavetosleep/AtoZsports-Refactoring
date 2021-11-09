@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
+import store from '../store/store'
 import { useHistory } from 'react-router'
 
-function MatchCard({ member, isLogin}) {
+function MatchCard({ member, isLogin }) {
   const history = useHistory()
+  let userInfo = store.getState().user
+  console.log(isLogin)
 
   const matchInfoHadler = () => {
     if(!isLogin){
@@ -25,7 +28,9 @@ function MatchCard({ member, isLogin}) {
   return (
     <>{member.notReadMessage === undefined ? (
       <MatchCardContainer>
-        <div className="matchCard-listbox" onClick={() => matchInfoHadler()}>
+        <div 
+        className="matchCard-listbox" 
+        onClick={() => matchInfoHadler()}>
           <ul>
             <li className="matchCard-title">{member.title}</li>
             <li className="matchCard-date">
@@ -47,7 +52,9 @@ function MatchCard({ member, isLogin}) {
       </MatchCardContainer>
     ) : (
       <MatchCardContainer>
-        <div className="matchCard-listbox" onClick={() => matchInfoHadler()}>
+        <div 
+        className="matchCard-listbox" 
+        onClick={() => matchInfoHadler()}>
           <ul>
             <li className="matchCard-title">{member.title}</li>
             <li className=

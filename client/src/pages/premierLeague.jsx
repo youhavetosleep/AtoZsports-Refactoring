@@ -2,14 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import premier from '../image/premier_league.png'
 import Footer from '../components/footer'
+import Navbar from '../components/navbar'
 
-const PremierLeague = () => {
+const PremierLeague = ({ isLogin, setIsLogin }) => {
 
   const nowData = new Date()
   const year = nowData.getFullYear()
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <LeagueContainer>
         <LeagueIn>
           <LeagueLogo>
