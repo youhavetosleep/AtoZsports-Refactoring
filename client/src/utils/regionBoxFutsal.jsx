@@ -18,7 +18,7 @@ const RegionBoxFutsal = ({ region1, handleRegion1, handleRegion2 }) => {
     selectRegion()
   }, [region2, region1])
 
-  console.log(region1, region2)
+  // console.log(region1, region2)
 
   return (
     <SelectBoxContainer>

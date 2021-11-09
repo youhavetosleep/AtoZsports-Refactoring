@@ -46,8 +46,8 @@ const Futsal = ({
   const [firstRegion, setFirstRegion] = useState(region1)
   const [secondRegion, setSecondRegion] = useState(region2)
 
-  console.log('re1 =====>',firstRegion)
-  console.log('re2 =====>',secondRegion)
+  // console.log('re1 =====>',firstRegion)
+  // console.log('re2 =====>',secondRegion)
 
   useEffect(() => {
     dispatch(getMatchData(CurrentOrder, firstRegion, secondRegion))
@@ -71,17 +71,7 @@ const Futsal = ({
   }
 
   const handleGotoReview = () => {
-    if(!isLogin){
-      Swal.fire({
-        text: '로그인이 필요한 서비스 입니다!',
-        icon: 'warning',
-        confirmButtonColor: '#d2d2d2',
-        confirmButtonText: '확인'
-      })
-      return
-    } else {
       history.push(`/review`)
-    }
   }
 
   // console.log("memberData ========> ",memberData)

@@ -96,8 +96,8 @@ const Write = ({ isLogin, setIsLogin }) => {
       placeName: getPlace.place_name,
       addressName: getPlace.address_name,
       phone: getPlace.phone,
-      longitude: getPlace.x,
-      latitude: getPlace.y,
+      longitude: getPlace.y,
+      latitude: getPlace.x,
       placeUrl: getPlace.place_url
     })
   }, [getPlace])

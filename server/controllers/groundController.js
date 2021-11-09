@@ -57,7 +57,7 @@ module.exports = {
     })
     .then((place) => {
       if (place) {
-        res.status(200).send({ data: place.dataValues.id, message: 'ok' })
+        res.status(200).send({ data: place.dataValues, message: 'ok' })
       } else {
         res.status(404).send({ message: 'not exist' })
       }

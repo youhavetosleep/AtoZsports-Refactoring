@@ -290,16 +290,41 @@ const Mypage = ({
     }
   }
 
+  // setYesOrNo(true)
+  //   if (YesOrNo) {
+  //     return dispatch(deleteUser(Token))
+  //       .then((res) => (window.location.href = '/'))
+  //       .catch((err) => {
+  //         console.log(err)
+  //       })
+  //   }
+
   // 회원탈퇴
-  const withdrawal = () => {
-    if (YesOrNo) {
-      return dispatch(deleteUser(Token))
-        .then((res) => (window.location.href = '/'))
-        .catch((err) => {
-          console.log(err)
+
+    const withdrawal = () => {
+      if (!YesOrNo) {
+        Swal.fire({
+          icon: 'warning',
+          text: '정말 탈퇴하시겠습니까?',
+          showConfirmButton: true,
+          confirmButtonText: '확인',
+          denyButtonColor: '#d2d2d2',
+          showCancelButton: true,
+          cancelButtonText: '취소'
         })
+        .then((res) => {
+          if(res.isConfirmed) {
+            setYesOrNo(true)
+            dispatch(deleteUser(Token))
+            .then((res) => (window.location.href = '/'))
+            .catch(err => console.log(err))
+          } else {
+            return
+          }
+        })
+      }
     }
-  }
+
 
   return (
     <>
@@ -544,10 +569,7 @@ const Mypage = ({
           <GoodbyeUser>
             <div
               className="PleaseDontgo"
-              onClick={(e) => {
-                withdrawal()
-                setYesOrNo(true)
-              }}
+              onClick={withdrawal}
             >
               회원탈퇴
             </div>

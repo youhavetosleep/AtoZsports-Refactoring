@@ -25,6 +25,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const content = useRef()
 
   const Token = userInfo.loginSuccess.accessToken
+  
   const postData = userPost.postData.postsData
 
   const handledate = (date) => {
