@@ -16,17 +16,7 @@ import RegionBox from '../utils/regionBox'
 import store from '../store/store'
 import Navbar from '../components/navbar'
 
-const Review = ({
-  isLogin, 
-  setIsLogin,
-  userInfo,
-  setRegion1,
-  setRegion2,
-  region1,
-  region2,
-  handleRegion1,
-  handleRegion2
-}) => {
+const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const dispatch = useDispatch()
 
   const [groundData, setGroundData] = useState([])
@@ -34,6 +24,10 @@ const Review = ({
   const [selected, setSelected] = useState('normal')
   const [groundSelect, setGroundSelect] = useState(1)
 
+  // app.js에서의 사용자 region을 가져와서
+  // app.js region 변경없이 review페이지에서만 지역상태를 관리하기 위한 useState
+  const [home1, setHome1] = useState(region1)
+  const [home2, setHome2] = useState(region2)
   // region box 클릭시에 해당 주소의 첫번째 경기장의 위치를 중심으로 검색
   const [location1, setLocation1] = useState(37.2520770795763)
   const [location2, setLocation2] = useState(127.214827986162)
@@ -47,8 +41,15 @@ const Review = ({
     setSelected('choose')
   }
 
+  const handleHome1 = (e) => {
+    setHome1(e.target.value)
+  }
+  const handleHome2 = (e) => {
+    setHome2(e.target.value)
+  }
+
   const Ground = () => {
-    dispatch(getGroundData(region1, region2))
+    dispatch(getGroundData(home1, home2))
       .then((res) => {
         setMarkerData(res.payload)
         // 페이지에 입장했을 때 사용자가 선호하는 지역의 첫 번째로 등록된 풋살장을 보여주기 위한 상태 업데이트
@@ -136,26 +137,37 @@ const Review = ({
   // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
   // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
   useEffect(() => {
-    if (store.getState().ground.mapData !== undefined) {
+    if (Object.keys(store.getState().ground.mapData).length !== 0) {
+      // console.log('맵에서 넘어왔을 때')
       const data = store.getState().ground.mapData
-      data.address_name && setRegion1(data.address_name.split(' ')[0])
-      data.address_name && setRegion2(data.address_name.split(' ')[1])
+      data.address_name && setHome1(data.address_name.split(' ')[0])
+      data.address_name && setHome2(data.address_name.split(' ')[1])
       data.y && setLocation1(data.y)
       data.x && setLocation2(data.x)
     }
-    if (userInfo.loginSuccess === undefined) {
-      // setRegion1('경기')
-      // setRegion2('용인시')
+    if (
+      Object.keys(store.getState().ground.mapData).length === 0 &&
+      userInfo.loginSuccess === undefined
+    ) {
+      // console.log('비회원, 맵정보 없음')
+      // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
+      // 지역선텍시 경기 용인시로 고정된다..
+      // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
+      // setHome1('경기')
+      // setHome2('용인시')
     }
 
     Ground()
-  }, [region2])
+  }, [home2])
 
   // 지도가 그려지면 해당 지역에 등록된 경기장을 보여주기 위한 useEffect
   //  map페이지에서 리뷰보기 클릭시 넘어올 때는 store.getState().ground.accordData가 있는지 없는지로 확인
   useEffect(() => {
-    // 로그인을 안하거나 사용자가 살고 있는 지역의 경기장 데이터가 없을 경우
-    if (markerData.length === 0 || userInfo.loginSuccess === undefined) {
+    // 비회원일 경우의 데이터
+    if (
+      userInfo.loginSuccess === undefined &&
+      Object.keys(store.getState().ground.mapData).length === 0
+    ) {
       dispatch(selectGroundData(1)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -166,8 +178,12 @@ const Review = ({
     }
 
     // 로그인 후 사용자의 지역 데이터의 0번째로 등록된 경기장 정보
-    if (markerData.length !== 0 && userInfo.loginSuccess) {
-      dispatch(selectGroundData(markerData[2].id)).then((res) => {
+    if (
+      Object.keys(store.getState().ground.mapData).length === 0 &&
+      markerData.length !== 0 &&
+      userInfo.loginSuccess
+    ) {
+      dispatch(selectGroundData(markerData[0].id)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
         mapscript()
@@ -176,7 +192,7 @@ const Review = ({
     }
 
     // map페이지에서 리뷰보기 선택 후 넘어오는 조건문
-    if (store.getState().ground.mapData !== undefined) {
+    if (Object.keys(store.getState().ground.mapData).length !== 0) {
       const data = store.getState().ground.mapData
       if (data.address_name !== undefined) {
         if (store.getState().ground.accordData !== undefined) {
@@ -191,7 +207,7 @@ const Review = ({
         }
       }
     }
-
+    mapscript()
     //리뷰를 보여준 뒤에 map데이터 초기화
     const tick = setTimeout(() => {
       dispatch(mapData({}))
@@ -201,10 +217,7 @@ const Review = ({
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <TitleWrapper>
         <TitleImg src={review} />
         <TitleText>
@@ -214,9 +227,9 @@ const Review = ({
       <FormContainer>
         <RegionWrapper>
           <RegionBox
-            region1={region1}
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
+            region1={home1}
+            handleRegion1={handleHome1}
+            handleRegion2={handleHome2}
           />
         </RegionWrapper>
         <FormWrapper>
@@ -225,12 +238,12 @@ const Review = ({
             {selected === 'choose' ? (
               <ReviewInfo groundData={groundData} />
             ) : (
-              <InitText>경기를 원하는 지역을 검색하고</InitText>
+              <InitText>해당 지역의 리뷰가 없습니다</InitText>
             )}
             {selected === 'choose' ? (
               <Comment groundData={groundData} groundSelect={groundSelect} />
             ) : (
-              <InitText>핀을 눌러 리뷰를 확인하세요!</InitText>
+              <InitText>지역을 선택해서 리뷰를 확인해보세요</InitText>
             )}
           </ContentWrap>
         </FormWrapper>
@@ -283,7 +296,7 @@ const FormContainer = styled.div`
   background-color: #fafafa;
   height: 1500px;
   position: relative;
-  width: 1050px;
+  width: 800px;
   margin: 0 auto;
   @media screen and (max-width: 767px) {
     width: auto;
@@ -306,7 +319,7 @@ const FormWrapper = styled.div`
   transform: translate(-50%, -50%);
   border: solid 3px #bebebe;
   height: auto;
-  width: 1050px;
+  width: 800px;
   border-radius: 5px;
   background-color: #ffffff;
   @media screen and (max-width: 767px) {
@@ -318,7 +331,7 @@ const FormWrapper = styled.div`
 `
 
 const MapWrap = styled.div`
-  width: 1050px;
+  width: 800px;
   height: 400px;
   @media screen and (max-width: 767px) {
     width: 100%;

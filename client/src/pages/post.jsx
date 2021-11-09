@@ -130,20 +130,17 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <TitleWrapper>
         <TitleText>경기 정보</TitleText>
       </TitleWrapper>
       <FormContainer>
         <FormWrapper>
-          <div
+          <MapWrap
             className="miniMap"
             id="map"
-            style={{ width: '100%', height: '200px' }}
-          ></div>
+            // style={{ width: '100%', height: '200px' }}
+          ></MapWrap>
           <Main>
             <FavorteMark className="favorite">
               {postData.isMyFavorite ? (
@@ -236,7 +233,7 @@ const FormWrapper = styled.div`
     border-bottom: none;
     @media screen and (max-width: 767px) {
       padding: 30px 20px;
-  }
+    }
   }
 
   @media screen and (max-width: 767px) {
@@ -250,6 +247,15 @@ const TitleWrapper = styled.div`
   background-color: white;
   @media screen and (max-width: 767px) {
     height: 60px;
+  }
+`
+
+const MapWrap = styled.div`
+  width: 800px;
+  height: 400px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 200px;
   }
 `
 
@@ -289,7 +295,7 @@ const Main = styled.div`
 const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 0;
   font-size: 23px;
   color: #929292;
   .delete {

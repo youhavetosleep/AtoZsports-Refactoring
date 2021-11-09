@@ -116,8 +116,6 @@ function App() {
           <Route exact path="/review">
             <Review
               userInfo={userInfo}
-              handleRegion1={handleRegion1}
-              handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
               setRegion1={setRegion1}
