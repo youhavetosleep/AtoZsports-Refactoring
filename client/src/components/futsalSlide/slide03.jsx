@@ -48,7 +48,7 @@ const Slider03 = styled.div`
     vertical-align: middle;
   }
   @media screen and (max-width: 767px) {
-    height: 100vh;
+    height:60vh;
     object-fit: cover;
   }
 `
@@ -70,7 +70,7 @@ const SliderText = styled.div`
     font-weight: bold;
     line-height: 60px;
     @media screen and (max-width: 767px) {
-      font-size: 1.7em;
+      font-size: 1.4rem;
       line-height: 30px;
     }
   }
@@ -82,8 +82,8 @@ const SliderText = styled.div`
     line-height: 25px;
     font-weight: lighter;
     @media screen and (max-width: 767px) {
-      font-size: 1em;
-      line-height: 20px;
+      font-size: .8rem;
+      line-height: 16px;
     }
   }
   .slider_button {

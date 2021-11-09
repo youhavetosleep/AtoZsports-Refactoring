@@ -81,7 +81,7 @@ const Copyright = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   @media screen and (max-width:767px) {
-    font-size: 16px;
+    font-size: 12px;
     text-align: center;
   }
 `

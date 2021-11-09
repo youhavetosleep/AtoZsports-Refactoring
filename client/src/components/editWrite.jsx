@@ -11,8 +11,9 @@ import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
 import { useDispatch } from 'react-redux'
 import { editPostData } from '../_actions/post_action'
+import Navbar from './navbar'
 
-const EditWrite = () => {
+const EditWrite = ({ isLogin, setIsLogin }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -37,17 +38,17 @@ const EditWrite = () => {
   }
 
   useEffect(() => {
-      if(postData.userPhone === "") {
-        setphoneOpen(false)
-      } else {
-        setphoneOpen(true)
-      }
-  },[])
+    if (postData.userPhone === '') {
+      setphoneOpen(false)
+    } else {
+      setphoneOpen(true)
+    }
+  }, [])
 
   const sliceStartData = postData.startTime.slice(0, 10)
   const sliceStartTime = postData.startTime.slice(11, 19)
   const sliceEndTime = postData.endTime.slice(11, 19)
-  // console.log(postData)
+  console.log(postData)
 
   const [startDate, setStartDate] = useState(postData.startTime)
   const [postTitle, setPostTitle] = useState(postData.title) // title
@@ -63,9 +64,8 @@ const EditWrite = () => {
   const postStatus = postData.status
 
   // console.log(getPlace)
-  console.log(postStartTime)
-  console.log(postEndTime)
-
+  // console.log(postStartTime)
+  // console.log(postEndTime)
 
   const [getPlace, setGetPlace] = useState(postData)
   const [getGroundData, setGetGroundData] = useState({})
@@ -86,10 +86,10 @@ const EditWrite = () => {
     setPostEndTime(e.target.value)
   }
   const handleClickMember = () => {
-    setPostDivision('용병모집')
+    setPostDivision('member')
   }
   const handleClickMatch = () => {
-    setPostDivision('경기제안')
+    setPostDivision('match')
   }
   const handlePhoneCheck = (checked) => {
     postPhoneOpen ? setphoneOpen(false) : setphoneOpen(true)
@@ -102,13 +102,13 @@ const EditWrite = () => {
     setGetPlace(getPlace)
   }
   // console.log('getPlace ====> ', getPlace)
-//   console.log('placeName ====>=========== ', getPlace.place_name)
-//   console.log('addressName ====> ', getPlace.address_name)
-//   console.log('phone ====> ', getPlace.phone)
-//   console.log('longitude ====> ', getPlace.x)
-//   console.log('latitude ====> ', getPlace.y)
-//   console.log('placeUrl ====> ', getPlace.place_url)
-//   console.log(postStartTime, postEndTime)
+  //   console.log('placeName ====>=========== ', getPlace.place_name)
+  //   console.log('addressName ====> ', getPlace.address_name)
+  //   console.log('phone ====> ', getPlace.phone)
+  //   console.log('longitude ====> ', getPlace.x)
+  //   console.log('latitude ====> ', getPlace.y)
+  //   console.log('placeUrl ====> ', getPlace.place_url)
+  //   console.log(postStartTime, postEndTime)
 
   useEffect(() => {
     setGroundData({
@@ -123,15 +123,15 @@ const EditWrite = () => {
 
   // console.log(`${startDate} ${postStartTime}`)
 
-  
-  // console.log('타이틀 ====>', postTitle)
-  // console.log('모집유형 ====>', postDivision)
-  // console.log('날짜 ====>', startDate)
-  // console.log('시작시간 ====>', postStartTime)
-  // console.log('종료시간 ====>', postEndTime)
-  // console.log('요청사항 ====>',postContent)
-  // console.log('경기장 정보 ====>',groundData)
-  // console.log('폰사용 ====>',postPhoneOpen)
+  console.log('======================')
+  console.log('타이틀 ====>', postTitle)
+  console.log('모집유형 ====>', postDivision)
+  console.log('날짜 ====>', startDate)
+  console.log('시작시간 ====>', postStartTime)
+  console.log('종료시간 ====>', postEndTime)
+  console.log('요청사항 ====>', postContent)
+  console.log('경기장 정보 ====>', groundData)
+  console.log('폰사용 ====>', postPhoneOpen)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
@@ -157,6 +157,7 @@ const EditWrite = () => {
 
   return (
     <>
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <GlobalStyle />
       <WriteContainer>
         <WriteIn>
@@ -167,8 +168,8 @@ const EditWrite = () => {
               value={postTitle}
               className="write_postTitle"
               onChange={(e) => {
-                  handleInputTitle(e)
-                }}
+                handleInputTitle(e)
+              }}
               ref={titleRef}
             />
           </WriteTitle>
@@ -183,11 +184,14 @@ const EditWrite = () => {
 
           <WritePlace>
             <div className="write_palce">선택한 경기장</div>
+            {getPlace.place_name === undefined ? (
+              <div className='notChoiceGround'>x 경기장이 선택되지 않았습니다</div>
+            ) : null }
             <input
               type="text"
+              placeholder=''
               value={getPlace.place_name}
               className="write_choiceGround"
-              ref={groundRef}
             />
           </WritePlace>
           <WriteRequest>
@@ -195,7 +199,7 @@ const EditWrite = () => {
             <RequestBtn>
               <div
                 className={
-                  postDivision === '용병모집' ? 'write_btn1Click' : 'write_btn1'
+                  postDivision === 'member' ? 'write_btn1Click' : 'write_btn1'
                 }
                 onClick={handleClickMember}
               >
@@ -203,7 +207,7 @@ const EditWrite = () => {
               </div>
               <div
                 className={
-                  postDivision === '경기제안' ? 'write_btn2Click' : 'write_btn2'
+                  postDivision === 'match' ? 'write_btn2Click' : 'write_btn2'
                 }
                 onClick={handleClickMatch}
               >
@@ -235,7 +239,7 @@ const EditWrite = () => {
             <input
               type="checkbox"
               className="write_checkBox"
-              checked={postPhoneOpen ? "checked" : false}
+              checked={postPhoneOpen ? 'checked' : false}
               onChange={(e) => handlePhoneCheck(e)}
             />
           </WritePhoneCheck>
@@ -320,6 +324,13 @@ const WritePlace = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: 20px auto 20px auto;
+  .notChoiceGround {
+    display: flex;
+    position: relative;
+    margin: -16px 0px 0px 130px;
+    font-size: .9rem;
+    color: #840909;
+  }
   .write_palce {
     display: flex;
     font-size: 1.3rem;
@@ -335,6 +346,9 @@ const WritePlace = styled.div`
     border-right: none;
     border-bottom: 1px solid black;
     background-color: #fafafa;
+    :focus {
+      outline: none;
+    }
   }
 `
 

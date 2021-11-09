@@ -4,8 +4,16 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { accordGroundData } from '../_actions/ground_action'
 import instance from '../api'
+import Navbar from '../components/navbar'
 
-const Map = ({ getData, searchPlace, changeClick, click }) => {
+const Map = ({
+  isLogin,
+  setIsLogin,
+  getData,
+  searchPlace,
+  changeClick,
+  click
+}) => {
   const mapRef = useRef()
   const MenuRef = useRef()
   const dispatch = useDispatch()
@@ -92,7 +100,6 @@ const Map = ({ getData, searchPlace, changeClick, click }) => {
           // 클릭시 리뷰페이지로 이동
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
-            console.log('marker click!')
             changeClick(click + 1)
             instance
               .post(
@@ -109,15 +116,11 @@ const Map = ({ getData, searchPlace, changeClick, click }) => {
               )
               .then((res) => {
                 dispatch(accordGroundData({}))
-                dispatch(accordGroundData(res.data))
-                  .then((res) => console.log(res))
-                  .catch((err) => dispatch(accordGroundData({})))
+                dispatch(accordGroundData(res.data)).catch((err) =>
+                  dispatch(accordGroundData({}))
+                )
               })
               .catch((err) => dispatch(accordGroundData({})))
-            // console.log(places[i].place_name)
-            // dispatch(accordGroundData(places[i].place_name))
-            //   .then((res) => console.log(res))
-            //   .catch((err) => console.log(err))
             getData(places[i])
           })
 
@@ -131,7 +134,6 @@ const Map = ({ getData, searchPlace, changeClick, click }) => {
             infowindow.close()
           }
           itemEl.onclick = function () {
-            console.log('list click!')
             changeClick(click + 1)
 
             instance
@@ -148,15 +150,11 @@ const Map = ({ getData, searchPlace, changeClick, click }) => {
                 }
               )
               .then((res) => {
-                // dispatch(accordGroundData({}))
-                dispatch(accordGroundData(res.data))
-                  .then((res) => console.log(res))
-                  .catch((err) => dispatch(accordGroundData({})))
+                dispatch(accordGroundData(res.data)).catch((err) =>
+                  dispatch(accordGroundData({}))
+                )
               })
               .catch((err) => dispatch(accordGroundData({})))
-            // dispatch(accordGroundData(places[i].place_name)).then(
-            //   (res) => console.log(res)
-            // ).catch((err) => console.log(err))
             getData(places[i])
           }
         })(marker, places[i].place_name)
@@ -268,22 +266,24 @@ const Map = ({ getData, searchPlace, changeClick, click }) => {
   }, [searchPlace, addressName])
 
   return (
-    <Container>
-      <MapWrap></MapWrap>
-      <BackList />
-      <div class="map_wrap">
-        <MapView ref={mapRef} />
-      </div>
-      <MenuWrap ref={MenuRef}>
-        <SearchLine />
-        <List>
-          <ListLine />
-          <ListTitle>경기장 목록</ListTitle>
-        </List>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-      </MenuWrap>
-    </Container>
+    <>
+      <Container>
+        <MapWrap></MapWrap>
+        <BackList />
+        <div class="map_wrap">
+          <MapView ref={mapRef} />
+        </div>
+        <MenuWrap ref={MenuRef}>
+          <SearchLine />
+          <List>
+            <ListLine />
+            <ListTitle>경기장 목록</ListTitle>
+          </List>
+          <ul id="placesList"></ul>
+          <div id="pagination"></div>
+        </MenuWrap>
+      </Container>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { FaChevronDown } from 'react-icons/fa'
@@ -10,8 +11,9 @@ import { getMatchListData, sortedMatchListData } from '../_actions/post_action'
 import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
+import Navbar from '../components/navbar'
 
-const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost }) => {
+const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRegion2, setEditPost }) => {
   // 날짜변환
   const changeDate = (date) => {
     return date.toISOString().split('T')[0]
@@ -47,6 +49,20 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost
       ('0' + date.getDate()).slice(-2)
     setStartDate(changeDate)
   }
+
+  const matchInfoHadler = () => {
+    if(!isLogin){
+      Swal.fire({
+        text: '로그인이 필요한 서비스 입니다!',
+        icon: 'warning',
+        confirmButtonColor: '#d2d2d2',
+        confirmButtonText: '확인'
+      })
+      return
+    }else{
+      history.push('/write')
+    }
+}
 
   // start, end 셀렉트 박스 컴포넌트 value 가져오기
   const handleStartHour = (e) => {
@@ -123,6 +139,11 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost
   }, [region2, startTime, endTime, CurrentOrder, startDate])
 
   return (
+    <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
     <FutsalMatchSoonSection>
       <MatchSoonTitle>
         <div className="matchSoon_title">Match</div>
@@ -171,8 +192,8 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost
           </span>
           <WriteBtn 
           onClick={() => {
+            matchInfoHadler()
             setEditPost(false)
-            history.push('/write')
           }}
           >글 작성</WriteBtn>
         </FilterWrap2>
@@ -186,6 +207,7 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost
                   setListData={setListData}
                   member={member}
                   key={idx}
+                  isLogin={isLogin}
                 />
               )
             })}
@@ -202,6 +224,7 @@ const MatchList = ({ region1, region2, handleRegion1, handleRegion2, setEditPost
         <PlusBtn onClick={handleOffset}> {finMessage} </PlusBtn>
       </BtnWrap>
     </FutsalMatchSoonSection>
+    </>
   )
 }
 
@@ -210,8 +233,8 @@ const FutsalMatchSoonSection = styled.section`
   max-width: 1110px;
   justify-content: center;
   border-bottom: 1px solid black;
-  padding: 60px 0px 50px 0px;
-  margin: 100px auto;
+  padding: 0px 0px 50px 0px;
+  margin: 50px auto;
 `
 
 const MatchSoonTitle = styled.div`

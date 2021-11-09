@@ -11,8 +11,9 @@ import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
 import { useDispatch } from 'react-redux'
 import { writePostData } from '../_actions/post_action'
+import Navbar from '../components/navbar'
 
-const Write = () => {
+const Write = ({ isLogin, setIsLogin }) => {
   const history = useHistory()
   const mapRef = useRef()
   const dispatch = useDispatch()
@@ -66,10 +67,10 @@ const Write = () => {
     setPostEndTime(e.target.value)
   }
   const handleClickMember = () => {
-    setPostDivision('용병모집')
+    setPostDivision('member')
   }
   const handleClickMatch = () => {
-    setPostDivision('경기제안')
+    setPostDivision('match')
   }
   const handlePhoneCheck = (e) => {
     postPhoneOpen ? setphoneOpen(false) : setphoneOpen(true)
@@ -126,6 +127,10 @@ const Write = () => {
 
   return (
     <>
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <GlobalStyle />
       <WriteContainer>
         <WriteIn>
@@ -164,7 +169,7 @@ const Write = () => {
             <RequestBtn>
               <div
                 className={
-                  postDivision === '용병모집' ? 'write_btn1Click' : 'write_btn1'
+                  postDivision === 'member' ? 'write_btn1Click' : 'write_btn1'
                 }
                 onClick={handleClickMember}
               >
@@ -172,7 +177,7 @@ const Write = () => {
               </div>
               <div
                 className={
-                  postDivision === '경기제안' ? 'write_btn2Click' : 'write_btn2'
+                  postDivision === 'match' ? 'write_btn2Click' : 'write_btn2'
                 }
                 onClick={handleClickMatch}
               >

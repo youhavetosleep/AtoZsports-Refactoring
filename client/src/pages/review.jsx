@@ -14,8 +14,9 @@ import Comment from '../components/comment/comment'
 import ReviewInfo from '../components/reviewInfo'
 import RegionBox from '../utils/regionBox'
 import store from '../store/store'
+import Navbar from '../components/navbar'
 
-const Review = ({ userInfo, region1, region2 }) => {
+const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const dispatch = useDispatch()
 
   const [groundData, setGroundData] = useState([])
@@ -136,9 +137,8 @@ const Review = ({ userInfo, region1, region2 }) => {
   // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
   // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
   useEffect(() => {
-    console.log(Object.keys(store.getState().ground.mapData).length)
     if (Object.keys(store.getState().ground.mapData).length !== 0) {
-      console.log('맵에서 넘어왔을 때')
+      // console.log('맵에서 넘어왔을 때')
       const data = store.getState().ground.mapData
       data.address_name && setHome1(data.address_name.split(' ')[0])
       data.address_name && setHome2(data.address_name.split(' ')[1])
@@ -149,8 +149,8 @@ const Review = ({ userInfo, region1, region2 }) => {
       Object.keys(store.getState().ground.mapData).length === 0 &&
       userInfo.loginSuccess === undefined
     ) {
-      console.log('비회원, 맵정보 없음')
-      // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때 
+      // console.log('비회원, 맵정보 없음')
+      // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
       // 지역선텍시 경기 용인시로 고정된다..
       // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
       // setHome1('경기')
@@ -163,13 +163,11 @@ const Review = ({ userInfo, region1, region2 }) => {
   // 지도가 그려지면 해당 지역에 등록된 경기장을 보여주기 위한 useEffect
   //  map페이지에서 리뷰보기 클릭시 넘어올 때는 store.getState().ground.accordData가 있는지 없는지로 확인
   useEffect(() => {
-    
-    // 비회원일 경우의 데이터 
+    // 비회원일 경우의 데이터
     if (
       userInfo.loginSuccess === undefined &&
       Object.keys(store.getState().ground.mapData).length === 0
     ) {
-      console.log('111')
       dispatch(selectGroundData(1)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -185,7 +183,6 @@ const Review = ({ userInfo, region1, region2 }) => {
       markerData.length !== 0 &&
       userInfo.loginSuccess
     ) {
-      console.log('222')
       dispatch(selectGroundData(markerData[0].id)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -196,7 +193,6 @@ const Review = ({ userInfo, region1, region2 }) => {
 
     // map페이지에서 리뷰보기 선택 후 넘어오는 조건문
     if (Object.keys(store.getState().ground.mapData).length !== 0) {
-      console.log('333')
       const data = store.getState().ground.mapData
       if (data.address_name !== undefined) {
         if (store.getState().ground.accordData !== undefined) {
@@ -221,6 +217,7 @@ const Review = ({ userInfo, region1, region2 }) => {
 
   return (
     <>
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <TitleWrapper>
         <TitleImg src={review} />
         <TitleText>

@@ -1,6 +1,7 @@
 'use strict'
 
 const users = require('../data/user')
+const bcrypt = require('bcrypt')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -16,10 +17,11 @@ module.exports = {
         verified,
         verifiedKey
       } = el
+      let encryptedPassword = bcrypt.hashSync(password, 10)
       let obj = {
         email,
         nickname,
-        password,
+        password: encryptedPassword,
         userPhone,
         homeground,
         favoriteSports,
