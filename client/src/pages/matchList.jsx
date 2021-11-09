@@ -13,7 +13,7 @@ import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
 import Navbar from '../components/navbar'
 
-const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRegion2, setEditPost }) => {
+const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
   // 날짜변환
   const changeDate = (date) => {
     return date.toISOString().split('T')[0]
@@ -32,11 +32,19 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handl
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [finMessage, setFinMessage] = useState('')
-
+  const [sort1, setSort1] = useState(region1)
+  const [sort2, setSort2] = useState(region2)
   // 더보기 버튼
   const handleOffset = async () => {
     let offsetNum = offset + 1
     setOffset(offsetNum)
+  }
+
+  const handleSort1 = (e) => {
+    setSort1(e.target.value)
+  }
+  const handleSort2 = (e) => {
+    setSort2(e.target.value)
   }
 
   // 캘린더 컴포넌트 날짜 value 가져오기
@@ -123,8 +131,8 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handl
         endTime,
         CurrentOrder,
         startDate,
-        region1,
-        region2
+        sort1,
+        sort2
       )
     )
       .then((res) => {
@@ -136,7 +144,7 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handl
       .catch((err) => {
         console.log(err)
       })
-  }, [region2, startTime, endTime, CurrentOrder, startDate])
+  }, [sort2, startTime, endTime, CurrentOrder, startDate])
 
   return (
     <>
@@ -171,8 +179,8 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handl
           <RegionWrap>
           <RegionBox
             region1={region1}
-            handleRegion1={handleRegion1}
-            handleRegion2={handleRegion2}
+            handleRegion1={handleSort1}
+            handleRegion2={handleSort2}
           />
           </RegionWrap>
         </FilterWrap1>
@@ -262,7 +270,7 @@ const MatchSoonFilter = styled.div`
 const MatchSoonList = styled.div`
   display: flex;
   position: relative;
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1110px) {
   justify-content:center;
 }
   .all_MatchCard {
@@ -270,9 +278,15 @@ const MatchSoonList = styled.div`
     grid-template-columns: repeat(3, 360px);
     row-gap: 20px;
     column-gap: 24px;
+    @media screen and (max-width: 1110px) {
+      display: grid;
+    grid-template-columns: repeat(2, 350px);
+    row-gap: 0px;
+    column-gap: 24px;
+  }
     @media screen and (max-width: 767px) {
       display: grid;
-    grid-template-columns: repeat(1, 360px);
+    grid-template-columns: repeat(1, 350px);
     row-gap: 0px;
     column-gap: 24px;
   }
@@ -326,7 +340,12 @@ const FilterWrap1 = styled.div`
   justify-content: space-between;
   display: flex;
   margin-bottom: 30px;
+  @media screen and (max-width: 1110px) {
+    width : 710px;
+    margin : 10px auto;
+  }
   @media screen and (max-width: 767px) {
+    width : 100%;
     flex-direction: column;
   }
 `
@@ -358,6 +377,14 @@ const FilterWrap2 = styled.div`
         cursor: pointer;
       }
     }
+  }
+  @media screen and (max-width: 1110px) {
+    width : 700px;
+    margin : 0 auto;
+  }
+  @media screen and (max-width: 767px) {
+    width : 350px;
+    margin : 0 auto;
   }
 `
 

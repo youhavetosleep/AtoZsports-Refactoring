@@ -90,7 +90,7 @@ const Comment = ({ groundData, groundSelect }) => {
             setWrite(e.target.value)
           }}
         />
-        <CommentBtn onClick={addComment}>글쓰기</CommentBtn>
+        <CommentBtn onClick={addComment}>입력</CommentBtn>
       </WriteWrap>
       {content && content.length === 0 ? (
         <Alert>댓글을 작성해주세요!</Alert>
@@ -134,7 +134,7 @@ const WriteWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 10px;
   box-sizing: border-box;
   border-bottom: 1px solid #a0a0a0;
   @media screen and (max-width: 767px) {
@@ -150,6 +150,7 @@ const Input = styled.input`
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 5px;
+  margin: 0 5px;
   :focus {
     border: solid 2px #959595;
     outline: none;
@@ -201,7 +202,7 @@ const Pagination = styled.ul`
 const Alert = styled.h1`
   height: 500px;
   text-align: center;
-  padding: 300px 150px;
+  padding: 230px 150px;
   box-sizing: border-box;
   font-size: 30px;
 `

@@ -130,7 +130,10 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 
   return (
     <>
-      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <TitleWrapper>
         <TitleText>경기 정보</TitleText>
       </TitleWrapper>
@@ -237,7 +240,7 @@ const FormWrapper = styled.div`
   }
 
   @media screen and (max-width: 767px) {
-    width: 360px;
+    width: calc(100% - 20px);
   }
 `
 
@@ -251,8 +254,8 @@ const TitleWrapper = styled.div`
 `
 
 const MapWrap = styled.div`
-  width: 800px;
-  height: 400px;
+  width: 100%;
+  height: 250px;
   @media screen and (max-width: 767px) {
     width: 100%;
     height: 200px;
@@ -295,7 +298,7 @@ const Main = styled.div`
 const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
-  margin-top: 0;
+  padding-top : 10px;
   font-size: 23px;
   color: #929292;
   .delete {
@@ -303,7 +306,6 @@ const FavorteMark = styled.div`
   @media screen and (max-width: 767px) {
     margin-top: 0;
     font-size: 17px;
-    padding-top: 5px;
     margin-left: 5px;
   }
 `

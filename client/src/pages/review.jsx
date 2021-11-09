@@ -172,8 +172,8 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
         // setMarkerData([])
-        mapscript()
-        return
+        // mapscript()
+        // return
       })
     }
 
@@ -186,8 +186,8 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
       dispatch(selectGroundData(markerData[0].id)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
-        mapscript()
-        return
+        // mapscript()
+        // return
       })
     }
 
@@ -201,8 +201,8 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
           ).then((res) => {
             setGroundData(res.payload)
             markerDetail(res.payload.id)
-            mapscript()
-            return
+            // mapscript()
+            // return
           })
         }
       }
@@ -236,14 +236,15 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
           <MapWrap id="map"></MapWrap>
           <ContentWrap>
             {selected === 'choose' ? (
-              <ReviewInfo groundData={groundData} />
+              <>
+                <ReviewInfo groundData={groundData} />
+                <Comment groundData={groundData} groundSelect={groundSelect} />
+              </>
             ) : (
-              <InitText>해당 지역의 리뷰가 없습니다</InitText>
-            )}
-            {selected === 'choose' ? (
-              <Comment groundData={groundData} groundSelect={groundSelect} />
-            ) : (
-              <InitText>지역을 선택해서 리뷰를 확인해보세요</InitText>
+              <InitWrap>
+                <InitText>해당 지역의 리뷰가 없습니다</InitText>
+                <InitText>지역을 선택해서 리뷰를 확인해보세요</InitText>
+              </InitWrap>
             )}
           </ContentWrap>
         </FormWrapper>
@@ -280,15 +281,14 @@ const TitleText = styled.h1`
   p {
     font-size: 20px;
     font-weight: 20;
-    margin-left: 5px;
     margin-top: 5px;
     @media screen and (max-width: 767px) {
       font-size: 12px;
-      margin-left: 0;
     }
   }
   @media screen and (max-width: 767px) {
     font-size: 20px;
+    text-align: center;
   }
 `
 
@@ -306,9 +306,10 @@ const FormContainer = styled.div`
 const RegionWrapper = styled.div`
   position: absolute;
   top: 80px;
-  left: 0;
+  left: -2px;
   @media screen and (max-width: 767px) {
     left: 9px;
+    top: 40px;
   }
 `
 
@@ -317,15 +318,15 @@ const FormWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: solid 3px #bebebe;
+  border: solid 2px #bebebe;
   height: auto;
   width: 800px;
-  height :1200px;
+  height: 1250px;
   border-radius: 5px;
   background-color: #ffffff;
   @media screen and (max-width: 767px) {
     width: calc(100% - 20px);
-    height: auto;
+    height: 1100px;
     top: 630px;
     border: solid 1px #bebebe;
   }
@@ -336,7 +337,7 @@ const MapWrap = styled.div`
   height: 400px;
   @media screen and (max-width: 767px) {
     width: 100%;
-    height: 200px;
+    height: 250px;
   }
 `
 
@@ -355,6 +356,13 @@ const InitText = styled.h1`
   text-align: center;
   font-size: 30px;
   margin-bottom: 30px;
+  @media screen and (max-width: 767px) {
+    font-size:20px;
+  }
+`
+const InitWrap = styled.div`
+  margin : 300px auto;
+  @media screen and (max-width: 767px) {}
 `
 
 export default Review
