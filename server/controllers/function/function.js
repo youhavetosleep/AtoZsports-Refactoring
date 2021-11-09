@@ -1,6 +1,7 @@
 const dotenv = require('dotenv')
 const schedule = require('node-schedule')
 const inlineCss = require('nodemailer-juice')
+const axios = require('axios')
 const { Op } = require('sequelize')
 const {
   isAuthorized,
@@ -8,7 +9,7 @@ const {
   generateAccessToken
 } = require('../token/tokenController')
 const smtpTransport = require('../../config/mailConfig')
-const { User, Post, Chat } = require('../../models')
+const { User, Post, Chat, EplMatch, EplResult } = require('../../models')
 
 dotenv.config()
 
@@ -233,5 +234,58 @@ module.exports = {
       })
     }
     return result
+  },
+  requestEplData: (matchDay) => {
+    // matchDay 변수는 숫자값으로 보내주세요.
+    let options = {
+      method: 'GET',
+      url:
+        'https://heisenbug-premier-league-live-scores-v1.p.rapidapi.com/api/premierleague',
+      params: { matchday: `${matchDay}` },
+      headers: {
+        'x-rapidapi-host':
+          'heisenbug-premier-league-live-scores-v1.p.rapidapi.com',
+        'x-rapidapi-key': '572485b417mshae360ec40dc86e6p122c0ejsn25a4f4428ad5'
+      }
+    }
+    axios
+      .request(options)
+      .then(async (res) => {
+        // 아직 치뤄지지 않은 경기 요청시 (EplMatch에 해당)
+        if (!res.data.matches[0].time) {
+          await EplMatch.destroy({ where: {}, truncate: true })
+          res.data.matches.map(async (el) => {
+            let { when, team1, team2, venue } = el
+            await EplMatch.create({
+              time: when,
+              homeTeam: team1.teamName,
+              awayTeam: team2.teamName,
+              stadium: venue
+            })
+          })
+          let updatedEplMatch = await EplMatch.findAll({})
+          res.send(updatedEplMatch)
+        } else {
+          // 이미 치뤄진 경기 요청시 (EplResult에 해당)
+          await EplResult.destroy({ where: {}, truncate: true })
+          res.data.matches.map(async (el) => {
+            let { when, referee, team1, team2, venue } = el
+            await EplResult.create({
+              time: when,
+              referee,
+              homeTeam: team1.teamName,
+              homeScore: team1.teamScore,
+              awayTeam: team2.teamName,
+              awayScore: team2.teamScore,
+              stadium: venue
+            })
+          })
+          let updatedEplResult = await EplResult.findAll({})
+          res.send(updatedEplResult)
+        }
+      })
+      .catch((err) => {
+        console.log(`requestEplData Error: ${err.message}`)
+      })
   }
 }
