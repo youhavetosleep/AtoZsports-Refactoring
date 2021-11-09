@@ -43,11 +43,14 @@ const Futsal = ({
   const [memberData, setMemberData] = useState([])
   const [dummyData, setDummyData] = useState([{}, {}, {}, {}, {}])
 
-  // console.log('re1 =====>',region1)
-  // console.log('re2 =====>',region2)
+  const [firstRegion, setFirstRegion] = useState(region1)
+  const [secondRegion, setSecondRegion] = useState(region2)
+
+  console.log('re1 =====>',firstRegion)
+  console.log('re2 =====>',secondRegion)
 
   useEffect(() => {
-    dispatch(getMatchData(CurrentOrder, region1, region2))
+    dispatch(getMatchData(CurrentOrder, firstRegion, secondRegion))
       .then((res) => {
         setMemberData(res.payload)
         // console.log('payload ====>', res.payload)
@@ -550,6 +553,9 @@ const StadiumReview = styled.div`
   height: 290px;
   padding: 0px 0px 30px 0px;
   border-radius: 5px;
+  :hover {
+    cursor: pointer;
+  }
   @media screen and (max-width: 767px) {
     display: flex;
     align-items: center;

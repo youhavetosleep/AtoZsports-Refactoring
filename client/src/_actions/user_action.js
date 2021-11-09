@@ -159,31 +159,8 @@ export async function userPassword(password, token) {
   }
 }
 
-export async function userChangeFirstPsword(firstPsword, Token) {
-  const request = await instance
-    .patch(
-      `/users/security`,
-      {
-        password: firstPsword
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${Token}`
-        },
-        withCredentials: true
-      }
-    )
-    .then((res) => res.data)
-    .catch((err) => err)
 
-  return {
-    type: USER_PASSWORDCHECK,
-    payload: request
-  }
-}
-
-export async function userChangeSecoundPsword(secondPsword, Token) {
+export async function userChangePsword(secondPsword, Token) {
   const request = await instance
     .patch(
       `/users/security`,
@@ -198,7 +175,8 @@ export async function userChangeSecoundPsword(secondPsword, Token) {
         withCredentials: true
       }
     )
-    .then((res) => res.data.message)
+    .then((res) => res.data)
+    .catch(err => err)
 
   return {
     type: USER_PASSWORDCHECK,
