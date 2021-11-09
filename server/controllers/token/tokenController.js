@@ -5,7 +5,7 @@ dotenv.config()
 module.exports = {
   // accessToken 생성 (유효시간 30분)
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: '1m' })
+    return sign(data, process.env.ACCESS_SECRET, { expiresIn: '20m' })
   },
   // refreshToken 생성 (유효시간 30일)
   generateRefreshToken: (data) => {

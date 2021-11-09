@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { Suspense, useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import GlobalStyle from './globalStyle/globalStyle'
@@ -42,8 +42,6 @@ function App() {
   //     window.removeEventListener('scroll', scrollPositionHandler)
   //   }
   // },[])
-
-  
 
   // // 스크롤 시 위치를 상태값에 저장하는 코드.
   // const scrollPositionHandler = () => {
@@ -115,9 +113,7 @@ function App() {
           </Route>
           <Route exact path="/map">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -125,9 +121,7 @@ function App() {
           </Route>
           <Route exact path="/review">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -143,9 +137,7 @@ function App() {
           </Route>
           <Route exact path="/matchlist">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -159,21 +151,15 @@ function App() {
           </Route>
           <Route exact path="/post/:id">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
-            <Post 
-            userInfo={userInfo} 
-            setEditPost={setEditPost} />
+            <Post userInfo={userInfo} setEditPost={setEditPost} />
           </Route>
           <Route exact path="/write">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -181,9 +167,7 @@ function App() {
           </Route>
           <Route exact path="/mypage">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -197,9 +181,7 @@ function App() {
           </Route>
           <Route exact path="/signup">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} setIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
@@ -212,9 +194,7 @@ function App() {
           </Route>
           <Route exact path="/premierleague">
             {isLogin ? (
-              <NavbarChange 
-              isLogin={isLogin} 
-              etIsLogin={setIsLogin} />
+              <NavbarChange isLogin={isLogin} etIsLogin={setIsLogin} />
             ) : (
               <Navbar />
             )}
