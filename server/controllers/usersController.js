@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 const crypto = require('crypto')
 const axios = require('axios')
 const inlineCss = require('nodemailer-juice')
+const bcrypt = require('bcrypt')
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -19,7 +20,7 @@ module.exports = {
     const { email, password } = req.body
     // 입력한 정보와 일치하는 유저 정보를 찾음
     User.findOne({
-      where: { email, password }
+      where: { email }
     })
       .then((user) => {
         // 이메일이나 비밀번호가 일치하지 않은 경우
@@ -30,6 +31,14 @@ module.exports = {
           })
         }
         let userData = user.dataValues
+        let dataBasePW = userData.password
+        let isSamePw = bcrypt.compareSync(password, dataBasePW)
+        if (!isSamePw) {
+          return res.status(404).send({
+            data: null,
+            message: '비밀번호가 일치하지 않습니다'
+          })
+        }
         // 이메일 인증이 완료되지 않은 계정
         if (!userData.verified) {
           return res.status(409).send({
@@ -76,9 +85,11 @@ module.exports = {
             })
 
             if (!findUser) {
+              let password = generateRandomPassword()
+              let encryptedPassword = bcrypt.hashSync(password, 10)
               User.create({
                 email: userKakaoEmail,
-                password: generateRandomPassword(),
+                password: encryptedPassword,
                 nickname: userKakaoNick,
                 userPhone: '010-xxxx-xxxx',
                 homeground: '',
@@ -115,7 +126,7 @@ module.exports = {
                       <h1>AtoZ sports</h1>
                       <p>안녕하세요. <span>${userData.nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p><br />
                       <p>임시 비밀번호를 다음과 같이 발급해드렸습니다.</p><br />
-                      <p>임시 비밀번호 : <span>${userData.password}</span></p><br />
+                      <p>임시 비밀번호 : <span>${password}</span></p><br />
                       <p>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</p><br />
                       <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p><br />
                       <button><a href="${DOMAIN}">홈페이지로 이동</a></button>
@@ -221,9 +232,11 @@ module.exports = {
           if (!user) {
             // 최초 로그인 (회원가입 절차 => 로그인)
             // email, nickname을 제외하고는 임의의 데이터로 회원 생성
+            let password = generateRandomPassword()
+            let encryptedPassword = bcrypt.hashSync(password, 10)
             User.create({
               email: email,
-              password: generateRandomPassword(),
+              password: encryptedPassword,
               nickname: nickname,
               userPhone: '010-xxxx-xxxx',
               homeground: '',
@@ -260,7 +273,7 @@ module.exports = {
                   <h1>AtoZ sports</h1><br />
                   <p>안녕하세요. <span>${nickname}</span>님, AtoZ Sports 가입을 진심으로 감사드립니다.</p><br />
                   <p>임시 비밀번호를 다음과 같이 발급해드렸습니다.</p><br />
-                  <p>임시 비밀번호 : <span>${userData.password}</span></p><br />
+                  <p>임시 비밀번호 : <span>${password}</span></p><br />
                   <p>마이 페이지에서 내 정보를 기입하시면 AtoZ Sports가 제공하는 기능을 더욱 편리하게 이용하실 수 있습니다.</p><br />
                   <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p><br />
                   <button><a href="${domain}">홈페이지로 이동</a></button>
@@ -324,11 +337,12 @@ module.exports = {
     const key2 = crypto.randomBytes(256).toString('base64').substr(50, 10)
     const verifiedKey = key1 + key2
     // 데이터에 입력된 회원정보를 만들어 넣음
+    let encryptedPassword = bcrypt.hashSync(password, 10)
     User.findOrCreate({
       where: {
         email: email,
         nickname: nickname,
-        password: password,
+        password: encryptedPassword,
         userPhone: userPhone,
         favoriteSports: favoriteSports,
         homeground: homeground,
@@ -484,8 +498,12 @@ module.exports = {
     const userId = res.locals.userId
     User.findOne({ where: { id: userId } })
       .then((user) => {
+        let userData = user.dataValues
+        let dataBasePW = userData.password
+        let password = req.body.password
+        let isSamePw = bcrypt.compareSync(password, dataBasePW)
         // 입력받은 패스워드와 현재 유저의 패스워드가 다를 경우 오류 표시
-        if (user.dataValues.password !== req.body.password) {
+        if (!isSamePw) {
           res.status(404).send({ message: '비밀번호가 일치하지 않습니다' })
         } else {
           res.send({ message: '✔ 비밀번호가 일치합니다' })
@@ -501,14 +519,19 @@ module.exports = {
     const userId = res.locals.userId
     User.findOne({ where: { id: userId } })
       .then((user) => {
+        let userData = user.dataValues
+        let dataBasePW = userData.password
+        let password = req.body.password
+        let isSamePw = bcrypt.compareSync(password, dataBasePW)
         // 입력받은 패스와드와 현재 유저의 패스워드가 같으면 오류 표시
-        if (user.dataValues.password === req.body.password) {
+        if (isSamePw) {
           res
             .status(404)
             .send({ message: '현재 비밀번호와 같은 비밀번호입니다' })
         } else {
+          let encryptedPassword = bcrypt.hashSync(password, 10)
           User.update(
-            { password: req.body.password },
+            { password: encryptedPassword },
             { where: { id: userId } }
           )
           res.send({ message: '비밀번호가 변경되었습니다' })
