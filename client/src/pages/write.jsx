@@ -245,6 +245,7 @@ const WriteIn = styled.div`
     font-weight: bold;
     margin: 80px 0px 20px 0px;
     @media screen and (max-width: 767px) {
+      max-width: 375px;
       display: flex;
       justify-content: center;
       font-size: 1.5rem;
@@ -259,6 +260,10 @@ const WriteIn = styled.div`
     :hover {
       color: #890909;
       cursor: pointer;
+    }
+    @media screen and (max-width: 767px) {
+      max-width: 375px;
+      margin: 140px 0px 50px 0px;
     }
   }
 `

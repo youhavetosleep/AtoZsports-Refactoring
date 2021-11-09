@@ -159,6 +159,7 @@ export async function userPassword(password, token) {
   }
 }
 
+
 export async function userChangePsword(secondPsword, Token) {
   const request = await instance
     .patch(
@@ -174,7 +175,8 @@ export async function userChangePsword(secondPsword, Token) {
         withCredentials: true
       }
     )
-    .then((res) => res.data.message)
+    .then((res) => res.data)
+    .catch(err => err)
 
   return {
     type: USER_PASSWORDCHECK,

@@ -103,7 +103,7 @@ const CheckPasswordContainer = styled.div`
     right: 0;
     bottom: 0;
     position: fixed;
-    z-index: 400;
+    z-index: 100;
   }
 `
 
@@ -129,11 +129,20 @@ const CheckPasswordModal = styled.div`
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   z-index: 500;
+  @media screen and (max-width: 767px) {
+    width: 300px;
+  height: 250px;
+  left: 46%;
+    }
   .checkPswordTitle {
     position: absolute;
     top: 40px;
     left: 48px;
     font-size: 1.3rem;
+    @media screen and (max-width: 767px) {
+      top: 40px;
+    left: 28px;
+    }
   }
   .checkPswordInput {
     position: absolute;
@@ -146,6 +155,9 @@ const CheckPasswordModal = styled.div`
     :focus {
       outline: none;
     }
+    @media screen and (max-width: 767px) {
+    width: 240px;
+    }
   }
   .checkPswordBtn {
     position: absolute;
@@ -156,6 +168,10 @@ const CheckPasswordModal = styled.div`
     :hover {
       cursor: pointer;
       color: #840909;
+    }
+    @media screen and (max-width: 767px) {
+    bottom: 20px;
+    right: 30px;
     }
   }
 `
@@ -169,6 +185,10 @@ const Check = styled.div`
     bottom: 45px;
     font-size: 13px;
     color: #1b7e07;
+    @media screen and (max-width: 767px) {
+    bottom: 80px;
+    left: 140px;
+    }
   }
   .wrongPsword {
     margin: 0;
@@ -178,6 +198,10 @@ const Check = styled.div`
     bottom: 45px;
     font-size: 13px;
     color: #840909;
+    @media screen and (max-width: 767px) {
+    bottom: 80px;
+    left: 110px;
+    }
   }
 `
 
