@@ -202,7 +202,7 @@ const Review = ({ isLogin, setIsLogin, userInfo }) => {
       if (data.address_name !== undefined) {
         if (store.getState().ground.accordData !== undefined) {
           dispatch(
-            selectGroundData(store.getState().ground.accordData.data)
+            selectGroundData(store.getState().ground.accordData.data.id)
           ).then((res) => {
             setGroundData(res.payload)
             markerDetail(res.payload.id)

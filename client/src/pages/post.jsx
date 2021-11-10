@@ -142,7 +142,6 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           <MapWrap
             className="miniMap"
             id="map"
-            // style={{ width: '100%', height: '200px' }}
           ></MapWrap>
           <Main>
             <FavorteMark className="favorite">
