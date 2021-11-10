@@ -1,56 +1,51 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
+import Select from 'react-select'
 import { STARTOPTIONS, ENDOPTIONS } from './data'
 
-const SelectBoxWrite = ({ handleEndHour, handleStartHour }) => {
+const SelectBox = ({ startTime, endTime, handleStartHour, handleEndHour }) => {
+  let setStartTime = startTime
+  let setEndTime = endTime
+  console.log(setStartTime, setEndTime)
+  const options = useMemo(() => STARTOPTIONS)
+  console.log(options)
+  let findDefaultValue
+  options.map((el, idx) => {
+    if(el.value === setStartTime) {
+      findDefaultValue = idx
+    }
+  })  
+  console.log(findDefaultValue)
+  const options2 = useMemo(() => ENDOPTIONS)
+  let findDefaultValue2
+  options.map((el, idx) => {
+    if(el.value === setEndTime) {
+      findDefaultValue2 = idx
+    }
+  })
+  console.log(findDefaultValue2)  
+  
+  
   return (
-    <SelectBoxWrapper>
-      <Select onChange={handleStartHour}>
-        {STARTOPTIONS.map((option) => (
-          <option
-            
-            key={option.value}
-            value={option.value}
-            defaultValue={option.value}
-          >
-            {option.name}
-          </option>
-        ))}
-      </Select>
-      <Select onChange={handleEndHour}>
-        {ENDOPTIONS.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            defaultValue={option.value}
-          >
-            {option.name}
-          </option>
-        ))}
-      </Select>
-    </SelectBoxWrapper>
+    <SelectBoxContainer>
+      <SelectWrap>
+        <Select options={options} defaultValue={options[findDefaultValue]} onChange={handleStartHour}/>
+      </SelectWrap>
+      <SelectWrap className='second'>
+        <Select options={options2} defaultValue={options2[findDefaultValue2]} onChange={handleEndHour}/>
+      </SelectWrap>
+    </SelectBoxContainer>
   )
 }
 
-const SelectBoxWrapper = styled.div`
+const SelectBoxContainer = styled.div`
   display: flex;
+  .second {
+    margin-left: 7px;
+  }
+`
+const SelectWrap = styled.div`
+  position: relative;
 `
 
-const Select = styled.select`
-  margin: 0;
-  min-width: 0;
-  display: block;
-  text-align: center;
-  width: 180px;
-  box-sizing: border-box;
-  padding: 11px 0px 11px 0px;
-  margin-right :20px; 
-  font-size: inherit;
-  border: 1px solid #c6c6c6;
-  border-radius: 4px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-`
-
-export default SelectBoxWrite
+export default SelectBox
