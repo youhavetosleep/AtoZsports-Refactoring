@@ -12,7 +12,7 @@ export async function getMatchListData(
 ) {
   const request = await instance
     .get(
-      `/futsal/posts?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=6`,
+      `/futsal/posts/list?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=6`,
       {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
@@ -38,7 +38,7 @@ export async function sortedMatchListData(
 ) {
   const request = await instance
     .get(
-      `/futsal/posts?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=6`,
+      `/futsal/posts/list?date=${date}&startTime=${startTime}&endTime=${endTime}&&division=${CurrentOrder}&do=${region1}&city=${region2}&offset=${offset}&limit=6`,
       {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true

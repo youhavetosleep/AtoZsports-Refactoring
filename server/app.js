@@ -6,10 +6,10 @@ const cors = require('cors')
 const hpp = require('hpp')
 const dotenv = require('dotenv')
 const helmet = require('helmet')
-const router = require('./routes')
-const db = require('./models')
 const http = require('http')
 const socketIo = require('socket.io')
+const router = require('./routes')
+const db = require('./models')
 
 dotenv.config()
 const app = express()
@@ -68,6 +68,7 @@ db.sequelize
   .catch(console.error)
 
 app.use('/', router)
+
 
 httpServer.listen(PORT, () => {
   console.log(`서버가 ${PORT}번에서 작동 중입니다.`)

@@ -57,190 +57,188 @@ module.exports = {
       })
   },
   // 게시글 확인
-  // 게시글 목록 , 게시글 클릭 시 구분
   findPost: (req, res, next) => {
-    if (req.query.id) {
-      isAuth(req, res)
-      Post.findOne({
-        include: [
-          {
-            model: Ground,
-            attributes: [
-              'placeName',
-              'addressName',
-              'longitude',
-              'latitude',
-              'phone'
-            ]
-          },
-          { model: User, attributes: ['nickname', 'userPhone'] }
-        ],
-        where: { id: req.query.id }
-      })
-        .then(async (data) => {
-          if (!data) {
-            res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
-          } else {
-            const {
-              id,
-              title,
-              division,
-              content,
-              startTime,
-              endTime,
-              status,
-              phoneOpen,
-              userId,
-              Ground: { placeName, addressName, longitude, latitude, phone },
-              User: { nickname, userPhone }
-            } = data
-
-            let isMyPost = false
-            let isMyFavorite = false
-
-            // 나의 게시물, 즐겨찾기 확인
-            let findFavoritePost = await FavoritePost.findOne({
-              where: {
-                userId: res.locals.userId,
-                postId: req.query.id
-              }
-            })
-
-            if (!!findFavoritePost) isMyFavorite = true
-            if (res.locals.userId === userId) isMyPost = true
-
-            let resultData
-            phoneOpen === true
-              ? (resultData = {
-                  id,
-                  isMyPost,
-                  isMyFavorite,
-                  title,
-                  division,
-                  content,
-                  startTime,
-                  endTime,
-                  status,
-                  placeName,
-                  addressName,
-                  longitude,
-                  latitude,
-                  phone,
-                  nickname,
-                  userPhone
-                })
-              : (resultData = {
-                  id,
-                  isMyPost,
-                  isMyFavorite,
-                  title,
-                  division,
-                  content,
-                  startTime,
-                  endTime,
-                  status,
-                  placeName,
-                  addressName,
-                  longitude,
-                  latitude,
-                  phone,
-                  nickname
-                })
-            res.locals.message === '인증 완료'
-              ? res.send({ postsData: resultData })
-              : res.send({
-                  accessToken: res.locals.isAuth,
-                  postsData: resultData
-                })
-          }
-        })
-        .catch((err) => {
-          console.log(`findPost Error: ${err.message}`)
-        })
-    } else {
-      const sports = req.baseUrl.split('/')[1]
-      let Day = new Date(req.query.date)
-      const Division = req.query.division
-      const Do = decodeURIComponent(req.query.do)
-      const City = decodeURIComponent(req.query.city)
-      const StartTime = new Date(`${req.query.date} ${req.query.startTime}`)
-      const EndTime = new Date(`${req.query.date} ${req.query.endTime}`)
-      let pageNum = Number(req.query.offset)
-      let offset = 0
-      let limit = Number(req.query.limit)
-      if (pageNum > 1) offset = limit * (pageNum - 1)
-      const addressName = Do + ' ' + City
-
-      // 배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
-      // 아래의 코드는 로컬환경에서만 사용한다.
-      // StartTime.setHours(StartTime.getHours() + 9)
-      // EndTime.setHours(EndTime.getHours() + 9)
-
-      Post.findAll(
-        !req.query.startTime
-          ? {
-              include: [{ model: Ground, attributes: ['placeName'] }],
-              order: [['startTime']],
-              where: {
-                sports: sports,
-                division: Division,
-                addressName: { [Op.like]: '%' + addressName + '%' },
-                startTime: { [Op.gt]: Day }
-              },
-              offset: offset,
-              limit: limit
-            }
-          : {
-              include: [{ model: Ground, attributes: ['placeName'] }],
-              order: [['startTime']],
-              where: {
-                sports: sports,
-                division: Division,
-                addressName: { [Op.like]: '%' + addressName + '%' },
-                [Op.or]: {
-                  startTime: {
-                    [Op.gte]: StartTime,
-                    [Op.lte]: EndTime
-                  },
-                  endTime: {
-                    [Op.gte]: StartTime,
-                    [Op.lte]: EndTime
-                  }
-                }
-              },
-              offset: offset,
-              limit: limit
-            }
-      ).then((data) => {
+    Post.findOne({
+      include: [
+        {
+          model: Ground,
+          attributes: [
+            'placeName',
+            'addressName',
+            'longitude',
+            'latitude',
+            'phone'
+          ]
+        },
+        { model: User, attributes: ['nickname', 'userPhone'] }
+      ],
+      where: { id: req.query.id }
+    })
+      .then(async (data) => {
         if (!data) {
           res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
         } else {
-          let sortData = data.map((el) => {
-            const {
-              id,
-              title,
-              startTime,
-              endTime,
-              Ground: { placeName },
-              content,
-              status
-            } = el
+          const {
+            id,
+            title,
+            division,
+            content,
+            startTime,
+            endTime,
+            status,
+            phoneOpen,
+            userId,
+            Ground: { placeName, addressName, longitude, latitude, phone },
+            User: { nickname, userPhone }
+          } = data
 
-            return {
-              id,
-              sports,
-              title,
-              startTime,
-              endTime,
-              placeName,
-              content,
-              status
+          let isMyPost = false
+          let isMyFavorite = false
+
+          // 나의 게시물, 즐겨찾기 확인
+          let findFavoritePost = await FavoritePost.findOne({
+            where: {
+              userId: res.locals.userId,
+              postId: req.query.id
             }
           })
-          res.send(sortData)
+
+          if (!!findFavoritePost) isMyFavorite = true
+          if (res.locals.userId === userId) isMyPost = true
+
+          let resultData
+          phoneOpen === true
+            ? (resultData = {
+                id,
+                isMyPost,
+                isMyFavorite,
+                title,
+                division,
+                content,
+                startTime,
+                endTime,
+                status,
+                placeName,
+                addressName,
+                longitude,
+                latitude,
+                phone,
+                nickname,
+                userPhone
+              })
+            : (resultData = {
+                id,
+                isMyPost,
+                isMyFavorite,
+                title,
+                division,
+                content,
+                startTime,
+                endTime,
+                status,
+                placeName,
+                addressName,
+                longitude,
+                latitude,
+                phone,
+                nickname
+              })
+          res.locals.message === '인증 완료'
+            ? res.send({ postsData: resultData })
+            : res.send({
+                accessToken: res.locals.isAuth,
+                postsData: resultData
+              })
         }
       })
-    }
+      .catch((err) => {
+        console.log(`findPost Error: ${err.message}`)
+      })
+  },
+  // 게시글 목록
+  findPostList: (req, res, next) => {
+    const sports = req.baseUrl.split('/')[1]
+    let Day = new Date(req.query.date)
+    const Division = req.query.division
+    const Do = decodeURIComponent(req.query.do)
+    const City = decodeURIComponent(req.query.city)
+    const StartTime = new Date(`${req.query.date} ${req.query.startTime}`)
+    const EndTime = new Date(`${req.query.date} ${req.query.endTime}`)
+    let pageNum = Number(req.query.offset)
+    let offset = 0
+    let limit = Number(req.query.limit)
+    if (pageNum > 1) offset = limit * (pageNum - 1)
+    const addressName = Do + ' ' + City
+
+    // 배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
+    // 아래의 코드는 로컬환경에서만 사용한다.
+    // StartTime.setHours(StartTime.getHours() + 9)
+    // EndTime.setHours(EndTime.getHours() + 9)
+
+    Post.findAll(
+      !req.query.startTime
+        ? {
+            include: [{ model: Ground, attributes: ['placeName'] }],
+            order: [['startTime']],
+            where: {
+              sports: sports,
+              division: Division,
+              addressName: { [Op.like]: '%' + addressName + '%' },
+              startTime: { [Op.gt]: Day }
+            },
+            offset: offset,
+            limit: limit
+          }
+        : {
+            include: [{ model: Ground, attributes: ['placeName'] }],
+            order: [['startTime']],
+            where: {
+              sports: sports,
+              division: Division,
+              addressName: { [Op.like]: '%' + addressName + '%' },
+              [Op.or]: {
+                startTime: {
+                  [Op.gte]: StartTime,
+                  [Op.lte]: EndTime
+                },
+                endTime: {
+                  [Op.gte]: StartTime,
+                  [Op.lte]: EndTime
+                }
+              }
+            },
+            offset: offset,
+            limit: limit
+          }
+    ).then((data) => {
+      if (!data) {
+        res.status(404).send({ message: '해당 게시글을 찾을 수 없습니다.' })
+      } else {
+        let sortData = data.map((el) => {
+          const {
+            id,
+            title,
+            startTime,
+            endTime,
+            Ground: { placeName },
+            content,
+            status
+          } = el
+
+          return {
+            id,
+            sports,
+            title,
+            startTime,
+            endTime,
+            placeName,
+            content,
+            status
+          }
+        })
+        res.send(sortData)
+      }
+    })
   },
   // 게시글 작성
   writePost: (req, res, next) => {
