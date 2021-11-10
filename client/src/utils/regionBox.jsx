@@ -5,8 +5,8 @@ import { REGION, AREA } from './data'
 
 const RegionBox = ({ region1, region2, handleData1, handleData2, firstData1, firstData2 }) => {
   console.log('메인렌딩 리젼1', region1)
-  let setFirst = region1
-  let setSecond = region2
+  let setFirst = region1 || '지역'
+  let setSecond = region2 || '시/구/군'
   const [data1, setData1] = useState(setFirst)
   useEffect(() => {
     firstData1(setFirst)
@@ -35,10 +35,12 @@ const RegionBox = ({ region1, region2, handleData1, handleData2, firstData1, fir
   console.log('보자보자 옵션2보자',options2)
   let findDefaultValue2
   options2.map((el, idx) => {
-    if(el.value === region2) {
+    if(el.value === setSecond) {
       findDefaultValue2 = idx
     }
   })
+  console.log('넘어오는 리젼2값', region2)
+  console.log('옵션2 idx값',findDefaultValue2)
   
   return (
     <SelectBoxContainer>
