@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import logo from '../image/subLogo.png'
@@ -18,16 +18,13 @@ const Navbar = ({ isLogin, setIsLogin }) => {
   }
   const handleNavOpen = () => {
     setNavOpen(true)
-    // console.log(navOpen)
   }
 
   const hadleLogout = () => {
     if (isLogin) {
-      dispatch(logoutUser())
-      .then((res) => {
+      dispatch(logoutUser()).then((res) => {
         setIsLogin(false)
-        history.push('/futsal')
-        window.location.reload()
+        window.location.replace('/futsal')
       })
     }
   }
@@ -46,7 +43,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 <li
                   className="navBtn"
                   onClick={() => {
-                    history.push('/futsal')
+                    window.location.replace('/futsal')
                     setNavOpen(false)
                   }}
                 >
@@ -55,7 +52,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 <li
                   className="navBtn"
                   onClick={() => {
-                    history.push('/matchlist')
+                    window.location.replace('/matchlist')
                     setNavOpen(false)
                   }}
                 >
@@ -64,7 +61,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 <li
                   className="navBtn"
                   onClick={() => {
-                    history.push('/map')
+                    window.location.replace('/map')
                     setNavOpen(false)
                   }}
                 >
@@ -72,47 +69,48 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 </li>
                 {!isLogin ? (
                   <li
-                  className="navBtn"
-                  onClick={() => {
-                    setNavOpen(false)
-                    setLoginOpen(true)
-                  }}
-                >
-                  Login
-                </li>
+                    className="navBtn"
+                    onClick={() => {
+                      setNavOpen(false)
+                      setLoginOpen(true)
+                    }}
+                  >
+                    Login
+                  </li>
                 ) : (
                   <li
-                  className="navBtn"
-                  onClick={() => {
-                    history.push('/mypage')
-                    setNavOpen(false)
-                  }}
-                >
-                  Mypage
-                </li>
+                    className="navBtn"
+                    onClick={() => {
+                      window.location.replace('/mypage')
+                      setNavOpen(false)
+                    }}
+                  >
+                    Mypage
+                  </li>
                 )}
                 {!isLogin ? (
                   <li
-                  className="navBtn"
-                  onClick={() => {
-                    history.push('/signup')
-                    setNavOpen(false)
-                  }}
-                >
-                  Signup
-                </li>
+                    className="navBtn"
+                    onClick={() => {
+                      window.location.replace('/signup')
+                      setNavOpen(false)
+                    }}
+                  >
+                    Signup
+                  </li>
                 ) : (
-                  <li 
-                  className='navBtn'
-                  onClick={() => {
-                    hadleLogout()
-                    setNavOpen(false)
-                  }}
+                  <li
+                    className="navBtn"
+                    onClick={() => {
+                      hadleLogout()
+                      setNavOpen(false)
+                      window.location.replace('/futsal')
+                    }}
                   >
                     Logout
                   </li>
                 )}
-                
+
                 {loginOpen ? <LoginModal setLoginOpen={setLoginOpen} /> : null}
               </ul>
               <span className="closeBtn" onClick={handleNavClose}>
@@ -125,7 +123,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 <li
                   className="navBtn"
                   onClick={() => {
-                    history.push('/futsal')
+                    window.location.replace('/futsal')
                     setNavOpen(false)
                   }}
                 >
@@ -134,7 +132,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 <li
                   className="navBtn"
                   onClick={() => {
-                    history.push('/matchlist')
+                    window.location.replace('/matchlist')
                     setNavOpen(false)
                   }}
                 >
@@ -143,7 +141,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 <li
                   className="navBtn"
                   onClick={() => {
-                    history.push('/map')
+                    window.location.replace('/map')
                     setNavOpen(false)
                   }}
                 >
@@ -151,42 +149,42 @@ const Navbar = ({ isLogin, setIsLogin }) => {
                 </li>
                 {!isLogin ? (
                   <li
-                  className="navBtn"
-                  onClick={() => {
-                    setNavOpen(false)
-                    setLoginOpen(true)
-                  }}
-                >
-                  Login
-                </li>
+                    className="navBtn"
+                    onClick={() => {
+                      setNavOpen(false)
+                      setLoginOpen(true)
+                    }}
+                  >
+                    Login
+                  </li>
                 ) : (
                   <li
-                  className="navBtn"
-                  onClick={() => {
-                    history.push('/mypage')
-                    setNavOpen(false)
-                  }}
-                >
-                  Mypage
-                </li>
+                    className="navBtn"
+                    onClick={() => {
+                      window.location.replace('/mypage')
+                      setNavOpen(false)
+                    }}
+                  >
+                    Mypage
+                  </li>
                 )}
                 {!isLogin ? (
                   <li
-                  className="navBtn"
-                  onClick={() => {
-                    history.push('/signup')
-                    setNavOpen(false)
-                  }}
-                >
-                  Signup
-                </li>
+                    className="navBtn"
+                    onClick={() => {
+                      window.location.replace('/signup')
+                      setNavOpen(false)
+                    }}
+                  >
+                    Signup
+                  </li>
                 ) : (
-                  <li 
-                  className='navBtn'
-                  onClick={() => {
-                    hadleLogout()
-                    setNavOpen(false)
-                  }}
+                  <li
+                    className="navBtn"
+                    onClick={() => {
+                      hadleLogout()
+                      setNavOpen(false)
+                    }}
                   >
                     Logout
                   </li>
