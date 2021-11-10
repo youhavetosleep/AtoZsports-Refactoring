@@ -31,22 +31,20 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   }
   
   const postData = userPost.postData.postsData
-
-  const sliceStartTime = postData.startTime.slice(11, 19)
-  const sliceEndTime = postData.endTime.slice(11, 19)
+  console.log(postData.startTime)
+  const sliceStartTime = postData.startTime.slice(11, 16)
+  const sliceEndTime = postData.endTime.slice(11, 16)
+  // console.log(sliceStartTime)
 
   // console.log(postData.startTime)
 
-  const [startDate, setStartDate] = useState(postData.startTime)
+  const [startDate, setStartDate] = useState(postData.startTime.split('T')[0])
   const [postTitle, setPostTitle] = useState(postData.title) // title
   const [postDivision, setPostDivision] = useState(postData.division) // division
   const [postStartTime, setPostStartTime] = useState(sliceStartTime) // startTime
   const [postEndTime, setPostEndTime] = useState(sliceEndTime) // endTime
-  const sports = 'futsal' // sports
   const [postContent, setPostContent] = useState(postData.content) // content
-  const [postGround, setPostGround] = useState('') // ground
   const [postPhoneOpen, setphoneOpen] = useState(false) // phoneOpen
-  const [postAdressName, setAdressName] = useState('') // adressName
 
   const [getPlace, setGetPlace] = useState(postData)
   const [getGroundData, setGetGroundData] = useState({})
@@ -55,8 +53,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const userId = postData.id
   const postStatus = postData.status
 
-  console.log(groundData)
-
   useEffect(() => {
     if (postData.userPhone === undefined) {
       setphoneOpen(false)
@@ -64,7 +60,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       setphoneOpen(true)
     }
   }, [])
-
 
   const handledate = (date) => {
     let ChangeDate =
@@ -75,7 +70,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       ('0' + date.getDate()).slice(-2)
     setStartDate(ChangeDate)
   }
-
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -148,8 +142,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       placeName: getPlace.place_name,
       addressName: getPlace.address_name,
       phone: getPlace.phone,
-      longitude: getPlace.x,
-      latitude: getPlace.y,
+      latitude: getPlace.x,
+      longitude: getPlace.y,
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
@@ -182,8 +176,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
         userId,
         Token
       )
-    ).then((res) => {
-      setGroundData(groundData)
+      ).then(() => {
       history.push(`/post/id=${userId}`)
     })
   }
