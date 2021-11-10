@@ -191,7 +191,7 @@ const Write = ({ isLogin, setIsLogin }) => {
             <CalendarWrap>
               <CalendarWrite
                 className="Calender"
-                setStartDate={handledate}
+                handledate={handledate}
                 startDate={startDate}
               />
               <DownWrap>

@@ -210,9 +210,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-          {/* <PostChating>
+          <PostChating>
             <PostChat postId={postId} />
-          </PostChating> */}
+          </PostChating>
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}
@@ -222,7 +222,7 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 
 const FormContainer = styled.div`
   background-color: #fafafa;
-  height: 130vh;
+  height: 1000px;
   position: relative;
 `
 
