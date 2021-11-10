@@ -3,7 +3,12 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router'
 
-const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGroundData }) => {
+const WriteContentsSearch = ({
+  searchPlace,
+  getData,
+  setGetGroundData,
+  getGroundData
+}) => {
   const mapRef = useRef()
   const MenuRef = useRef()
 
@@ -37,7 +42,7 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
-        // console.log(data, status, pagination)
+      // console.log(data, status, pagination)
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
@@ -56,8 +61,6 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
 
     // 검색 결과 목록과 마커를 표출하는 함수입니다
     function displayPlaces(places) {
-      // for(let i = 0 ; i < places.len)
-      // setGetGroundData(places)
       let listEl = document.getElementById('placesList'),
         menuEl = MenuRef.current,
         fragment = document.createDocumentFragment(),
@@ -79,7 +82,7 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
+        bounds.extend(placePosition)
 
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
@@ -89,7 +92,7 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
             displayInfowindow(marker, title)
           })
           // kakao.maps.event.addListener(marker, 'click', function () {
-          //   getData(places[i].place_name)         
+          //   getData(places[i].place_name)
           // })
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
@@ -127,13 +130,11 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
           places.place_name +
           '</h5>'
       itemStr += '<span>' + places.address_name + '</span>'
-      itemStr +=
-        '<form class="review"></form>'
-        el.innerHTML = itemStr
-        el.className = 'item'
-        return el
-      }
-
+      itemStr += '<form class="review"></form>'
+      el.innerHTML = itemStr
+      el.className = 'item'
+      return el
+    }
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
@@ -223,18 +224,18 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
   return (
     <Container>
       <BackList>
-      <div class="map_wrap">
-        <MapView ref={mapRef} />
-      </div>
-      <MenuWrap ref={MenuRef}>
-        {/* <SearchLine /> */}
-        <List>
-          <ListLine />
-          <ListTitle>경기장 목록</ListTitle>
-        </List>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-      </MenuWrap>
+        <div class="map_wrap">
+          <MapView ref={mapRef} />
+        </div>
+        <MenuWrap ref={MenuRef}>
+          {/* <SearchLine /> */}
+          <List>
+            <ListLine />
+            <ListTitle>경기장 목록</ListTitle>
+          </List>
+          <ul id="placesList"></ul>
+          <div id="pagination"></div>
+        </MenuWrap>
       </BackList>
     </Container>
   )
@@ -242,19 +243,20 @@ const WriteContentsSearch = ({ searchPlace, getData, setGetGroundData, getGround
 
 const Container = styled.div`
   width: 100%;
+  /* height: 100px; */
   display: flex;
   position: relative;
   @media screen and (max-width: 767px) {
-   /* height: 100vh; */
+    /* height: 100vh; */
   }
-  
+
   #placesList li {
     position: relative;
     list-style: none;
     height: 90px;
     @media screen and (max-width: 767px) {
       height: 70px;
-  }
+    }
   }
   #placesList .item {
     border-bottom: 1px solid #888;
@@ -263,7 +265,7 @@ const Container = styled.div`
     min-height: 65px;
     @media screen and (max-width: 767px) {
       min-height: 30px;
-  }
+    }
     :hover {
       background-color: #f4f4f4;
     }
@@ -271,7 +273,6 @@ const Container = styled.div`
   #placesList .item span {
     display: block;
     margin-top: 10px;
-    
   }
   // 지도 주소
   #placesList .item h5,
@@ -280,13 +281,12 @@ const Container = styled.div`
     overflow: hidden;
     white-space: nowrap;
     font-size: 12px;
-    
   }
   #placesList .item .info {
     padding: 30px 0 10px 55px;
     @media screen and (max-width: 767px) {
       padding: 20px 0 10px 10px;
-  }
+    }
   }
   #placesList .item h5 {
     font-size: 15px;
@@ -313,9 +313,9 @@ const Container = styled.div`
     margin: 30px 0 0 10px;
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png')
       no-repeat;
-      @media screen and (max-width: 767px) {
-    display: none;
-  }
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
   }
   #placesList .item .marker_1 {
     background-position: 0 -10px;
@@ -379,6 +379,7 @@ const Container = styled.div`
 
 const BackList = styled.div`
   width: 100%;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -390,13 +391,13 @@ const BackList = styled.div`
 const MapView = styled.div`
   display: flex;
   position: relative;
-  width: 530px;
+  width: 522px;
   height: 450px;
   justify-content: center;
   align-items: center;
-  margin: 80px 0px 0px 270px;
-  border-radius: 12px;
-  top: -40px;
+  margin: 0px 0px 0px 260px;
+  border-radius: 5px;
+  top: 0px;
   right: 0;
   @media screen and (max-width: 767px) {
     margin: -300px 0px 0px 0px;
@@ -409,16 +410,16 @@ const MapView = styled.div`
 
 const MenuWrap = styled.div`
   position: absolute;
-  top: 90px;
+  top: 70px;
   left: 10px;
   width: 260px;
-  height: 400px;
+  height: 405px;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   background: rgba(255, 255, 255);
   font-size: 12px;
-  border-radius: 10px;
+  border-radius: 5px;
   z-index: 2;
   @media screen and (max-width: 767px) {
     width: 79vw;
@@ -427,7 +428,6 @@ const MenuWrap = styled.div`
     height: 190px;
     border-radius: 5px;
   }
-  
 `
 
 // const SearchLine = styled.div`
@@ -460,11 +460,11 @@ const ListLine = styled.div`
 `
 
 const ListTitle = styled.h1`
-position: absolute;
-top: 40%;
+  position: absolute;
+  top: 40%;
   width: 100px;
   height: 10px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   background-color: #fafafa;
   text-align: center;
   color: #5c5c5c;

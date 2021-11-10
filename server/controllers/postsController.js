@@ -411,6 +411,7 @@ module.exports = {
     let division = req.body.division
     let content = req.body.content
     let startTime = new Date(req.body.startTime)
+    console.log(req.body.startTime)
     let endTime = new Date(req.body.endTime)
     let status = '모집중'
     let phoneOpen = req.body.phoneOpen

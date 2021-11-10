@@ -108,8 +108,8 @@ export async function writePostData(
         sports: sports,
         title: postTitle,
         division: postDivision,
-        startTime: `${startDate} ${postStartTime}`,
-        endTime: `${startDate} ${postEndTime}`,
+        startTime: startDate,
+        endTime: startDate,
         phoneOpen: postPhoneOpen,
         content: postContent,
         ground: groundData
@@ -151,8 +151,8 @@ export async function editPostData(
         status: postStatus,
         title: postTitle,
         division: postDivision,
-        startTime: `${startDate} ${postStartTime}`,
-        endTime: `${startDate} ${postEndTime}`,
+        startTime: postStartTime,
+        endTime: postEndTime,
         content: postContent,
         ground: groundData,
         phoneOpen: postPhoneOpen

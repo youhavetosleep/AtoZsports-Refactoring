@@ -183,7 +183,7 @@ const LeagueList = styled.div`
   width: 700px;
   margin: 0px 0px 30px 0px;
   padding: 0px 0px 10px 0px;
-  justify-content: center;
+  /* justify-content: center; */
   border-bottom: 1px solid black;
   .league_year {
     font-size: 1.8rem;
@@ -208,8 +208,8 @@ const Button = styled.div`
 const Match = styled.div`
   border-top: 1px solid #cbc8c8;
   padding: 20px;
-  width: 500px;
-  margin: 20px 0 10px 0;
+  width: 600px;
+  margin: 30px 0 30px 0;
 `
 
 const MatchTime = styled.div`
@@ -228,21 +228,28 @@ const Stadium = styled.div`
 const TeamWrap = styled.div`
   display: flex;
   justify-content: space-around;
+  position: relative;
+  align-items: center;
   width: 100%;
 `
 
 const HomeTeam = styled.div`
   /* text-align: left; */
+  position: absolute;
+  left: 0;
 `
 
 const Score = styled.div`
   /* text-align: center; */
-  margin: 10px;
+  position: absolute;
+  margin: 30px 0px 10px 0px;
   font-size: 16px;
 `
 
 const AwayTeam = styled.div`
   /* text-align: right; */
+  position: absolute;
+  right: 0;
 `
 
 export default PremierLeague
