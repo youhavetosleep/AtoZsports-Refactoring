@@ -42,11 +42,17 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
     setOffset(offsetNum)
   }
 
-  const handleSort1 = (e) => {
-    setSort1(e.target.value)
+  const firstData1 = (e) => {
+    setSort1(e)
   }
-  const handleSort2 = (e) => {
-    setSort2(e.target.value)
+  const firstData2 = (e) => {
+    setSort2(e)
+  }
+  const handleData1 = (e) => {
+    setSort1(e.value)
+  }
+  const handleData2 = (e) => {
+    setSort2(e.value)
   }
 
   // 캘린더 컴포넌트 날짜 value 가져오기
@@ -178,8 +184,11 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
             <RegionWrap>
               <RegionBox
                 region1={region1}
-                handleRegion1={handleSort1}
-                handleRegion2={handleSort2}
+                region2={region2}
+                handleData1={handleData1}
+                handleData2={handleData2}
+                firstData1={firstData1}
+                firstData2={firstData2}
               />
             </RegionWrap>
           </FilterWrap1>

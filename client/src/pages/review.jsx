@@ -15,7 +15,7 @@ import RegionBox from '../utils/regionBox'
 import store from '../store/store'
 import Navbar from '../components/navbar'
 
-const Review = ({ isLogin, setIsLogin, userInfo }) => {
+const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const dispatch = useDispatch()
 
   const [groundData, setGroundData] = useState([])
@@ -51,11 +51,17 @@ const Review = ({ isLogin, setIsLogin, userInfo }) => {
     setSelected('choose')
   }
 
-  const handleHome1 = (e) => {
-    setHome1(e.target.value)
+  const firstData1 = (e) => {
+    setHome1(e)
   }
-  const handleHome2 = (e) => {
-    setHome2(e.target.value)
+  const firstData2 = (e) => {
+    setHome2(e)
+  }
+  const handleData1 = (e) => {
+    setHome1(e.value)
+  }
+  const handleData2 = (e) => {
+    setHome2(e.value)
   }
 
   const Ground = () => {
@@ -163,8 +169,8 @@ const Review = ({ isLogin, setIsLogin, userInfo }) => {
       // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
       // 지역선텍시 경기 용인시로 고정된다..
       // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
-      setHome1('경기')
-      setHome2('용인시')
+      // setHome1('경기')
+      // setHome2('용인시')
     }
 
     Ground()
@@ -235,9 +241,12 @@ const Review = ({ isLogin, setIsLogin, userInfo }) => {
       <FormContainer>
         <RegionWrapper>
           <RegionBox
-            region1={home1}
-            handleRegion1={handleHome1}
-            handleRegion2={handleHome2}
+            region1={region1}
+            region2={region2}
+            handleData1={handleData1}
+            handleData2={handleData2}
+            firstData1={firstData1}
+            firstData2={firstData2}
           />
         </RegionWrapper>
         <FormWrapper>
