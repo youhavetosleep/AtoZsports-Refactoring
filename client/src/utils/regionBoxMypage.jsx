@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import Select from 'react-select'
-import { FaChevronDown } from 'react-icons/fa'
 import { REGION, AREA } from './data'
 
 const RegionBoxMypage = ({ region1, region2, handleData1, handleData2, firstData1, firstData2 }) => {
