@@ -4,7 +4,7 @@ const users = [
     nickname: 'one',
     password: '1234',
     userPhone: '010-1234-5678',
-    homeground: '서울특별시 광진구',
+    homeground: '서울 광진구',
     favoriteSports: '축구',
     verified: true,
     verifiedKey: ''
