@@ -4,8 +4,6 @@ import { FaRegStar } from 'react-icons/fa'
 import { STAR } from '../utils/data'
 
 const ReviewInfo = ({ commentData, groundData }) => {
-  console.log('commentData',commentData)
-  console.log('groundData', groundData)
 
   let scoreData = commentData === '' ? groundData.score : commentData
 
