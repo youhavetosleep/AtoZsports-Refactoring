@@ -24,7 +24,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const [groundSelect, setGroundSelect] = useState(1)
 
   // comment.jsx  글쓰기 버튼 누를 때 reviewInfo를 업데이트하기 위한 state
-  const [commentData, setCommentData] = useState([])
+  const [commentData, setCommentData] = useState('')
 
   let userRegion1 = ''
   let userRegion2 = ''
@@ -134,6 +134,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
         infowindow.close(map, markers)
       })
       kakao.maps.event.addListener(markers, 'click', function () {
+        setCommentData('')
         dispatch(selectGroundData(el.id)).then((res) => {
           // dispatch(mapData(res.payload))
           setGroundData(res.payload)
@@ -227,7 +228,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
     // 업데이트된 commentData를 reviewInfo.jsx에 보내줘서
     // 평균 평점과 리뷰 참여수를 최신화 하기 위함이다.
     // 하지만 이로 인해 글쓰기버튼 입력시 데이터를 2번 요청하게 된다.
-  }, [markerData, center, commentData])
+  }, [markerData, center])
 
   return (
     <>
@@ -254,7 +255,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
           <ContentWrap>
             {selected === 'choose' ? (
               <>
-                <ReviewInfo groundData={groundData} />
+                <ReviewInfo groundData={groundData} commentData={commentData} />
                 <Comment
                   groundData={groundData}
                   setCommentData={setCommentData}
