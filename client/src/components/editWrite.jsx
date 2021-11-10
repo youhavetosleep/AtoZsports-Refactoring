@@ -20,6 +20,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   let userPost = store.getState().post
   let userInfo = store.getState().user
+  // console.log(userPost)
 
   const titleRef = useRef()
   const groundRef = useRef()
@@ -29,13 +30,17 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   if (userInfo.loginSuccess) {
     Token = userInfo.loginSuccess.accessToken
   }
-  
+
   const postData = userPost.postData.postsData
+  
+  // const sliceStartTime = new Date(postData.startTime).toISOString().slice(11, 19)
+  // const sliceEndTime = new Date(postData.endTime).toISOString().slice(11, 19)
+  // console.log(postData.startTime)
 
   const sliceStartTime = postData.startTime.slice(11, 19)
   const sliceEndTime = postData.endTime.slice(11, 19)
-
-  // console.log(postData.startTime)
+  console.log(sliceStartTime)
+  console.log(sliceEndTime)
 
   const [startDate, setStartDate] = useState(postData.startTime)
   const [postTitle, setPostTitle] = useState(postData.title) // title
@@ -55,7 +60,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const userId = postData.id
   const postStatus = postData.status
 
-  console.log(groundData)
+  // console.log(groundData)
 
   useEffect(() => {
     if (postData.userPhone === undefined) {
@@ -148,8 +153,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       placeName: getPlace.place_name,
       addressName: getPlace.address_name,
       phone: getPlace.phone,
-      longitude: getPlace.x,
-      latitude: getPlace.y,
+      longitude: getPlace.y,
+      latitude: getPlace.x,
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
@@ -183,7 +188,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
         Token
       )
     ).then((res) => {
-      setGroundData(groundData)
       history.push(`/post/id=${userId}`)
     })
   }

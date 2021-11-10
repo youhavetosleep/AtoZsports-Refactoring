@@ -61,7 +61,7 @@ const Mypage = ({
     userId: userInfoSuccess.id
   })
 
-  console.log(editUserInfo)
+  // console.log(editUserInfo)
 
   const [phoneNumber, setPhoneNumber] = useState(editUserInfo.userPhone)
   const [nickname, setNickname] = useState(editUserInfo.nickname)
@@ -101,8 +101,8 @@ const Mypage = ({
   let setSecond = region2
   const [data1, setData1] = useState(setFirst)
   const [data2, setData2] = useState(setSecond)
-  console.log('리전 보자보자', region1, region2)
-  console.log('초기값 보자보자', data1, data2)
+  // console.log('리전 보자보자', region1, region2)
+  // console.log('초기값 보자보자', data1, data2)
   const firstData1 = (e) => {
     setData1(e)
   }
@@ -746,6 +746,9 @@ const UserinfoPsword = styled.div`
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 20px;
     }
+    :focus {
+      outline-color: #840909;
+    }
   }
 `
 
@@ -783,6 +786,9 @@ const UserinfoPswordCheck = styled.div`
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 20px;
+    }
+    :focus {
+      outline-color: #840909;
     }
   }
 `
@@ -866,6 +872,9 @@ const UuserinfoPhone = styled.div`
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 40px;
+    }
+    :focus {
+      outline-color: #840909;
     }
   }
 `
@@ -1001,6 +1010,9 @@ const UserinfoFavorite = styled.div`
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 40px;
     }
+    :focus {
+      outline-color: #840909;
+    }
   }
 `
 
@@ -1092,7 +1104,7 @@ const EditUserInfo = styled.div`
 
 const Check = styled.div`
   margin: 0;
-  margin-top: -115px;
+  margin-top: 0px;
   position: absolute;
   right: 30px;
   font-size: 13px;
@@ -1101,7 +1113,7 @@ const Check = styled.div`
 
 const PassCheck = styled.div`
   margin: 0;
-  margin-top: -50px;
+  margin-top: 0px;
   position: absolute;
   right: 30px;
   font-size: 13px;

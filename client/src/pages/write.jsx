@@ -7,6 +7,7 @@ import GlobalStyle from '../globalStyle/globalStyle'
 import Footer from '../components/footer'
 import WriteContentsMap from '../components/map/writeContentsMap'
 import CalendarWrite from '../utils/calenderWrite'
+import Swal from 'sweetalert2'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
 import { useDispatch } from 'react-redux'
@@ -18,11 +19,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const mapRef = useRef()
   const dispatch = useDispatch()
   let userInfo = store.getState().user
-
-  // map page에서 경기잡기 버튼 누를 때 리덕스에 상태가 저장되고
-  // 저장된 경기장의 이름을 가져오기 위한 getState
-  let mapData = store.getState().ground
-  // console.log(mapData)
 
   const Token = userInfo.loginSuccess.accessToken
 
@@ -36,11 +32,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
     setStartDate(ChangeDate)
   }
 
-
-
-
-
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState('2021-11-10')
 
   const [postTitle, setPostTitle] = useState('') // title
   const [postDivision, setPostDivision] = useState('') // division
@@ -53,8 +45,11 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const [postAdressName, setAdressName] = useState('') // adressName
   const userId = userInfo.loginSuccess.userData.id
 
+  // console.log(postStartTime)
+  // console.log(postEndTime)
+
   const [getGroundData, setGetGroundData] = useState([])
- 
+
   const [fromMap, setFromMap] = useState({
     placeName: clickMap.place_name,
     addressName: clickMap.address_name,
@@ -65,12 +60,12 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   })
 
   let getMapData = fromMap.placeName === undefined ? {} : fromMap
-  let getClickData = fromMap.placeName === undefined ? '' : fromMap 
+  let getClickData = fromMap.placeName === undefined ? '' : fromMap
 
   const [getPlace, setGetPlace] = useState(getClickData)
   const [groundData, setGroundData] = useState(getMapData)
 
-  console.log(getPlace)
+  // console.log(getPlace)
 
   // const a = [...getGroundData, getGroundData]
   // console.log(startDate)
@@ -114,46 +109,62 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   // console.log(groundData.placeName)
 
   useEffect(() => {
-      setGroundData({
-        placeName: getPlace.place_name,
-        addressName: getPlace.address_name,
-        phone: getPlace.phone,
-        longitude: getPlace.y,
-        latitude: getPlace.x,
-        placeUrl: getPlace.place_url
-      })
-    
+    setGroundData({
+      placeName: getPlace.place_name,
+      addressName: getPlace.address_name,
+      phone: getPlace.phone,
+      longitude: getPlace.y,
+      latitude: getPlace.x,
+      placeUrl: getPlace.place_url
+    })
   }, [getPlace])
 
   // console.log(`${startDate} ${postStartTime}`)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
-    dispatch(
-      writePostData(
-        postTitle,
-        postDivision,
-        startDate,
-        postStartTime,
-        postEndTime,
-        sports,
-        postContent,
-        groundData,
-        postPhoneOpen,
-        Token
-      )
-    ).then((res) => {
-      // console.log(res.payload)
-      history.push(`/post/id=${res.payload.id}`)
-    })
+    if (
+      postTitle &&
+      postDivision &&
+      startDate &&
+      postStartTime &&
+      postEndTime &&
+      sports &&
+      postContent &&
+      groundData &&
+      Token
+    ) {
+      dispatch(
+        writePostData(
+          postTitle,
+          postDivision,
+          startDate,
+          postStartTime,
+          postEndTime,
+          sports,
+          postContent,
+          groundData,
+          postPhoneOpen,
+          Token
+        )
+      ).then((res) => {
+        // console.log(res.payload)
+        history.push(`/post/id=${res.payload.id}`)
+      })
+    } else {
+      Swal.fire({
+        text: '입력하지 않은 데이터가 있습니다.',
+        icon: 'warning',
+        confirmButtonColor: '#d2d2d2',
+        confirmButtonText: '확인'
+      })
+      return
+    }
   }
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <GlobalStyle />
       <WriteContainer>
         <WriteIn>
