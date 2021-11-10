@@ -232,9 +232,9 @@ const Pagination = styled.ul`
 `
 
 const Alert = styled.h1`
-  height: 500px;
+  height: 400px;
   text-align: center;
-  padding: 230px 150px;
+  padding: 150px 150px;
   box-sizing: border-box;
   font-size: 30px;
 `
