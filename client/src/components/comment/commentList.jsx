@@ -66,7 +66,7 @@ const CommentList = ({
       <Line1>
         {editMode === 'normal' ? (
           <Score>
-            {STAR.map((el) => {
+            {STAR.map((el, idx) => {
               if (el.star === score) {
                 return el.name
               }
