@@ -12,6 +12,7 @@ import StarRating from '../../utils/starRating'
 const CommentList = ({
   setContent,
   setTotalComment,
+  setCommentData,
   groundId,
   list,
   token,
@@ -56,6 +57,7 @@ const CommentList = ({
         dispatch(deleteCommentData(groundId, list.id, token)).then((res) => {
           setContent([])
           setTotalComment(res.payload.data.length)
+          setCommentData(res.payload.data)
         })
       }
     })

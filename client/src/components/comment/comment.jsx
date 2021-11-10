@@ -119,6 +119,7 @@ if(token === '') {
             <CommentList
               setContent={setContent}
               setTotalComment={setTotalComment}
+              setCommentData={setCommentData}
               token={token}
               nickname={nickname}
               groundId={groundSelect}
