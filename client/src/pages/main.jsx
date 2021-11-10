@@ -244,6 +244,7 @@ const DownArrowSpan = styled.div`
 const Landing1 = styled.section`
   background-color: #f2f2f2;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   margin-top: 40px;
@@ -261,7 +262,7 @@ const LandingContainer = styled.div`
 const LandingIn = styled.div`
   width: 100%;
   height: 50%;
-  margin: 100px 0px 100px 0px;
+  margin: 300px 0px 300px 0px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -274,20 +275,30 @@ const LandingIn = styled.div`
   }
 
   .landing_gif1 {
-    margin: 0px 0px 0px 30px;
+    margin: 0px 0px 0px 100px;
     display: flex;
-    width: 500px;
+    border: 1px solid gray;
+    width: 700px;
+    height: 350px;
+    justify-content: center;
+      align-items: center;
     @media screen and (max-width:767px) {
       margin: 30px auto 0px auto;
       width: 300px;
       height: 500px;
       border: 1px solid gray;
+      justify-content: center;
+      align-items: center;
   }
   }
   .landing_gif2 {
-    margin: 0px 30px 0px 0px;
+    margin: 0px 100px 0px 0px;
     display: flex;
-    width: 500px;
+    width: 700px;
+    height: 350px;
+    justify-content: center;
+      align-items: center;
+      border: 1px solid gray;
     @media screen and (max-width:767px) {
       margin: 0px auto 40px auto;
       width: 300px;
@@ -308,37 +319,37 @@ const LandingText = styled.div`
   }
   
   .landing_mainText {
-    font-size: 35px;
+    font-size: 2.8rem;
     display: flex;
     flex-direction: column;
     font-weight: bold;
-    line-height: 40px;
+    line-height: 50px;
     @media screen and (max-width:767px) {
     font-size: 30px;
   }
   }
   .landing_subText {
-    font-size: 16px;
+    font-size: 1.1rem;
     margin-top: 20px;
-    line-height: 19px;
+    line-height: 20px;
     @media screen and (max-width:767px) {
     font-size: 14px;
   }
   }
   .landing_mainText2 {
-    font-size: 35px;
+    font-size: 2.8rem;
     display: flex;
     flex-direction: column;
     font-weight: bold;
-    line-height: 40px;
+    line-height: 50px;
     @media screen and (max-width:767px) {
     font-size: 30px;
   }
   }
   .landing_subText2 {
-    font-size: 16px;
+    font-size: 1.1rem;
     margin-top: 20px;
-    line-height: 19px;
+    line-height: 20px;
     @media screen and (max-width:767px) {
     font-size: 14px;
   }
@@ -367,7 +378,7 @@ const LandingFinalText = styled.div`
   align-items: center;
   color: #353535;
   .landing_finalText {
-    font-size: 40px;
+    font-size: 2.2rem;
     text-align: center;
     @media screen and (max-width:767px) {
     font-size: 22px;

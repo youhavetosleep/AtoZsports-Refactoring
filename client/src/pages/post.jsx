@@ -29,9 +29,11 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   const [status, setStatus] = useState()
 
   const getPostInfo = () => {
-    dispatch(getPostData(postId, token)).then((res) => {
+    dispatch(getPostData(postId, token))
+    .then((res) => {
       setPostData(res.payload.postsData)
       setStatus(res.payload.postsData.status)
+      console.log(res.payload)
 
       // 지도 표시를 위한 코드 (시작)
       let container = document.getElementById('map')
@@ -213,8 +215,8 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 }
 
 const FormContainer = styled.div`
-  background-color: #ffffff;
-  height: 1000px;
+  background-color: #fafafa;
+  height: 130vh;
   position: relative;
 `
 
@@ -244,7 +246,6 @@ const FormWrapper = styled.div`
 const TitleWrapper = styled.div`
   height: 100px;
   position: relative;
-  background-color: white;
   @media screen and (max-width: 767px) {
     height: 60px;
   }
@@ -330,6 +331,7 @@ const Status = styled.button`
 
 const ContentWrap = styled.div`
   padding: 20px 30px;
+  margin: 0px 0px 0px 0px;
   box-sizing: border-box;
   border-bottom: 1px solid #c4c4c4;
   border-right: 1px solid #c4c4c4;

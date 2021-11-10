@@ -42,9 +42,14 @@ function EditPasswordModal({
   // 일치한다면, 응답으로 받은 메세지를 비밀번호의 일치여부를 알려주는 텍스트 상태를 가지고있는
   // setMessagePassword 로 보내 상태를 최신화 한다.
   useEffect(() => {
-    dispatch(userPassword(password, token)).then((res) => {
+    if(password === ''){
+      return
+    }else {
+      dispatch(userPassword(password, token))
+    .then((res) => {
       setMessagePassword(res.payload)
     })
+    }
   }, [password])
 
   // 일단 구현은 되는데, 글자를 하나칠때마다 서버로 요청이가기에 정상적인 접근은 아닌거 같다. 백엔드와 상의해보자.

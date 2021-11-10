@@ -124,7 +124,7 @@ const ChatContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   border: 1px solid black;
   max-width: 800px;
   width: 800px;
@@ -132,13 +132,16 @@ const ChatContainer = styled.div`
   padding: 20px 20px 20px 20px;
   margin: 0px 0px 50px 0px;
   .render-chat {
-    display: grid;
+    display: flex;
     flex-direction: column;
-    position: absolute;
+    /* position: absolute; */
     /* grid-template-columns: repeat(2, 360px); */
-    max-height: 200px;
-    height: 100px;
+    margin: 0px 0px 0px 0px;
+    line-height: 30px;
+    max-height: 400px;
+    height: 250px;
     top: 0;
+    overflow-y: scroll;
   }
   #outlined-multiline-static {
     display: flex;

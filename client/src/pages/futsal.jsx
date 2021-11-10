@@ -43,6 +43,8 @@ const Futsal = ({
   const [memberData, setMemberData] = useState([])
   const [dummyData, setDummyData] = useState([{}, {}, {}, {}, {}])
 
+  // console.log(memberData)
+
   const [firstRegion, setFirstRegion] = useState(region1)
   const [secondRegion, setSecondRegion] = useState(region2)
 
@@ -265,34 +267,30 @@ const Futsal = ({
 const FutsalLandingPage = styled.div`
   width: 100%;
   @media screen and (max-width: 767px) {
-   max-width: 375px;
+    width: auto;
   }
 `
 
 const FutsalSliderSection = styled.section`
   width: 100%;
-  .slider {
-    color: #fafafa;
-    @media screen and (max-width: 767px) {
-    /* width: 100vw; */
-    max-width: 375px;
-    height: 490px;
-  }
-  }
   @media screen and (max-width: 767px) {
-    /* width: 100vw; */
-    max-width: 375px;
+    width: 100%;
     height: 64vh;
   }
+  .slider {
+    color: #fafafa;
+  }
+  
 `
 
 const FutsalBackMapSection = styled.section`
   max-width: 1110px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   margin: 40px auto 60px;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
+    width: 100%;
     margin: 0px auto -35px 0px;
   }
 `
@@ -307,10 +305,10 @@ const BackPage = styled.div`
   border-radius: 5px;
   position: relative;
   @media screen and (max-width: 767px) {
-  margin: 0px 0px 0px 12px;
-  width: 100px;
+  /* margin: 0px 0px 0px 12px;
+  width: calc(100% - 20px);
   height: 50px;
-  padding: 20px;
+  padding: 20px; */
   }
   .back_to_main {
     font-size: 13px;
@@ -343,7 +341,7 @@ const GotoMap = styled.div`
   /* transition: all 0.5s; */
   position: relative;
   @media screen and (max-width: 767px) {
-    width: 210px;
+    width: auto;
     height: 130px;
     margin-top: -2.8vh;
     margin-left: 10px;
@@ -353,11 +351,9 @@ const GotoMap = styled.div`
     opacity: 0.9;
     filter: brightness(75%);
     border-radius: 5px;
-        @media screen and (max-width: 767px) {
-    /* width: 100vw; */
-    
-    width: 265px;
-    height: 83px;
+    @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 63%;
     object-fit: cover;
   }
   }
@@ -372,7 +368,7 @@ const GotoMap = styled.div`
       font-size: .9rem;
       color: #fafafa;
       position: absolute;
-      left: 80px;
+      right: 18%;
       top: 55px;
   }
     
@@ -402,7 +398,7 @@ const FutsalMatchSoonSection = styled.section`
   padding: 60px 0px 50px 0px;
   margin: auto;
   @media screen and (max-width: 767px) {
-    /* height: 100vh; */
+    width: auto;
     padding: 20px 0px 15px 0px;
   }
 `
@@ -414,6 +410,8 @@ const MatchSoonTitle = styled.div`
   .matchSoon_title {
     font-size: 3rem;
     @media screen and (max-width: 767px) {
+      width: auto;
+      justify-content: center;
       font-size: 2rem;
   }
   }
@@ -472,6 +470,7 @@ const MatchSoonList = styled.div`
     /* margin-bottom: 20px; */
     @media screen and (max-width: 767px) {
       display: grid;
+      width: auto;
     grid-template-columns: repeat(1, 360px);
     row-gap: 0px;
     column-gap: 24px;

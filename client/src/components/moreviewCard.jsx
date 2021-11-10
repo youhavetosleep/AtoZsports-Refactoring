@@ -21,7 +21,13 @@ function MoreViewCard() {
 
 const MoreViewCardContainer = styled.div`
   z-index: 10;
+  @media screen and (max-width: 767px) {
+        width: auto;
+  }
   .moreMatch {
+    @media screen and (max-width: 767px) {
+        width: auto;
+  }
     &-listbox {
       background-color: white;
       border: 1px solid #747474;
@@ -36,10 +42,19 @@ const MoreViewCardContainer = styled.div`
       padding: 20px;
       position: relative;
       transition: all 0.5s;
+      @media screen and (max-width: 767px) {
+        width: calc(100% - 35px);
+        height: auto;
+  }
 
       ul {
         height: 100%;
         width: 100%;
+        @media screen and (max-width: 767px) {
+          width: auto;
+        height: auto;
+        margin: 0px 0px 0px 4%;
+  }
       }
 
       :hover {

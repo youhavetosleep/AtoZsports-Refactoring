@@ -12,7 +12,10 @@ export async function getMatchData(CurrentOrder, region1, region2) {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     })
-    .then((res) => res.data)
+    .then((res) => {
+      // console.log(res.data)
+      return res.data
+    })
 
   return {
     type: MATCH_DATA,
