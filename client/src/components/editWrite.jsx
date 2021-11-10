@@ -20,6 +20,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   let userPost = store.getState().post
   let userInfo = store.getState().user
+  // console.log(userPost)
 
   const titleRef = useRef()
   const groundRef = useRef()
@@ -29,7 +30,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   if (userInfo.loginSuccess) {
     Token = userInfo.loginSuccess.accessToken
   }
-  
+
   const postData = userPost.postData.postsData
   const sliceStartTime = postData.startTime.slice(11, 16)
   const sliceEndTime = postData.endTime.slice(11, 16)
@@ -49,6 +50,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   const userId = postData.id
   const postStatus = postData.status
+
+  // console.log(groundData)
 
   useEffect(() => {
     if (postData.userPhone === undefined) {
@@ -139,8 +142,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       placeName: getPlace.place_name,
       addressName: getPlace.address_name,
       phone: getPlace.phone,
-      latitude: getPlace.x,
       longitude: getPlace.y,
+      latitude: getPlace.x,
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
@@ -173,7 +176,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
         userId,
         Token
       )
-      ).then(() => {
+    ).then((res) => {
       history.push(`/post/id=${userId}`)
     })
   }

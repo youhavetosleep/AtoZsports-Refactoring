@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FaSearch } from 'react-icons/fa'
+import store from '../../store/store'
 import WriteContentsSearch from './writeContentsSearch'
 
 const WriteContentsMap = ({ getData, setGetGroundData,getGroundData }) => {
   const [inputText, setInputText] = useState('')
-  const [place, setPlace] = useState('안양 풋살')
+  const [place, setPlace] = useState('')
 
   const onChange = (e) => {
     setInputText(e.target.value)
@@ -13,7 +14,10 @@ const WriteContentsMap = ({ getData, setGetGroundData,getGroundData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setPlace(inputText)
+    // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트 
+    // (ex. entrance를 풋살로 클릭했을 때 '강남' 검색어 입력시 '강남 풋살' 로 검색결과가 표시)
+    setPlace(`${inputText} ${store.getState().user.sport}`)
+    // setPlace(inputText)
     setInputText('')
   }
 
@@ -43,15 +47,15 @@ const WriteContentsMap = ({ getData, setGetGroundData,getGroundData }) => {
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 500px;
   display: flex;
 `
 
 const SearchForm = styled.form`
   bottom: 93%;
   position: absolute;
-  left: 36px;
-  top: 0;
+  left: 10px;
+  top: 25px;
   z-index: 30;
   @media screen and (max-width: 767px) {
     top: 20px;
@@ -60,16 +64,16 @@ const SearchForm = styled.form`
 `
 
 const Input = styled.input`
-  width: 400px;
-  padding: 20px 25px;
+  width: 260px;
+  padding: 10px 20px;
   box-sizing: border-box;
   border-radius: 5px;
   font-size: 17px;
   border: solid 1px #c6c6c6;
   ::placeholder {
-    font-size: 17px;
+    font-size: 15px;
     @media screen and (max-width: 767px) {
-      font-size: 15px;
+      font-size: 13px;
   }
   }
   @media screen and (max-width: 767px) {
