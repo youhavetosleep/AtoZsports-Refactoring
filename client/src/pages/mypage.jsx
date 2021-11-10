@@ -240,8 +240,14 @@ const Mypage = ({
 
   // 개인정보 변경 send 버튼 클릭시 발생하는 이벤트
   const handleSendUserinfo = () => {
-    if (data1 === '지역 선택') {
-      Swal.fire({})
+    if (data1 === '지역' || data2 === '시/구/군') {
+      Swal.fire({
+        icon: 'warning',
+        text: '동네를 선택해주세요!',
+        confirmButtonColor : '#aeaeae',
+        confirmButtonText: '확인'
+      })
+      return
     }
 
     dispatch(
