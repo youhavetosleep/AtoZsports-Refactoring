@@ -41,6 +41,9 @@ const Slider01 = styled.div`
   align-items: center;
   overflow: hidden;
   position: relative;
+  @media screen and (max-width: 767px) {
+    width: auto;
+  }
 
   .slider_img {
     height: 100%;
@@ -50,6 +53,7 @@ const Slider01 = styled.div`
     vertical-align: middle;
   }
   @media screen and (max-width: 767px) {
+    width: 100%;
     height:60vh;
     object-fit: cover;
   }

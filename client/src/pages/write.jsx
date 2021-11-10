@@ -22,6 +22,7 @@ const Write = ({ isLogin, setIsLogin }) => {
   // map page에서 경기잡기 버튼 누를 때 리덕스에 상태가 저장되고
   // 저장된 경기장의 이름을 가져오기 위한 getState
   let mapData = store.getState().ground
+  // console.log(mapData)
 
   const Token = userInfo.loginSuccess.accessToken
 
@@ -96,8 +97,8 @@ const Write = ({ isLogin, setIsLogin }) => {
       placeName: getPlace.place_name,
       addressName: getPlace.address_name,
       phone: getPlace.phone,
-      longitude: getPlace.x,
-      latitude: getPlace.y,
+      longitude: getPlace.y,
+      latitude: getPlace.x,
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
@@ -232,6 +233,9 @@ const Write = ({ isLogin, setIsLogin }) => {
 const WriteContainer = styled.div`
   display: flex;
   width: 100%;
+  @media screen and (max-width: 767px) {
+      width: auto;
+    }
 `
 
 const WriteIn = styled.div`
@@ -248,7 +252,7 @@ const WriteIn = styled.div`
       display: flex;
       justify-content: center;
       font-size: 1.5rem;
-      margin: 30px 0px 20px 0px;
+      margin: 30px auto 20px auto;
     }
   }
   .write_send {
@@ -260,12 +264,19 @@ const WriteIn = styled.div`
       color: #890909;
       cursor: pointer;
     }
+    @media screen and (max-width: 767px) {
+      justify-content: center;
+      margin: 140px auto 50px auto;
+    }
   }
 `
 
 const WriteTitle = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 767px) {
+      width: 100%;
+    }
   .write_postTitle {
     max-width: 800px;
     width: 780px;
@@ -279,8 +290,7 @@ const WriteTitle = styled.div`
       outline: none;
     }
     @media screen and (max-width: 767px) {
-      max-width: 375px;
-      width: 300px;
+      width: calc(100% - 90px);
       height: 30px;
       font-size: 1rem;
     }
@@ -295,7 +305,7 @@ const WriteMap = styled.div`
   z-index: 1;
   /* height: 100px; */
   @media screen and (max-width: 767px) {
-    /* width: 1vw; */
+    width: auto;
   }
 `
 
@@ -310,7 +320,7 @@ const WritePlace = styled.div`
     font-size: 1.3rem;
     @media screen and (max-width: 767px) {
       font-size: 1rem;
-      margin: 170px 0px 20px 0px;
+      margin: 0px auto 20px auto;
     }
   }
   .write_choiceGround {

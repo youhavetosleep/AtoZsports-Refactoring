@@ -42,9 +42,14 @@ function EditPasswordModal({
   // 일치한다면, 응답으로 받은 메세지를 비밀번호의 일치여부를 알려주는 텍스트 상태를 가지고있는
   // setMessagePassword 로 보내 상태를 최신화 한다.
   useEffect(() => {
-    dispatch(userPassword(password, token)).then((res) => {
+    if(password === ''){
+      return
+    }else {
+      dispatch(userPassword(password, token))
+    .then((res) => {
       setMessagePassword(res.payload)
     })
+    }
   }, [password])
 
   // 일단 구현은 되는데, 글자를 하나칠때마다 서버로 요청이가기에 정상적인 접근은 아닌거 같다. 백엔드와 상의해보자.
@@ -103,7 +108,7 @@ const CheckPasswordContainer = styled.div`
     right: 0;
     bottom: 0;
     position: fixed;
-    z-index: 400;
+    z-index: 100;
   }
 `
 
@@ -129,11 +134,20 @@ const CheckPasswordModal = styled.div`
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   z-index: 500;
+  @media screen and (max-width: 767px) {
+    width: 300px;
+  height: 250px;
+  left: 46%;
+    }
   .checkPswordTitle {
     position: absolute;
     top: 40px;
     left: 48px;
     font-size: 1.3rem;
+    @media screen and (max-width: 767px) {
+      top: 40px;
+    left: 28px;
+    }
   }
   .checkPswordInput {
     position: absolute;
@@ -146,6 +160,9 @@ const CheckPasswordModal = styled.div`
     :focus {
       outline: none;
     }
+    @media screen and (max-width: 767px) {
+    width: 240px;
+    }
   }
   .checkPswordBtn {
     position: absolute;
@@ -156,6 +173,10 @@ const CheckPasswordModal = styled.div`
     :hover {
       cursor: pointer;
       color: #840909;
+    }
+    @media screen and (max-width: 767px) {
+    bottom: 20px;
+    right: 30px;
     }
   }
 `
@@ -169,6 +190,10 @@ const Check = styled.div`
     bottom: 45px;
     font-size: 13px;
     color: #1b7e07;
+    @media screen and (max-width: 767px) {
+    bottom: 80px;
+    left: 140px;
+    }
   }
   .wrongPsword {
     margin: 0;
@@ -178,6 +203,10 @@ const Check = styled.div`
     bottom: 45px;
     font-size: 13px;
     color: #840909;
+    @media screen and (max-width: 767px) {
+    bottom: 80px;
+    left: 110px;
+    }
   }
 `
 

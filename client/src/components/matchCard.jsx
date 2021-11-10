@@ -7,7 +7,7 @@ import { useHistory } from 'react-router'
 function MatchCard({ member, isLogin }) {
   const history = useHistory()
   let userInfo = store.getState().user
-  console.log(isLogin)
+  // console.log(isLogin)
 
   const matchInfoHadler = () => {
     if(!isLogin){
@@ -20,6 +20,7 @@ function MatchCard({ member, isLogin }) {
       return
     }else{
     history.push(`/post/id=${member.id}`)
+    window.location.reload()
   }
 }
 
@@ -89,7 +90,12 @@ function MatchCard({ member, isLogin }) {
 
 const MatchCardContainer = styled.div`
   /* z-index: 10; */
+  @media screen and (max-width: 767px) {
+        width: 100%;
+  }
+ 
   .matchCard {
+  
     &-listbox {
       background-color: white;
       border: 1px solid #747474;
@@ -104,10 +110,18 @@ const MatchCardContainer = styled.div`
       padding: 20px;
       position: relative;
       transition: all 0.5s;
+      @media screen and (max-width: 767px) {
+        width: auto;
+        height: auto;
+  }
 
       ul {
         height: 100%;
         width: 100%;
+        @media screen and (max-width: 767px) {
+        width: calc(100% - 5px);
+        height: auto;
+  }
       }
 
       :hover {

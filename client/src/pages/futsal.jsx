@@ -43,11 +43,16 @@ const Futsal = ({
   const [memberData, setMemberData] = useState([])
   const [dummyData, setDummyData] = useState([{}, {}, {}, {}, {}])
 
-  // console.log('re1 =====>',region1)
-  // console.log('re2 =====>',region2)
+  // console.log(memberData)
+
+  const [firstRegion, setFirstRegion] = useState(region1)
+  const [secondRegion, setSecondRegion] = useState(region2)
+
+  // console.log('re1 =====>',firstRegion)
+  // console.log('re2 =====>',secondRegion)
 
   useEffect(() => {
-    dispatch(getMatchData(CurrentOrder, region1, region2))
+    dispatch(getMatchData(CurrentOrder, firstRegion, secondRegion))
       .then((res) => {
         setMemberData(res.payload)
         // console.log('payload ====>', res.payload)
@@ -68,17 +73,7 @@ const Futsal = ({
   }
 
   const handleGotoReview = () => {
-    if(!isLogin){
-      Swal.fire({
-        text: '로그인이 필요한 서비스 입니다!',
-        icon: 'warning',
-        confirmButtonColor: '#d2d2d2',
-        confirmButtonText: '확인'
-      })
-      return
-    } else {
       history.push(`/review`)
-    }
   }
 
   // console.log("memberData ========> ",memberData)
@@ -272,34 +267,30 @@ const Futsal = ({
 const FutsalLandingPage = styled.div`
   width: 100%;
   @media screen and (max-width: 767px) {
-   max-width: 375px;
+    width: auto;
   }
 `
 
 const FutsalSliderSection = styled.section`
   width: 100%;
-  .slider {
-    color: #fafafa;
-    @media screen and (max-width: 767px) {
-    /* width: 100vw; */
-    max-width: 375px;
-    height: 490px;
-  }
-  }
   @media screen and (max-width: 767px) {
-    /* width: 100vw; */
-    max-width: 375px;
+    width: 100%;
     height: 64vh;
   }
+  .slider {
+    color: #fafafa;
+  }
+  
 `
 
 const FutsalBackMapSection = styled.section`
   max-width: 1110px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   margin: 40px auto 60px;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
+    width: 100%;
     margin: 0px auto -35px 0px;
   }
 `
@@ -314,10 +305,10 @@ const BackPage = styled.div`
   border-radius: 5px;
   position: relative;
   @media screen and (max-width: 767px) {
-  margin: 0px 0px 0px 12px;
-  width: 100px;
+  /* margin: 0px 0px 0px 12px;
+  width: calc(100% - 20px);
   height: 50px;
-  padding: 20px;
+  padding: 20px; */
   }
   .back_to_main {
     font-size: 13px;
@@ -350,7 +341,7 @@ const GotoMap = styled.div`
   /* transition: all 0.5s; */
   position: relative;
   @media screen and (max-width: 767px) {
-    width: 210px;
+    width: auto;
     height: 130px;
     margin-top: -2.8vh;
     margin-left: 10px;
@@ -360,11 +351,9 @@ const GotoMap = styled.div`
     opacity: 0.9;
     filter: brightness(75%);
     border-radius: 5px;
-        @media screen and (max-width: 767px) {
-    /* width: 100vw; */
-    
-    width: 265px;
-    height: 83px;
+    @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 63%;
     object-fit: cover;
   }
   }
@@ -379,7 +368,7 @@ const GotoMap = styled.div`
       font-size: .9rem;
       color: #fafafa;
       position: absolute;
-      left: 80px;
+      right: 18%;
       top: 55px;
   }
     
@@ -409,7 +398,7 @@ const FutsalMatchSoonSection = styled.section`
   padding: 60px 0px 50px 0px;
   margin: auto;
   @media screen and (max-width: 767px) {
-    /* height: 100vh; */
+    width: auto;
     padding: 20px 0px 15px 0px;
   }
 `
@@ -421,6 +410,8 @@ const MatchSoonTitle = styled.div`
   .matchSoon_title {
     font-size: 3rem;
     @media screen and (max-width: 767px) {
+      width: auto;
+      justify-content: center;
       font-size: 2rem;
   }
   }
@@ -479,6 +470,7 @@ const MatchSoonList = styled.div`
     /* margin-bottom: 20px; */
     @media screen and (max-width: 767px) {
       display: grid;
+      width: auto;
     grid-template-columns: repeat(1, 360px);
     row-gap: 0px;
     column-gap: 24px;
@@ -550,15 +542,17 @@ const StadiumReview = styled.div`
   height: 290px;
   padding: 0px 0px 30px 0px;
   border-radius: 5px;
+  :hover {
+    cursor: pointer;
+  }
   @media screen and (max-width: 767px) {
     display: flex;
-    /* justify-content: l; */
     align-items: center;
     position: absolute;
-    width: 200px;
-    height: 100px;
+    width: 220px;
+    height: 50px;
     left: 0px;
-    margin-top: -25px;
+    margin-top: 0px;
   }
  
   .stadiumReview1 {
@@ -569,9 +563,9 @@ const StadiumReview = styled.div`
     left: 30px;
     @media screen and (max-width: 767px) {
     display: flex;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     position: absolute;
-    top: 10px;
+    top: -10px;
     left: 35px;
   }
   }
@@ -584,9 +578,9 @@ const StadiumReview = styled.div`
     font-weight: lighter;
     @media screen and (max-width: 767px) {
     display: flex;
-    font-size: 1rem;
+    font-size: .8rem;
     position: absolute;
-    top: 45px;
+    top: 20px;
     left: 35px;
   }
   }
@@ -613,7 +607,7 @@ const StadiumReview = styled.div`
     position: absolute;
     left: 20px;
     width: 338px;
-    height: 20vh;
+    height: 120px;
     object-fit: cover;
   }
   }
@@ -635,7 +629,7 @@ const PremierLeague = styled.div`
     align-items: center;
     position: absolute;
     left: 21px;
-    top: 75px;
+    top: 70px;
     width: 296px;
     height: 8vh;
     object-fit: cover;
@@ -648,7 +642,7 @@ const PremierLeague = styled.div`
     top: 0px;
     @media screen and (max-width: 767px) {
     left: 15px;
-    top: 3px;
+    top: 8px;
     width: 300px;
     height: 90px;
   }
@@ -677,7 +671,7 @@ const Notice = styled.div`
   @media screen and (max-width: 767px) {
     display: flex;
     position: relative;
-  margin-top: 215px;
+  margin-top: 228px;
   margin-left: 3px;
   margin-bottom: 0px;
   width: 292px;
@@ -698,7 +692,7 @@ const Notice = styled.div`
   .notice_list {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 15px;
    
     .notice_title {
       color: #840909;

@@ -1,12 +1,20 @@
 /*global kakao*/
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { accordGroundData } from '../_actions/ground_action'
 import instance from '../api'
 import Navbar from '../components/navbar'
 
-const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
+const Map = ({
+  isLogin,
+  setIsLogin,
+  getData,
+  searchPlace,
+  changeClick,
+  click
+}) => {
   const mapRef = useRef()
   const MenuRef = useRef()
   const dispatch = useDispatch()
@@ -46,10 +54,22 @@ const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
         // 페이지 번호를 표출합니다
         displayPagination(pagination)
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert('검색 결과가 존재하지 않습니다.')
+        // alert('검색 결과가 존재하지 않습니다.')
+        Swal.fire({
+          text: '검색 결과가 존재하지 않습니다.',
+          icon: 'warning',
+          confirmButtonColor: '#d2d2d2',
+          confirmButtonText: '확인'
+        })
         return
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.')
+        // alert('검색 결과 중 오류가 발생했습니다.')
+        Swal.fire({
+          text: '검색 결과 중 오류가 발생했습니다.',
+          icon: 'warning',
+          confirmButtonColor: '#d2d2d2',
+          confirmButtonText: '확인'
+        })
         return
       }
     }
@@ -93,7 +113,7 @@ const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
           // 클릭시 리뷰페이지로 이동
           kakao.maps.event.addListener(marker, 'click', function () {
             setAddressName(title)
-            getData(places[i])
+            changeClick(click + 1)
             instance
               .post(
                 `/futsal/ground/check`,
@@ -109,15 +129,12 @@ const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
               )
               .then((res) => {
                 dispatch(accordGroundData({}))
-                dispatch(accordGroundData(res.data))
-                  .then((res) => console.log(res))
-                  .catch((err) => dispatch(accordGroundData({})))
+                dispatch(accordGroundData(res.data)).catch((err) =>
+                  dispatch(accordGroundData({}))
+                )
               })
               .catch((err) => dispatch(accordGroundData({})))
-            // console.log(places[i].place_name)
-            // dispatch(accordGroundData(places[i].place_name))
-            //   .then((res) => console.log(res))
-            //   .catch((err) => console.log(err))
+            getData(places[i])
           })
 
           kakao.maps.event.addListener(marker, 'mouseout', function () {
@@ -130,7 +147,8 @@ const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
             infowindow.close()
           }
           itemEl.onclick = function () {
-            console.log(places[i].place_name)
+            changeClick(click + 1)
+
             instance
               .post(
                 `/futsal/ground/check`,
@@ -145,15 +163,11 @@ const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
                 }
               )
               .then((res) => {
-                dispatch(accordGroundData({}))
-                dispatch(accordGroundData(res.data))
-                  .then((res) => console.log(res))
-                  .catch((err) => dispatch(accordGroundData({})))
+                dispatch(accordGroundData(res.data)).catch((err) =>
+                  dispatch(accordGroundData({}))
+                )
               })
               .catch((err) => dispatch(accordGroundData({})))
-            // dispatch(accordGroundData(places[i].place_name)).then(
-            //   (res) => console.log(res)
-            // ).catch((err) => console.log(err))
             getData(places[i])
           }
         })(marker, places[i].place_name)
@@ -266,22 +280,22 @@ const Map = ({ isLogin, setIsLogin, getData, searchPlace }) => {
 
   return (
     <>
-    <Container>
-      <MapWrap></MapWrap>
-      <BackList />
-      <div class="map_wrap">
-        <MapView ref={mapRef} />
-      </div>
-      <MenuWrap ref={MenuRef}>
-        <SearchLine />
-        <List>
-          <ListLine />
-          <ListTitle>경기장 목록</ListTitle>
-        </List>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-      </MenuWrap>
-    </Container>
+      <Container>
+        <MapWrap></MapWrap>
+        <BackList />
+        <div class="map_wrap">
+          <MapView ref={mapRef} />
+        </div>
+        <MenuWrap ref={MenuRef}>
+          <SearchLine />
+          <List>
+            <ListLine />
+            <ListTitle>경기장 목록</ListTitle>
+          </List>
+          <ul id="placesList"></ul>
+          <div id="pagination"></div>
+        </MenuWrap>
+      </Container>
     </>
   )
 }
@@ -324,18 +338,18 @@ const Container = styled.div`
     overflow: hidden;
     white-space: nowrap;
     font-size: 15px;
-    @media screen and (max-width:767px) {
+    @media screen and (max-width: 767px) {
       font-size: 12px;
-  }
+    }
   }
   #placesList .item .info {
     padding: 35px 0 10px 55px;
   }
   #placesList .item h5 {
     font-size: 20px;
-    @media screen and (max-width:767px) {
+    @media screen and (max-width: 767px) {
       font-size: 15px;
-  }
+    }
   }
   #placesList .info .gray {
     color: #8a8a8a;
@@ -443,7 +457,7 @@ const MapWrap = styled.div`
   right: 1;
   overflow: hidden;
   z-index: -100px;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
   }
 `
 
@@ -454,9 +468,9 @@ const MapView = styled.div`
   top: 0;
   right: 1;
   overflow: hidden;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 100vw;
-    height : 200px;
+    height: 200px;
     left: 0;
   }
 `
@@ -507,17 +521,17 @@ const MenuWrap = styled.div`
   z-index: 1;
   font-size: 12px;
   border-radius: 10px;
-  @media screen and (max-width:767px) {
-  top: 350px;
-  width: 100%;
-  bottom : 0;
+  @media screen and (max-width: 767px) {
+    top: 350px;
+    width: 100%;
+    bottom: 0;
   }
 `
 
 const BackList = styled.div`
   height: 100%;
   width: 473px;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 0;
   }
 `

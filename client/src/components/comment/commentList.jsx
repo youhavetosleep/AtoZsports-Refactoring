@@ -87,7 +87,15 @@ const CommentList = ({
       </Line1>
       <Line2>
         {content1 && editMode === 'normal' ? (
+          <>
           <Comment>{content1}</Comment>
+          {nickname === list.nickname ? (
+            <BtnWrap>
+              <Edit onClick={editComment}>수정</Edit>
+              <Delete onClick={deleteComment}>삭제</Delete>
+            </BtnWrap>
+          ) : null}
+          </>
         ) : (
           <InputWrap>
             <Input
@@ -98,15 +106,10 @@ const CommentList = ({
                 setContent1(e.target.value)
               }}
             />
-            <EditBtn onClick={updateComment}>수정완료</EditBtn>
+            <EditBtn onClick={updateComment} >수정완료</EditBtn>
           </InputWrap>
         )}
-        {nickname === list.nickname ? (
-          <BtnWrap>
-            <Edit onClick={editComment}>수정</Edit>
-            <Delete onClick={deleteComment}>삭제</Delete>
-          </BtnWrap>
-        ) : null}
+
       </Line2>
     </ElWrap>
   )
@@ -138,8 +141,8 @@ const Info = styled.div`
     color: #676767;
     margin-left: 20px;
   }
-  @media screen and (max-width:767px) {
-font-size:15px;
+  @media screen and (max-width: 767px) {
+    font-size: 15px;
   }
 `
 
@@ -150,8 +153,9 @@ const Line2 = styled.div`
 
 const Comment = styled.p`
   font-size: 20px;
-  @media screen and (max-width:767px) {
-font-size:15px;
+  @media screen and (max-width: 767px) {
+    font-size: 15px;
+    width :60%;
   }
 `
 
@@ -166,8 +170,8 @@ const Edit = styled.button`
   border: none;
   background-color: #ffffff;
   border-bottom: 1px solid #5e5e5e;
-  @media screen and (max-width:767px) {
-font-size:13px;
+  @media screen and (max-width: 767px) {
+    font-size: 13px;
   }
 `
 
@@ -176,13 +180,13 @@ const Delete = styled.button`
   border: none;
   background-color: #ffffff;
   border-bottom: 1px solid #5e5e5e;
-  @media screen and (max-width:767px) {
-font-size:13px;
+  @media screen and (max-width: 767px) {
+    font-size: 13px;
   }
 `
 
 const Input = styled.input`
-  width: 500px;
+  width: 450px;
   height: 25px;
   border: none;
   border-bottom: solid 1px #d2d2d2;
@@ -192,6 +196,10 @@ const Input = styled.input`
   :focus {
     border-bottom: solid 1px #840909;
     outline: none;
+  }
+  @media screen and (max-width: 767px) {
+    width : 70%;
+    font-size: 14px;
   }
 `
 
@@ -205,6 +213,10 @@ const EditBtn = styled.button`
 
 const InputWrap = styled.div`
   display: flex;
+  @media screen and (max-width: 767px) {
+    width : 100%;
+    justify-content:space-between;
+  }
 `
 
 export default CommentList

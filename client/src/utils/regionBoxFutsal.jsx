@@ -18,6 +18,8 @@ const RegionBoxFutsal = ({ region1, handleRegion1, handleRegion2 }) => {
     selectRegion()
   }, [region2, region1])
 
+  // console.log(region1, region2)
+
   return (
     <SelectBoxContainer>
       <SelectWrap>
@@ -27,6 +29,7 @@ const RegionBoxFutsal = ({ region1, handleRegion1, handleRegion2 }) => {
               key={option.value}
               value={option.value}
               defaultValue={option.value}
+              
             >
               {option.name}
             </option>
@@ -43,6 +46,7 @@ const RegionBoxFutsal = ({ region1, handleRegion1, handleRegion2 }) => {
               key={option.value}
               value={option.value}
               defaultValue={option.value}
+              
             >
               {option.value}
             </option>

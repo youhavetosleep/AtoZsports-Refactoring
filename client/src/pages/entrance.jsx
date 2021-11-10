@@ -1,18 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import {useDispatch} from 'react-redux'
 
+import { selectedSport } from '../_actions/user_action'
 import futsal from '../image/futsal.jpg'
 import running from '../image/running.jpeg'
 import basketball from '../image/basketball.jpeg'
 import comming from '../image/comming.jpeg'
 
 const Entrance = () => {
+const dispatch = useDispatch()
   return (
     <>
       <SportsMain>
         <SportsSub>
-          <Link to="/futsal" style={{ textDecoration: 'none' }}>
+          <Link to="/futsal" onClick={()=>{dispatch(selectedSport('풋살'))}} style={{ textDecoration: 'none' }}>
             <Footsal>
               <img src={futsal} alt="futsal" className="entrance_img" />
                 <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>

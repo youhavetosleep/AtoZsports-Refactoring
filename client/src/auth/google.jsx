@@ -18,16 +18,18 @@ const Google = () => {
   const history = useHistory()
 
   const googleLogin = async (authorizationCode) => {
-    dispatch(googleUser(authorizationCode)).then(res=>{
-      window.location.reload()
+    dispatch(googleUser(authorizationCode))
+    Swal.fire({
+      title: '로그인이 완료되었습니다!',
+      icon: 'success',
+      confirmButtonColor: '#d6d6d6',
+      confirmButtonText: '확인'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload()
+      }
     })
-    if(authorizationCode) {
-      Swal.fire({
-        title: '회원가입이 완료되었습니다!',
-        icon: 'success',
-        confirmButtonColor: '#d6d6d6',
-        confirmButtonText: '확인'
-      })
+    if (authorizationCode) {
       history.push('/')
     }
   }

@@ -18,8 +18,16 @@ const MapSearch = ({ isLogin, setIsLogin }) => {
 
   const [getPlace, setGetPlace] = useState('')
 
+  // 중복된 marker & list를 감지하기위한 상태
+  const [click, setClick] = useState([])
+
   const getData = (getPlace) => {
     setGetPlace(getPlace)
+  }
+
+  // 중복된 marker & list를 감지하기위한 함수
+  const changeClick = (num) => {
+    setClick([...click, ...num])
   }
 
   const onChange = (e) => {
@@ -28,7 +36,10 @@ const MapSearch = ({ isLogin, setIsLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setPlace(inputText)
+    // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트 
+    // (ex. entrance를 풋살로 클릭했을 때 '강남' 검색어 입력시 '강남 풋살' 로 검색결과가 표시)
+    setPlace(`${inputText} ${store.getState().user.sport}`)
+    // setPlace(inputText)
     setInputText('')
   }
 
@@ -40,6 +51,8 @@ const MapSearch = ({ isLogin, setIsLogin }) => {
     // 아래 동작 수행
     // 이렇게 되면 한 템포 늦게 반영되는 것이 해결
     const tick = setTimeout(() => {
+      //지도에서 경기장목록 & 마커를 클릭하면 accordData에 데이터가 담기고
+      // 데이터의 유무에 따라 다른 모달을 표시
       if (getPlace !== '') {
         if (Object.keys(store.getState().ground.accordData).length !== 0) {
           Swal.fire({
@@ -85,29 +98,32 @@ const MapSearch = ({ isLogin, setIsLogin }) => {
     }, 100)
 
     return () => clearTimeout(tick)
-  }, [getPlace])
+  }, [getPlace, click])
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
-    <Wrapper>
-      <SearchPosition>
-        <SearchForm className="inputForm" onSubmit={handleSubmit}>
-          <Input
-            placeholder="운동장을 찾아보세요"
-            onChange={onChange}
-            value={inputText}
-          />
-          <SearchBtn type="submit">
-            <FaSearch />
-          </SearchBtn>
-        </SearchForm>
-      </SearchPosition>
-      <Map searchPlace={place} getData={getData} />
-    </Wrapper>
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
+      <Wrapper>
+        <SearchPosition>
+          <SearchForm className="inputForm" onSubmit={handleSubmit}>
+            <Input
+              placeholder="운동장을 찾아보세요"
+              onChange={onChange}
+              value={inputText}
+            />
+            <SearchBtn type="submit">
+              <FaSearch />
+            </SearchBtn>
+          </SearchForm>
+        </SearchPosition>
+        <Map
+          searchPlace={place}
+          getData={getData}
+          changeClick={changeClick}
+          click={click}
+          setClick={setClick}
+        />
+      </Wrapper>
     </>
   )
 }

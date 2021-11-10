@@ -29,9 +29,11 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   const [status, setStatus] = useState()
 
   const getPostInfo = () => {
-    dispatch(getPostData(postId, token)).then((res) => {
+    dispatch(getPostData(postId, token))
+    .then((res) => {
       setPostData(res.payload.postsData)
       setStatus(res.payload.postsData.status)
+      console.log(res.payload)
 
       // 지도 표시를 위한 코드 (시작)
       let container = document.getElementById('map')
@@ -139,11 +141,10 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
       </TitleWrapper>
       <FormContainer>
         <FormWrapper>
-          <div
+          <MapWrap
             className="miniMap"
             id="map"
-            style={{ width: '100%', height: '200px' }}
-          ></div>
+          ></MapWrap>
           <Main>
             <FavorteMark className="favorite">
               {postData.isMyFavorite ? (
@@ -163,6 +164,10 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           </Main>
           <ContentWrap>
             <ContentTitle>게시자 정보</ContentTitle>
+          </ContentWrap>
+          <ContentWrap>
+            <ContentName>제목</ContentName>
+            <ContentEl>{postData.title}</ContentEl>
           </ContentWrap>
           <ContentWrap>
             <ContentName>닉네임</ContentName>
@@ -205,9 +210,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-          <PostChating>
+          {/* <PostChating>
             <PostChat postId={postId} />
-          </PostChating>
+          </PostChating> */}
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}
@@ -216,8 +221,8 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 }
 
 const FormContainer = styled.div`
-  background-color: #ffffff;
-  height: 1000px;
+  background-color: #fafafa;
+  height: 130vh;
   position: relative;
 `
 
@@ -236,20 +241,28 @@ const FormWrapper = styled.div`
     border-bottom: none;
     @media screen and (max-width: 767px) {
       padding: 30px 20px;
-  }
+    }
   }
 
   @media screen and (max-width: 767px) {
-    width: 360px;
+    width: calc(100% - 20px);
   }
 `
 
 const TitleWrapper = styled.div`
   height: 100px;
   position: relative;
-  background-color: white;
   @media screen and (max-width: 767px) {
     height: 60px;
+  }
+`
+
+const MapWrap = styled.div`
+  width: 100%;
+  height: 250px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    height: 200px;
   }
 `
 
@@ -289,7 +302,7 @@ const Main = styled.div`
 const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
-  margin-top: 10px;
+  padding-top : 10px;
   font-size: 23px;
   color: #929292;
   .delete {
@@ -297,7 +310,6 @@ const FavorteMark = styled.div`
   @media screen and (max-width: 767px) {
     margin-top: 0;
     font-size: 17px;
-    padding-top: 5px;
     margin-left: 5px;
   }
 `
@@ -324,6 +336,7 @@ const Status = styled.button`
 
 const ContentWrap = styled.div`
   padding: 20px 30px;
+  margin: 0px 0px 0px 0px;
   box-sizing: border-box;
   border-bottom: 1px solid #c4c4c4;
   border-right: 1px solid #c4c4c4;

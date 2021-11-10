@@ -68,8 +68,7 @@ export const STARTOPTIONS = [
   { value: '20:00', name: '20:00' },
   { value: '21:00', name: '21:00' },
   { value: '22:00', name: '22:00' },
-  { value: '23:00', name: '23:00' },
-  { value: '24:00', name: '24:00' }
+  { value: '23:00', name: '23:00' }
 ]
 
 export const ENDOPTIONS = [

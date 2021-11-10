@@ -24,7 +24,6 @@ const Navbar = ({ isLogin, setIsLogin }) => {
     if (isLogin) {
       dispatch(logoutUser()).then((res) => {
         setIsLogin(false)
-
         window.location.replace('/futsal')
       })
     }
@@ -321,6 +320,7 @@ const NavLogo = styled.div`
   align-items: center;
   .moreOpt {
     display: none;
+    z-index: 10;
   }
   .navLogoImg {
     position: absolute;

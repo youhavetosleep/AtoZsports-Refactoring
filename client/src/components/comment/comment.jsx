@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
 import store from '../../store/store'
 import CommentList from './commentList'
 import { getCommentData, addCommentData } from '../../_actions/ground_action'
 import StarRating from '../../utils/starRating'
 
-const Comment = ({ groundData, groundSelect }) => {
+const Comment = ({ groundData, groundSelect, setCommentData }) => {
   const dispatch = useDispatch()
   const [write, setWrite] = useState('')
   const [content, setContent] = useState([])
   const [score, setScore] = useState(5)
 
-  // 로그인 안한 회원의 경우엔 review page에서 마커를 클릭할 때 token이 없기 때문에 오류가 뜬다
-  // 그럼 app.js에서 props로 로그인 데이터를 넘겨줘야하는 걸까?
-
   // 로그인된 유저의 데이터 && 비회원 구분
   const userInfo = store.getState().user.loginSuccess
-  let token =''
-  let nickname =''
-  let userId =''
+  let token = ''
+  let nickname = ''
+  let userId = ''
   if (userInfo) {
     token = userInfo.accessToken
     nickname = userInfo.userData.nickname
@@ -53,14 +51,35 @@ const Comment = ({ groundData, groundSelect }) => {
 
   // 글쓰기 버튼
   const addComment = () => {
+if(token === '') {
+    Swal.fire({
+      confirmButtonColor: '#afafaf',
+      text: '로그인이 필요한 서비스입니다',
+      icon: 'warning',
+      cancelButtonText: '확인',
+    })
+    return
+  }
+    if(write === '') {
+      Swal.fire({
+        // title: '원하는 서비스를 선택하세요',
+        confirmButtonColor: '#afafaf',
+        text: '댓글을 입력해주세요!',
+        icon: 'warning',
+        confiemButtonText: '확인',
+      })
+      return
+    }
     setContent([])
     dispatch(addCommentData(groundSelect, token, score, userId, write)).then(
       (res) => {
-        setTotalComment(res.payload.list.length)
+        setTotalComment(res.payload.list.length) 
+        setCommentData(res.payload.list)
         setClicked([true, true, true, true, true])
         // window.location.reload()
       }
     )
+    // setWriteBtn(!writeBtn)
   }
 
   // 숫자 버튼을 누를 때마다(currentPage가 바뀔 때마다) 숫자에 맞는 리뷰들을 가져오기 위해 요청을 보내고,
@@ -90,7 +109,7 @@ const Comment = ({ groundData, groundSelect }) => {
             setWrite(e.target.value)
           }}
         />
-        <CommentBtn onClick={addComment}>글쓰기</CommentBtn>
+        <CommentBtn onClick={addComment}>입력</CommentBtn>
       </WriteWrap>
       {content && content.length === 0 ? (
         <Alert>댓글을 작성해주세요!</Alert>
@@ -134,10 +153,10 @@ const WriteWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 10px;
   box-sizing: border-box;
   border-bottom: 1px solid #a0a0a0;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     padding: 20px 10px;
     flex-direction: column;
   }
@@ -150,6 +169,7 @@ const Input = styled.input`
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 5px;
+  margin: 0 5px;
   :focus {
     border: solid 2px #959595;
     outline: none;
@@ -160,7 +180,7 @@ const Input = styled.input`
     line-height: 1.5;
     color: #b5b5b5;
   }
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     margin-top: 10px;
     width: auto;
   }
@@ -175,10 +195,10 @@ const CommentBtn = styled.button`
   background-color: #ffffff;
   border-radius: 10px;
   border: solid 2px #d2d2d2;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     margin-top: 10px;
     width: auto;
-    text-align :right;
+    text-align: right;
     border: none;
   }
 `
@@ -201,7 +221,7 @@ const Pagination = styled.ul`
 const Alert = styled.h1`
   height: 500px;
   text-align: center;
-  padding: 300px 150px;
+  padding: 230px 150px;
   box-sizing: border-box;
   font-size: 30px;
 `

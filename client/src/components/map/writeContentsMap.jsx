@@ -42,32 +42,40 @@ const WriteContentsMap = ({ getData, setGetGroundData,getGroundData }) => {
 }
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
 `
 
 const SearchForm = styled.form`
+  bottom: 93%;
   position: absolute;
-  top: 40px;
-  left: 28px;
-  margin-top: 20px;
-  z-index: 3;
+  left: 36px;
+  top: 0;
+  z-index: 30;
   @media screen and (max-width: 767px) {
-    top: 0px;
-    left: 38px;
+    top: 20px;
+    left: 43px;
   }
 `
 
 const Input = styled.input`
-  width: 170px;
-  height: 1px;
-  padding: 15px 20px;
-  border-radius: 10px;
+  width: 400px;
+  padding: 20px 25px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 17px;
   border: solid 1px #c6c6c6;
+  ::placeholder {
+    font-size: 17px;
+    @media screen and (max-width: 767px) {
+      font-size: 15px;
+  }
+  }
   @media screen and (max-width: 767px) {
-    width: 258px;
-    border-radius: 5px;
+    top: 0px;
+    width: calc(100vw - 85px);
+    padding: 7px 15px;
   }
 `
 

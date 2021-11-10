@@ -399,21 +399,21 @@ const MapView = styled.div`
   top: -40px;
   right: 0;
   @media screen and (max-width: 767px) {
-    left: 0px;
-    width: 300px;
-    margin: 100px 0px 0px 0px;
+    margin: -300px 0px 0px 0px;
+    width: 79vw;
+    height: 400px;
     border-radius: 5px;
-    justify-content: left;
+    top: 0;
   }
 `
 
 const MenuWrap = styled.div`
   position: absolute;
-  top: 40px;
-  left: 0;
-  width: 280px;
-  height: 450px;
-  padding: 30px;
+  top: 90px;
+  left: 10px;
+  width: 260px;
+  height: 400px;
+  padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   background: rgba(255, 255, 255);
@@ -421,10 +421,11 @@ const MenuWrap = styled.div`
   border-radius: 10px;
   z-index: 2;
   @media screen and (max-width: 767px) {
-    width: 300px;
-    top: 520px;
-    left: 40px;
+    width: 79vw;
+    top: 280px;
+    left: 11%;
     height: 190px;
+    border-radius: 5px;
   }
   
 `
@@ -438,7 +439,7 @@ const MenuWrap = styled.div`
 const List = styled.div`
   position: relative;
   width: 100%;
-  height: 60px;
+  height: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -449,7 +450,7 @@ const List = styled.div`
 
 const ListLine = styled.div`
   position: absolute;
-  top: 78%;
+  top: 79%;
   left: 0;
   width: 100%;
   border: 1px solid #5c5c5c;
@@ -460,11 +461,11 @@ const ListLine = styled.div`
 
 const ListTitle = styled.h1`
 position: absolute;
-top: 70%;
+top: 40%;
   width: 100px;
   height: 10px;
   font-size: .9rem;
-  background-color: white;
+  background-color: #fafafa;
   text-align: center;
   color: #5c5c5c;
   @media screen and (max-width: 767px) {
