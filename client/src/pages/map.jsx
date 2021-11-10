@@ -1,6 +1,7 @@
 /*global kakao*/
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { accordGroundData } from '../_actions/ground_action'
 import instance from '../api'
@@ -53,10 +54,22 @@ const Map = ({
         // 페이지 번호를 표출합니다
         displayPagination(pagination)
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert('검색 결과가 존재하지 않습니다.')
+        // alert('검색 결과가 존재하지 않습니다.')
+        Swal.fire({
+          text: '검색 결과가 존재하지 않습니다.',
+          icon: 'warning',
+          confirmButtonColor: '#d2d2d2',
+          confirmButtonText: '확인'
+        })
         return
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.')
+        // alert('검색 결과 중 오류가 발생했습니다.')
+        Swal.fire({
+          text: '검색 결과 중 오류가 발생했습니다.',
+          icon: 'warning',
+          confirmButtonColor: '#d2d2d2',
+          confirmButtonText: '확인'
+        })
         return
       }
     }

@@ -7,8 +7,7 @@ import review from '../image/review.jpeg'
 import {
   getGroundData,
   selectGroundData,
-  mapData,
-  accordGroundData
+  mapData
 } from '../_actions/ground_action'
 import Comment from '../components/comment/comment'
 import ReviewInfo from '../components/reviewInfo'
@@ -16,7 +15,7 @@ import RegionBox from '../utils/regionBox'
 import store from '../store/store'
 import Navbar from '../components/navbar'
 
-const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
+const Review = ({ isLogin, setIsLogin, userInfo }) => {
   const dispatch = useDispatch()
 
   const [groundData, setGroundData] = useState([])
@@ -24,10 +23,21 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const [selected, setSelected] = useState('normal')
   const [groundSelect, setGroundSelect] = useState(1)
 
+  // comment.jsx  글쓰기 버튼 누를 때 reviewInfo를 업데이트하기 위한 state
+  const [commentData, setCommentData] = useState([])
+
+  let userRegion1 = ''
+  let userRegion2 = ''
+
+  if (userInfo.loginSuccess !== undefined) {
+    userRegion1 = userInfo.loginSuccess.userData.homeground.split(' ')[0]
+    userRegion2 = userInfo.loginSuccess.userData.homeground.split(' ')[1]
+  }
+
   // app.js에서의 사용자 region을 가져와서
   // app.js region 변경없이 review페이지에서만 지역상태를 관리하기 위한 useState
-  const [home1, setHome1] = useState(region1)
-  const [home2, setHome2] = useState(region2)
+  const [home1, setHome1] = useState(userRegion1)
+  const [home2, setHome2] = useState(userRegion2)
   // region box 클릭시에 해당 주소의 첫번째 경기장의 위치를 중심으로 검색
   const [location1, setLocation1] = useState(37.2520770795763)
   const [location2, setLocation2] = useState(127.214827986162)
@@ -171,9 +181,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
       dispatch(selectGroundData(1)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
-        // setMarkerData([])
-        // mapscript()
-        // return
       })
     }
 
@@ -186,8 +193,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
       dispatch(selectGroundData(markerData[0].id)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
-        // mapscript()
-        // return
       })
     }
 
@@ -201,8 +206,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
           ).then((res) => {
             setGroundData(res.payload)
             markerDetail(res.payload.id)
-            // mapscript()
-            // return
           })
         }
       }
@@ -213,7 +216,12 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
       dispatch(mapData({}))
     }, 500)
     return () => clearTimeout(tick)
-  }, [markerData, center])
+    // commentData는 comment.jsx에서 글쓰기를 눌렀을 때
+    // review의 commentData를 업데이트하고
+    // 업데이트된 commentData를 reviewInfo.jsx에 보내줘서
+    // 평균 평점과 리뷰 참여수를 최신화 하기 위함이다.
+    // 하지만 이로 인해 글쓰기버튼 입력시 데이터를 2번 요청하게 된다.
+  }, [markerData, center, commentData])
 
   return (
     <>
@@ -238,7 +246,11 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
             {selected === 'choose' ? (
               <>
                 <ReviewInfo groundData={groundData} />
-                <Comment groundData={groundData} groundSelect={groundSelect} />
+                <Comment
+                  groundData={groundData}
+                  setCommentData={setCommentData}
+                  groundSelect={groundSelect}
+                />
               </>
             ) : (
               <InitWrap>
@@ -357,12 +369,13 @@ const InitText = styled.h1`
   font-size: 30px;
   margin-bottom: 30px;
   @media screen and (max-width: 767px) {
-    font-size:20px;
+    font-size: 20px;
   }
 `
 const InitWrap = styled.div`
-  margin : 300px auto;
-  @media screen and (max-width: 767px) {}
+  margin: 300px auto;
+  @media screen and (max-width: 767px) {
+  }
 `
 
 export default Review

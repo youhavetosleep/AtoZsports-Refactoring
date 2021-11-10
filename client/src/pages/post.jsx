@@ -165,6 +165,10 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
             <ContentTitle>게시자 정보</ContentTitle>
           </ContentWrap>
           <ContentWrap>
+            <ContentName>제목</ContentName>
+            <ContentEl>{postData.title}</ContentEl>
+          </ContentWrap>
+          <ContentWrap>
             <ContentName>닉네임</ContentName>
             <ContentEl>{postData.nickname}</ContentEl>
           </ContentWrap>
@@ -205,9 +209,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-          <PostChating>
+          {/* <PostChating>
             <PostChat postId={postId} />
-          </PostChating>
+          </PostChating> */}
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}

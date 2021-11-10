@@ -35,11 +35,13 @@ const ReviewInfo = ({ groundData }) => {
             }
           })
         )}
+        <Info className="avg">
+          ({!Number(average) ? 0 : average.toFixed(1)})
+        </Info>
       </TitleScore>
 
       <StarWrap>
-        <Info className="avg">평균 {!Number(average) ? 0 : average.toFixed(1)}</Info>
-        <Info className="count">리뷰 {groundData.score.length}</Info>
+        <Info className="count">{groundData.score.length}명 참여</Info>
       </StarWrap>
       <Info className="address">{groundData.addressName}</Info>
       <Info className="phone">{groundData.phone}</Info>
@@ -68,22 +70,24 @@ const InfoWrap = styled.div`
     }
   }
   .avg {
-    margin: auto 5px;
-    color: #454545;
-    font-size: 20px;
+    margin: 6px 5px 0px 5px;
+    color: #636363;
+    font-size: 17px;
     @media screen and (max-width: 767px) {
       font-size: 14px;
     }
   }
   .count {
     margin: auto 5px;
-    font-size: 20px;
-    color: #454545;
+    font-size: 17px;
+    margin-top: 3px;
+    color: #636363;
     @media screen and (max-width: 767px) {
       font-size: 14px;
     }
   }
 `
+
 const Title = styled.h1`
   font-size: 30px;
   margin-bottom: 10px;
@@ -92,7 +96,10 @@ const Title = styled.h1`
   }
   margin-top: 10px;
 `
+
 const TitleScore = styled.div`
+  display: flex;
+  justify-content: center;
   margin-bottom: 5px;
   color: #fcc419;
   font-size: 25px;
@@ -100,6 +107,7 @@ const TitleScore = styled.div`
     font-size: 20px;
   }
 `
+
 const StarWrap = styled.div`
   display: flex;
   justify-content: center;

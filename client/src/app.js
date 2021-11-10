@@ -116,18 +116,12 @@ function App() {
           <Route exact path="/review">
             <Review
               userInfo={userInfo}
-              region1={region1}
-              region2={region2}
-              setRegion1={setRegion1}
-              setRegion2={setRegion2}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
             />
           </Route>
           <Route exact path="/matchlist">
             <MatchList
-              handleRegion1={handleRegion1}
-              handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
               setEditPost={setEditPost}

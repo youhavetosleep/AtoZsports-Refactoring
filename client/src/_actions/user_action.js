@@ -6,7 +6,8 @@ import {
   DELETE_USER,
   MYPAGE_USER,
   USER_PASSWORD,
-  USER_PASSWORDCHECK
+  USER_PASSWORDCHECK,
+  SPORT_DATA
 } from './types'
 import instance from '../api'
 
@@ -159,7 +160,6 @@ export async function userPassword(password, token) {
   }
 }
 
-
 export async function userChangePsword(secondPsword, Token) {
   const request = await instance
     .patch(
@@ -176,7 +176,7 @@ export async function userChangePsword(secondPsword, Token) {
       }
     )
     .then((res) => res.data)
-    .catch(err => err)
+    .catch((err) => err)
 
   return {
     type: USER_PASSWORDCHECK,
@@ -199,4 +199,13 @@ export async function authMailResend(email) {
       }
     )
     .then((res) => console.log(res))
+}
+
+export async function selectedSport(data) {
+  const info = data
+
+  return {
+    type: SPORT_DATA,
+    payload: info
+  }
 }
