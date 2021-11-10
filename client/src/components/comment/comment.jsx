@@ -82,7 +82,7 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
         Swal.fire({
           icon: 'error',
           text: '중복된 댓글입니다.',
-          confirmButtonText: '경기 잡기',
+          confirmButtonText: '확인',
           confirmButtonColor: '#484848',
           denyButtonColor: '#919191'
         }).then((result) => {
