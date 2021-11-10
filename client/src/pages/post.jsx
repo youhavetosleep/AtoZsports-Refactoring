@@ -214,7 +214,7 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 
 const FormContainer = styled.div`
   background-color: #fafafa;
-  height: 130vh;
+  height: 1000px;
   position: relative;
 `
 

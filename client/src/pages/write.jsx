@@ -213,7 +213,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
             <CalendarWrap>
               <CalendarWrite
                 className="Calender"
-                setStartDate={handledate}
+                handledate={handledate}
                 startDate={startDate}
               />
               <DownWrap>

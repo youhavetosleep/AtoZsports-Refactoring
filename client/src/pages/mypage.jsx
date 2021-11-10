@@ -61,6 +61,8 @@ const Mypage = ({
     userId: userInfoSuccess.id
   })
 
+  console.log(editUserInfo)
+
   const [phoneNumber, setPhoneNumber] = useState(editUserInfo.userPhone)
   const [nickname, setNickname] = useState(editUserInfo.nickname)
   const [favoriteSports, setFavoriteSports] = useState(
