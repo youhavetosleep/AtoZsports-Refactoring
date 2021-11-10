@@ -45,8 +45,25 @@ const Futsal = ({
 
   // console.log(memberData)
 
-  const [firstRegion, setFirstRegion] = useState(region1)
-  const [secondRegion, setSecondRegion] = useState(region2)
+  let setFirst = region1
+  let setSecond = region2
+  
+  const [firstRegion, setFirstRegion] = useState(setFirst)
+  const [secondRegion, setSecondRegion] = useState(setSecond)
+
+  const firstData1 = (e) => {
+    setFirstRegion(e)
+  }
+  const firstData2 = (e) => {
+    setSecondRegion(e)
+  }
+  const handleData1 = (e) => {
+    setFirstRegion(e.value)
+  }
+  const handleData2 = (e) => {
+    setSecondRegion(e.value)
+  }
+
 
   // console.log('re1 =====>',firstRegion)
   // console.log('re2 =====>',secondRegion)
@@ -60,7 +77,7 @@ const Futsal = ({
       .catch((err) => {
         console.log(err)
       })
-  }, [CurrentOrder, region2])
+  }, [CurrentOrder, secondRegion])
 
   // console.log('member =====>', memberData)
 
@@ -152,8 +169,11 @@ const Futsal = ({
             </span>
             <RegionBoxFutsal
               region1={region1}
-              handleRegion1={handleRegion1}
-              handleRegion2={handleRegion2}
+              region2={region2}
+              handleData1={handleData1}
+              handleData2={handleData2}
+              firstData1={firstData1}
+              firstData2={firstData2}
             />
           </MatchSoonFilter>
           <MatchSoonList>

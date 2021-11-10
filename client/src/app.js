@@ -24,11 +24,13 @@ import EditWrite from './components/editWrite'
 function App() {
   // 로그인 정보 저장
   let userInfo = store.getState().user
+  let firstData = userInfo.loginSuccess !== undefined ? userInfo.loginSuccess.userData.homeground.split(' ')[0] : '서울'
+  let secondData = userInfo.loginSuccess !== undefined ? userInfo.loginSuccess.userData.homeground.split(' ')[1] : '강남구'
 
   const [isLogin, setIsLogin] = useState(false)
   // 지역선택 드롭박스를 위한 상태
-  const [region1, setRegion1] = useState('')
-  const [region2, setRegion2] = useState('')
+  const [region1, setRegion1] = useState(firstData)
+  const [region2, setRegion2] = useState(secondData)
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
@@ -72,8 +74,8 @@ function App() {
 
     if (userInfo.loginSuccess !== undefined) {
       setIsLogin(true)
-      setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
-      setRegion2(userInfo.loginSuccess.userData.homeground.split(' ')[1])
+      //setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
+      //setRegion2(userInfo.loginSuccess.userData.homeground.split(' ')[1])
     } else {
       setIsLogin(false)
     }
@@ -117,6 +119,8 @@ function App() {
               userInfo={userInfo}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
+              region1={region1}
+              region2={region2}
             />
           </Route>
           <Route exact path="/matchlist">
