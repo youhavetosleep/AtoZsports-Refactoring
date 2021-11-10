@@ -34,7 +34,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
     setStartDate(ChangeDate)
   }
 
-  const [startDate, setStartDate] = useState('2021-11-10')
+  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0])
 
   const [postTitle, setPostTitle] = useState('') // title
   const [postDivision, setPostDivision] = useState('') // division
