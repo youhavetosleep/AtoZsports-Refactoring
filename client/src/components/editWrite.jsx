@@ -55,7 +55,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const userId = postData.id
   const postStatus = postData.status
 
-  // console.log(postData.userPhone)
+  console.log(groundData)
+
   useEffect(() => {
     if (postData.userPhone === undefined) {
       setphoneOpen(false)

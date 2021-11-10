@@ -34,6 +34,7 @@ function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const [editPost, setEditPost] = useState(false)
+  const [clickMap, setClickMap] = useState({})
 
   // 스크롤 이벤트
   // useEffect(() => {
@@ -112,6 +113,7 @@ function App() {
             setEditPost={setEditPost} 
             isLogin={isLogin}
             setIsLogin={setIsLogin}
+            setClickMap={setClickMap}
             />
           </Route>
           <Route exact path="/review">
@@ -144,7 +146,9 @@ function App() {
             {!editPost ? (
               <Write 
               isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              setIsLogin={setIsLogin}
+              clickMap={clickMap}
+              />
             ) : (
               <EditWrite 
               isLogin={isLogin} 

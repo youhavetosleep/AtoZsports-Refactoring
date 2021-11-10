@@ -9,7 +9,7 @@ import Map from '../../pages/map'
 import { mapData } from '../../_actions/ground_action'
 import Navbar from '../navbar'
 
-const MapSearch = ({ isLogin, setIsLogin }) => {
+const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -68,6 +68,7 @@ const MapSearch = ({ isLogin, setIsLogin }) => {
           }).then((result) => {
             dispatch(mapData(getPlace))
             if (result.isConfirmed) {
+              setClickMap(getPlace)
               history.push('/write')
             }
             if (result.isDenied) {

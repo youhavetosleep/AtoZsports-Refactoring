@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 import { writePostData } from '../_actions/post_action'
 import Navbar from '../components/navbar'
 
-const Write = ({ isLogin, setIsLogin }) => {
+const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const history = useHistory()
   const mapRef = useRef()
   const dispatch = useDispatch()
@@ -36,6 +36,10 @@ const Write = ({ isLogin, setIsLogin }) => {
     setStartDate(ChangeDate)
   }
 
+
+
+
+
   const [startDate, setStartDate] = useState(new Date())
 
   const [postTitle, setPostTitle] = useState('') // title
@@ -49,9 +53,24 @@ const Write = ({ isLogin, setIsLogin }) => {
   const [postAdressName, setAdressName] = useState('') // adressName
   const userId = userInfo.loginSuccess.userData.id
 
-  const [getPlace, setGetPlace] = useState('')
   const [getGroundData, setGetGroundData] = useState([])
-  const [groundData, setGroundData] = useState({})
+ 
+  const [fromMap, setFromMap] = useState({
+    placeName: clickMap.place_name,
+    addressName: clickMap.address_name,
+    phone: clickMap.phone,
+    longitude: clickMap.y,
+    latitude: clickMap.x,
+    placeUrl: clickMap.place_url
+  })
+
+  let getMapData = fromMap.placeName === undefined ? {} : fromMap
+  let getClickData = fromMap.placeName === undefined ? '' : fromMap 
+
+  const [getPlace, setGetPlace] = useState(getClickData)
+  const [groundData, setGroundData] = useState(getMapData)
+
+  console.log(getPlace)
 
   // const a = [...getGroundData, getGroundData]
   // console.log(startDate)
@@ -92,15 +111,18 @@ const Write = ({ isLogin, setIsLogin }) => {
   // console.log('placeUrl ====> ', getPlace.place_url)
   // console.log(postStartTime, postEndTime)
 
+  // console.log(groundData.placeName)
+
   useEffect(() => {
-    setGroundData({
-      placeName: getPlace.place_name,
-      addressName: getPlace.address_name,
-      phone: getPlace.phone,
-      longitude: getPlace.y,
-      latitude: getPlace.x,
-      placeUrl: getPlace.place_url
-    })
+      setGroundData({
+        placeName: getPlace.place_name,
+        addressName: getPlace.address_name,
+        phone: getPlace.phone,
+        longitude: getPlace.y,
+        latitude: getPlace.x,
+        placeUrl: getPlace.place_url
+      })
+    
   }, [getPlace])
 
   // console.log(`${startDate} ${postStartTime}`)
@@ -160,7 +182,7 @@ const Write = ({ isLogin, setIsLogin }) => {
               type="text"
               // map 페이지에서 넘어올 때 map에서 선택한 경기장의 이름
               // value={mapData.mapData.place_name}
-              value={getPlace.place_name}
+              value={groundData.placeName}
               ref={mapRef}
               className="write_choiceGround"
             />
