@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import {
   updateCommentData,
-  deleteCommentData
+  deleteCommentData,
+  selectGroundData
 } from '../../_actions/ground_action'
 import { STAR } from '../../utils/data'
 import StarRating from '../../utils/starRating'
@@ -41,6 +42,7 @@ const CommentList = ({
   const updateComment = () => {
     dispatch(updateCommentData(groundId, list.id, token, content1, score)).then(
       (res) => {
+        dispatch(selectGroundData(groundId)).then(res =>setCommentData(res.payload.score))
         setEditMode('normal')
       }
     )

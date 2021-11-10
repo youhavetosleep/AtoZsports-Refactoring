@@ -3,17 +3,20 @@ import styled from 'styled-components'
 import { FaRegStar } from 'react-icons/fa'
 import { STAR } from '../utils/data'
 
-const ReviewInfo = ({ groundData }) => {
+const ReviewInfo = ({ commentData, groundData }) => {
+
+  let scoreData = commentData === '' ? groundData.score : commentData
+
   const result =
-    groundData.score &&
+    scoreData &&
     Math.floor(
-      groundData.score.reduce((sum, cur) => sum + cur, 0) /
-        groundData.score.length
+      scoreData.reduce((sum, cur) => sum + cur, 0) /
+        scoreData.length
     )
   const average =
-    groundData.score &&
-    groundData.score.reduce((avg, cur) => avg + cur, 0) /
-      groundData.score.length
+    scoreData &&
+    scoreData.reduce((avg, cur) => avg + cur, 0) /
+      scoreData.length
 
   return (
     <InfoWrap>
@@ -41,7 +44,7 @@ const ReviewInfo = ({ groundData }) => {
       </TitleScore>
 
       <StarWrap>
-        <Info className="count">{groundData.score.length}명 참여</Info>
+        <Info className="count">{scoreData.length}명 참여</Info>
       </StarWrap>
       <Info className="address">{groundData.addressName}</Info>
       <Info className="phone">{groundData.phone}</Info>
