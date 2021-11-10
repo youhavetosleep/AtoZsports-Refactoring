@@ -24,7 +24,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
     if (isLogin) {
       dispatch(logoutUser()).then((res) => {
         setIsLogin(false)
-        window.location.replace('/futsal')
+        window.location.replace('/entrance')
       })
     }
   }

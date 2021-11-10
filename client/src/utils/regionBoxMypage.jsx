@@ -1,56 +1,49 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
+import Select from 'react-select'
 import { FaChevronDown } from 'react-icons/fa'
 import { REGION, AREA } from './data'
 
-const RegionBoxMypage = ({ region1, handleRegion1, handleRegion2, mainRegion, subRegion }) => {
-  const [region2, setRegion2] = useState([])
-
-  const selectRegion = () => {
-    AREA.forEach((selected) => {
-      if (selected.name === region1) {
-        setRegion2(selected.list)
-      }
-    })
-  }
-
+const RegionBoxMypage = ({ region1, region2, handleData1, handleData2, firstData1, firstData2 }) => {
+  let setFirst = region1
+  let setSecond = region2
+  const [data1, setData1] = useState(setFirst)
   useEffect(() => {
-    selectRegion()
-  }, [region2, region1])
-
+    firstData1(setFirst)
+    firstData2(setSecond)
+  },[])
+  console.log('컴포넌트 데이터 췍',data1)
+  const handleCOMP = (e) => {
+    setData1(e.value)
+  }
+  const options = useMemo(() => REGION)
+  let findDefaultValue
+  options.map((el, idx) => {
+    if(el.value === data1) {
+      findDefaultValue = idx
+    }
+  })
+  let pickSecondRegion
+  AREA.forEach((selected) => {
+    if(selected.name === data1) {
+      pickSecondRegion = selected.list
+    }
+  })
+  const options2 = useMemo(() => pickSecondRegion)
+  let findDefaultValue2
+  options2.map((el, idx) => {
+    if(el.value === region2) {
+      findDefaultValue2 = idx
+    }
+  })
+  
   return (
     <SelectBoxContainer>
       <SelectWrap>
-        <Select onChange={handleRegion1}>
-          {REGION.map((option) => (
-            <option
-              key={option.value}
-              value={option.value}
-              defaultValue={option.value}
-            >
-              {option.name}
-            </option>
-          ))}
-        </Select>
-        <DownWrap>
-          <FaChevronDown />
-        </DownWrap>
+        <Select options={options} defaultValue={options[findDefaultValue]} onChange={(e) => {handleData1(e); handleCOMP(e)}}/>
       </SelectWrap>
       <SelectWrap className='second'>
-        <Select onChange={handleRegion2}>
-          {region2.map((option) => (
-            <option
-              key={option.value}
-              value={option.value}
-              defaultValue={option.value}
-            >
-              {option.value}
-            </option>
-          ))}
-        </Select>
-        <DownWrap>
-          <FaChevronDown />
-        </DownWrap>
+        <Select options={options2} defaultValue={options2[findDefaultValue2]} onChange={handleData2} />
       </SelectWrap>
     </SelectBoxContainer>
   )
@@ -64,32 +57,6 @@ const SelectBoxContainer = styled.div`
 `
 const SelectWrap = styled.div`
   position: relative;
-`
-const DownWrap = styled.div`
-  width: 0.1px;
-  position: absolute;
-  top: 27.5%;
-  right: 20%;
-  color: #000000;
-  z-index: -1;
-`
-export const Select = styled.select`
-  margin: 0px 0px 0px 0px;
-  min-width: 0;
-  width: 100px;
-  box-sizing: border-box;
-  padding: 5px 8px;
-  font-size: .9rem;
-  border: 1px solid #737373;
-  border-radius: 4px;
-  color: inherit;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  opacity: 90%;
-  :hover {
-    cursor: pointer;
-  }
 `
 
 export default RegionBoxMypage

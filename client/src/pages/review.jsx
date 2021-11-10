@@ -163,8 +163,8 @@ const Review = ({ isLogin, setIsLogin, userInfo }) => {
       // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
       // 지역선텍시 경기 용인시로 고정된다..
       // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
-      // setHome1('경기')
-      // setHome2('용인시')
+      setHome1('경기')
+      setHome2('용인시')
     }
 
     Ground()

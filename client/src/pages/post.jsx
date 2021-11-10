@@ -29,11 +29,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   const [status, setStatus] = useState()
 
   const getPostInfo = () => {
-    dispatch(getPostData(postId, token))
-    .then((res) => {
+    dispatch(getPostData(postId, token)).then((res) => {
       setPostData(res.payload.postsData)
       setStatus(res.payload.postsData.status)
-      console.log(res.payload)
 
       // 지도 표시를 위한 코드 (시작)
       let container = document.getElementById('map')
@@ -132,19 +130,13 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <TitleWrapper>
         <TitleText>경기 정보</TitleText>
       </TitleWrapper>
       <FormContainer>
         <FormWrapper>
-          <MapWrap
-            className="miniMap"
-            id="map"
-          ></MapWrap>
+          <MapWrap className="miniMap" id="map"></MapWrap>
           <Main>
             <FavorteMark className="favorite">
               {postData.isMyFavorite ? (
@@ -210,9 +202,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-          {/* <PostChating>
+          <PostChating>
             <PostChat postId={postId} />
-          </PostChating> */}
+          </PostChating>
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}
@@ -302,7 +294,7 @@ const Main = styled.div`
 const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
-  padding-top : 10px;
+  padding-top: 10px;
   font-size: 23px;
   color: #929292;
   .delete {
