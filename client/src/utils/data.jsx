@@ -502,7 +502,7 @@ export const AREA = [
     id: 18,
     name: '지역',
     list: [
-      {value: '지역 선택', label: '지역 선택'}
+      {value: '시/구/군', label: '시/구/군'}
     ]
   }
 ]

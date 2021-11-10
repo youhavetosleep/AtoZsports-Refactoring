@@ -7,7 +7,7 @@ import instance from '../api/index.jsx'
 import RegionBox from '../utils/regionBox'
 import Navbar from '../components/navbar'
 
-const Signup = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRegion2 }) => {
+const Signup = ({ isLogin, setIsLogin }) => {
   const history = useHistory()
 
   // 회원가입 데이터
@@ -18,6 +18,21 @@ const Signup = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRe
   const [userPhone, setUserPhone] = useState('')
   const [favoriteSports, setFavoriteSports] = useState('')
   const [homeground, setHomeground] = useState('')
+  const [data1, setData1] = useState('')
+  const [data2, setData2] = useState('')
+
+  const firstData1 = (e) => {
+    setData1(e)
+  }
+  const firstData2 = (e) => {
+    setData2(e)
+  }
+  const handleData1 = (e) => {
+    setData1(e.value)
+  }
+  const handleData2 = (e) => {
+    setData2(e.value)
+  }
 
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
@@ -181,7 +196,7 @@ const Signup = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRe
       _sport.current.focus()
       setMessageSport('좋아하는 스포츠를 입력해주세요')
       return
-    } else if (homeground === '세종 전동면') {
+    } else if (data1 === '지역' || data2 === '시/구/군') {
       setMessageHome('살고 있는 지역을 선택해주세요')
       return
     }
@@ -225,8 +240,8 @@ const Signup = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRe
   }
 
   useEffect(() => {
-    setHomeground(`${region1} ${region2}`)
-  }, [region2])
+    setHomeground(`${data1} ${data2}`)
+  }, [data2])
 
   return (
     <>
@@ -353,9 +368,10 @@ const Signup = ({ isLogin, setIsLogin, region1, region2, handleRegion1, handleRe
             <Check className="home">{messageHome}</Check>
             <DropWrapper>
               <RegionBox
-                region1={region1}
-                handleRegion1={handleRegion1}
-                handleRegion2={handleRegion2}
+                handleData1={handleData1}
+                handleData2={handleData2}
+                firstData1={firstData1}
+                firstData2={firstData2}
               />
             </DropWrapper>
           </Element>
