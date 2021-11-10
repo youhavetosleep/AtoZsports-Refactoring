@@ -18,6 +18,8 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const mapRef = useRef()
   const dispatch = useDispatch()
   let userInfo = store.getState().user
+  const startTime = ''
+  const endTime = '' 
 
   // map page에서 경기잡기 버튼 누를 때 리덕스에 상태가 저장되고
   // 저장된 경기장의 이름을 가져오기 위한 getState
@@ -81,10 +83,10 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   }
   // start, end 셀렉트 박스 컴포넌트 value 가져오기
   const handleStartHour = (e) => {
-    setPostStartTime(e.target.value)
+    setPostStartTime(e.value)
   }
   const handleEndHour = (e) => {
-    setPostEndTime(e.target.value)
+    setPostEndTime(e.value)
   }
   const handleClickMember = () => {
     setPostDivision('member')
@@ -223,6 +225,8 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
                 <SelectBoxWrite
                   handleStartHour={handleStartHour}
                   handleEndHour={handleEndHour}
+                  startTime={startTime}
+                  endTime={endTime}
                 />
               </TimeWrap>
             </CalendarWrap>

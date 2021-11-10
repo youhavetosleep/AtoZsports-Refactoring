@@ -82,10 +82,10 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
 
   // start, end 셀렉트 박스 컴포넌트 value 가져오기
   const handleStartHour = (e) => {
-    setStartTime(e.target.value)
+    setStartTime(e.value)
   }
   const handleEndHour = (e) => {
-    setEndTime(e.target.value)
+    setEndTime(e.value)
   }
 
   // 용병모집 버튼
