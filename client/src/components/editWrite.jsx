@@ -32,11 +32,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   }
 
   const postData = userPost.postData.postsData
-  console.log(postData.startTime)
   const sliceStartTime = postData.startTime.slice(11, 16)
   const sliceEndTime = postData.endTime.slice(11, 16)
-  // console.log(sliceStartTime)
-
   // console.log(postData.startTime)
 
   const [startDate, setStartDate] = useState(postData.startTime.split('T')[0])
@@ -80,10 +77,10 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   }
   // start, end 셀렉트 박스 컴포넌트 value 가져오기
   const handleStartHour = (e) => {
-    setPostStartTime(e.target.value)
+    setPostStartTime(e.value)
   }
   const handleEndHour = (e) => {
-    setPostEndTime(e.target.value)
+    setPostEndTime(e.value)
   }
   const handleClickMember = () => {
     setPostDivision('member')
@@ -255,6 +252,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
                 <SelectBoxWrite
                   handleStartHour={handleStartHour}
                   handleEndHour={handleEndHour}
+                  startTime={sliceStartTime}
+                  endTime={sliceEndTime}
                 />
               </TimeWrap>
             </CalendarWrap>

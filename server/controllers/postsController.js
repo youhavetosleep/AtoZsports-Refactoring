@@ -172,8 +172,8 @@ module.exports = {
 
     // 배포환경에서는 아래의 코드가 필요없다. 배포환경과 로컬에서의 시간이 차이가 있기 때문에
     // 아래의 코드는 로컬환경에서만 사용한다.
-    // StartTime.setHours(StartTime.getHours() + 9)
-    // EndTime.setHours(EndTime.getHours() + 9)
+     StartTime.setHours(StartTime.getHours() + 9)
+     EndTime.setHours(EndTime.getHours() + 9)
 
     Post.findAll(
       !req.query.startTime
@@ -410,6 +410,7 @@ module.exports = {
     let title = req.body.title
     let division = req.body.division
     let content = req.body.content
+    console.log('요청확인',req.body.startTime)
     let startTime = new Date(req.body.startTime)
     console.log(req.body.startTime)
     let endTime = new Date(req.body.endTime)

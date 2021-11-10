@@ -1,56 +1,35 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
+import Select from 'react-select'
 import { STARTOPTIONS, ENDOPTIONS } from './data'
 
-const SelectBox = ({ handleEndHour, handleStartHour }) => {
+const SelectBox = ({ handleStartHour, handleEndHour }) => {
+  
+  const options = useMemo(() => STARTOPTIONS)
+  
+  const options2 = useMemo(() => ENDOPTIONS)
+  
+  
   return (
-    <SelectBoxWrapper>
-      <Select onChange={handleStartHour}>
-        {STARTOPTIONS.map((option) => (
-          <option
-            
-            key={option.value}
-            value={option.value}
-            defaultValue={option.value}
-          >
-            {option.name}
-          </option>
-        ))}
-      </Select>
-      <Select onChange={handleEndHour}>
-        {ENDOPTIONS.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            defaultValue={option.value}
-          >
-            {option.name}
-          </option>
-        ))}
-      </Select>
-    </SelectBoxWrapper>
+    <SelectBoxContainer>
+      <SelectWrap>
+        <Select options={options} defaultValue={options[0]} onChange={handleStartHour}/>
+      </SelectWrap>
+      <SelectWrap className='second'>
+        <Select options={options2} defaultValue={options2[0]} onChange={handleEndHour}/>
+      </SelectWrap>
+    </SelectBoxContainer>
   )
 }
 
-const SelectBoxWrapper = styled.div`
+const SelectBoxContainer = styled.div`
   display: flex;
+  .second {
+    margin-left: 7px;
+  }
 `
-
-const Select = styled.select`
-  margin: 0;
-  min-width: 0;
-  display: block;
-  width: 80px;
-  box-sizing: border-box;
-  padding: 8px 8px;
-  margin-right :5px; 
-  background-color :#ffffff;
-  font-size: inherit;
-  border: 1px solid #c6c6c6;
-  border-radius: 4px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+const SelectWrap = styled.div`
+  position: relative;
 `
 
 export default SelectBox
