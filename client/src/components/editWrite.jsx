@@ -9,6 +9,7 @@ import WriteContentsMap from '../components/map/writeContentsMap'
 import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
+import instance from '../api'
 import { useDispatch } from 'react-redux'
 import { editPostData } from '../_actions/post_action'
 import Navbar from './navbar'
@@ -24,31 +25,17 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const groundRef = useRef()
   const content = useRef()
 
-  const Token = userInfo.loginSuccess.accessToken
+  let Token = ''
+  if (userInfo.loginSuccess) {
+    Token = userInfo.loginSuccess.accessToken
+  }
+  
   const postData = userPost.postData.postsData
 
-  const handledate = (date) => {
-    let ChangeDate =
-      date.getFullYear() +
-      '-' +
-      ('0' + (date.getMonth() + 1)).slice(-2) +
-      '-' +
-      ('0' + date.getDate()).slice(-2)
-    setStartDate(ChangeDate)
-  }
-
-  useEffect(() => {
-    if (postData.userPhone === '') {
-      setphoneOpen(false)
-    } else {
-      setphoneOpen(true)
-    }
-  }, [])
-
-  const sliceStartData = postData.startTime.slice(0, 10)
   const sliceStartTime = postData.startTime.slice(11, 19)
   const sliceEndTime = postData.endTime.slice(11, 19)
-  console.log(postData)
+
+  // console.log(postData.startTime)
 
   const [startDate, setStartDate] = useState(postData.startTime)
   const [postTitle, setPostTitle] = useState(postData.title) // title
@@ -60,19 +47,34 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const [postGround, setPostGround] = useState('') // ground
   const [postPhoneOpen, setphoneOpen] = useState(false) // phoneOpen
   const [postAdressName, setAdressName] = useState('') // adressName
-  const userId = postData.id
-  const postStatus = postData.status
-
-  // console.log(getPlace)
-  // console.log(postStartTime)
-  // console.log(postEndTime)
 
   const [getPlace, setGetPlace] = useState(postData)
   const [getGroundData, setGetGroundData] = useState({})
   const [groundData, setGroundData] = useState({})
 
-  // const a = [...getGroundData, getGroundData]
-  // console.log(groundData)
+  const userId = postData.id
+  const postStatus = postData.status
+
+  // console.log(postData.userPhone)
+  useEffect(() => {
+    if (postData.userPhone === undefined) {
+      setphoneOpen(false)
+    } else {
+      setphoneOpen(true)
+    }
+  }, [])
+
+
+  const handledate = (date) => {
+    let ChangeDate =
+      date.getFullYear() +
+      '-' +
+      ('0' + (date.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + date.getDate()).slice(-2)
+    setStartDate(ChangeDate)
+  }
+
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -91,7 +93,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const handleClickMatch = () => {
     setPostDivision('match')
   }
-  const handlePhoneCheck = (checked) => {
+  const handlePhoneCheck = () => {
     postPhoneOpen ? setphoneOpen(false) : setphoneOpen(true)
   }
   const handleInputText = (e) => {
@@ -110,6 +112,36 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   //   console.log('placeUrl ====> ', getPlace.place_url)
   //   console.log(postStartTime, postEndTime)
 
+  // console.log(postData.placeName)
+
+  useEffect(() => {
+    instance
+      .post(
+        `/futsal/ground/check`,
+        {
+          placeName: postData.placeName
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }
+      )
+      .then((res) => {
+        setGroundData({
+          placeName: res.data.data.placeName,
+          addressName: res.data.data.addressName,
+          phone: res.data.data.phone,
+          longitude: res.data.data.longitude,
+          latitude: res.data.data.latitude,
+          placeUrl: res.data.data.placeUrl
+        })
+      })
+  }, [])
+
+  // console.log(groundData)
+
   useEffect(() => {
     setGroundData({
       placeName: getPlace.place_name,
@@ -123,15 +155,15 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   // console.log(`${startDate} ${postStartTime}`)
 
-  console.log('======================')
-  console.log('타이틀 ====>', postTitle)
-  console.log('모집유형 ====>', postDivision)
-  console.log('날짜 ====>', startDate)
-  console.log('시작시간 ====>', postStartTime)
-  console.log('종료시간 ====>', postEndTime)
-  console.log('요청사항 ====>', postContent)
-  console.log('경기장 정보 ====>', groundData)
-  console.log('폰사용 ====>', postPhoneOpen)
+  // console.log('======================')
+  // console.log('타이틀 ====>', postTitle)
+  // console.log('모집유형 ====>', postDivision)
+  // console.log('날짜 ====>', startDate)
+  // console.log('시작시간 ====>', postStartTime)
+  // console.log('종료시간 ====>', postEndTime)
+  // console.log('요청사항 ====>', postContent)
+  // console.log('경기장 정보 ====>', groundData)
+  // console.log('폰사용 ====>', postPhoneOpen)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
@@ -184,13 +216,9 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
           <WritePlace>
             <div className="write_palce">선택한 경기장</div>
-            {getPlace.place_name === undefined ? (
-              <div className='notChoiceGround'>x 경기장이 선택되지 않았습니다</div>
-            ) : null }
             <input
               type="text"
-              placeholder=''
-              value={getPlace.place_name}
+              value={groundData.placeName}
               className="write_choiceGround"
             />
           </WritePlace>
@@ -220,7 +248,7 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
             <CalendarWrap>
               <CalendarWrite
                 className="Calender"
-                setStartDate={handledate}
+                handledate={handledate}
                 startDate={startDate}
               />
               <DownWrap>
@@ -239,8 +267,8 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
             <input
               type="checkbox"
               className="write_checkBox"
-              checked={postPhoneOpen ? 'checked' : false}
-              onChange={(e) => handlePhoneCheck(e)}
+              checked={postPhoneOpen ? 'checked' : ''}
+              onClick={handlePhoneCheck}
             />
           </WritePhoneCheck>
           <WriteEtc>
@@ -324,13 +352,6 @@ const WritePlace = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: 20px auto 20px auto;
-  .notChoiceGround {
-    display: flex;
-    position: relative;
-    margin: -16px 0px 0px 130px;
-    font-size: .9rem;
-    color: #840909;
-  }
   .write_palce {
     display: flex;
     font-size: 1.3rem;

@@ -5,13 +5,13 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const CalendarWrite = ({ setStartDate, startDate }) => {
+const CalendarWrite = ({ handledate, startDate }) => {
   return (
     <>
       <Dateform
         dateFormat="yyyy-MM-dd"
         selected={moment(startDate).toDate()}
-        onChange={(date) => setStartDate(date)}
+        onChange={(date) => handledate(date)}
         locale={ko}
       />
     </>
