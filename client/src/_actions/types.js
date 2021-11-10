@@ -7,6 +7,7 @@ export const GOOGLE_USER = 'google_user'
 export const DELETE_USER = 'delete_user'
 export const USER_PASSWORD = 'user_password'
 export const USER_PASSWORDCHECK = 'user_passwordcheck'
+export const SPORT_DATA = 'sport_data'
 
 // 매치정보
 export const MATCH_DATA = 'match_card'

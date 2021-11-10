@@ -130,7 +130,10 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
 
   return (
     <>
-      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
+    <Navbar 
+    isLogin={isLogin}
+    setIsLogin={setIsLogin}
+    />
       <TitleWrapper>
         <TitleText>경기 정보</TitleText>
       </TitleWrapper>
@@ -139,7 +142,6 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           <MapWrap
             className="miniMap"
             id="map"
-            // style={{ width: '100%', height: '200px' }}
           ></MapWrap>
           <Main>
             <FavorteMark className="favorite">
@@ -160,6 +162,10 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           </Main>
           <ContentWrap>
             <ContentTitle>게시자 정보</ContentTitle>
+          </ContentWrap>
+          <ContentWrap>
+            <ContentName>제목</ContentName>
+            <ContentEl>{postData.title}</ContentEl>
           </ContentWrap>
           <ContentWrap>
             <ContentName>닉네임</ContentName>
@@ -202,9 +208,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
             </BtnWrap>
           ) : null}
-          <PostChating>
+          {/* <PostChating>
             <PostChat postId={postId} />
-          </PostChating>
+          </PostChating> */}
         </FormWrapper>
       </FormContainer>
       {/* <Footer /> */}
@@ -237,7 +243,7 @@ const FormWrapper = styled.div`
   }
 
   @media screen and (max-width: 767px) {
-    width: 360px;
+    width: calc(100% - 20px);
   }
 `
 
@@ -251,8 +257,8 @@ const TitleWrapper = styled.div`
 `
 
 const MapWrap = styled.div`
-  width: 800px;
-  height: 400px;
+  width: 100%;
+  height: 250px;
   @media screen and (max-width: 767px) {
     width: 100%;
     height: 200px;
@@ -295,7 +301,7 @@ const Main = styled.div`
 const FavorteMark = styled.div`
   height: 40px;
   margin-left: 10px;
-  margin-top: 0;
+  padding-top : 10px;
   font-size: 23px;
   color: #929292;
   .delete {
@@ -303,7 +309,6 @@ const FavorteMark = styled.div`
   @media screen and (max-width: 767px) {
     margin-top: 0;
     font-size: 17px;
-    padding-top: 5px;
     margin-left: 5px;
   }
 `

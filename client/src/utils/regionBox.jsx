@@ -79,6 +79,7 @@ export const Select = styled.select`
   width: 135px;
   box-sizing: border-box;
   padding: 8px 8px;
+  background-color :#ffffff;
   font-size: inherit;
   border: 1px solid #c6c6c6;
   border-radius: 4px;
