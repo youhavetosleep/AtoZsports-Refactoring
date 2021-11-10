@@ -51,34 +51,46 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
 
   // 글쓰기 버튼
   const addComment = () => {
-if(token === '') {
-    Swal.fire({
-      confirmButtonColor: '#afafaf',
-      text: '로그인이 필요한 서비스입니다',
-      icon: 'warning',
-      cancelButtonText: '확인',
-    })
-    return
-  }
-    if(write === '') {
+    if (token === '') {
+      Swal.fire({
+        confirmButtonColor: '#afafaf',
+        text: '로그인이 필요한 서비스입니다',
+        icon: 'warning',
+        cancelButtonText: '확인'
+      })
+      return
+    }
+    if (write === '') {
       Swal.fire({
         // title: '원하는 서비스를 선택하세요',
         confirmButtonColor: '#afafaf',
         text: '댓글을 입력해주세요!',
         icon: 'warning',
-        confiemButtonText: '확인',
+        confiemButtonText: '확인'
       })
       return
     }
     setContent([])
-    dispatch(addCommentData(groundSelect, token, score, userId, write)).then(
-      (res) => {
-        setTotalComment(res.payload.list.length) 
+    dispatch(addCommentData(groundSelect, token, score, userId, write))
+      .then((res) => {
+        setTotalComment(res.payload.list.length)
         setCommentData(res.payload.list)
         setClicked([true, true, true, true, true])
         // window.location.reload()
-      }
-    )
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          text: '중복된 댓글입니다.',
+          confirmButtonText: '경기 잡기',
+          confirmButtonColor: '#484848',
+          denyButtonColor: '#919191'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload()
+          }
+        })
+      })
     // setWriteBtn(!writeBtn)
   }
 
