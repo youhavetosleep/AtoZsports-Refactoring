@@ -140,14 +140,14 @@ const Mypage = ({
   }, [editeInfo])
 
   // 작성한공고, 모집공고 가져오기
-  useEffect(async () => {
-    await dispatch(getUserMatchData(Token)).then((res) => {
+  useEffect(() => {
+    dispatch(getUserMatchData(Token)).then((res) => {
       setWriteData(res.payload)
     })
-    await dispatch(getUserFavoriteData(Token)).then((res) => {
+    dispatch(getUserFavoriteData(Token)).then((res) => {
       setFavoriteData(res.payload)
     })
-  }, [dispatch])
+  }, [])
 
   const matchBtn = () => {
     setChangeCard('관심 공고')
