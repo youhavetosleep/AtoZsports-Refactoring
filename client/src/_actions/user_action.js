@@ -209,3 +209,13 @@ export async function selectedSport(data) {
     payload: info
   }
 }
+
+
+export async function EditUser(data) {
+  const request = data
+  
+  return {
+    type: LOGIN_USER,
+    payload: request
+  }
+}

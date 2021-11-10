@@ -9,10 +9,7 @@ import {
   getUserFavoriteData,
   getUserMatchData
 } from '../_actions/matchCard_action'
-import {
-  deleteUser,
-  userChangePsword
-} from '../_actions/user_action'
+import { deleteUser, EditUser, userChangePsword } from '../_actions/user_action'
 import instance from '../api/index.jsx'
 import RegionBoxMypage from '../utils/regionBoxMypage'
 import Navbar from '../components/navbar'
@@ -23,8 +20,8 @@ const Mypage = ({
   userInfo,
   region1,
   region2,
-  handleRegion1,
-  handleRegion2
+  setRegion1,
+  setRegion2
 }) => {
   const dispatch = useDispatch()
   const nicknameRef = useRef()
@@ -98,6 +95,25 @@ const Mypage = ({
   const [messageUserPhone, setMessageUserName] = useState('')
   const [YesOrNo, setYesOrNo] = useState(false)
 
+  let setFirst = region1
+  let setSecond = region2
+  const [data1, setData1] = useState(setFirst)
+  const [data2, setData2] = useState(setSecond)
+  console.log('리전 보자보자', region1, region2)
+  console.log('초기값 보자보자', data1, data2)
+  const firstData1 = (e) => {
+    setData1(e)
+  }
+  const firstData2 = (e) => {
+    setData2(e)
+  }
+  const handleData1 = (e) => {
+    setData1(e.value)
+  }
+  const handleData2 = (e) => {
+    setData2(e.value)
+  }
+
   // console.log('editUserInfo ====> ', editUserInfo)
 
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
@@ -153,13 +169,13 @@ const Mypage = ({
   }
 
   const handleGotoReview = () => {
-      Swal.fire({
-        text: '생각해보니까 원래 비밀번호네요! 쏘리',
-        icon: 'warning',
-        confirmButtonColor: '#d2d2d2',
-        confirmButtonText: '확인'
-      })
-      return
+    Swal.fire({
+      text: '생각해보니까 원래 비밀번호네요! 쏘리',
+      icon: 'warning',
+      confirmButtonColor: '#d2d2d2',
+      confirmButtonText: '확인'
+    })
+    return
   }
 
   // 핸드폰 번호 변경
@@ -224,13 +240,33 @@ const Mypage = ({
 
   // 개인정보 변경 send 버튼 클릭시 발생하는 이벤트
   const handleSendUserinfo = () => {
+    if (data1 === '지역 선택') {
+      Swal.fire({})
+    }
+
+    dispatch(
+      EditUser({
+        accessToken: Token,
+        userData: {
+          id: userInfoSuccess.id,
+          email: userInfoSuccess.email,
+          nickname: nickname,
+          userPhone: phoneNumber,
+          homeground: `${data1} ${data2}`,
+          createdAt: userInfoSuccess.createdAt,
+          favoriteSports: favoriteSports
+        }
+      })
+    )
+    setRegion1(data1)
+    setRegion2(data2)
     instance
       .patch(
         `/users`,
         {
           nickname: nickname,
           userPhone: phoneNumber,
-          homeground: `${region1} ${region2}`,
+          homeground: `${data1} ${data2}`,
           favoriteSports: favoriteSports,
           userId: userInfoSuccess.id
         },
@@ -271,16 +307,14 @@ const Mypage = ({
     }
   }
 
-  
   const handleChangePassword = () => {
     if (messagePwCheck === '✔ 비밀번호가 확인되었습니다') {
-      dispatch(userChangePsword(secondPsword, Token))
-      .then((res) => {
+      dispatch(userChangePsword(secondPsword, Token)).then((res) => {
         let a = ''
         if (res.payload.response) {
           a = res.payload.response.data
         }
-        if(a) {
+        if (a) {
           handleGotoReview()
         } else {
           setEditPsword(false)
@@ -301,30 +335,28 @@ const Mypage = ({
 
   // 회원탈퇴
 
-    const withdrawal = () => {
-      if (!YesOrNo) {
-        Swal.fire({
-          icon: 'warning',
-          text: '정말 탈퇴하시겠습니까?',
-          showConfirmButton: true,
-          confirmButtonText: '확인',
-          denyButtonColor: '#d2d2d2',
-          showCancelButton: true,
-          cancelButtonText: '취소'
-        })
-        .then((res) => {
-          if(res.isConfirmed) {
-            setYesOrNo(true)
-            dispatch(deleteUser(Token))
+  const withdrawal = () => {
+    if (!YesOrNo) {
+      Swal.fire({
+        icon: 'warning',
+        text: '정말 탈퇴하시겠습니까?',
+        showConfirmButton: true,
+        confirmButtonText: '확인',
+        denyButtonColor: '#d2d2d2',
+        showCancelButton: true,
+        cancelButtonText: '취소'
+      }).then((res) => {
+        if (res.isConfirmed) {
+          setYesOrNo(true)
+          dispatch(deleteUser(Token))
             .then((res) => (window.location.href = '/'))
-            .catch(err => console.log(err))
-          } else {
-            return
-          }
-        })
-      }
+            .catch((err) => console.log(err))
+        } else {
+          return
+        }
+      })
     }
-
+  }
 
   return (
     <>
@@ -445,10 +477,11 @@ const Mypage = ({
                     <div className="userinfo_regionBox">
                       <RegionBoxMypage
                         region1={region1}
-                        handleRegion1={handleRegion1}
-                        handleRegion2={handleRegion2}
-                        mainRegion={mainRegion}
-                        subRegion={subRegion}
+                        region2={region2}
+                        handleData1={handleData1}
+                        handleData2={handleData2}
+                        firstData1={firstData1}
+                        firstData2={firstData2}
                       />
                     </div>
                   </UserinfoHomeground>
@@ -567,10 +600,7 @@ const Mypage = ({
             ) : null}
           </MyCard>
           <GoodbyeUser>
-            <div
-              className="PleaseDontgo"
-              onClick={withdrawal}
-            >
+            <div className="PleaseDontgo" onClick={withdrawal}>
               회원탈퇴
             </div>
           </GoodbyeUser>

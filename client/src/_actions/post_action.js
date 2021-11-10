@@ -56,7 +56,7 @@ export async function sortedMatchListData(
 export async function getPostData(postId, token) {
   const request = await instance
     .get(`/futsal/posts?id=${postId}`, {
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
@@ -74,7 +74,7 @@ export async function getPostData(postId, token) {
 export async function deletePostData(postId, token) {
   const request = await instance
     .delete(`/futsal/posts/${postId}`, {
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
@@ -90,33 +90,38 @@ export async function deletePostData(postId, token) {
 }
 
 export async function writePostData(
-  postTitle, 
+  postTitle,
   postDivision,
-  startDate, 
-  postStartTime, 
-  postEndTime, 
-  sports, 
+  startDate,
+  postStartTime,
+  postEndTime,
+  sports,
   postContent,
   groundData,
   postPhoneOpen,
-  Token) {
+  Token
+) {
   const request = await instance
-    .post(`/futsal/posts`, {
-      sports: sports,
-      title: postTitle,
-      division: postDivision,
-      startTime: `${startDate} ${postStartTime}`,
-      endTime: `${startDate} ${postEndTime}`,
-      phoneOpen: postPhoneOpen,
-      content: postContent,
-      ground: groundData,
-    }, {
-      headers: { 
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Token}`
+    .post(
+      `/futsal/posts`,
+      {
+        sports: sports,
+        title: postTitle,
+        division: postDivision,
+        startTime: `${startDate} ${postStartTime}`,
+        endTime: `${startDate} ${postEndTime}`,
+        phoneOpen: postPhoneOpen,
+        content: postContent,
+        ground: groundData
       },
-      withCredentials: true
-    })
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Token}`
+        },
+        withCredentials: true
+      }
+    )
     .then((res) => res.data)
     .catch((err) => console.log(err))
 
@@ -128,34 +133,38 @@ export async function writePostData(
 
 export async function editPostData(
   postTitle,
-        postDivision,
-        startDate,
-        postStartTime,
-        postEndTime,
-        postStatus,
-        postContent,
-        groundData,
-        postPhoneOpen,
-        userId,
-        Token
+  postDivision,
+  startDate,
+  postStartTime,
+  postEndTime,
+  postStatus,
+  postContent,
+  groundData,
+  postPhoneOpen,
+  userId,
+  Token
 ) {
   const request = await instance
-    .patch(`/futsal/posts/${userId}`, {
-      status: postStatus,
-      title: postTitle,
-      division: postDivision,
-      startTime: `${startDate} ${postStartTime}`,
-      endTime: `${startDate} ${postEndTime}`,
-      content: postContent,
-      ground: groundData,
-      phoneOpen: postPhoneOpen,
-    }, {
-      headers: { 
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${Token}`
+    .patch(
+      `/futsal/posts/${userId}`,
+      {
+        status: postStatus,
+        title: postTitle,
+        division: postDivision,
+        startTime: `${startDate} ${postStartTime}`,
+        endTime: `${startDate} ${postEndTime}`,
+        content: postContent,
+        ground: groundData,
+        phoneOpen: postPhoneOpen
       },
-      withCredentials: true
-    })
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Token}`
+        },
+        withCredentials: true
+      }
+    )
     .then((res) => res.data.postsData)
     .catch((err) => console.log(err))
 
@@ -168,15 +177,19 @@ export async function editPostData(
 export async function changeStatusData(postId, token, status) {
   // console.log(postId, token, status)
   const request = await instance
-    .patch(`/futsal/posts/${postId}/status`, {
-      status
-    }, {
-      headers: { 
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+    .patch(
+      `/futsal/posts/${postId}/status`,
+      {
+        status
       },
-      withCredentials: true
-    })
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      }
+    )
     .then((res) => res.data)
     .catch((err) => console.log(err))
 

@@ -69,6 +69,7 @@ function App() {
   // window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {
+
     if (userInfo.loginSuccess !== undefined) {
       setIsLogin(true)
       setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
@@ -79,10 +80,10 @@ function App() {
   }, [])
 
   const handleRegion1 = (e) => {
-    setRegion1(e.target.value)
+    setRegion1(e.value)
   }
   const handleRegion2 = (e) => {
-    setRegion2(e.target.value)
+    setRegion2(e.value)
   }
 
   return (
@@ -149,11 +150,11 @@ function App() {
           <Route exact path="/mypage">
             <Mypage
               userInfo={userInfo}
-              handleRegion1={handleRegion1}
-              handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
               isLogin={isLogin}
+              setRegion1={setRegion1}
+              setRegion2={setRegion2}
               setIsLogin={setIsLogin}
             />
           </Route>
