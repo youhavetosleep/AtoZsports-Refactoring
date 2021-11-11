@@ -18,7 +18,7 @@ import Navbar from '../components/navbar'
 const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const dispatch = useDispatch()
 
-  let isMap = Object.keys(store.getState().ground).length
+  let firstEnter = store.getState().ground.mapData
 
   const [groundData, setGroundData] = useState([])
   const [markerData, setMarkerData] = useState([])
@@ -156,7 +156,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
   // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
   useEffect(() => {
-    if (isMap !== 0) {
+    if (firstEnter !== undefined) {
       if (Object.keys(store.getState().ground.mapData).length !== 0) {
         // console.log('맵에서 넘어왔을 때')
         const data = store.getState().ground.mapData
@@ -201,7 +201,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
     }
 
     // map페이지에서 리뷰보기 선택 후 넘어오는 조건문
-    if (isMap !== 0) {
+    if (firstEnter !== undefined) {
       if (Object.keys(store.getState().ground.mapData).length !== 0) {
         const data = store.getState().ground.mapData
         if (data.address_name !== undefined) {
