@@ -5,7 +5,6 @@ import instance from '../api/index'
 
 const Auth = () => {
   const history = useHistory()
-
   let verifiedKey = new URL(window.location.href).searchParams.get('verifiedKey')
   let email = new URL(window.location.href).searchParams.get('email')
 

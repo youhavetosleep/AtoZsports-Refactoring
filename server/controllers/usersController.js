@@ -445,6 +445,9 @@ module.exports = {
     } = req.body
     // 이메일 인증을 위한 수정 요청 (인증 x)
     if (email && verifiedKey) {
+      console.log(req.body)
+      console.log(email)
+      console.log(verifiedKey)
       // 이메일과 인증키가 일치하는 경우에 인증 확인을 true로 변경
       User.update(
         { verified: true },
@@ -456,7 +459,9 @@ module.exports = {
           // 인증 성공
           User.findOne({ where: { email }})
           .then((user) => {
-            if (user.dataValues.verified === true) {
+            const verified = user.dataValues.verified
+            console.log(verified)
+            if (verified === true) {
               res.status(200).send({ message: '이메일 인증이 완료되었습니다' })
             } else {
               res.status(409).send({ message: '인증 유효시간이 만료되었습니다' })

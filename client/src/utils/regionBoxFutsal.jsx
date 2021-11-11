@@ -12,7 +12,6 @@ const RegionBoxFutsal = ({ region1, region2, handleData1, handleData2, firstData
     firstData1(setFirst)
     firstData2(setSecond)
   },[])
-
   const handleCOMP = (e) => {
     setData1(e.value)
   }

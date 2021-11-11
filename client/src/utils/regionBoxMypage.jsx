@@ -54,7 +54,7 @@ const SelectBoxContainer = styled.div`
       flex-direction: column;
     }
   .second {
-    margin: 10px 0px 0px 0px;
+    margin: 0px 0px 0px 10px;
   }
 `
 const SelectWrap = styled.div`
