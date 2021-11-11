@@ -18,6 +18,8 @@ import Navbar from '../components/navbar'
 const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const dispatch = useDispatch()
 
+  let firstEnter = store.getState().ground.mapData
+
   const [groundData, setGroundData] = useState([])
   const [markerData, setMarkerData] = useState([])
   const [selected, setSelected] = useState('normal')
@@ -154,25 +156,27 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   // 아래 조건문을 통해 map 페이지에서 리뷰 보기를 눌러 들어왔는지를 판단
   // 리뷰 보기를 눌러 들어왔다면 해당 경기장의 지역을 Region박스에 담아 준다.
   useEffect(() => {
-    if (Object.keys(store.getState().ground.mapData).length !== 0) {
-      // console.log('맵에서 넘어왔을 때')
-      const data = store.getState().ground.mapData
-      data.address_name && setHome1(data.address_name.split(' ')[0])
-      data.address_name && setHome2(data.address_name.split(' ')[1])
-      data.y && setLocation1(data.y)
-      data.x && setLocation2(data.x)
+    if (firstEnter !== undefined) {
+      if (Object.keys(store.getState().ground.mapData).length !== 0) {
+        // console.log('맵에서 넘어왔을 때')
+        const data = store.getState().ground.mapData
+        data.address_name && setHome1(data.address_name.split(' ')[0])
+        data.address_name && setHome2(data.address_name.split(' ')[1])
+        data.y && setLocation1(data.y)
+        data.x && setLocation2(data.x)
+      }
     }
-    if (
-      Object.keys(store.getState().ground.mapData).length === 0 &&
-      userInfo.loginSuccess === undefined
-    ) {
-      // console.log('비회원, 맵정보 없음')
-      // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
-      // 지역선텍시 경기 용인시로 고정된다..
-      // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
-      // setHome1('경기')
-      // setHome2('용인시')
-    }
+    // if (
+    //   Object.keys(store.getState().ground.mapData).length === 0 &&
+    //   userInfo.loginSuccess === undefined
+    // ) {
+    //   // console.log('비회원, 맵정보 없음')
+    //   // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
+    //   // 지역선텍시 경기 용인시로 고정된다..
+    //   // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
+    //   // setHome1('경기')
+    //   // setHome2('용인시')
+    // }
 
     Ground()
   }, [home2])
@@ -181,10 +185,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   //  map페이지에서 리뷰보기 클릭시 넘어올 때는 store.getState().ground.accordData가 있는지 없는지로 확인
   useEffect(() => {
     // 비회원일 경우의 데이터
-    if (
-      userInfo.loginSuccess === undefined &&
-      Object.keys(store.getState().ground.mapData).length === 0
-    ) {
+    if (userInfo.loginSuccess === undefined) {
       dispatch(selectGroundData(1)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -192,11 +193,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
     }
 
     // 로그인 후 사용자의 지역 데이터의 0번째로 등록된 경기장 정보
-    if (
-      Object.keys(store.getState().ground.mapData).length === 0 &&
-      markerData.length !== 0 &&
-      userInfo.loginSuccess
-    ) {
+    if (markerData.length !== 0 && userInfo.loginSuccess) {
       dispatch(selectGroundData(markerData[0].id)).then((res) => {
         setGroundData(res.payload)
         markerDetail(res.payload.id)
@@ -204,16 +201,18 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
     }
 
     // map페이지에서 리뷰보기 선택 후 넘어오는 조건문
-    if (Object.keys(store.getState().ground.mapData).length !== 0) {
-      const data = store.getState().ground.mapData
-      if (data.address_name !== undefined) {
-        if (store.getState().ground.accordData !== undefined) {
-          dispatch(
-            selectGroundData(store.getState().ground.accordData.data.id)
-          ).then((res) => {
-            setGroundData(res.payload)
-            markerDetail(res.payload.id)
-          })
+    if (firstEnter !== undefined) {
+      if (Object.keys(store.getState().ground.mapData).length !== 0) {
+        const data = store.getState().ground.mapData
+        if (data.address_name !== undefined) {
+          if (store.getState().ground.accordData !== undefined) {
+            dispatch(
+              selectGroundData(store.getState().ground.accordData.data.id)
+            ).then((res) => {
+              setGroundData(res.payload)
+              markerDetail(res.payload.id)
+            })
+          }
         }
       }
     }
