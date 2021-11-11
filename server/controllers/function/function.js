@@ -91,11 +91,14 @@ module.exports = {
   sendAuthMail: async (user) => {
     // 유효 시간을 3분으로 설정
     const scheduleTime = new Date(user.dataValues.updatedAt)
-    scheduleTime.setHours(scheduleTime.getHours() + 9)
-    scheduleTime.setMinutes(scheduleTime.getMinutes() + 4)
+    const timeStr = new Date(user.dataValues.updatedAt)
+    scheduleTime.setMinutes(timeStr.getMinutes() + 4)
     scheduleTime.setSeconds(0)
+    timeStr.setHours(scheduleTime.getHours() + 9)
+    timeStr.setMinutes(scheduleTime.getMinutes() + 4)
+    timeStr.setSeconds(0)
     const { id, nickname, email, verifiedKey } = user.dataValues
-    const time = scheduleTime
+    const time = timeStr
       .toISOString()
       .split('T')[1]
       .split('.')[0]
