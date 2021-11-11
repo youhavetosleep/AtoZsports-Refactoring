@@ -335,7 +335,7 @@ module.exports = {
     // 이메일 인증에 필요한 인증키를 만듦
     const key1 = crypto.randomBytes(256).toString('hex').substr(100, 10)
     const key2 = crypto.randomBytes(256).toString('base64').substr(50, 10)
-    const verifiedKey = key1 + key2 + '+'
+    const verifiedKey = key1 + key2
     // 데이터에 입력된 회원정보를 만들어 넣음
     let encryptedPassword = bcrypt.hashSync(password, 10)
     User.findOrCreate({
