@@ -23,7 +23,6 @@ const SelectBox = ({ startTime, endTime, handleStartHour, handleEndHour }) => {
       findDefaultValue2 = idx
     }
   })
-
   return (
     <SelectBoxContainer>
       <SelectWrap className="first">

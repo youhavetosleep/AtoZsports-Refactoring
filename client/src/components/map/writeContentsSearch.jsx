@@ -83,7 +83,14 @@ const WriteContentsSearch = ({ searchPlace, getData }) => {
             displayInfowindow(marker, title)
           }
           itemEl.onclick = function () {
-            getData(places[i])
+            getData({
+              placeName: places[i].place_name,
+              addressName: places[i].address_name,
+              phone: places[i].phone,
+              longitude: places[i].y,
+              latitude: places[i].x,
+              placeUrl: places[i].place_url
+            })
           }
           itemEl.onmouseout = function () {
             infowindow.close()
