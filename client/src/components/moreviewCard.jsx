@@ -10,7 +10,7 @@ function MoreViewCard() {
           <div className="moreMatch-listbox">
             <ul>
               <li className="moreMatch-title">더 많은 공고를 보고싶다면?</li>
-              <span className="moreMatch-subTitle">더 많은 공고 보러가기</span>
+              <span className="moreMatch-subTitle">더 많은 공고 보러가기 ➝ </span>
             </ul>
           </div>
         </MoreViewCardContainer>
@@ -22,11 +22,11 @@ function MoreViewCard() {
 const MoreViewCardContainer = styled.div`
   z-index: 10;
   @media screen and (max-width: 767px) {
-        width: auto;
+        width: 93.5%;
   }
   .moreMatch {
     @media screen and (max-width: 767px) {
-        width: auto;
+        width: 100%;
   }
     &-listbox {
       background-color: white;
@@ -52,8 +52,8 @@ const MoreViewCardContainer = styled.div`
         width: 100%;
         @media screen and (max-width: 767px) {
           width: auto;
-        height: auto;
-        margin: 0px 0px 0px 4%;
+        /* height: 100%; */
+        margin: 0px 0px 50px 8%;
   }
       }
 
@@ -68,6 +68,10 @@ const MoreViewCardContainer = styled.div`
       margin: 110px auto 10px 38px;
       padding: 0px 0px 10px 0px;
       color: #353535;
+      @media screen and (max-width: 767px) {
+        font-size: 1.2rem;
+      margin: 40px auto 10px 38px;
+  }
     }
 
     &-subTitle {
@@ -81,6 +85,10 @@ const MoreViewCardContainer = styled.div`
       position: absolute;
       right: 0px;
       margin: 0 !important;
+      @media screen and (max-width: 767px) {
+        font-size: .9rem;
+      margin: 40px auto 10px 30px;
+  }
     }
   }
 `

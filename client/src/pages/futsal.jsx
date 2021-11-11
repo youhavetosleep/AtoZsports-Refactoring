@@ -93,6 +93,21 @@ const Futsal = ({
       history.push(`/review`)
   }
 
+  const matchInfoHadler = () => {
+    if(!isLogin){
+      Swal.fire({
+        text: '로그인이 필요한 서비스 입니다!',
+        icon: 'warning',
+        confirmButtonColor: '#d2d2d2',
+        confirmButtonText: '확인'
+      })
+      return
+    }else{
+    history.push(`/write`)
+    window.location.reload()
+  }
+}
+
   // console.log("memberData ========> ",memberData)
   // console.log("dummyData ========> ",dummyData.length)
 
@@ -225,9 +240,10 @@ const Futsal = ({
                     <br />
                     직접 작성해보시겠어요?
                   </div>
-                  <Link to="/write" style={{ textDecoration: 'none' }}>
-                    <div className="linkWrite">게시글 작성</div>
-                  </Link>
+                    <div 
+                    className="linkWrite"
+                    onClick={() => matchInfoHadler()}
+                    >게시글 작성</div>
                 </div>
               </>
             ) : null}
@@ -481,6 +497,9 @@ const MatchSoonFilter = styled.div`
 const MatchSoonList = styled.div`
   display: grid;
   position: relative;
+  @media screen and (max-width: 767px) {
+      width: 100%;
+  }
 
   .all_MatchCard {
     display: grid;
@@ -490,8 +509,8 @@ const MatchSoonList = styled.div`
     /* margin-bottom: 20px; */
     @media screen and (max-width: 767px) {
       display: grid;
-      width: auto;
-    grid-template-columns: repeat(1, 360px);
+      width: 100%;
+    grid-template-columns: repeat(1, 97%);
     row-gap: 0px;
     column-gap: 24px;
     margin-left: 17px;
@@ -504,7 +523,7 @@ const MatchSoonList = styled.div`
     column-gap: 24px;
     @media screen and (max-width: 767px) {
       display: grid;
-    grid-template-columns: repeat(1, 360px);
+    grid-template-columns: repeat(1, 97%);
     row-gap: 0px;
     column-gap: 24px;
     margin-left: 17px;
@@ -516,6 +535,9 @@ const MatchSoonList = styled.div`
     /* display: flex; */
     /* right: -2%;
     bottom: 0%; */
+    @media screen and (max-width: 767px) {
+    
+  }
   }
   .empty_MatchCard {
     display: flex;
@@ -553,6 +575,9 @@ const FutsalAnotherSection = styled.section`
   justify-content: center;
   margin: 60px auto 60px auto;
   position: relative;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 const StadiumReview = styled.div`
@@ -569,7 +594,7 @@ const StadiumReview = styled.div`
     display: flex;
     align-items: center;
     position: absolute;
-    width: 220px;
+    width: 80%;
     height: 50px;
     left: 0px;
     margin-top: 0px;
@@ -626,7 +651,7 @@ const StadiumReview = styled.div`
     align-items: center;
     position: absolute;
     left: 20px;
-    width: 338px;
+    width: 114%;
     height: 120px;
     object-fit: cover;
   }
@@ -650,7 +675,7 @@ const PremierLeague = styled.div`
     position: absolute;
     left: 21px;
     top: 70px;
-    width: 296px;
+    width: 81.5%;
     height: 8vh;
     object-fit: cover;
   }
@@ -661,10 +686,10 @@ const PremierLeague = styled.div`
     height: 130px;
     top: 0px;
     @media screen and (max-width: 767px) {
-    left: 15px;
-    top: 8px;
-    width: 300px;
-    height: 90px;
+    left: 10%;
+    top: 1vh;
+    width: 80%;
+    height: auto;
   }
   }
   .premierLeagueText {
@@ -694,7 +719,7 @@ const Notice = styled.div`
   margin-top: 228px;
   margin-left: 3px;
   margin-bottom: 0px;
-  width: 292px;
+  width: 80%;
   height: 180px;
   }
   
