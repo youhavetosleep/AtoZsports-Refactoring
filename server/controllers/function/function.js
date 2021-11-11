@@ -92,10 +92,10 @@ module.exports = {
     // 유효 시간을 3분으로 설정
     const scheduleTime = new Date(user.dataValues.updatedAt)
     const timeStr = new Date(user.dataValues.updatedAt)
-    scheduleTime.setMinutes(timeStr.getMinutes() + 4)
+    scheduleTime.setMinutes(scheduleTime.getMinutes() + 4)
     scheduleTime.setSeconds(0)
-    timeStr.setHours(scheduleTime.getHours() + 9)
-    timeStr.setMinutes(scheduleTime.getMinutes() + 4)
+    timeStr.setHours(timeStr.getHours() + 9)
+    timeStr.setMinutes(timeStr.getMinutes() + 4)
     timeStr.setSeconds(0)
     const { id, nickname, email, verifiedKey } = user.dataValues
     const time = timeStr
