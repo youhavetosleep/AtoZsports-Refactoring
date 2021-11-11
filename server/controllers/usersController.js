@@ -92,7 +92,7 @@ module.exports = {
                 password: encryptedPassword,
                 nickname: userKakaoNick,
                 userPhone: '010-xxxx-xxxx',
-                homeground: '',
+                homeground: '지역 시/구/군',
                 favoriteSports: '',
                 verified: true,
                 verifiedKey: ''
@@ -239,7 +239,7 @@ module.exports = {
               password: encryptedPassword,
               nickname: nickname,
               userPhone: '010-xxxx-xxxx',
-              homeground: '',
+              homeground: '지역 시/구/군',
               favoriteSports: '',
               verified: true,
               verifiedKey: ''
