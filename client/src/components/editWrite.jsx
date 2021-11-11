@@ -139,12 +139,12 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   useEffect(() => {
     setGroundData({
-      placeName: getPlace.place_name,
-      addressName: getPlace.address_name,
+      placeName: getPlace.placeName,
+      addressName: getPlace.addressName,
       phone: getPlace.phone,
-      longitude: getPlace.y,
-      latitude: getPlace.x,
-      placeUrl: getPlace.place_url
+      longitude: getPlace.longitude,
+      latitude: getPlace.latitude,
+      placeUrl: getPlace.placeUrl
     })
   }, [getPlace])
 

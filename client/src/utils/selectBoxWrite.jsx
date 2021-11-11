@@ -6,16 +6,16 @@ import { STARTOPTIONS, ENDOPTIONS } from './data'
 const SelectBox = ({ startTime, endTime, handleStartHour, handleEndHour }) => {
   let setStartTime = startTime
   let setEndTime = endTime
-  console.log(setStartTime, setEndTime)
+  // console.log(setStartTime, setEndTime)
   const options = useMemo(() => STARTOPTIONS)
-  console.log(options)
+  // console.log(options)
   let findDefaultValue
   options.map((el, idx) => {
     if(el.value === setStartTime) {
       findDefaultValue = idx
     }
   })  
-  console.log(findDefaultValue)
+  // console.log(findDefaultValue)
   const options2 = useMemo(() => ENDOPTIONS)
   let findDefaultValue2
   options.map((el, idx) => {
@@ -23,7 +23,7 @@ const SelectBox = ({ startTime, endTime, handleStartHour, handleEndHour }) => {
       findDefaultValue2 = idx
     }
   })
-  console.log(findDefaultValue2)  
+  // console.log(findDefaultValue2)  
   
   
   return (

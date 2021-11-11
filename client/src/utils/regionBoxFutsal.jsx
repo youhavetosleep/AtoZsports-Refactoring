@@ -4,7 +4,7 @@ import Select from 'react-select'
 import { REGION, AREA } from './data'
 
 const RegionBoxFutsal = ({ region1, region2, handleData1, handleData2, firstData1, firstData2 }) => {
-  console.log('메인렌딩 리젼1', region1)
+  // console.log('메인렌딩 리젼1', region1)
   let setFirst = region1
   let setSecond = region2
   const [data1, setData1] = useState(setFirst)
@@ -12,12 +12,12 @@ const RegionBoxFutsal = ({ region1, region2, handleData1, handleData2, firstData
     firstData1(setFirst)
     firstData2(setSecond)
   },[])
-  console.log('메인렌딩 데이터 췍',data1)
+  // console.log('메인렌딩 데이터 췍',data1)
   const handleCOMP = (e) => {
     setData1(e.value)
   }
   const options = useMemo(() => REGION)
-  console.log('보자보자 옵션1보자',options)
+  // console.log('보자보자 옵션1보자',options)
   let findDefaultValue
   options.map((el, idx) => {
     if(el.value === data1) {
@@ -30,9 +30,9 @@ const RegionBoxFutsal = ({ region1, region2, handleData1, handleData2, firstData
       pickSecondRegion = selected.list
     }
   })
-  console.log('보자보자 픽2보자',pickSecondRegion)
+  // console.log('보자보자 픽2보자',pickSecondRegion)
   const options2 = useMemo(() => pickSecondRegion)
-  console.log('보자보자 옵션2보자',options2)
+  // console.log('보자보자 옵션2보자',options2)
   let findDefaultValue2
   options2.map((el, idx) => {
     if(el.value === region2) {

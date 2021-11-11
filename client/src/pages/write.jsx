@@ -50,24 +50,55 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   console.log(postStartTime)
   console.log(postEndTime)
 
+  
+
   const [getGroundData, setGetGroundData] = useState([])
+  
 
   const [fromMap, setFromMap] = useState({
-    placeName: clickMap.place_name,
-    addressName: clickMap.address_name,
+    placeName: clickMap.placeName,
+    addressName: clickMap.addressName,
     phone: clickMap.phone,
-    longitude: clickMap.y,
-    latitude: clickMap.x,
-    placeUrl: clickMap.place_url
+    longitude: clickMap.longitude,
+    latitude: clickMap.latitude,
+    placeUrl: clickMap.placeUrl
   })
 
   let getMapData = fromMap.placeName === undefined ? {} : fromMap
-  let getClickData = fromMap.placeName === undefined ? '' : fromMap
+  let getClickData = fromMap.placeName === undefined ? {} : fromMap
 
   const [getPlace, setGetPlace] = useState(getClickData)
   const [groundData, setGroundData] = useState(getMapData)
 
+  console.log(fromMap.placeName)
+  console.log(getPlace)
+  
+
+  useEffect(async () => {
+    if(fromMap.placeName !== undefined){
+   await setGroundData({
+      placeName: getPlace.placeName,
+      addressName: getPlace.addressName,
+      phone: getPlace.phone,
+      longitude: getPlace.longitude,
+      latitude: getPlace.latitude,
+      placeUrl: getPlace.placeUrl
+    })
+  } else {
+    setGroundData({
+      placeName: getPlace.placeName,
+      addressName: getPlace.addressName,
+      phone: getPlace.phone,
+      longitude: getPlace.longitude,
+      latitude: getPlace.latitude,
+      placeUrl: getPlace.placeUrl
+    })
+  }
+}, [getPlace])
+
+
   // console.log(getPlace)
+  // console.log(groundData)
 
   // const a = [...getGroundData, getGroundData]
   // console.log(startDate)
@@ -99,28 +130,18 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
-  // console.log('getPlace ====> ', getPlace)
-  // console.log('placeName ====> ', getPlace.place_name)
-  // console.log('addressName ====> ', getPlace.address_name)
-  // console.log('phone ====> ', getPlace.phone)
-  // console.log('longitude ====> ', getPlace.x)
-  // console.log('latitude ====> ', getPlace.y)
-  // console.log('placeUrl ====> ', getPlace.place_url)
-  // console.log(postStartTime, postEndTime)
+
+  console.log('postTitle ====> ', postTitle)
+  console.log('postDivision ====> ', postDivision)
+  console.log('startDate ====> ', startDate)
+  console.log('postStartTime ====> ', postStartTime)
+  console.log('postEndTime ====> ', postEndTime)
+  console.log('sports ====> ', sports)
+  console.log('postContent ====> ', postContent)
+  console.log('groundData ====> ', groundData)
+  console.log('postPhoneOpen ====> ', postPhoneOpen)
 
   // console.log(groundData.placeName)
-
-  useEffect(() => {
-    setGroundData({
-      placeName: getPlace.place_name,
-      addressName: getPlace.address_name,
-      phone: getPlace.phone,
-      longitude: getPlace.y,
-      latitude: getPlace.x,
-      placeUrl: getPlace.place_url
-    })
-  }, [getPlace])
-
   // console.log(`${startDate} ${postStartTime}`)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트

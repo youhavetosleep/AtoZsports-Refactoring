@@ -37,7 +37,7 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트 
+    // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트
     // (ex. entrance를 풋살로 클릭했을 때 '강남' 검색어 입력시 '강남 풋살' 로 검색결과가 표시)
     setPlace(`${inputText} ${store.getState().user.sport}`)
     // setPlace(inputText)
@@ -69,7 +69,14 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           }).then((result) => {
             dispatch(mapData(getPlace))
             if (result.isConfirmed) {
-              setClickMap(getPlace)
+              setClickMap({
+                placeName: getPlace.place_name,
+                addressName: getPlace.address_name,
+                phone: getPlace.phone,
+                longitude: getPlace.y,
+                latitude: getPlace.x,
+                placeUrl: getPlace.place_url
+              })
               history.push('/write')
             }
             if (result.isDenied) {
