@@ -37,7 +37,6 @@ function MatchCard({ member, isLogin }) {
             <li className="matchCard-date">
               {member.startTime.slice(0, 10)}&nbsp;
               {member.startTime.slice(11, 16)}&nbsp; ~ &nbsp;
-              {member.endTime.slice(0, 10)}&nbsp;
               {member.endTime.slice(11, 16)}
             </li>
             <li className="matchCard-ground">{member.placeName}</li>
@@ -67,7 +66,6 @@ function MatchCard({ member, isLogin }) {
             <li className="matchCard-date">
               {member.startTime.slice(0, 10)}&nbsp;
               {member.startTime.slice(11, 16)}&nbsp; ~ &nbsp;
-              {member.endTime.slice(0, 10)}&nbsp;
               {member.endTime.slice(11, 16)}
             </li>
             <li className="matchCard-ground">{member.placeName}</li>
@@ -125,6 +123,7 @@ const MatchCardContainer = styled.div`
       }
 
       :hover {
+        /* border: 2px solid rgb(132, 9, 9); */
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
       }
     }

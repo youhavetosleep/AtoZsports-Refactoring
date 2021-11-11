@@ -8,6 +8,7 @@ import store from '../../store/store'
 import Map from '../../pages/map'
 import { mapData } from '../../_actions/ground_action'
 import Navbar from '../navbar'
+import Footer from '../footer'
 
 const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
   const history = useHistory()
@@ -125,6 +126,7 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           setClick={setClick}
         />
       </Wrapper>
+      <Footer />
     </>
   )
 }

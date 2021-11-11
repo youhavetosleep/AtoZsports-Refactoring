@@ -14,6 +14,7 @@ import ReviewInfo from '../components/reviewInfo'
 import RegionBox from '../utils/regionBox'
 import store from '../store/store'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 
 const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   const dispatch = useDispatch()
@@ -270,6 +271,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
           </ContentWrap>
         </FormWrapper>
       </FormContainer>
+      <Footer />
     </>
   )
 }
@@ -326,7 +328,7 @@ const FormContainer = styled.div`
 
 const RegionWrapper = styled.div`
   position: absolute;
-  top: 80px;
+  top: 70px;
   left: -2px;
   @media screen and (max-width: 767px) {
     left: 9px;

@@ -400,9 +400,9 @@ const MapView = styled.div`
   top: 0px;
   right: 0;
   @media screen and (max-width: 767px) {
-    margin: -300px 0px 0px 0px;
+    margin: -70px 0px 0px 0px;
     width: 79vw;
-    height: 400px;
+    height: 300px;
     border-radius: 5px;
     top: 0;
   }
@@ -423,8 +423,8 @@ const MenuWrap = styled.div`
   z-index: 2;
   @media screen and (max-width: 767px) {
     width: 79vw;
-    top: 280px;
-    left: 11%;
+    top: 370px;
+    left: 10.5%;
     height: 190px;
     border-radius: 5px;
   }

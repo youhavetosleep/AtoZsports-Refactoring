@@ -135,7 +135,7 @@ const MainLogoPage = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (max-width:767px) {
-    max-width: 375px;
+    width: 100%;
   }
 `
 

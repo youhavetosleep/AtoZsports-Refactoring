@@ -12,6 +12,7 @@ import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 
 const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
   // 날짜변환
@@ -248,6 +249,7 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
           <PlusBtn onClick={handleOffset}> {finMessage} </PlusBtn>
         </BtnWrap>
       </FutsalMatchSoonSection>
+      <Footer />
     </>
   )
 }
@@ -347,7 +349,9 @@ const DownWrap = styled.div`
   z-index: -1;
 `
 
-const TimeWrap = styled.div``
+const TimeWrap = styled.div`
+
+`
 
 const FilterWrap1 = styled.div`
   justify-content: space-between;
@@ -420,12 +424,12 @@ const WriteBtn = styled.button`
   border: none;
   border: 1px solid #6f6f6f;
   color: #6f6f6f;
-  padding: 5px 10px;
+  padding: 5px 15px;
   box-sizing: border-box;
   margin-bottom: 10px;
   background-color: inherit;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   :hover {
     cursor: pointer;
   }
