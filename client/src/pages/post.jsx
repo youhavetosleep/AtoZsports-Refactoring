@@ -222,7 +222,7 @@ const FormContainer = styled.div`
 
 const FormWrapper = styled.div`
   position: absolute;
-  top: 32%;
+  top: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 0px;
