@@ -67,14 +67,6 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           }).then((result) => {
             dispatch(mapData(getPlace))
             if (result.isConfirmed) {
-              setClickMap({
-                placeName: getPlace.place_name,
-                addressName: getPlace.address_name,
-                phone: getPlace.phone,
-                longitude: getPlace.y,
-                latitude: getPlace.x,
-                placeUrl: getPlace.place_url
-              })
               if (!isLogin) {
                 Swal.fire({
                   text: '로그인이 필요한 서비스 입니다!',
