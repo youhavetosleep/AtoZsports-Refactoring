@@ -765,7 +765,7 @@ const UserinfoPswordCheck = styled.div`
   display: flex;
   width: 70%;
   align-items: center;
-  margin: 20px 0px 0px 0px;
+  margin: 40px 0px 0px 0px;
   padding: 0px 0px 10px 0px;
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
@@ -775,6 +775,7 @@ const UserinfoPswordCheck = styled.div`
     padding: 0px 0px 40px 0px;
   }
   .editePsword_passwordCheck {
+    margin: -110px 0px 0px 0px;
     color: #565656;
     @media screen and (max-width: 767px) {
       width: 100px;
@@ -1103,56 +1104,104 @@ const EditUserInfo = styled.div`
 
 const Check = styled.div`
   margin: 0;
+  margin-top: 0px;
+  position: absolute;
+  right: 30px;
+  font-size: 13px;
+  color: #840909;
+  @media screen and (max-width: 767px) {
+    margin: 0;
   margin-top: -115px;
   position: absolute;
   right: 30px;
   font-size: 13px;
   color: #840909;
+    }
 `
 
 const PassCheck = styled.div`
   margin: 0;
+  margin-top: 0px;
+  position: absolute;
+  right: 30px;
+  font-size: 13px;
+  color: #1b7e07;
+  @media screen and (max-width: 767px) {
+    margin: 0;
   margin-top: -50px;
   position: absolute;
   right: 30px;
   font-size: 13px;
   color: #1b7e07;
+    }
 `
 
 const Check1 = styled.div`
   margin: 0;
+  margin-top: 0px;
+  position: absolute;
+  right: 4%;
+  font-size: 13px;
+  color: #840909;
+  @media screen and (max-width: 767px) {
+    margin: 0;
   margin-top: 65px;
   position: absolute;
   right: 15%;
   font-size: 13px;
   color: #840909;
+    }
 `
 
 const Check2 = styled.div`
   margin: 0;
+  margin-top: -110px;
+  position: absolute;
+  right: 4%;
+  font-size: 13px;
+  color: #840909;
+  @media screen and (max-width: 767px) {
+    margin: 0;
   margin-top: 65px;
   position: absolute;
   right: 15%;
   font-size: 13px;
   color: #840909;
+    }
 `
 
 const PassCheck1 = styled.div`
   margin: 0;
+  margin-top: 0px;
+  position: absolute;
+  right: 4%;
+  font-size: 13px;
+  color: #1b7e07;
+  @media screen and (max-width: 767px) {
+    margin: 0;
   margin-top: 65px;
   position: absolute;
   right: 15%;
   font-size: 13px;
   color: #1b7e07;
+    }
 `
 
 const PassCheck2 = styled.div`
   margin: 0;
+  margin-top: -110px;
+  position: absolute;
+  right: 4%;
+  font-size: 13px;
+  color: #1b7e07;
+  @media screen and (max-width: 767px) {
+    margin: 0;
   margin-top: 65px;
   position: absolute;
   right: 15%;
   font-size: 13px;
   color: #1b7e07;
+    }
 `
 
 const ChoiceState = styled.div`

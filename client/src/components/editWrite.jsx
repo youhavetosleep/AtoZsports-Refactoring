@@ -188,7 +188,17 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       <WriteContainer>
         <WriteIn>
           <div className="write_title">게시글 수정</div>
+          
+          <WriteMap>
+            <WriteContentsMap
+              getPlace={getPlace}
+              getData={getData}
+              setGetGroundData={setGetGroundData}
+              getGroundData={getGroundData}
+            />
+          </WriteMap>
           <WriteTitle>
+          <div className="write_mainPostTitle">글 제목</div>
             <input
               type="text"
               value={postTitle}
@@ -199,15 +209,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
               ref={titleRef}
             />
           </WriteTitle>
-          <WriteMap>
-            <WriteContentsMap
-              getPlace={getPlace}
-              getData={getData}
-              setGetGroundData={setGetGroundData}
-              getGroundData={getGroundData}
-            />
-          </WriteMap>
-
           <WritePlace>
             <div className="write_palce">선택한 경기장</div>
             <input
@@ -330,10 +331,27 @@ const WriteIn = styled.div`
 
 const WriteTitle = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin: 30px auto 30px auto;
   @media screen and (max-width: 767px) {
-      width: 100%;
+    width: 96%;
+    margin: 80px auto 30px auto;
     }
+    .write_mainPostTitle {
+    max-width: 800px;
+    width: 53vw;
+    font-size: 1.3rem;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      width: 13vw;
+      justify-content: center;
+      margin: 0px auto 0px auto;
+      color: #747474;
+      font-weight: bold;
+    }
+  }
   .write_postTitle {
     max-width: 800px;
     width: 780px;
@@ -343,6 +361,7 @@ const WriteTitle = styled.div`
     border-left: none;
     border-right: none;
     background-color: #fafafa;
+    border-bottom: 1px solid #747474;
     :focus {
       outline: none;
     }
@@ -375,7 +394,7 @@ const WritePlace = styled.div`
   @media screen and (max-width: 767px) {
     justify-content: center;
       width: 100%;
-      margin: 90px auto 0px auto;
+      margin: 10px auto 0px auto;
     }
   .write_palce {
     display: flex;
@@ -385,6 +404,7 @@ const WritePlace = styled.div`
       justify-content: left;
       margin: 0px auto 20px auto;
       color: #747474;
+      font-weight: bold;
     }
   }
   .write_choiceGround {
@@ -433,6 +453,7 @@ const WriteRequest = styled.div`
 font-size: 1rem;
 margin: 0px auto 10px auto;
 color: #747474;
+font-weight: bold;
 }
   }
   .write_btn1 {
@@ -536,6 +557,7 @@ const WriteDate = styled.div`
       font-size: 1rem;
       margin-top: -10px;
     margin: 0px auto 0px auto;
+    font-weight: bold;
     }
   }
 `
@@ -621,6 +643,7 @@ const WriteEtc = styled.div`
       font-size: 1.1rem;
       margin-right: 0%;
       color: #747474;
+      font-weight: bold;
     }
   }
   .write_textArea {

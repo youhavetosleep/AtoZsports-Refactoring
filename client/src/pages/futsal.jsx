@@ -147,7 +147,7 @@ const Futsal = ({
           <Link to="/entrance" style={{ textDecoration: 'none' }}>
             <BackPage>
               <img src={sublogo} alt="sublogo" className="backPage"></img>
-              <div className="back_to_main">메인페이지로 가기</div>
+              <div className="back_to_main">다른운동하러가기</div>
             </BackPage>
           </Link>
           <Link to="/map" style={{ textDecoration: 'none' }}>
