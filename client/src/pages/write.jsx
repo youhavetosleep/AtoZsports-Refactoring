@@ -348,8 +348,10 @@ const WriteMap = styled.div`
 
 const WritePlace = styled.div`
   display: flex;
+  max-width: 800px;
   flex-direction: column;
-  justify-content: center;
+  /* align-items: center; */
+  margin: 20px auto 20px auto;
   @media screen and (max-width: 767px) {
     justify-content: center;
       width: 100%;
@@ -357,10 +359,11 @@ const WritePlace = styled.div`
     }
   .write_palce {
     display: flex;
+    margin: 0px 30% 0px 0px;
     font-size: 1.3rem;
     @media screen and (max-width: 767px) {
       font-size: 1rem;
-      justify-content: left;
+      justify-content: center;
       margin: 0px auto 20px auto;
       color: #747474;
     }
@@ -371,6 +374,7 @@ const WritePlace = styled.div`
     margin: 20px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
     font-size: 1.5rem;
+    justify-content: center;
     border-top: none;
     border-left: none;
     border-right: none;
