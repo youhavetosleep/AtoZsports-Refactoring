@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-import { FaChevronDown } from 'react-icons/fa'
 import moment from 'moment'
 
 import MatchCard from '../components/matchCard'
@@ -170,9 +169,9 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
                   handledate={handledate}
                   startDate={startDate}
                 />
-                <DownWrap>
+                {/* <DownWrap>
                   <FaChevronDown />
-                </DownWrap>
+                </DownWrap> */}
               </CalendarWrap>
               <TimeWrap>
                 <SelectBox
@@ -318,6 +317,7 @@ const DateWrap = styled.div`
   display: flex;
   @media screen and (max-width: 767px) {
     justify-content: center;
+    flex-direction: column;
   }
 `
 
@@ -333,8 +333,9 @@ const CalendarWrap = styled.div`
   margin-right: 23px;
   position: relative;
   @media screen and (max-width: 767px) {
-    margin-right: 24px;
-    right: -17px;
+    /* margin-right: 24px;
+    right: -17px; */
+    text-align: center;
   }
 `
 
@@ -342,12 +343,15 @@ const DownWrap = styled.div`
   width: 0.1px;
   position: absolute;
   top: 27.5%;
-  right: 15%;
+  right: 60px;
   color: #000000;
   z-index: -1;
 `
 
-const TimeWrap = styled.div``
+const TimeWrap = styled.div`
+  @media screen and (max-width: 767px) {
+text-align:center;
+  }`
 
 const FilterWrap1 = styled.div`
   justify-content: space-between;
