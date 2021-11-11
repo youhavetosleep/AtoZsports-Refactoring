@@ -450,7 +450,7 @@ const MapWrap = styled.div`
   top: 0;
   right: 1;
   overflow: hidden;
-  z-index: -100px;
+  z-index: -1;
   @media screen and (max-width: 767px) {
   }
 `

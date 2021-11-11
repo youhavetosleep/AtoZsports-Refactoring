@@ -40,7 +40,8 @@ const DownWrap = styled.div`
   right : 25px;
   @media screen and (max-width: 767px) {
     top: 12px;
-  right : 15px;
+  right : 12px;
+  font-size: 15px;
   }
 `
 
@@ -53,13 +54,13 @@ const Dateform = styled(DatePicker)`
   background-color: #ffffff;
   border: 1px solid #cdcdcd;
   font-size: 16px;
-  opacity: 90%;
+  opacity: 80%;
   :hover {
     cursor: pointer;
   }
   @media screen and (max-width: 767px) {
-    width: 245px;
-    margin-left: 12px;
+    width: 251px;
+    margin-left: 8px;
     text-align: center;
   }
 `

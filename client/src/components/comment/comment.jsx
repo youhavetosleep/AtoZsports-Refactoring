@@ -193,6 +193,8 @@ const Input = styled.input`
   @media screen and (max-width: 767px) {
     margin-top: 10px;
     width: auto;
+    border: solid 1px #d2d2d2;
+    margin : 5px 0;
   }
 `
 
@@ -205,11 +207,16 @@ const CommentBtn = styled.button`
   background-color: #ffffff;
   border-radius: 10px;
   border: solid 2px #d2d2d2;
+  color:#9a9a9a;
   @media screen and (max-width: 767px) {
-    margin-top: 10px;
+    margin-top: 0px;
     width: auto;
     text-align: right;
     border: none;
+    font-size: 15px;
+    :hover {
+      color : #fcc419;
+    }
   }
 `
 
@@ -234,6 +241,11 @@ const Alert = styled.h1`
   padding: 150px 150px;
   box-sizing: border-box;
   font-size: 30px;
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+    padding: 20px;
+    margin : 230px auto 0px auto;
+  }
 `
 
 export default Comment
