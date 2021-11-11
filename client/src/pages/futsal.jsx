@@ -14,6 +14,7 @@ import {
 
 import '../styles/slick.css'
 import { getMatchData } from '../_actions/matchCard_action'
+import { mapData } from '../_actions/ground_action'
 import RegionBoxFutsal from '../utils/regionBoxFutsal'
 import gotomap from '../image/gotomap.jpg'
 import sublogo from '../image/subLogo.png'
@@ -27,14 +28,8 @@ import MatchCard from '../components/matchCard'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
 import Navbar from '../components/navbar'
-import { accordGroundData, mapData } from '../_actions/ground_action'
 
-const Futsal = ({
-  region1,
-  region2,
-  isLogin,
-  setIsLogin
-}) => {
+const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
