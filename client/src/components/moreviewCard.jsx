@@ -10,7 +10,9 @@ function MoreViewCard() {
           <div className="moreMatch-listbox">
             <ul>
               <li className="moreMatch-title">더 많은 공고를 보고싶다면?</li>
-              <span className="moreMatch-subTitle">더 많은 공고 보러가기 ➝ </span>
+              <span className="moreMatch-subTitle">
+                더 많은 공고 보러가기 ➝{' '}
+              </span>
             </ul>
           </div>
         </MoreViewCardContainer>
@@ -22,12 +24,12 @@ function MoreViewCard() {
 const MoreViewCardContainer = styled.div`
   z-index: 10;
   @media screen and (max-width: 767px) {
-        width: 93.5%;
+    width: 93.5%;
   }
   .moreMatch {
     @media screen and (max-width: 767px) {
-        width: 100%;
-  }
+      width: 100%;
+    }
     &-listbox {
       background-color: white;
       border: 1px solid #747474;
@@ -45,23 +47,19 @@ const MoreViewCardContainer = styled.div`
       @media screen and (max-width: 767px) {
         width: calc(100% - 35px);
         height: auto;
-  }
-
+      }
       ul {
         height: 100%;
         width: 100%;
         @media screen and (max-width: 767px) {
           width: auto;
-        /* height: 100%; */
-        margin: 0px 0px 50px 8%;
-  }
+          margin: 0px 0px 50px 8%;
+        }
       }
-
       :hover {
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
       }
     }
-
     &-title {
       font-weight: bold;
       font-size: 1.3rem;
@@ -70,13 +68,10 @@ const MoreViewCardContainer = styled.div`
       color: #353535;
       @media screen and (max-width: 767px) {
         font-size: 1.2rem;
-      margin: 40px auto 10px 38px;
-  }
+        margin: 40px auto 10px 38px;
+      }
     }
-
     &-subTitle {
-      /* border: 1px solid gray;
-    border-radius: 10px; */
       width: 50%;
       font-size: 1rem;
       margin: 0px 00px 0px 0px;
@@ -86,9 +81,9 @@ const MoreViewCardContainer = styled.div`
       right: 0px;
       margin: 0 !important;
       @media screen and (max-width: 767px) {
-        font-size: .9rem;
-      margin: 40px auto 10px 30px;
-  }
+        font-size: 0.9rem;
+        margin: 40px auto 10px 30px;
+      }
     }
   }
 `

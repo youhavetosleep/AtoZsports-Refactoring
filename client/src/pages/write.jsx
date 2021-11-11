@@ -47,9 +47,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const [postAdressName, setAdressName] = useState('') // adressName
   const userId = userInfo.loginSuccess.userData.id
 
-  console.log(postStartTime)
-  console.log(postEndTime)
-
   const [getGroundData, setGetGroundData] = useState([])
 
   const [fromMap, setFromMap] = useState({
@@ -66,11 +63,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
 
   const [getPlace, setGetPlace] = useState(getClickData)
   const [groundData, setGroundData] = useState(getMapData)
-
-  // console.log(getPlace)
-
-  // const a = [...getGroundData, getGroundData]
-  // console.log(startDate)
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -99,16 +91,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
-  // console.log('getPlace ====> ', getPlace)
-  // console.log('placeName ====> ', getPlace.place_name)
-  // console.log('addressName ====> ', getPlace.address_name)
-  // console.log('phone ====> ', getPlace.phone)
-  // console.log('longitude ====> ', getPlace.x)
-  // console.log('latitude ====> ', getPlace.y)
-  // console.log('placeUrl ====> ', getPlace.place_url)
-  // console.log(postStartTime, postEndTime)
-
-  // console.log(groundData.placeName)
 
   useEffect(() => {
     setGroundData({
@@ -120,8 +102,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
-
-  // console.log(`${startDate} ${postStartTime}`)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
@@ -150,7 +130,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
           Token
         )
       ).then((res) => {
-        // console.log(res.payload)
         history.push(`/post/id=${res.payload.id}`)
       })
     } else {
@@ -340,7 +319,6 @@ const WriteMap = styled.div`
   width: 100vw;
   margin: 0px auto 0px auto;
   z-index: 1;
-  /* height: 100px; */
   @media screen and (max-width: 767px) {
     width: auto;
   }
@@ -350,7 +328,6 @@ const WritePlace = styled.div`
   display: flex;
   max-width: 800px;
   flex-direction: column;
-  /* align-items: center; */
   margin: 20px auto 20px auto;
   @media screen and (max-width: 767px) {
     justify-content: center;
@@ -397,7 +374,6 @@ const WriteRequest = styled.div`
   display: flex;
   max-width: 800px;
   flex-direction: column;
-  /* align-items: center; */
   margin: 30px auto 20px auto;
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -495,6 +471,7 @@ const WriteRequest = styled.div`
   }
   
 `
+
 const RequestBtn = styled.div`
   display: flex;
   flex-direction: row;
@@ -540,12 +517,10 @@ const CalendarWrap = styled.div`
   flex-direction: column;
   margin: 10px auto 0px auto;
   padding: 0px 0px 0px 50px;
-  /* position: relative; */
     }
 `
 
 const DownWrap = styled.div`
-  /* width: 10px; */
   position: absolute;
   top: 15%;
   right: 17%;
@@ -577,7 +552,6 @@ const WritePhoneCheck = styled.div`
   }
   .write_checkBox {
     transform: scale(1.5);
-    /* color: #840909; */
     margin-right: 630px;
     @media screen and (max-width: 767px) {
       margin-right: 130px;

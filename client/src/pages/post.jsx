@@ -29,8 +29,6 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   const [status, setStatus] = useState()
 
   const getPostInfo = () => {
-    console.log(postData.startTime)
-    console.log(postData.endTime)
     dispatch(getPostData(postId, token)).then((res) => {
       setPostData(res.payload.postsData)
       setStatus(res.payload.postsData.status)
@@ -127,7 +125,7 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   // 페이지 들어올 때마다 요청을 서버에 보내기 때문에 비효율적이다.
   // 모집완료 버튼을 눌럿을 때 요청을 보내려고 했지만 status의 상태업데이트가 한 발짝 늦어 일단 이 방법을 사용한다.
   useEffect(() => {
-    dispatch(changeStatusData(postId, token, status))
+    dispatch(changeStatusData(postId, token, status)).then(res => setStatus(res.payload.postsData.status))
   }, [status])
 
   return (
@@ -197,8 +195,34 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           </ContentWrap>
           {postData.isMyPost ? (
             <BtnWrap>
-              <ContentBtn onClick={() => setStatus('모집완료')}>
-                모집완료
+              <ContentBtn onClick={() => {
+                if(status === '모집중') {
+                  Swal.fire({
+                    title: '모집완료 하시겠어요?',
+                    showCancelButton: true,
+                    confirmButtonText: '네',
+                    cancelButtonText: '아니요',
+                    confirmButtonColor: '#8F2929'
+                  }).then(result => {
+                    if (result.isConfirmed) {
+                      setStatus('모집완료')
+                    }
+                  })
+                }
+                if(status === '모집완료') {
+                  Swal.fire({
+                    title: '모집중으로 바꾸시겠어요?',
+                    showCancelButton: true,
+                    confirmButtonText: '네',
+                    cancelButtonText: '아니요',
+                    confirmButtonColor: '#555555'
+                  }).then(result => {
+                    if (result.isConfirmed) {
+                      setStatus('모집중')
+                    }
+                  })
+                }}}>
+                {status === '모집중' ? ('모집완료') : ('모집중')}
               </ContentBtn>
               <ContentBtn onClick={editContent}>수정</ContentBtn>
               <ContentBtn onClick={deleteContent}>삭제</ContentBtn>
@@ -225,7 +249,7 @@ const FormWrapper = styled.div`
   top: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 0px;
+  height: 800px;
   width: 700px;
   box-sizing: border-box;
   border-radius: 5px;
@@ -278,7 +302,6 @@ const Main = styled.div`
   border-right: 1px solid #c4c4c4;
   border-bottom: 1px solid #c4c4c4;
   border-left: 1px solid #c4c4c4;
-  /* border : 1px solid #c4c4c4; */
   padding-bottom: 20px;
   .favorite {
     text-align: left;

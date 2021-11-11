@@ -11,7 +11,7 @@ const RegionBoxMypage = ({ region1, region2, handleData1, handleData2, firstData
     firstData1(setFirst)
     firstData2(setSecond)
   },[])
-  console.log('컴포넌트 데이터 췍',data1)
+
   const handleCOMP = (e) => {
     setData1(e.value)
   }

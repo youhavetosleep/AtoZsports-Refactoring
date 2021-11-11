@@ -4,19 +4,13 @@ import { FaRegStar } from 'react-icons/fa'
 import { STAR } from '../utils/data'
 
 const ReviewInfo = ({ commentData, groundData }) => {
-
   let scoreData = commentData === '' ? groundData.score : commentData
 
   const result =
     scoreData &&
-    Math.floor(
-      scoreData.reduce((sum, cur) => sum + cur, 0) /
-        scoreData.length
-    )
+    Math.floor(scoreData.reduce((sum, cur) => sum + cur, 0) / scoreData.length)
   const average =
-    scoreData &&
-    scoreData.reduce((avg, cur) => avg + cur, 0) /
-      scoreData.length
+    scoreData && scoreData.reduce((avg, cur) => avg + cur, 0) / scoreData.length
 
   return (
     <InfoWrap>

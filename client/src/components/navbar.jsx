@@ -16,6 +16,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
   const handleNavClose = () => {
     setNavOpen(false)
   }
+
   const handleNavOpen = () => {
     setNavOpen(true)
   }
@@ -214,7 +215,6 @@ const NavBarContainer = styled.section`
   width: 100%;
   height: 60px;
   background-color: #fafafa;
-  /* position: fixed; */
   top: 0;
   z-index: 10;
   @media screen and (max-width: 767px) {
@@ -226,7 +226,6 @@ const NavbarIn = styled.div`
   width: 100%;
   max-width: Container;
   margin: 0 auto;
-
   .navBtns {
     position: absolute;
     list-style: none;
@@ -237,7 +236,6 @@ const NavbarIn = styled.div`
     justify-content: flex-end;
     margin-right: 5rem;
   }
-
   .navBtn {
     display: inline-block;
     width: auto;
@@ -277,7 +275,6 @@ const NavbarIn = styled.div`
       height: 25rem;
       background-color: rgb(251, 251, 251);
       opacity: 0.95;
-      /* border-right: 1px solid rgb(238, 238, 238); */
       box-shadow: 5px 0 15px rgba(83, 83, 83, 0.15);
       transition: 1.2s;
       border-radius: 15px;

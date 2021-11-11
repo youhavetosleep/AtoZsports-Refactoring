@@ -98,7 +98,7 @@ const LoginModal = ({ setLoginOpen }) => {
   return (
     <Container onClick={(e) => handleCloseModal(e)} ref={_modal}>
       <Form>
-        <LoginImg className='img' src={login1} />
+        <LoginImg className="img" src={login1} />
         <LoginWrap>
           <Title>Login</Title>
           <Input
@@ -161,7 +161,6 @@ const Container = styled.div`
   z-index: 400;
   background: rgba(0, 0, 0, 0.6);
   background-color: rgba(0, 0, 0, 0.6);
-  /* opacity: .5; */
   animation: back 0.1s ease-in;
   z-index: 2;
   @keyframes back {
@@ -184,19 +183,19 @@ const Form = styled.div`
   height: 500px;
   display: flex;
   z-index: 500;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 370px;
     transform: translate(-55%, -55%);
-    }
+  }
 `
 
 const LoginImg = styled.img`
   width: 50%;
   height: 100%;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 0%;
     height: 0%;
-    }
+  }
 `
 
 const LoginWrap = styled.div`
@@ -205,9 +204,9 @@ const LoginWrap = styled.div`
   padding: 55px 50px 50px 50px;
   box-sizing: border-box;
   position: relative;
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 100%;
-    }
+  }
 `
 
 const Title = styled.h1`

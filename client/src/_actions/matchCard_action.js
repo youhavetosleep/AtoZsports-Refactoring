@@ -1,8 +1,4 @@
-import {
-  MATCH_DATA,
-  USER_WRITEMATCH,
-  USER_FAVORITEMATCH
-} from './types'
+import { MATCH_DATA, USER_WRITEMATCH, USER_FAVORITEMATCH } from './types'
 import instance from '../api'
 
 // 용병, 경기제안 데이터
@@ -13,7 +9,6 @@ export async function getMatchData(CurrentOrder, region1, region2) {
       withCredentials: true
     })
     .then((res) => {
-      // console.log(res.data)
       return res.data
     })
 

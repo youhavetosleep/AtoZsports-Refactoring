@@ -4,13 +4,14 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { FaChevronDown } from 'react-icons/fa'
 import GlobalStyle from '../globalStyle/globalStyle'
+import { useDispatch } from 'react-redux'
+
 import Footer from '../components/footer'
 import WriteContentsMap from '../components/map/writeContentsMap'
 import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
 import instance from '../api'
-import { useDispatch } from 'react-redux'
 import { editPostData } from '../_actions/post_action'
 import Navbar from './navbar'
 
@@ -20,7 +21,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   let userPost = store.getState().post
   let userInfo = store.getState().user
-  // console.log(userPost)
 
   const titleRef = useRef()
   const groundRef = useRef()
@@ -34,7 +34,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const postData = userPost.postData.postsData
   const sliceStartTime = postData.startTime.slice(11, 16)
   const sliceEndTime = postData.endTime.slice(11, 16)
-  // console.log(postData.startTime)
 
   const [startDate, setStartDate] = useState(postData.startTime.split('T')[0])
   const [postTitle, setPostTitle] = useState(postData.title) // title
@@ -50,8 +49,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   const userId = postData.id
   const postStatus = postData.status
-
-  // console.log(groundData)
 
   useEffect(() => {
     if (postData.userPhone === undefined) {
@@ -98,16 +95,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
-  // console.log('getPlace ====> ', getPlace)
-  //   console.log('placeName ====>=========== ', getPlace.place_name)
-  //   console.log('addressName ====> ', getPlace.address_name)
-  //   console.log('phone ====> ', getPlace.phone)
-  //   console.log('longitude ====> ', getPlace.x)
-  //   console.log('latitude ====> ', getPlace.y)
-  //   console.log('placeUrl ====> ', getPlace.place_url)
-  //   console.log(postStartTime, postEndTime)
-
-  // console.log(postData.placeName)
 
   useEffect(() => {
     instance
@@ -135,8 +122,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       })
   }, [])
 
-  // console.log(groundData)
-
   useEffect(() => {
     setGroundData({
       placeName: getPlace.place_name,
@@ -147,18 +132,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
-
-  // console.log(`${startDate} ${postStartTime}`)
-
-  // console.log('======================')
-  // console.log('타이틀 ====>', postTitle)
-  // console.log('모집유형 ====>', postDivision)
-  // console.log('날짜 ====>', startDate)
-  // console.log('시작시간 ====>', postStartTime)
-  // console.log('종료시간 ====>', postEndTime)
-  // console.log('요청사항 ====>', postContent)
-  // console.log('경기장 정보 ====>', groundData)
-  // console.log('폰사용 ====>', postPhoneOpen)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
@@ -360,7 +333,6 @@ const WriteMap = styled.div`
   width: 100vw;
   margin: 0px auto 0px auto;
   z-index: 1;
-  /* height: 100px; */
   @media screen and (max-width: 767px) {
     width: auto;
   }
@@ -415,7 +387,6 @@ const WriteRequest = styled.div`
   display: flex;
   max-width: 800px;
   flex-direction: column;
-  /* align-items: center; */
   margin: 30px auto 20px auto;
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -513,6 +484,7 @@ color: #747474;
   }
   
 `
+
 const RequestBtn = styled.div`
   display: flex;
   flex-direction: row;
@@ -558,12 +530,10 @@ const CalendarWrap = styled.div`
   flex-direction: column;
   margin: 10px auto 0px auto;
   padding: 0px 0px 0px 50px;
-  /* position: relative; */
     }
 `
 
 const DownWrap = styled.div`
-  /* width: 10px; */
   position: absolute;
   top: 15%;
   right: 17%;
@@ -595,7 +565,6 @@ const WritePhoneCheck = styled.div`
   }
   .write_checkBox {
     transform: scale(1.5);
-    /* color: #840909; */
     margin-right: 630px;
     @media screen and (max-width: 767px) {
       margin-right: 130px;

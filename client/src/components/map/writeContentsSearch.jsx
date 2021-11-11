@@ -1,23 +1,10 @@
 /*global kakao*/
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { useHistory } from 'react-router'
 
-const WriteContentsSearch = ({
-  searchPlace,
-  getData,
-  setGetGroundData,
-  getGroundData
-}) => {
+const WriteContentsSearch = ({ searchPlace, getData }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
-
-  const history = useHistory()
-  // const Review = () => {
-  //   history.push('/review')
-  // }
-  // const [clickPlace, setClickPlace] = useState('')
-  // console.log('click =====>', clickPlace)
 
   useEffect(() => {
     let markers = [], // 지도를 표시할 div
@@ -42,7 +29,6 @@ const WriteContentsSearch = ({
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
-      // console.log(data, status, pagination)
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
@@ -75,7 +61,6 @@ const WriteContentsSearch = ({
 
       for (let i = 0; i < places.length; i++) {
         // 마커를 생성하고 지도에 표시합니다
-        // console.log(places[i])
         let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
           marker = addMarker(placePosition, i),
           itemEl = getListItem(i, places[i]) // 검색 결과 항목 Element를 생성합니다
@@ -91,9 +76,6 @@ const WriteContentsSearch = ({
           kakao.maps.event.addListener(marker, 'mouseover', function () {
             displayInfowindow(marker, title)
           })
-          // kakao.maps.event.addListener(marker, 'click', function () {
-          //   getData(places[i].place_name)
-          // })
           kakao.maps.event.addListener(marker, 'mouseout', function () {
             infowindow.close()
           })
@@ -103,7 +85,6 @@ const WriteContentsSearch = ({
           itemEl.onclick = function () {
             getData(places[i])
           }
-
           itemEl.onmouseout = function () {
             infowindow.close()
           }
@@ -203,15 +184,9 @@ const WriteContentsSearch = ({
     // 인포윈도우에 장소명을 표시합니다
     function displayInfowindow(marker, title) {
       let content = '<div style="padding:5px;z-index:1;">' + title + '</div>'
-
       infowindow.setContent(content)
       infowindow.open(map, marker)
-      // console.log(title)
     }
-
-    // const choicePlace = (marker, title) => {
-    //   setClickPlace(title)
-    // }
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
     function removeAllChildNods(el) {
@@ -228,7 +203,6 @@ const WriteContentsSearch = ({
           <MapView ref={mapRef} />
         </div>
         <MenuWrap ref={MenuRef}>
-          {/* <SearchLine /> */}
           <List>
             <ListLine />
             <ListTitle>경기장 목록</ListTitle>
@@ -243,7 +217,6 @@ const WriteContentsSearch = ({
 
 const Container = styled.div`
   width: 100%;
-  /* height: 100px; */
   display: flex;
   position: relative;
   @media screen and (max-width: 767px) {
@@ -429,12 +402,6 @@ const MenuWrap = styled.div`
     border-radius: 5px;
   }
 `
-
-// const SearchLine = styled.div`
-// position: absolute;
-// top: 100px;
-//   height: 50px;
-// `
 
 const List = styled.div`
   position: relative;

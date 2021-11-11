@@ -110,10 +110,7 @@ const PremierLeague = ({ isLogin, setIsLogin }) => {
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <LeagueContainer>
         <LeagueIn>
           <LeagueLogo>
@@ -123,8 +120,7 @@ const PremierLeague = ({ isLogin, setIsLogin }) => {
             <div className="league_year">{year}</div>
           </LeagueList>
           <ButtonWrap>
-            <Button onClick={showResult}>경기 결과</Button>
-            |
+            <Button onClick={showResult}>경기 결과</Button>|
             <Button onClick={showMatch}>경기 일정</Button>
           </ButtonWrap>
           {matches.map((match) => {
@@ -135,16 +131,17 @@ const PremierLeague = ({ isLogin, setIsLogin }) => {
                   <Stadium>{match.stadium}</Stadium>
                   <TeamWrap>
                     <HomeTeam>{match.homeTeam}</HomeTeam>
-                    { match.homeScore
-                        ? (
-                          <>
-                            <Score>{match.homeScore} : {match.awayScore}</Score>
-                          </>
-                        )
-                        : (<>
-                            <Score>vs</Score>
-                          </>)
-                    }
+                    {match.homeScore ? (
+                      <>
+                        <Score>
+                          {match.homeScore} : {match.awayScore}
+                        </Score>
+                      </>
+                    ) : (
+                      <>
+                        <Score>vs</Score>
+                      </>
+                    )}
                     <AwayTeam>{match.awayTeam}</AwayTeam>
                   </TeamWrap>
                 </Match>
@@ -184,7 +181,6 @@ const LeagueList = styled.div`
   width: 700px;
   margin: 0px auto 30px auto;
   padding: 0px 0px 10px 0px;
-  /* justify-content: center; */
   border-bottom: 1px solid black;
   .league_year {
     justify-content: center;
@@ -204,7 +200,6 @@ const ButtonWrap = styled.div`
 const Button = styled.div`
   width: 100px;
   text-align: center;
-  /* border: 1px solid black; */
   border-radius: 5px;
   padding: 8px;
   font-size: 18px;
@@ -244,20 +239,17 @@ const TeamWrap = styled.div`
 `
 
 const HomeTeam = styled.div`
-  /* text-align: left; */
   position: absolute;
   left: 0;
 `
 
 const Score = styled.div`
-  /* text-align: center; */
   position: absolute;
   margin: 30px 0px 10px 0px;
   font-size: 16px;
 `
 
 const AwayTeam = styled.div`
-  /* text-align: right; */
   position: absolute;
   right: 0;
 `
