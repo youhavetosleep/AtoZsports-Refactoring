@@ -11,7 +11,7 @@ const RegionBoxMypage = ({ region1, region2, handleData1, handleData2, firstData
     firstData1(setFirst)
     firstData2(setSecond)
   },[])
-  console.log('컴포넌트 데이터 췍',data1)
+
   const handleCOMP = (e) => {
     setData1(e.value)
   }
@@ -50,12 +50,16 @@ const RegionBoxMypage = ({ region1, region2, handleData1, handleData2, firstData
 
 const SelectBoxContainer = styled.div`
   display: flex;
+  @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
   .second {
-    margin-left: 7px;
+    margin: 10px 0px 0px 0px;
   }
 `
 const SelectWrap = styled.div`
   position: relative;
+  font-size: .9rem;
 `
 
 export default RegionBoxMypage

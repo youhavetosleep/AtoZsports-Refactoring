@@ -8,6 +8,7 @@ import store from '../../store/store'
 import Map from '../../pages/map'
 import { mapData } from '../../_actions/ground_action'
 import Navbar from '../navbar'
+import Footer from '../footer'
 
 const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
   const history = useHistory()
@@ -36,10 +37,9 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트 
+    // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트
     // (ex. entrance를 풋살로 클릭했을 때 '강남' 검색어 입력시 '강남 풋살' 로 검색결과가 표시)
     setPlace(`${inputText} ${store.getState().user.sport}`)
-    // setPlace(inputText)
     setInputText('')
   }
 
@@ -56,7 +56,6 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
       if (getPlace !== '') {
         if (Object.keys(store.getState().ground.accordData).length !== 0) {
           Swal.fire({
-            // title: '원하는 서비스를 선택하세요',
             text: '원하는 서비스를 선택하세요',
             showDenyButton: true,
             showCancelButton: true,
@@ -68,6 +67,15 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           }).then((result) => {
             dispatch(mapData(getPlace))
             if (result.isConfirmed) {
+              if (!isLogin) {
+                Swal.fire({
+                  text: '로그인이 필요한 서비스 입니다!',
+                  icon: 'warning',
+                  confirmButtonColor: '#d2d2d2',
+                  confirmButtonText: '확인'
+                })
+                return
+              }
               setClickMap(getPlace)
               history.push('/write')
             }
@@ -77,7 +85,6 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           })
         } else
           Swal.fire({
-            // title: '원하는 서비스를 선택하세요',
             text: '해당 경기장엔 리뷰가 없습니다',
             showDenyButton: true,
             showCancelButton: true,
@@ -89,10 +96,18 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           }).then((result) => {
             dispatch(mapData(getPlace))
             if (result.isConfirmed) {
+              if (!isLogin) {
+                Swal.fire({
+                  text: '로그인이 필요한 서비스 입니다!',
+                  icon: 'warning',
+                  confirmButtonColor: '#d2d2d2',
+                  confirmButtonText: '확인'
+                })
+                return
+              }
               history.push('/write')
             }
             if (result.isDenied) {
-              // history.push('/review')
             }
           })
       }
@@ -108,7 +123,7 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
         <SearchPosition>
           <SearchForm className="inputForm" onSubmit={handleSubmit}>
             <Input
-              placeholder="운동장을 찾아보세요"
+              placeholder="지역이나 경기장 이름을 검색해주세요"
               onChange={onChange}
               value={inputText}
             />
@@ -125,6 +140,7 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           setClick={setClick}
         />
       </Wrapper>
+      <Footer />
     </>
   )
 }

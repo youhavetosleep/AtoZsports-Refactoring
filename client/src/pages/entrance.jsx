@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { selectedSport } from '../_actions/user_action'
 import futsal from '../image/futsal.jpg'
@@ -10,16 +10,22 @@ import basketball from '../image/basketball.jpeg'
 import comming from '../image/comming.jpeg'
 
 const Entrance = () => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   return (
     <>
       <SportsMain>
         <SportsSub>
-          <Link to="/futsal" onClick={()=>{dispatch(selectedSport('풋살'))}} style={{ textDecoration: 'none' }}>
+          <Link
+            to="/futsal"
+            onClick={() => {
+              dispatch(selectedSport('풋살'))
+            }}
+            style={{ textDecoration: 'none' }}
+          >
             <Footsal>
               <img src={futsal} alt="futsal" className="entrance_img" />
-                <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
-                <div className="entrance_subText">FUTSAL</div>
+              <div className="entrance_mainText">5 on 5 의 짧지만 강렬함</div>
+              <div className="entrance_subText">FUTSAL</div>
             </Footsal>
           </Link>
         </SportsSub>
@@ -97,7 +103,7 @@ const Footsal = styled.div`
     z-index: 10;
     @media screen and (max-width: 767px) {
       font-size: 1.1rem;
-  }
+    }
   }
   .entrance_subText {
     top: 51%;
@@ -111,7 +117,7 @@ const Footsal = styled.div`
     @media screen and (max-width: 767px) {
       margin-top: 20px;
       font-size: 1.4rem;
-  }
+    }
   }
   .entrance_img {
     opacity: 0.3;
@@ -142,7 +148,7 @@ const Running = styled.div`
     z-index: 10;
     @media screen and (max-width: 767px) {
       font-size: 1.1rem;
-  }
+    }
   }
   .entrance_subText {
     top: 51%;
@@ -157,7 +163,7 @@ const Running = styled.div`
     @media screen and (max-width: 767px) {
       margin-top: 20px;
       font-size: 1.4rem;
-  }
+    }
   }
   .entrance_img {
     opacity: 0.3;
@@ -190,7 +196,7 @@ const BasketBall = styled.div`
     z-index: 10;
     @media screen and (max-width: 767px) {
       font-size: 1.1rem;
-  }
+    }
   }
   .entrance_subText {
     top: 51%;
@@ -205,7 +211,7 @@ const BasketBall = styled.div`
     @media screen and (max-width: 767px) {
       margin-top: 20px;
       font-size: 1.4rem;
-  }
+    }
   }
   .entrance_img {
     opacity: 0.3;
@@ -236,7 +242,7 @@ const CommingSoon = styled.div`
     z-index: 10;
     @media screen and (max-width: 767px) {
       font-size: 1.1rem;
-  }
+    }
   }
   .entrance_subText {
     top: 51%;
@@ -251,7 +257,7 @@ const CommingSoon = styled.div`
     @media screen and (max-width: 767px) {
       margin-top: 20px;
       font-size: 1.4rem;
-  }
+    }
   }
   .entrance_img {
     opacity: 0.3;

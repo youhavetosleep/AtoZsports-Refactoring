@@ -9,7 +9,6 @@ const SelectBox = ({ handleStartHour, handleEndHour }) => {
   
   const options2 = useMemo(() => ENDOPTIONS)
   
-  
   return (
     <SelectBoxContainer>
       <SelectWrap>
@@ -24,6 +23,7 @@ const SelectBox = ({ handleStartHour, handleEndHour }) => {
 
 const SelectBoxContainer = styled.div`
   display: flex;
+  
   .second {
     margin-left: 7px;
   }

@@ -4,13 +4,14 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { FaChevronDown } from 'react-icons/fa'
 import GlobalStyle from '../globalStyle/globalStyle'
+import { useDispatch } from 'react-redux'
+
 import Footer from '../components/footer'
 import WriteContentsMap from '../components/map/writeContentsMap'
 import CalendarWrite from '../utils/calenderWrite'
 import SelectBoxWrite from '../utils/selectBoxWrite'
 import store from '../store/store'
 import instance from '../api'
-import { useDispatch } from 'react-redux'
 import { editPostData } from '../_actions/post_action'
 import Navbar from './navbar'
 
@@ -20,7 +21,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   let userPost = store.getState().post
   let userInfo = store.getState().user
-  // console.log(userPost)
 
   const titleRef = useRef()
   const groundRef = useRef()
@@ -34,7 +34,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const postData = userPost.postData.postsData
   const sliceStartTime = postData.startTime.slice(11, 16)
   const sliceEndTime = postData.endTime.slice(11, 16)
-  // console.log(postData.startTime)
 
   const [startDate, setStartDate] = useState(postData.startTime.split('T')[0])
   const [postTitle, setPostTitle] = useState(postData.title) // title
@@ -50,8 +49,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
 
   const userId = postData.id
   const postStatus = postData.status
-
-  // console.log(groundData)
 
   useEffect(() => {
     if (postData.userPhone === undefined) {
@@ -98,16 +95,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
-  // console.log('getPlace ====> ', getPlace)
-  //   console.log('placeName ====>=========== ', getPlace.place_name)
-  //   console.log('addressName ====> ', getPlace.address_name)
-  //   console.log('phone ====> ', getPlace.phone)
-  //   console.log('longitude ====> ', getPlace.x)
-  //   console.log('latitude ====> ', getPlace.y)
-  //   console.log('placeUrl ====> ', getPlace.place_url)
-  //   console.log(postStartTime, postEndTime)
-
-  // console.log(postData.placeName)
 
   useEffect(() => {
     instance
@@ -135,8 +122,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       })
   }, [])
 
-  // console.log(groundData)
-
   useEffect(() => {
     setGroundData({
       placeName: getPlace.place_name,
@@ -147,18 +132,6 @@ const EditWrite = ({ isLogin, setIsLogin }) => {
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
-
-  // console.log(`${startDate} ${postStartTime}`)
-
-  // console.log('======================')
-  // console.log('타이틀 ====>', postTitle)
-  // console.log('모집유형 ====>', postDivision)
-  // console.log('날짜 ====>', startDate)
-  // console.log('시작시간 ====>', postStartTime)
-  // console.log('종료시간 ====>', postEndTime)
-  // console.log('요청사항 ====>', postContent)
-  // console.log('경기장 정보 ====>', groundData)
-  // console.log('폰사용 ====>', postPhoneOpen)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
@@ -290,6 +263,9 @@ const WriteContainer = styled.div`
   display: flex;
   width: 100%;
   background-color: #fafafa;
+  @media screen and (max-width: 767px) {
+      width: auto;
+    }
 `
 
 const WriteIn = styled.div`
@@ -302,6 +278,12 @@ const WriteIn = styled.div`
     font-size: 2rem;
     font-weight: bold;
     margin: 80px 0px 20px 0px;
+    @media screen and (max-width: 767px) {
+      display: flex;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 30px auto 20px auto;
+    }
   }
   .write_send {
     display: flex;
@@ -311,6 +293,10 @@ const WriteIn = styled.div`
     :hover {
       color: #890909;
       cursor: pointer;
+      @media screen and (max-width: 767px) {
+      justify-content: center;
+      margin: 140px auto 50px auto;
+    }
     }
   }
 `
@@ -318,6 +304,9 @@ const WriteIn = styled.div`
 const WriteTitle = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 767px) {
+      width: 100%;
+    }
   .write_postTitle {
     max-width: 800px;
     width: 780px;
@@ -330,6 +319,11 @@ const WriteTitle = styled.div`
     :focus {
       outline: none;
     }
+    @media screen and (max-width: 767px) {
+      width: calc(100% - 90px);
+      height: 30px;
+      font-size: 1rem;
+    }
   }
 `
 
@@ -339,7 +333,9 @@ const WriteMap = styled.div`
   width: 100vw;
   margin: 0px auto 0px auto;
   z-index: 1;
-  /* height: 100px; */
+  @media screen and (max-width: 767px) {
+    width: auto;
+  }
 `
 
 const WritePlace = styled.div`
@@ -348,9 +344,20 @@ const WritePlace = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+      width: 100%;
+      margin: 90px auto 0px auto;
+    }
   .write_palce {
     display: flex;
     font-size: 1.3rem;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      justify-content: left;
+      margin: 0px auto 20px auto;
+      color: #747474;
+    }
   }
   .write_choiceGround {
     width: 780px;
@@ -366,6 +373,13 @@ const WritePlace = styled.div`
     :focus {
       outline: none;
     }
+    @media screen and (max-width: 767px) {
+      width: calc(100% - 100px);
+      height: 30px;
+      font-size: 1rem;
+    margin: -10px auto 0px auto;
+    padding: 0px 0px 0px 0px;
+    }
   }
 `
 
@@ -373,12 +387,24 @@ const WriteRequest = styled.div`
   display: flex;
   max-width: 800px;
   flex-direction: column;
-  /* align-items: center; */
   margin: 30px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+      font-size: 1rem;
+      margin: 30px auto 20px auto;
+      justify-content: center;
+      
+    }
   .write_kindRequest {
     display: flex;
     font-size: 1.3rem;
     margin: 0px 0px 0px 0px;
+    @media screen and (max-width: 767px) {
+
+font-size: 1rem;
+margin: 0px auto 10px auto;
+color: #747474;
+}
   }
   .write_btn1 {
     display: flex;
@@ -393,6 +419,13 @@ const WriteRequest = styled.div`
       color: #fafafa;
       cursor: pointer;
     }
+    @media screen and (max-width: 767px) {
+      width: 50%;
+      height: 20px;   
+      padding: 8px 44px 1px 55px;
+      margin: 10px 0px 0px 50px;
+      font-size: .9rem;
+    }
   }
   .write_btn1Click {
     display: flex;
@@ -403,6 +436,13 @@ const WriteRequest = styled.div`
     border-radius: 10px;
     font-size: 1.3rem;
     color: #fafafa;
+    @media screen and (max-width: 767px) {
+      width: 50%;
+      height: 20px;   
+      padding: 8px 44px 1px 55px;
+      margin: 10px 0px 0px 50px;
+      font-size: .9rem;
+    }
   }
   .write_btn2 {
     display: flex;
@@ -417,6 +457,13 @@ const WriteRequest = styled.div`
       color: #fafafa;
       cursor: pointer;
     }
+    @media screen and (max-width: 767px) {
+      width: 50%;
+      height: 20px;   
+      padding: 8px 45px 1px 50px;
+      margin: 10px 50px 0px 10px;
+      font-size: .9rem;
+    }
   }
   .write_btn2Click {
     display: flex;
@@ -427,8 +474,17 @@ const WriteRequest = styled.div`
     border-radius: 10px;
     font-size: 1.3rem;
     color: #fafafa;
+    @media screen and (max-width: 767px) {
+      width: 50%;
+      height: 20px;   
+      padding: 8px 45px 1px 50px;
+      margin: 10px 50px 0px 10px;
+      font-size: .9rem;
+    }
   }
+  
 `
+
 const RequestBtn = styled.div`
   display: flex;
   flex-direction: row;
@@ -440,28 +496,53 @@ const WriteDate = styled.div`
   max-width: 800px;
   justify-content: center;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+      width: 100%;
+      margin: 15px auto 20px auto;
+      color: #747474;
+    }
   .write_data {
     font-size: 1.3rem;
     margin-left: 10px;
+    @media screen and (max-width: 767px) {
+      font-size: 1rem;
+      margin-top: -10px;
+    margin: 0px auto 0px auto;
+    }
   }
 `
 
-const TimeWrap = styled.div``
+const TimeWrap = styled.div`
+@media screen and (max-width: 767px) {
+    width: 100%;
+    margin: 15px 0px 0px 0px;
+    }
+`
 
 const CalendarWrap = styled.div`
   display: flex;
   flex-direction: row;
   margin: 20px 0px 0px 0px;
   position: relative;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    width: 100%;
+  flex-direction: column;
+  margin: 10px auto 0px auto;
+  padding: 0px 0px 0px 50px;
+    }
 `
 
 const DownWrap = styled.div`
-  /* width: 10px; */
   position: absolute;
   top: 15%;
   right: 17%;
   color: #000000;
   z-index: -1;
+  @media screen and (max-width: 767px) {
+    top: 9%;
+    right: 25%;
+    }
 `
 
 const WritePhoneCheck = styled.div`
@@ -471,15 +552,23 @@ const WritePhoneCheck = styled.div`
   justify-content: left;
   align-items: center;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    margin: 10px 0px 0px 50px;
+    }
   .write_phonecheck {
     font-size: 1.3rem;
     margin-right: 20px;
     margin-top: 3px;
+    @media screen and (max-width: 767px) {
+    font-size: 1rem;
+    }
   }
   .write_checkBox {
     transform: scale(1.5);
-    /* color: #840909; */
     margin-right: 630px;
+    @media screen and (max-width: 767px) {
+      margin-right: 130px;
+    }
   }
 `
 
@@ -490,9 +579,18 @@ const WriteEtc = styled.div`
   justify-content: left;
   align-items: center;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    margin: 30px auto -110px auto;
+    }
   .write_etc {
     font-size: 1.3rem;
     margin-right: 710px;
+    @media screen and (max-width: 767px) {
+      font-size: 1.1rem;
+      margin-right: 0%;
+      color: #747474;
+    }
   }
   .write_textArea {
     margin-top: 20px;
@@ -500,6 +598,13 @@ const WriteEtc = styled.div`
     height: 200px;
     resize: none;
     font-size: 1.1rem;
+    @media screen and (max-width: 767px) {
+      width: 75%;
+    height: 200px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    }
   }
 `
 

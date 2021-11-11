@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import Footer from '../components/footer'
 import MatchCard from '../components/matchCard'
 import EditPasswordModal from '../modal/editPasswordModal'
-import Swal from 'sweetalert2'
 import {
   getUserFavoriteData,
   getUserMatchData
@@ -43,13 +43,6 @@ const Mypage = ({
     userHomeground = userInfo.loginSuccess.userData.homeground
   }
 
-  // AccessToken
-  // const Token = userInfo.loginSuccess.accessToken
-
-  // UserInfo
-  // const userInfoSuccess = userInfo.loginSuccess.userData
-  // console.log('기존 사용자  =====> ', userInfoSuccess)
-
   // 개인정보 변경 관련
   const [editeInfo, setEditInfo] = useState(false)
   const [editUserInfo, setEditUserInfo] = useState({
@@ -60,8 +53,6 @@ const Mypage = ({
     favoriteSports: userInfoSuccess.favoriteSports,
     userId: userInfoSuccess.id
   })
-
-  // console.log(editUserInfo)
 
   const [phoneNumber, setPhoneNumber] = useState(editUserInfo.userPhone)
   const [nickname, setNickname] = useState(editUserInfo.nickname)
@@ -101,8 +92,7 @@ const Mypage = ({
   let setSecond = region2
   const [data1, setData1] = useState(setFirst)
   const [data2, setData2] = useState(setSecond)
-  // console.log('리전 보자보자', region1, region2)
-  // console.log('초기값 보자보자', data1, data2)
+
   const firstData1 = (e) => {
     setData1(e)
   }
@@ -115,8 +105,6 @@ const Mypage = ({
   const handleData2 = (e) => {
     setData2(e.value)
   }
-
-  // console.log('editUserInfo ====> ', editUserInfo)
 
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
@@ -135,19 +123,18 @@ const Mypage = ({
       })
       .then((res) => {
         setEditUserInfo(res.data.userData)
-        // console.log(res.data.userData)
       })
   }, [editeInfo])
 
   // 작성한공고, 모집공고 가져오기
-  useEffect(async () => {
-    await dispatch(getUserMatchData(Token)).then((res) => {
+  useEffect(() => {
+    dispatch(getUserMatchData(Token)).then((res) => {
       setWriteData(res.payload)
     })
-    await dispatch(getUserFavoriteData(Token)).then((res) => {
+    dispatch(getUserFavoriteData(Token)).then((res) => {
       setFavoriteData(res.payload)
     })
-  }, [dispatch])
+  }, [])
 
   const matchBtn = () => {
     setChangeCard('관심 공고')
@@ -193,8 +180,6 @@ const Mypage = ({
     }
   }
 
-  // console.log('핸드폰번호 상태 ====> ', phoneNumber)
-
   // 닉네임 확인
   const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
@@ -232,13 +217,11 @@ const Mypage = ({
   const changeUserNickname = (e) => {
     setNickname(e.target.value)
   }
-  // console.log('닉네임 상태 ====> ', nickname)
 
   // 좋아하는 스포츠 변경
   const changeUserFavoriteSports = (e) => {
     setFavoriteSports(e.target.value)
   }
-  // console.log('스포츠 상태 ====> ', nickname)
 
   // 개인정보 변경 send 버튼 클릭시 발생하는 이벤트
   const handleSendUserinfo = () => {
@@ -246,7 +229,7 @@ const Mypage = ({
       Swal.fire({
         icon: 'warning',
         text: '동네를 선택해주세요!',
-        confirmButtonColor : '#aeaeae',
+        confirmButtonColor: '#aeaeae',
         confirmButtonText: '확인'
       })
       return
@@ -293,7 +276,6 @@ const Mypage = ({
   }
 
   // 변경할 비밀번호 작성
-
   const checkPassword = () => {
     if (!password_Reg.test(firstPsword)) {
       setPwColor(false)
@@ -332,17 +314,7 @@ const Mypage = ({
     }
   }
 
-  // setYesOrNo(true)
-  //   if (YesOrNo) {
-  //     return dispatch(deleteUser(Token))
-  //       .then((res) => (window.location.href = '/'))
-  //       .catch((err) => {
-  //         console.log(err)
-  //       })
-  //   }
-
   // 회원탈퇴
-
   const withdrawal = () => {
     if (!YesOrNo) {
       Swal.fire({
@@ -476,12 +448,6 @@ const Mypage = ({
                   </UserinfoNickname>
                   <UserinfoHomeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
-                    {/* <input
-                      type="text"
-                      className="editinfo_homegroundContents"
-                      placeholder={mypageInfo.homeground}
-                      onChange={(e) => changeUserHomeGround(e)}
-                    /> */}
                     <div className="userinfo_regionBox">
                       <RegionBoxMypage
                         region1={region1}
@@ -625,7 +591,7 @@ const MypageContainer = styled.div`
   display: flex;
   justify-content: left;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
+    width: 100%;
   }
 `
 
@@ -636,7 +602,7 @@ const MypageIn = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
+    width: auto;
   }
 `
 
@@ -650,27 +616,28 @@ const MypageUserInfo = styled.section`
   padding: 0px 0px 0px 0px;
   margin: 50px auto 0px auto;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
+    width: 100%;
     margin: 30px auto 0px auto;
-    display: flex;
     align-items: center;
     justify-content: center;
   }
-
   .mypage_title {
     font-size: 2rem;
     margin-left: 40px;
     @media screen and (max-width: 767px) {
+      width: auto;
       font-size: 1.6rem;
-      margin-left: 0px;
+      margin-left: 0%;
     }
   }
   .editePsword_title {
     font-size: 2rem;
     margin-left: 40px;
     @media screen and (max-width: 767px) {
-      font-size: 1.6rem;
-      margin-left: 0px;
+      width: auto;
+      font-size: 1.4rem;
+      margin-left: 0%;
+      margin-bottom: 20px;
     }
   }
 `
@@ -684,10 +651,27 @@ const UserInfo = styled.div`
   padding: 60px 0px 0px 30px;
   @media screen and (max-width: 767px) {
     flex-direction: column;
-    padding: 60px 0px 0px 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 75vw;
+  }
+`
+
+const UserInfoContents = styled.div`
+  display: flex;
+  width: 300%;
+  flex-direction: column;
+  font-size: 20px;
+  margin-left: 15px;
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0px 0px 0%;
     margin: 10px 0px 0px 0px;
-    max-width: 375px;
-    width: 300px;
+    width: 75vw;
   }
 `
 
@@ -700,23 +684,9 @@ const UserPsContainer = styled.div`
   padding: 60px 0px 0px 30px;
   @media screen and (max-width: 767px) {
     flex-direction: column;
-    padding: 20px 0px 0px 30px;
-    margin: 10px 0px 0px 0px;
-    max-width: 375px;
-    width: 300px;
-  }
-`
-
-const UserInfoContents = styled.div`
-  display: flex;
-  width: 300%;
-  flex-direction: column;
-  font-size: 20px;
-  margin-left: 15px;
-  @media screen and (max-width: 767px) {
-    max-width: 375px;
-    margin-left: -20px;
-    width: 500px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 76vw;
   }
 `
 
@@ -728,11 +698,16 @@ const UserinfoPsword = styled.div`
   padding: 0px 0px 40px 0px;
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    margin: -30px 0px 0px 0px;
+    padding: 0px 0px 40px 0px;
+  }
   .editePsword_password {
     color: #565656;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
-      width: 110px;
+      width: 100px;
+      font-size: 0.9rem;
     }
   }
   .editePsword_inputPsword {
@@ -744,10 +719,7 @@ const UserinfoPsword = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
-      margin: 0px 0px 0px 20px;
-    }
-    :focus {
-      outline-color: #840909;
+      margin: 0px 0px 0px 10%;
     }
   }
 `
@@ -761,19 +733,15 @@ const UserinfoPswordCheck = styled.div`
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
-    width: 310px;
+    width: 100%;
     margin: 20px 0px 0px 0px;
-    padding: 0px 0px 10px 0px;
+    padding: 0px 0px 40px 0px;
   }
   .editePsword_passwordCheck {
-    display: flex;
-    align-items: center;
     color: #565656;
-    margin: 0px 0px 115px 0px;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
-      width: 110px;
+      width: 100px;
+      font-size: 0.9rem;
     }
   }
   .editePsword_inputPswordCheck {
@@ -785,10 +753,7 @@ const UserinfoPswordCheck = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
-      margin: 0px 0px 0px 20px;
-    }
-    :focus {
-      outline-color: #840909;
+      margin: 0px 0px 0px 10%;
     }
   }
 `
@@ -802,19 +767,16 @@ const UserinfoEmail = styled.div`
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
-    width: 310px;
+    width: 92%;
     margin: -30px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
   }
   .userinfo_emailTitle {
     color: #565656;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
       width: 60px;
     }
   }
-
   .userinfo_emailContents {
     margin: 0px 0px 0px 127px;
     @media screen and (max-width: 767px) {
@@ -829,7 +791,7 @@ const UserinfoEmail = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
-      margin: 0px 0px 0px 33px;
+      margin: 0px 0px 0px 7%;
     }
   }
 `
@@ -843,19 +805,16 @@ const UuserinfoPhone = styled.div`
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
-    width: 310px;
+    width: 92%;
     margin: 20px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
   }
   .userinfo_phoneTitle {
     color: #565656;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
       width: 60px;
     }
   }
-
   .userinfo_phoneContents {
     margin: 0px 0px 0px 127px;
     @media screen and (max-width: 767px) {
@@ -871,10 +830,8 @@ const UuserinfoPhone = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
-      margin: 0px 0px 0px 40px;
-    }
-    :focus {
-      outline-color: #840909;
+      margin: 0px 0px 0px 10%;
+      width: 45%;
     }
   }
 `
@@ -888,15 +845,13 @@ const UserinfoNickname = styled.div`
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
-    width: 310px;
+    width: 92%;
     margin: 20px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
   }
   .userinfo_nicknameTitle {
     color: #565656;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
       width: 60px;
     }
   }
@@ -915,8 +870,8 @@ const UserinfoNickname = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
-      margin: 0px 0px 0px 40px;
-      align-items: center;
+      margin: 0px 0px 0px 10%;
+      width: 45%;
     }
     :focus {
       outline-color: #840909;
@@ -933,15 +888,13 @@ const UserinfoHomeground = styled.div`
   border-bottom: 1px solid #dddddd;
   font-size: 1rem;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
-    width: 310px;
+    width: 92%;
     margin: 20px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
   }
   .userinfo_homegroundTitle {
     color: #565656;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
       width: 60px;
     }
   }
@@ -967,8 +920,8 @@ const UserinfoHomeground = styled.div`
   .userinfo_regionBox {
     margin: 0px 0px 0px 112px;
     @media screen and (max-width: 767px) {
-      padding: 0px 0px 0px 0px;
-      margin: 0px 0px 0px 40px;
+      margin: 0px 0px 0px 10%;
+      width: 58%;
     }
   }
 `
@@ -980,9 +933,8 @@ const UserinfoFavorite = styled.div`
   margin: 40px 0px 50px 0px;
   font-size: 1rem;
   @media screen and (max-width: 767px) {
-    max-width: 375px;
-    width: 310px;
-    margin: 20px 0px 30px 0px;
+    width: 92%;
+    margin: 20px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
   }
   .userinfo_favoriteTitle {
@@ -1008,10 +960,8 @@ const UserinfoFavorite = styled.div`
     font-size: 1rem;
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
-      margin: 0px 0px 0px 40px;
-    }
-    :focus {
-      outline-color: #840909;
+      margin: 0px 0px 0px 10%;
+      width: 45%;
     }
   }
 `
@@ -1025,11 +975,15 @@ const EditUserInfo = styled.div`
   margin-right: 50px;
   @media screen and (max-width: 767px) {
     flex-direction: row;
-    max-width: 375px;
-    width: 200px;
-    margin: 0px 0px 30px 130px;
+    width: 100%;
+    margin: 0px 0px 80px 130px;
   }
   .editInfo {
+    @media screen and (max-width: 767px) {
+      margin-top: 50px;
+      margin-bottom: -50px;
+      margin-left: 23%;
+    }
     :hover {
       cursor: pointer;
       color: #840909;
@@ -1038,8 +992,9 @@ const EditUserInfo = styled.div`
   .editPassWord {
     margin-top: 10px;
     @media screen and (max-width: 767px) {
-      margin-top: 0px;
-      margin-left: 20px;
+      margin-top: 50px;
+      margin-bottom: -80px;
+      margin-left: 5%;
     }
     :hover {
       cursor: pointer;
@@ -1074,11 +1029,15 @@ const EditUserInfo = styled.div`
     margin-bottom: 30px;
     bottom: 10px;
     right: 30px;
-    border-bottom: 1px solid black;
     :hover {
       cursor: pointer;
       border-bottom: 1px solid #840909;
       color: #840909;
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 1.3rem;
+      bottom: 0px;
+      right: 60px;
     }
   }
   .cancelEdit {
@@ -1104,7 +1063,7 @@ const EditUserInfo = styled.div`
 
 const Check = styled.div`
   margin: 0;
-  margin-top: 0px;
+  margin-top: -115px;
   position: absolute;
   right: 30px;
   font-size: 13px;
@@ -1113,7 +1072,7 @@ const Check = styled.div`
 
 const PassCheck = styled.div`
   margin: 0;
-  margin-top: 0px;
+  margin-top: -50px;
   position: absolute;
   right: 30px;
   font-size: 13px;
@@ -1122,36 +1081,36 @@ const PassCheck = styled.div`
 
 const Check1 = styled.div`
   margin: 0;
-  margin-top: 0px;
+  margin-top: 65px;
   position: absolute;
-  right: 30px;
+  right: 15%;
   font-size: 13px;
   color: #840909;
 `
 
 const Check2 = styled.div`
   margin: 0;
-  margin-top: -115px;
+  margin-top: 65px;
   position: absolute;
-  right: 30px;
+  right: 15%;
   font-size: 13px;
   color: #840909;
 `
 
 const PassCheck1 = styled.div`
   margin: 0;
-  margin-top: 0px;
+  margin-top: 65px;
   position: absolute;
-  right: 30px;
+  right: 15%;
   font-size: 13px;
   color: #1b7e07;
 `
 
 const PassCheck2 = styled.div`
   margin: 0;
-  margin-top: -110px;
+  margin-top: 65px;
   position: absolute;
-  right: 30px;
+  right: 15%;
   font-size: 13px;
   color: #1b7e07;
 `
@@ -1162,6 +1121,8 @@ const ChoiceState = styled.div`
   font-size: 1.2rem;
   margin: 40px 0px 0px 0px;
   @media screen and (max-width: 767px) {
+    width: 100%;
+    margin: 40px auto 0px auto;
   }
   .myMercenary {
     margin-right: 10px;
@@ -1185,14 +1146,12 @@ const ChoiceState = styled.div`
     text-align: left;
     top: 100px;
     @media screen and (max-width: 767px) {
-      max-width: 375px;
-      /* display: flex; */
-      /* justify-content: center; */
-      /* text-align: center; */
-      margin: 0px 0px 0px 75px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      margin: 0px auto 0px auto;
       font-size: 1rem;
     }
-
     .first {
       margin-right: 20px;
       :hover {
@@ -1212,11 +1171,14 @@ const ChoiceState = styled.div`
 const MyCard = styled.section`
   display: grid;
   position: relative;
-  /* flex-direction: column; */
   height: 100%;
   align-items: center;
   justify-content: center;
   margin: 10px 0px 0px 20px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    margin: 10px auto 0px auto;
+  }
   .writeORfavorite {
     display: grid;
     grid-template-columns: repeat(2, 360px);
@@ -1224,9 +1186,12 @@ const MyCard = styled.section`
     column-gap: 24px;
     margin: 20px 0px 0px 0px;
     @media screen and (max-width: 767px) {
-      grid-template-columns: repeat(1, 360px);
-      row-gap: 20px;
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(1, 97%);
+      row-gap: 0px;
       column-gap: 24px;
+      margin-left: 17px;
     }
   }
   .mypage_Match {
@@ -1238,15 +1203,6 @@ const MyCard = styled.section`
     margin: 150px auto 168px auto;
   }
 `
-
-// const MyRecruitment = styled.div`
-//   display: flex;
-//   margin: 30px 0px 30px 0px;
-// `
-
-// const MyAttention = styled.div`
-//   display: flex;
-// `
 
 const GoodbyeUser = styled.div`
   max-width: 800px;

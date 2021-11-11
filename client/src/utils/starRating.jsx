@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const ARRAY = [0, 1, 2, 3, 4]
 
-function StarRating({clicked, setClicked,  sendStar }) {
+function StarRating({ clicked, setClicked, sendStar }) {
   // 현재 comment.jsx 파일에서 관리되고 있는 state
   // const [clicked, setClicked] = useState([true, true, true, true, true])
 
@@ -41,8 +41,6 @@ function StarRating({clicked, setClicked,  sendStar }) {
   )
 }
 
-export default StarRating
-
 const Container = styled.div`
   display: flex;
 `
@@ -59,21 +57,19 @@ const Wrap = styled.div`
 
 const Stars = styled.div`
   display: flex;
-
   & svg {
     color: gray;
     cursor: pointer;
   }
-
   :hover svg {
     color: #fcc419;
   }
-
   & svg:hover ~ svg {
     color: gray;
   }
-
   .yellowStar {
     color: #fcc419;
   }
 `
+
+export default StarRating

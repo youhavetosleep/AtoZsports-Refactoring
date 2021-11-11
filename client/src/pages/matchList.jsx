@@ -11,14 +11,14 @@ import Calendar from '../utils/calendar'
 import SelectBox from '../utils/selectBox'
 import RegionBox from '../utils/regionBox'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 
 const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
   // 날짜변환
   const changeDate = (date) => {
     return date.toISOString().split('T')[0]
   }
-  // moment 로 붙혔음
-  // 안붙혔을 때도 정상작동
+
   let setFirst = region1
   let setSecond = region2
 
@@ -35,6 +35,7 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
   const [finMessage, setFinMessage] = useState('')
   const [sort1, setSort1] = useState(setFirst)
   const [sort2, setSort2] = useState(setSecond)
+  
   // 더보기 버튼
   const handleOffset = async () => {
     let offsetNum = offset + 1
@@ -169,9 +170,6 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
                   handledate={handledate}
                   startDate={startDate}
                 />
-                {/* <DownWrap>
-                  <FaChevronDown />
-                </DownWrap> */}
               </CalendarWrap>
               <TimeWrap>
                 <SelectBox
@@ -247,6 +245,7 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
           <PlusBtn onClick={handleOffset}> {finMessage} </PlusBtn>
         </BtnWrap>
       </FutsalMatchSoonSection>
+      <Footer />
     </>
   )
 }
@@ -333,19 +332,8 @@ const CalendarWrap = styled.div`
   margin-right: 23px;
   position: relative;
   @media screen and (max-width: 767px) {
-    /* margin-right: 24px;
-    right: -17px; */
     text-align: center;
   }
-`
-
-const DownWrap = styled.div`
-  width: 0.1px;
-  position: absolute;
-  top: 27.5%;
-  right: 60px;
-  color: #000000;
-  z-index: -1;
 `
 
 const TimeWrap = styled.div`
@@ -424,12 +412,12 @@ const WriteBtn = styled.button`
   border: none;
   border: 1px solid #6f6f6f;
   color: #6f6f6f;
-  padding: 5px 10px;
+  padding: 5px 15px;
   box-sizing: border-box;
   margin-bottom: 10px;
   background-color: inherit;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   :hover {
     cursor: pointer;
   }
@@ -443,6 +431,9 @@ const AlertMessage = styled.h1`
   font-size: 30px;
   text-align: center;
   justify-content: center;
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+  }
 `
 
 export default MatchList

@@ -35,7 +35,6 @@ function EditPasswordModal({
   // 비밀번호 확인 모달창에서 입력하는 value값 저장
   const handleCheckPsword = (e) => {
     setPassword(e.target.value)
-    // console.log('기존비밀번호와 대조할 비밀번호 ======> 'password)
   }
 
   // Dispatch 로 입력된 비밀번호를 비밀번호 확인 api로 보내 맞는지 판별하기
@@ -51,9 +50,6 @@ function EditPasswordModal({
     })
     }
   }, [password])
-
-  // 일단 구현은 되는데, 글자를 하나칠때마다 서버로 요청이가기에 정상적인 접근은 아닌거 같다. 백엔드와 상의해보자.
-  // console.log(messagePassword)
 
   const hadleChangePassword = () => {
     if (messagePassword === '✔ 비밀번호가 일치합니다') {
@@ -80,7 +76,6 @@ function EditPasswordModal({
                 className="checkPswordInput"
                 placeholder="현재 비밀번호"
                 onChange={(e) => handleCheckPsword(e)}
-                //onBlur={checkPassword}
               ></input>
               <Check>
                 {messagePassword === '✔ 비밀번호가 일치합니다' ? (

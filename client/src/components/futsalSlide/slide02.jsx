@@ -7,7 +7,11 @@ const Slide02 = () => {
   return (
     <>
       <Slider02>
-        <img src={futsalSliderImg} alt="futsalslideImg" className="slider_img"></img>
+        <img
+          src={futsalSliderImg}
+          alt="futsalslideImg"
+          className="slider_img"
+        ></img>
         <SliderText>
           <div className="slider_mainText">우리동네 풋살장을 검색해보세요</div>
           <div className="slider_subText">
@@ -34,7 +38,6 @@ const Slider02 = styled.div`
   align-items: center;
   overflow: hidden;
   position: relative;
-
   .slider_img {
     height: 100%;
     filter: brightness(70%);
@@ -43,7 +46,7 @@ const Slider02 = styled.div`
     vertical-align: middle;
   }
   @media screen and (max-width: 767px) {
-    height:60vh;
+    height: 60vh;
     object-fit: cover;
   }
 `
@@ -77,7 +80,7 @@ const SliderText = styled.div`
     line-height: 25px;
     font-weight: lighter;
     @media screen and (max-width: 767px) {
-      font-size: .8rem;
+      font-size: 0.8rem;
       line-height: 16px;
     }
   }

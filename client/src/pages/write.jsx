@@ -47,9 +47,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const [postAdressName, setAdressName] = useState('') // adressName
   const userId = userInfo.loginSuccess.userData.id
 
-  // console.log(postStartTime)
-  // console.log(postEndTime)
-
   const [getGroundData, setGetGroundData] = useState([])
 
   const [fromMap, setFromMap] = useState({
@@ -66,11 +63,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
 
   const [getPlace, setGetPlace] = useState(getClickData)
   const [groundData, setGroundData] = useState(getMapData)
-
-  // console.log(getPlace)
-
-  // const a = [...getGroundData, getGroundData]
-  // console.log(startDate)
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
@@ -99,16 +91,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
-  // console.log('getPlace ====> ', getPlace)
-  // console.log('placeName ====> ', getPlace.place_name)
-  // console.log('addressName ====> ', getPlace.address_name)
-  // console.log('phone ====> ', getPlace.phone)
-  // console.log('longitude ====> ', getPlace.x)
-  // console.log('latitude ====> ', getPlace.y)
-  // console.log('placeUrl ====> ', getPlace.place_url)
-  // console.log(postStartTime, postEndTime)
-
-  // console.log(groundData.placeName)
 
   useEffect(() => {
     setGroundData({
@@ -120,8 +102,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
       placeUrl: getPlace.place_url
     })
   }, [getPlace])
-
-  // console.log(`${startDate} ${postStartTime}`)
 
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
@@ -150,7 +130,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
           Token
         )
       ).then((res) => {
-        // console.log(res.payload)
         history.push(`/post/id=${res.payload.id}`)
       })
     } else {
@@ -340,7 +319,6 @@ const WriteMap = styled.div`
   width: 100vw;
   margin: 0px auto 0px auto;
   z-index: 1;
-  /* height: 100px; */
   @media screen and (max-width: 767px) {
     width: auto;
   }
@@ -349,15 +327,22 @@ const WriteMap = styled.div`
 const WritePlace = styled.div`
   display: flex;
   max-width: 800px;
-  justify-content: center;
   flex-direction: column;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+      width: 100%;
+      margin: 90px auto 0px auto;
+    }
   .write_palce {
     display: flex;
+    margin: 0px 30% 0px 0px;
     font-size: 1.3rem;
     @media screen and (max-width: 767px) {
       font-size: 1rem;
+      justify-content: center;
       margin: 0px auto 20px auto;
+      color: #747474;
     }
   }
   .write_choiceGround {
@@ -366,17 +351,21 @@ const WritePlace = styled.div`
     margin: 20px 0px 0px 0px;
     padding: 0px 0px 10px 0px;
     font-size: 1.5rem;
+    justify-content: center;
     border-top: none;
     border-left: none;
     border-right: none;
     border-bottom: 1px solid black;
     background-color: #fafafa;
+    :focus {
+      outline: none;
+    }
     @media screen and (max-width: 767px) {
-      width: 290px;
-    height: 30px;
-    margin: -10px 0px 0px 0px;
+      width: calc(100% - 100px);
+      height: 30px;
+      font-size: 1rem;
+    margin: -10px auto 0px auto;
     padding: 0px 0px 0px 0px;
-    font-size: 1.2rem;
     }
   }
 `
@@ -385,15 +374,23 @@ const WriteRequest = styled.div`
   display: flex;
   max-width: 800px;
   flex-direction: column;
-  /* align-items: center; */
   margin: 30px auto 20px auto;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+      font-size: 1rem;
+      margin: 30px auto 20px auto;
+      justify-content: center;
+      
+    }
   .write_kindRequest {
     display: flex;
     font-size: 1.3rem;
     margin: 0px 0px 0px 0px;
     @media screen and (max-width: 767px) {
+
       font-size: 1rem;
-      margin: -20px 0px 0px 5px;
+      margin: 0px auto 10px auto;
+      color: #747474;
     }
   }
   .write_btn1 {
@@ -410,10 +407,10 @@ const WriteRequest = styled.div`
       cursor: pointer;
     }
     @media screen and (max-width: 767px) {
-      width: 50px;
+      width: 50%;
       height: 20px;   
-      padding: 8px 44px 1px 44px;
-      margin: 10px 0px 0px 5px;
+      padding: 8px 44px 1px 55px;
+      margin: 10px 0px 0px 50px;
       font-size: .9rem;
     }
   }
@@ -427,10 +424,10 @@ const WriteRequest = styled.div`
     font-size: 1.3rem;
     color: #fafafa;
     @media screen and (max-width: 767px) {
-      width: 50px;
+      width: 50%;
       height: 20px;   
-      padding: 8px 44px 1px 44px;
-      margin: 10px 0px 0px 5px;
+      padding: 8px 44px 1px 55px;
+      margin: 10px 0px 0px 50px;
       font-size: .9rem;
     }
   }
@@ -448,10 +445,10 @@ const WriteRequest = styled.div`
       cursor: pointer;
     }
     @media screen and (max-width: 767px) {
-      width: 50px;
+      width: 50%;
       height: 20px;   
-      padding: 8px 44px 1px 44px;
-      margin: 10px 0px 0px 10px;
+      padding: 8px 45px 1px 50px;
+      margin: 10px 50px 0px 10px;
       font-size: .9rem;
     }
   }
@@ -465,15 +462,16 @@ const WriteRequest = styled.div`
     font-size: 1.3rem;
     color: #fafafa;
     @media screen and (max-width: 767px) {
-      width: 50px;
+      width: 50%;
       height: 20px;   
-      padding: 8px 44px 1px 44px;
-      margin: 10px 0px 0px 10px;
+      padding: 8px 45px 1px 50px;
+      margin: 10px 50px 0px 10px;
       font-size: .9rem;
     }
   }
   
 `
+
 const RequestBtn = styled.div`
   display: flex;
   flex-direction: row;
@@ -485,46 +483,52 @@ const WriteDate = styled.div`
   max-width: 800px;
   justify-content: center;
   margin: 20px auto 20px auto;
+  @media screen and (max-width: 767px) {
+      width: 100%;
+      margin: 15px auto 20px auto;
+      color: #747474;
+    }
   .write_data {
     font-size: 1.3rem;
     margin-left: 10px;
     @media screen and (max-width: 767px) {
       font-size: 1rem;
       margin-top: -10px;
-    margin-left: 30px;
+    margin: 0px auto 0px auto;
     }
   }
 `
 
 const TimeWrap = styled.div`
 @media screen and (max-width: 767px) {
-    width: 310px;
-    margin: 15px 0px 0px 31px;
+    width: 100%;
+    margin: 15px 0px 0px 0px;
     }
 `
 
 const CalendarWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 20px 0px 0px 0px;
+  margin: 20px 0px 0px 20px;
   position: relative;
   @media screen and (max-width: 767px) {
     display: flex;
+    width: 100%;
   flex-direction: column;
-  margin: 10px 0px 0px 0px;
-  position: relative;
+  margin: 10px auto 0px auto;
+  padding: 0px 0px 0px 50px;
     }
 `
 
 const DownWrap = styled.div`
-  /* width: 10px; */
   position: absolute;
   top: 15%;
   right: 17%;
   color: #000000;
   z-index: -1;
   @media screen and (max-width: 767px) {
-    right: 19%;
+    top: 9%;
+    right: 25%;
     }
 `
 
@@ -548,7 +552,6 @@ const WritePhoneCheck = styled.div`
   }
   .write_checkBox {
     transform: scale(1.5);
-    /* color: #840909; */
     margin-right: 630px;
     @media screen and (max-width: 767px) {
       margin-right: 130px;
@@ -564,14 +567,16 @@ const WriteEtc = styled.div`
   align-items: center;
   margin: 20px auto 20px auto;
   @media screen and (max-width: 767px) {
+    width: 100%;
     margin: 30px auto -110px auto;
     }
   .write_etc {
     font-size: 1.3rem;
     margin-right: 710px;
     @media screen and (max-width: 767px) {
-      font-size: 1rem;
-      margin-right: 220px;
+      font-size: 1.1rem;
+      margin-right: 0%;
+      color: #747474;
     }
   }
   .write_textArea {
@@ -581,7 +586,7 @@ const WriteEtc = styled.div`
     resize: none;
     font-size: 1.1rem;
     @media screen and (max-width: 767px) {
-      width: 275px;
+      width: 75%;
     height: 200px;
     margin-left: 10px;
     margin-top: 10px;
