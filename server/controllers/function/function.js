@@ -135,7 +135,7 @@ module.exports = {
         <br />
         <p>AtoZ Sports와 함께 즐거운 스포츠 즐기시길 바랍니다.</p>
         <br />
-        <button><a href="${domain}/auth/?email=${email}&verifiedKey=${verifiedKey}">인증</a></button>
+        <button><a href="${domain}/auth/?email=${email}&verifiedKey=${encodeURIComponent(verifiedKey)}">인증</a></button>
       </div>
     `
     }

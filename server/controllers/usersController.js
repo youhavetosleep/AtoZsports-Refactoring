@@ -94,7 +94,7 @@ module.exports = {
                 userPhone: '010-xxxx-xxxx',
                 homeground: '지역 시/구/군',
                 favoriteSports: '',
-                verified: 1,
+                verified: true,
                 verifiedKey: ''
               })
                 .then(async (user) => {
@@ -158,7 +158,7 @@ module.exports = {
             } else if (findUser) {
               await User.update(
                 {
-                  verified: 1
+                  verified: true
                 },
                 { where: { email: userKakaoEmail } }
               )
@@ -241,7 +241,7 @@ module.exports = {
               userPhone: '010-xxxx-xxxx',
               homeground: '지역 시/구/군',
               favoriteSports: '',
-              verified: 1,
+              verified: true,
               verifiedKey: ''
             }).then(async (newUser) => {
               const userData = newUser.dataValues
@@ -300,9 +300,9 @@ module.exports = {
             let userData = user.dataValues
             delete userData.password
             // 자체회원가입 후 인증 안 된 상태로 소셜 로그인 시 인증
-            if (userData.verified === 0) {
-              User.update({ verified: 1 }, { where: { id: userData.id } })
-              userData.verified = 1
+            if (userData.verified === false) {
+              User.update({ verified: true }, { where: { id: userData.id } })
+              userData.verified = true
             }
             const accessToken = generateAccessToken(userData)
             const refreshToken = generateRefreshToken(userData)
@@ -346,7 +346,7 @@ module.exports = {
         userPhone: userPhone,
         favoriteSports: favoriteSports,
         homeground: homeground,
-        verified: 0, // 이메일 인증을 위해 false를 기본값
+        verified: false, // 이메일 인증을 위해 false를 기본값
         verifiedKey: verifiedKey // 이메일 인증에 사용할 인증키
       }
     })
@@ -445,9 +445,12 @@ module.exports = {
     } = req.body
     // 이메일 인증을 위한 수정 요청 (인증 x)
     if (email && verifiedKey) {
+      console.log(req.body)
+      console.log(email)
+      console.log(verifiedKey)
       // 이메일과 인증키가 일치하는 경우에 인증 확인을 true로 변경
       User.update(
-        { verified: 1 },
+        { verified: true },
         {
           where: { email, verifiedKey }
         }
@@ -456,7 +459,9 @@ module.exports = {
           // 인증 성공
           User.findOne({ where: { email }})
           .then((user) => {
-            if (user.dataValues.verified === 1) {
+            const verified = user.dataValues.verified
+            console.log(verified)
+            if (verified === true) {
               res.status(200).send({ message: '이메일 인증이 완료되었습니다' })
             } else {
               res.status(409).send({ message: '인증 유효시간이 만료되었습니다' })
