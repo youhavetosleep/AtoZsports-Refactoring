@@ -43,39 +43,39 @@ function App() {
   const [clickMap, setClickMap] = useState({})
 
   // 스크롤 이벤트
-  // useEffect(() => {
-  //   window.addEventListener('scroll', scrollPositionHandler)
-  //   return () => {
-  //     window.removeEventListener('scroll', scrollPositionHandler)
-  //   }
-  // },[])
+  useEffect(() => {
+    window.addEventListener('scroll', scrollPositionHandler)
+    return () => {
+      window.removeEventListener('scroll', scrollPositionHandler)
+    }
+  },[])
 
   // // 스크롤 시 위치를 상태값에 저장하는 코드.
-  // const scrollPositionHandler = () => {
-  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop)
-  // }
+  const scrollPositionHandler = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop)
+  }
 
   // // element가 스크린 아래쪽에 있는지 확인하는 코드
-  // const isElementUnderBottom = (elem, triggerDiff) => {
-  //   const { top } = elem.getBoundingClientRect()
-  //   const { innerHeight } = window
-  //   return top > innerHeight + (triggerDiff || 0)
-  // }
+  const isElementUnderBottom = (elem, triggerDiff) => {
+    const { top } = elem.getBoundingClientRect()
+    const { innerHeight } = window
+    return top > innerHeight + (triggerDiff || 0)
+  }
 
   // 스크롤 이벤트 발생시 활성화되는 함수
-  // const handleScroll = () => {
-  //   const elems = document.querySelectorAll('.scroll')
-  //   elems.forEach((elem) => {
-  //     if (isElementUnderBottom(elem, -30)) {
-  //       elem.style.opacity = '0'
-  //       elem.style.transform = 'translateY(40px)'
-  //     } else {
-  //       elem.style.opacity = '1'
-  //       elem.style.transform = 'translateY(0px)'
-  //     }
-  //   })
-  // }
-  // window.addEventListener('scroll', handleScroll)
+  const handleScroll = () => {
+    const elems = document.querySelectorAll('.scroll')
+    elems.forEach((elem) => {
+      if (isElementUnderBottom(elem, -30)) {
+        elem.style.opacity = '0'
+        elem.style.transform = 'translateY(40px)'
+      } else {
+        elem.style.opacity = '1'
+        elem.style.transform = 'translateY(0px)'
+      }
+    })
+  }
+  window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {
     if (userInfo.loginSuccess !== undefined) {

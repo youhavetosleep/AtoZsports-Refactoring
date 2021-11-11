@@ -73,9 +73,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const [getPlace, setGetPlace] = useState(getClickData)
   const [groundData, setGroundData] = useState(getMapData)
 
-  console.log(fromMap.placeName)
-  console.log(getPlace)
-
   useEffect(async () => {
     if (fromMap.placeName !== undefined) {
       await setGroundData({
@@ -97,12 +94,6 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
       })
     }
   }, [getPlace])
-
-  // console.log(getPlace)
-  // console.log(groundData)
-
-  // const a = [...getGroundData, getGroundData]
-  // console.log(startDate)
 
   // 게시글 제목 가져오기
   const handleInputTitle = (e) => {
