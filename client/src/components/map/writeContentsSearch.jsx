@@ -468,6 +468,7 @@ const ListTitle = styled.h1`
   background-color: #fafafa;
   text-align: center;
   color: #5c5c5c;
+  z-index: 2;
   @media screen and (max-width: 767px) {
     top: -5px;
   }
