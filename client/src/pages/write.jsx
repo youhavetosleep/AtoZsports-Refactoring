@@ -73,8 +73,8 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const [getPlace, setGetPlace] = useState(getClickData)
   const [groundData, setGroundData] = useState(getMapData)
 
-  // console.log(fromMap.placeName)
-  // console.log(getPlace)
+  console.log(fromMap.placeName)
+  console.log(getPlace)
 
   useEffect(async () => {
     if (fromMap.placeName !== undefined) {

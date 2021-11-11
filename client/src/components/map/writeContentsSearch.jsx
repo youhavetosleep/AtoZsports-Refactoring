@@ -84,12 +84,12 @@ const WriteContentsSearch = ({ searchPlace, getData }) => {
           }
           itemEl.onclick = function () {
             getData({
-            placeName: places[i].place_name,
-                addressName: places[i].address_name,
-                phone: places[i].phone,
-                longitude: places[i].y,
-                latitude: places[i].x,
-                placeUrl: places[i].place_url
+              placeName: places[i].place_name,
+              addressName: places[i].address_name,
+              phone: places[i].phone,
+              longitude: places[i].y,
+              latitude: places[i].x,
+              placeUrl: places[i].place_url
             })
           }
           itemEl.onmouseout = function () {

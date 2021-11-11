@@ -42,7 +42,7 @@ function App() {
   const [editPost, setEditPost] = useState(false)
   const [clickMap, setClickMap] = useState({})
 
-  // console.log(clickMap)
+  console.log(clickMap)
 
   // 스크롤 이벤트
   // useEffect(() => {
