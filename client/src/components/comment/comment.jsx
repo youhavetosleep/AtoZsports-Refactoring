@@ -69,6 +69,17 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
       })
       return
     }
+    if (nickname === content[0].nickname && write === content[0].comment) {
+      Swal.fire({
+        icon: 'error',
+        text: '중복된 리뷰입니다.',
+        confirmButtonText: '확인',
+        confirmButtonColor: '#484848',
+        denyButtonColor: '#919191'
+      })
+      return
+    }
+
     setContent([])
     dispatch(addCommentData(groundSelect, token, score, userId, write))
       .then((res) => {
@@ -86,6 +97,7 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.reload()
+            return
           }
         })
       })
@@ -194,7 +206,7 @@ const Input = styled.input`
     margin-top: 10px;
     width: auto;
     border: solid 1px #d2d2d2;
-    margin : 5px 0;
+    margin: 5px 0;
   }
 `
 
@@ -207,7 +219,7 @@ const CommentBtn = styled.button`
   background-color: #ffffff;
   border-radius: 10px;
   border: solid 2px #d2d2d2;
-  color:#9a9a9a;
+  color: #9a9a9a;
   @media screen and (max-width: 767px) {
     margin-top: 0px;
     width: auto;
@@ -215,7 +227,7 @@ const CommentBtn = styled.button`
     border: none;
     font-size: 15px;
     :hover {
-      color : #fcc419;
+      color: #fcc419;
     }
   }
 `
@@ -244,7 +256,7 @@ const Alert = styled.h1`
   @media screen and (max-width: 767px) {
     font-size: 20px;
     padding: 20px;
-    margin : 230px auto 0px auto;
+    margin: 230px auto 0px auto;
   }
 `
 

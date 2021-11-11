@@ -27,6 +27,7 @@ import MatchCard from '../components/matchCard'
 import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
 import Navbar from '../components/navbar'
+import { accordGroundData, mapData } from '../_actions/ground_action'
 
 const Futsal = ({
   region1,
@@ -61,6 +62,7 @@ const Futsal = ({
   }
 
   useEffect(() => {
+    dispatch(mapData({}))
     dispatch(getMatchData(CurrentOrder, firstRegion, secondRegion))
       .then((res) => {
         setMemberData(res.payload)
