@@ -513,7 +513,7 @@ const MenuWrap = styled.div`
   left: 0;
   bottom: 0;
   width: 473px;
-  height: 93vh;
+  height: 90vh;
   padding: 5px 30px;
   box-sizing: border-box;
   overflow-y: auto;

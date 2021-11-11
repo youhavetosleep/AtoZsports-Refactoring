@@ -225,7 +225,7 @@ const FormWrapper = styled.div`
   top: 32%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 800px;
+  height: 0px;
   width: 700px;
   box-sizing: border-box;
   border-radius: 5px;

@@ -124,6 +124,7 @@ const PremierLeague = ({ isLogin, setIsLogin }) => {
           </LeagueList>
           <ButtonWrap>
             <Button onClick={showResult}>경기 결과</Button>
+            |
             <Button onClick={showMatch}>경기 일정</Button>
           </ButtonWrap>
           {matches.map((match) => {
@@ -181,28 +182,37 @@ const LeagueLogo = styled.div`
 const LeagueList = styled.div`
   display: flex;
   width: 700px;
-  margin: 0px 0px 30px 0px;
+  margin: 0px auto 30px auto;
   padding: 0px 0px 10px 0px;
   /* justify-content: center; */
   border-bottom: 1px solid black;
   .league_year {
-    font-size: 1.8rem;
+    justify-content: center;
     text-align: center;
+    font-size: 1.8rem;
   }
 `
 
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 50%;
-  margin: 20px;
+  align-items: center;
+  width: 30%;
+  margin: 10px 0px 10px 0px;
 `
 
 const Button = styled.div`
-  border: 1px solid black;
+  width: 100px;
+  text-align: center;
+  /* border: 1px solid black; */
   border-radius: 5px;
   padding: 8px;
-  font-size: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  :active {
+    font-weight: bold;
+    color: #890909;
+  }
 `
 
 const Match = styled.div`
