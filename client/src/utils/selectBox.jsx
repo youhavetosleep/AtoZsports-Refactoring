@@ -24,12 +24,14 @@ const SelectBox = ({ handleStartHour, handleEndHour }) => {
 
 const SelectBoxContainer = styled.div`
   display: flex;
+  
   .second {
     margin-left: 7px;
   }
 `
 const SelectWrap = styled.div`
   position: relative;
+  /* width: 9vw; */
 `
 
 export default SelectBox

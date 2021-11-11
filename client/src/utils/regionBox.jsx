@@ -62,6 +62,8 @@ const SelectBoxContainer = styled.div`
 `
 const SelectWrap = styled.div`
   position: relative;
+  font-size: .9rem;
+  width: 130px;
 `
 
 export default RegionBox

@@ -6,6 +6,7 @@ import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../api/index.jsx'
 import RegionBox from '../utils/regionBox'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 
 const Signup = ({ isLogin, setIsLogin }) => {
   const history = useHistory()
@@ -381,6 +382,7 @@ const Signup = ({ isLogin, setIsLogin }) => {
           </SignWrap>
         </FormWrapper>
       </FormContainer>
+      <Footer />
     </>
   )
 }

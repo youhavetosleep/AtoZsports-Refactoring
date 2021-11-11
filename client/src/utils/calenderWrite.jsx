@@ -22,21 +22,25 @@ const Dateform = styled(DatePicker)`
   width: 380px;
   height: 35px;
   box-sizing: border-box;
-  margin: 0px 20px 0px 10px;
-  padding: 20px 0px 20px 160px;
+  margin: 0px 20px 0px -20px;
+  padding: 20px 0px 20px 150px;
   border-radius: 5px;
   border : 1px solid #c6c6c6;
   font-size: 16px;
   opacity : 90%;
+  @media screen and (max-width: 767px) {
+  width: 100%;
+    }
   :hover {
     cursor: pointer;
   }
   @media screen and (max-width: 767px) {
-    width: 290px;
+  width: 76.5%;
   height: 35px;
-  box-sizing: border-box;
-  margin: 0px 20px 0px 30px;
-  padding: 20px 0px 20px 10px;
+  /* box-sizing: border-box; */
+  margin: 0px auto 0px auto;
+  padding: 15px 0px 15px 0px;
+  text-align: center;
     }
 `
 

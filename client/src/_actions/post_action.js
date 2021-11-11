@@ -108,8 +108,8 @@ export async function writePostData(
         sports: sports,
         title: postTitle,
         division: postDivision,
-        startTime: startDate,
-        endTime: startDate,
+        startTime: postStartTime,
+        endTime: postEndTime,
         phoneOpen: postPhoneOpen,
         content: postContent,
         ground: groundData

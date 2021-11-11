@@ -28,7 +28,7 @@ const SelectBox = ({ startTime, endTime, handleStartHour, handleEndHour }) => {
   
   return (
     <SelectBoxContainer>
-      <SelectWrap>
+      <SelectWrap className='first'>
         <Select options={options} defaultValue={options[findDefaultValue]} onChange={handleStartHour}/>
       </SelectWrap>
       <SelectWrap className='second'>
@@ -40,12 +40,29 @@ const SelectBox = ({ startTime, endTime, handleStartHour, handleEndHour }) => {
 
 const SelectBoxContainer = styled.div`
   display: flex;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    margin: 0px auto 0px auto;
+    }
   .second {
-    margin-left: 7px;
+    margin-left: 10px;
+    padding: 0px 0px 0px 0px;
+    font-size: 1rem;
+    @media screen and (max-width: 767px) {
+      /* width: calc(100% - 100px); */
+      width: 100%;
+    margin: 0px 23.5% 0px 0px;
+    }
   }
 `
 const SelectWrap = styled.div`
   position: relative;
+  width: 180px;
+  padding: 0px 0px 10px 0px;
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 0px);
+    margin: 0px 10px 0px 0px;
+    }
 `
 
 export default SelectBox
