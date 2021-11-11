@@ -1,14 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-
 import futsalSliderImg from '../../image/futsal_main.jpg'
 
 const Slide03 = () => {
   return (
     <>
       <Slider03>
-        <img src={futsalSliderImg} alt="futsalSlideImg" className="slider_img"></img>
+        <img
+          src={futsalSliderImg}
+          alt="futsalSlideImg"
+          className="slider_img"
+        ></img>
         <SliderText>
           <div className="slider_mainText">
             경기장을 직접 사용한 사용자들의
@@ -39,7 +42,6 @@ const Slider03 = styled.div`
   align-items: center;
   overflow: hidden;
   position: relative;
-
   .slider_img {
     height: 100%;
     filter: brightness(70%);
@@ -48,7 +50,7 @@ const Slider03 = styled.div`
     vertical-align: middle;
   }
   @media screen and (max-width: 767px) {
-    height:60vh;
+    height: 60vh;
     object-fit: cover;
   }
 `
@@ -82,7 +84,7 @@ const SliderText = styled.div`
     line-height: 25px;
     font-weight: lighter;
     @media screen and (max-width: 767px) {
-      font-size: .8rem;
+      font-size: 0.8rem;
       line-height: 16px;
     }
   }

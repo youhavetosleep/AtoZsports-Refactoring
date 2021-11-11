@@ -62,11 +62,10 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
     }
     if (write === '') {
       Swal.fire({
-        // title: '원하는 서비스를 선택하세요',
         confirmButtonColor: '#afafaf',
         text: '댓글을 입력해주세요!',
         icon: 'warning',
-        confiemButtonText: '확인'
+        confirmButtonText: '확인'
       })
       return
     }
@@ -76,12 +75,11 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
         setTotalComment(res.payload.list.length)
         setCommentData(res.payload.list)
         setClicked([true, true, true, true, true])
-        // window.location.reload()
       })
       .catch((err) => {
         Swal.fire({
           icon: 'error',
-          text: '중복된 댓글입니다.',
+          text: '중복된 리뷰입니다.',
           confirmButtonText: '확인',
           confirmButtonColor: '#484848',
           denyButtonColor: '#919191'
@@ -91,7 +89,6 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
           }
         })
       })
-    // setWriteBtn(!writeBtn)
   }
 
   // 숫자 버튼을 누를 때마다(currentPage가 바뀔 때마다) 숫자에 맞는 리뷰들을 가져오기 위해 요청을 보내고,

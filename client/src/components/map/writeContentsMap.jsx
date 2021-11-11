@@ -17,7 +17,6 @@ const WriteContentsMap = ({ getData, setGetGroundData,getGroundData }) => {
     // entrance에서 선택하고 들어온 운동종목을 맵에서 검색시 기본 값으로 두기 위한 상태 업데이트 
     // (ex. entrance를 풋살로 클릭했을 때 '강남' 검색어 입력시 '강남 풋살' 로 검색결과가 표시)
     setPlace(`${inputText} ${store.getState().user.sport}`)
-    // setPlace(inputText)
     setInputText('')
   }
 

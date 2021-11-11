@@ -44,7 +44,6 @@ const Slider01 = styled.div`
   @media screen and (max-width: 767px) {
     width: auto;
   }
-
   .slider_img {
     height: 100%;
     filter: brightness(70%);
@@ -54,7 +53,7 @@ const Slider01 = styled.div`
   }
   @media screen and (max-width: 767px) {
     width: 100%;
-    height:60vh;
+    height: 60vh;
     object-fit: cover;
   }
 `
@@ -94,7 +93,7 @@ const SliderText = styled.div`
     line-height: 25px;
     font-weight: lighter;
     @media screen and (max-width: 767px) {
-      font-size: .8rem;
+      font-size: 0.8rem;
       line-height: 16px;
     }
   }

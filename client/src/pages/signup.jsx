@@ -22,19 +22,6 @@ const Signup = ({ isLogin, setIsLogin }) => {
   const [data1, setData1] = useState('')
   const [data2, setData2] = useState('')
 
-  const firstData1 = (e) => {
-    setData1(e)
-  }
-  const firstData2 = (e) => {
-    setData2(e)
-  }
-  const handleData1 = (e) => {
-    setData1(e.value)
-  }
-  const handleData2 = (e) => {
-    setData2(e.value)
-  }
-
   // 에러 메시지 표기
   const [messageEmail, setMessageEmail] = useState('')
   const [messagePassword, setMessagePassword] = useState('')
@@ -69,6 +56,20 @@ const Signup = ({ isLogin, setIsLogin }) => {
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
   // (userPhone)
   const userPhone_Reg = /^01([0|1|6|7|8|9]?)-\d{3,4}-\d{4}$/
+
+  // region 박스 선택을 위한 함수
+  const firstData1 = (e) => {
+    setData1(e)
+  }
+  const firstData2 = (e) => {
+    setData2(e)
+  }
+  const handleData1 = (e) => {
+    setData1(e.value)
+  }
+  const handleData2 = (e) => {
+    setData2(e.value)
+  }
 
   // 닉네임 확인
   const checkNickname = async () => {
@@ -246,10 +247,7 @@ const Signup = ({ isLogin, setIsLogin }) => {
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <TitleWrapper>
         <TitleImg src={lockerroom} />
         <TitleText>Sign up</TitleText>

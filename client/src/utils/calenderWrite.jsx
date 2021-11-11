@@ -37,7 +37,6 @@ const Dateform = styled(DatePicker)`
   @media screen and (max-width: 767px) {
   width: 76.5%;
   height: 35px;
-  /* box-sizing: border-box; */
   margin: 0px auto 0px auto;
   padding: 15px 0px 15px 0px;
   text-align: center;

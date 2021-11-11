@@ -37,7 +37,6 @@ const Footerbar = styled.div`
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #747474;
-  
 `
 
 const Github = styled.a`
@@ -50,7 +49,7 @@ const Github = styled.a`
   :hover {
     color: #353535;
   }
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
@@ -61,7 +60,7 @@ const Team = styled.div`
   top: 50%;
   right: 0%;
   transform: translate(-5%, -50%);
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
@@ -80,7 +79,7 @@ const Copyright = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     font-size: 12px;
     text-align: center;
   }

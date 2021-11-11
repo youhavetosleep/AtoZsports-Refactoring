@@ -107,8 +107,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
       'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png'
     markerData.map((el) => {
       let imageSize = new kakao.maps.Size(35, 35)
-      // let imageSize = new kakao.maps.Size(64, 69)
-      // let imageOption = {offset: new kakao.maps.Point(27, 69)}
       let markerImage = new kakao.maps.MarkerImage(normalImageSrc, imageSize)
 
       const markers = new kakao.maps.Marker({
@@ -139,7 +137,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
       kakao.maps.event.addListener(markers, 'click', function () {
         setCommentData('')
         dispatch(selectGroundData(el.id)).then((res) => {
-          // dispatch(mapData(res.payload))
           setGroundData(res.payload)
           markerDetail(res.payload.id)
         })
@@ -159,7 +156,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
   useEffect(() => {
     if (firstEnter !== undefined) {
       if (Object.keys(store.getState().ground.mapData).length !== 0) {
-        // console.log('맵에서 넘어왔을 때')
         const data = store.getState().ground.mapData
         data.address_name && setHome1(data.address_name.split(' ')[0])
         data.address_name && setHome2(data.address_name.split(' ')[1])
@@ -167,17 +163,6 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
         data.x && setLocation2(data.x)
       }
     }
-    // if (
-    //   Object.keys(store.getState().ground.mapData).length === 0 &&
-    //   userInfo.loginSuccess === undefined
-    // ) {
-    //   // console.log('비회원, 맵정보 없음')
-    //   // 아래로 셋팅할 경우 맵에서 경기장 데이터를 가지고 넘어올 때
-    //   // 지역선텍시 경기 용인시로 고정된다..
-    //   // 아래의 이유는 첫 입장시 비회원인 경우에도 마커를 찍어주기 위함
-    //   // setHome1('경기')
-    //   // setHome2('용인시')
-    // }
 
     Ground()
   }, [home2])
@@ -217,7 +202,9 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
         }
       }
     }
+
     mapscript()
+
     //리뷰를 보여준 뒤에 map데이터 초기화
     const tick = setTimeout(() => {
       dispatch(mapData({}))
@@ -383,6 +370,7 @@ const InitText = styled.h1`
     font-size: 20px;
   }
 `
+
 const InitWrap = styled.div`
   margin: 300px auto;
   @media screen and (max-width: 767px) {
