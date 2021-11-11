@@ -28,11 +28,9 @@ import MoreViewCard from '../components/moreviewCard'
 import LogoCard from '../components/logoCard'
 import Navbar from '../components/navbar'
 
-const Futsal = ({ 
-  region1, 
-  region2, 
-  handleRegion1, 
-  handleRegion2,
+const Futsal = ({
+  region1,
+  region2,
   isLogin,
   setIsLogin
 }) => {
@@ -43,11 +41,9 @@ const Futsal = ({
   const [memberData, setMemberData] = useState([])
   const [dummyData, setDummyData] = useState([{}, {}, {}, {}, {}])
 
-  // console.log(memberData)
-
   let setFirst = region1
   let setSecond = region2
-  
+
   const [firstRegion, setFirstRegion] = useState(setFirst)
   const [secondRegion, setSecondRegion] = useState(setSecond)
 
@@ -64,22 +60,15 @@ const Futsal = ({
     setSecondRegion(e.value)
   }
 
-
-  // console.log('re1 =====>',firstRegion)
-  // console.log('re2 =====>',secondRegion)
-
   useEffect(() => {
     dispatch(getMatchData(CurrentOrder, firstRegion, secondRegion))
       .then((res) => {
         setMemberData(res.payload)
-        // console.log('payload ====>', res.payload)
       })
       .catch((err) => {
         console.log(err)
       })
   }, [CurrentOrder, secondRegion])
-
-  // console.log('member =====>', memberData)
 
   const matchBtn = () => {
     setCurrentOrder('match')
@@ -90,11 +79,11 @@ const Futsal = ({
   }
 
   const handleGotoReview = () => {
-      history.push(`/review`)
+    history.push(`/review`)
   }
 
   const matchInfoHadler = () => {
-    if(!isLogin){
+    if (!isLogin) {
       Swal.fire({
         text: '로그인이 필요한 서비스 입니다!',
         icon: 'warning',
@@ -102,14 +91,11 @@ const Futsal = ({
         confirmButtonText: '확인'
       })
       return
-    }else{
-    history.push(`/write`)
-    window.location.reload()
+    } else {
+      history.push(`/write`)
+      window.location.reload()
+    }
   }
-}
-
-  // console.log("memberData ========> ",memberData)
-  // console.log("dummyData ========> ",dummyData.length)
 
   const setting = {
     slide: 'div',
@@ -125,10 +111,7 @@ const Futsal = ({
 
   return (
     <>
-    <Navbar 
-    isLogin={isLogin}
-    setIsLogin={setIsLogin}
-    />
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <FutsalLandingPage>
         <FutsalSliderSection>
           <Slider {...setting} className="slider">
@@ -151,12 +134,12 @@ const Futsal = ({
             </BackPage>
           </Link>
           <Link to="/map" style={{ textDecoration: 'none' }}>
-            <GotoMap >
+            <GotoMap>
               <img src={gotomap} alt="gotomap" className="mapImage"></img>
               <div className="go_to_mapText">우리동네 풋살장 검색하기 ➝ </div>
               <div className="go_to_map">지도로 이동하기 </div>
             </GotoMap>
-            </Link>
+          </Link>
         </FutsalBackMapSection>
         <FutsalMatchSoonSection>
           <MatchSoonTitle>
@@ -198,11 +181,13 @@ const Futsal = ({
                 memberData.length === 5
                   ? memberData &&
                     memberData.map((member, idx) => {
-                      return <MatchCard 
-                      member={member} 
-                      key={idx}
-                      isLogin={isLogin}
-                      />
+                      return (
+                        <MatchCard
+                          member={member}
+                          key={idx}
+                          isLogin={isLogin}
+                        />
+                      )
                     })
                   : null
               }
@@ -214,11 +199,13 @@ const Futsal = ({
                 memberData.length < 5 && memberData.length > 0
                   ? memberData &&
                     memberData.slice(0, 5).map((member, idx) => {
-                      return <MatchCard 
-                      member={member} 
-                      key={idx}
-                      isLogin={isLogin}
-                      />
+                      return (
+                        <MatchCard
+                          member={member}
+                          key={idx}
+                          isLogin={isLogin}
+                        />
+                      )
                     })
                   : null
               }
@@ -240,10 +227,9 @@ const Futsal = ({
                     <br />
                     직접 작성해보시겠어요?
                   </div>
-                    <div 
-                    className="linkWrite"
-                    onClick={() => matchInfoHadler()}
-                    >게시글 작성</div>
+                  <div className="linkWrite" onClick={() => matchInfoHadler()}>
+                    게시글 작성
+                  </div>
                 </div>
               </>
             ) : null}
@@ -251,14 +237,14 @@ const Futsal = ({
         </FutsalMatchSoonSection>
         <FutsalAnotherSection>
           <div className="reviewLeague">
-              <StadiumReview onClick={handleGotoReview}>
-                <img src={stadium} alt="stadium" className="stadiumImg"></img>
-                <div className="stadiumReview1">풋살장 리뷰</div>
-                <div className="stadiumReview2">
-                  경기장을 직접 사용한 사람들의 리뷰
-                </div>
-                <div className="stadiumReview3">리뷰 바로가기</div>
-              </StadiumReview>
+            <StadiumReview onClick={handleGotoReview}>
+              <img src={stadium} alt="stadium" className="stadiumImg"></img>
+              <div className="stadiumReview1">풋살장 리뷰</div>
+              <div className="stadiumReview2">
+                경기장을 직접 사용한 사람들의 리뷰
+              </div>
+              <div className="stadiumReview3">리뷰 바로가기</div>
+            </StadiumReview>
             <Link to="/premierleague" style={{ textDecoration: 'none' }}>
               <PremierLeague>
                 <img
@@ -316,7 +302,6 @@ const FutsalSliderSection = styled.section`
   .slider {
     color: #fafafa;
   }
-  
 `
 
 const FutsalBackMapSection = styled.section`
@@ -341,10 +326,6 @@ const BackPage = styled.div`
   border-radius: 5px;
   position: relative;
   @media screen and (max-width: 767px) {
-  /* margin: 0px 0px 0px 12px;
-  width: calc(100% - 20px);
-  height: 50px;
-  padding: 20px; */
   }
   .back_to_main {
     font-size: 13px;
@@ -352,8 +333,8 @@ const BackPage = styled.div`
     position: absolute;
     bottom: 18px;
     @media screen and (max-width: 767px) {
-    display: none;
-  }
+      display: none;
+    }
   }
   .backPage {
     top: 0px;
@@ -361,7 +342,6 @@ const BackPage = styled.div`
     height: 90%;
   }
   @media screen and (max-width: 767px) {
-    /* width: 100vw; */
     margin-top: -8.3vh;
     width: 40px;
     height: 40px;
@@ -374,7 +354,6 @@ const GotoMap = styled.div`
   height: 150px;
   margin-left: 30px;
   padding: 0px 10px 0px 0px;
-  /* transition: all 0.5s; */
   position: relative;
   @media screen and (max-width: 767px) {
     width: auto;
@@ -382,16 +361,15 @@ const GotoMap = styled.div`
     margin-top: -2.8vh;
     margin-left: 10px;
   }
-
   .mapImage {
     opacity: 0.9;
     filter: brightness(75%);
     border-radius: 5px;
     @media screen and (max-width: 767px) {
-    width: 100%;
-    height: 63%;
-    object-fit: cover;
-  }
+      width: 100%;
+      height: 63%;
+      object-fit: cover;
+    }
   }
   .go_to_mapText {
     display: flex;
@@ -401,13 +379,12 @@ const GotoMap = styled.div`
     right: -30px;
     bottom: 60px;
     @media screen and (max-width: 767px) {
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: #fafafa;
       position: absolute;
       right: 18%;
       top: 55px;
-  }
-    
+    }
   }
   .go_to_map {
     font-size: 1.3em;
@@ -416,13 +393,10 @@ const GotoMap = styled.div`
     right: -30px;
     bottom: 15px;
     @media screen and (max-width: 767px) {
-      color:red;
+      color: red;
       display: none;
+    }
   }
-
-  }
-  
-
 `
 
 const FutsalMatchSoonSection = styled.section`
@@ -449,7 +423,7 @@ const MatchSoonTitle = styled.div`
       width: auto;
       justify-content: center;
       font-size: 2rem;
-  }
+    }
   }
 `
 
@@ -475,16 +449,14 @@ const MatchSoonFilter = styled.div`
     text-align: left;
     top: 100px;
     @media screen and (max-width: 767px) {
-    margin-bottom: 15px;
-  }
-
+      margin-bottom: 15px;
+    }
     .first {
       margin-right: 20px;
       :hover {
         cursor: pointer;
       }
     }
-
     .second {
       margin-left: 20px;
       :hover {
@@ -498,23 +470,21 @@ const MatchSoonList = styled.div`
   display: grid;
   position: relative;
   @media screen and (max-width: 767px) {
-      width: 100%;
+    width: 100%;
   }
-
   .all_MatchCard {
     display: grid;
     grid-template-columns: repeat(3, 360px);
     row-gap: 20px;
     column-gap: 24px;
-    /* margin-bottom: 20px; */
     @media screen and (max-width: 767px) {
       display: grid;
       width: 100%;
-    grid-template-columns: repeat(1, 97%);
-    row-gap: 0px;
-    column-gap: 24px;
-    margin-left: 17px;
-  }
+      grid-template-columns: repeat(1, 97%);
+      row-gap: 0px;
+      column-gap: 24px;
+      margin-left: 17px;
+    }
   }
   .notAll_MatchCard {
     display: grid;
@@ -523,21 +493,16 @@ const MatchSoonList = styled.div`
     column-gap: 24px;
     @media screen and (max-width: 767px) {
       display: grid;
-    grid-template-columns: repeat(1, 97%);
-    row-gap: 0px;
-    column-gap: 24px;
-    margin-left: 17px;
-  }
+      grid-template-columns: repeat(1, 97%);
+      row-gap: 0px;
+      column-gap: 24px;
+      margin-left: 17px;
+    }
   }
   .moreView {
     display: grid;
-    /* position: absolute; */
-    /* display: flex; */
-    /* right: -2%;
-    bottom: 0%; */
     @media screen and (max-width: 767px) {
-    
-  }
+    }
   }
   .empty_MatchCard {
     display: flex;
@@ -564,10 +529,6 @@ const MatchSoonList = styled.div`
     }
   }
 `
-
-const MatchText = styled.div``
-
-// const MatchCard = styled.div``
 
 const FutsalAnotherSection = styled.section`
   max-width: 1110px;
@@ -599,7 +560,6 @@ const StadiumReview = styled.div`
     left: 0px;
     margin-top: 0px;
   }
- 
   .stadiumReview1 {
     position: absolute;
     font-size: 2.5em;
@@ -607,12 +567,12 @@ const StadiumReview = styled.div`
     top: 40px;
     left: 30px;
     @media screen and (max-width: 767px) {
-    display: flex;
-    font-size: 1.5rem;
-    position: absolute;
-    top: -10px;
-    left: 35px;
-  }
+      display: flex;
+      font-size: 1.5rem;
+      position: absolute;
+      top: -10px;
+      left: 35px;
+    }
   }
   .stadiumReview2 {
     position: absolute;
@@ -622,12 +582,12 @@ const StadiumReview = styled.div`
     left: 30px;
     font-weight: lighter;
     @media screen and (max-width: 767px) {
-    display: flex;
-    font-size: .8rem;
-    position: absolute;
-    top: 20px;
-    left: 35px;
-  }
+      display: flex;
+      font-size: 0.8rem;
+      position: absolute;
+      top: 20px;
+      left: 35px;
+    }
   }
   .stadiumReview3 {
     position: absolute;
@@ -636,8 +596,8 @@ const StadiumReview = styled.div`
     right: 70px;
     bottom: 20px;
     @media screen and (max-width: 767px) {
-    display: none;
-  }
+      display: none;
+    }
   }
   .stadiumImg {
     width: 800px;
@@ -646,15 +606,15 @@ const StadiumReview = styled.div`
     opacity: 0.9;
     filter: brightness(60%);
     @media screen and (max-width: 767px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 20px;
-    width: 114%;
-    height: 120px;
-    object-fit: cover;
-  }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 20px;
+      width: 114%;
+      height: 120px;
+      object-fit: cover;
+    }
   }
 `
 
@@ -686,11 +646,11 @@ const PremierLeague = styled.div`
     height: 130px;
     top: 0px;
     @media screen and (max-width: 767px) {
-    left: 10%;
-    top: 1vh;
-    width: 80%;
-    height: auto;
-  }
+      left: 10%;
+      top: 1vh;
+      width: 80%;
+      height: auto;
+    }
   }
   .premierLeagueText {
     position: absolute;
@@ -700,7 +660,7 @@ const PremierLeague = styled.div`
     bottom: 20px;
     @media screen and (max-width: 767px) {
       display: none;
-  }
+    }
   }
 `
 
@@ -716,29 +676,27 @@ const Notice = styled.div`
   @media screen and (max-width: 767px) {
     display: flex;
     position: relative;
-  margin-top: 228px;
-  margin-left: 3px;
-  margin-bottom: 0px;
-  width: 80%;
-  height: 180px;
+    margin-top: 228px;
+    margin-left: 3px;
+    margin-bottom: 0px;
+    width: 80%;
+    height: 180px;
   }
-  
+
   .notice {
     font-size: 1.2rem;
     font-weight: bold;
     @media screen and (max-width: 767px) {
-    display: flex;
-    /* position: absolute; */
-    justify-content: left;
-    align-items: center;
-    
-  }
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
   }
   .notice_list {
     display: flex;
     flex-direction: row;
     margin-top: 15px;
-   
+
     .notice_title {
       color: #840909;
     }

@@ -37,16 +37,12 @@ const MoreViewCardContainer = styled.div`
       padding: 20px;
       position: relative;
       transition: all 0.5s;
-
       ul {
         height: 100%;
         width: 100%;
       }
     }
-
     &-state {
-      /* border: 1px solid gray;
-    border-radius: 10px; */
       width: 50%;
       font-size: 1rem;
       margin: 0px 50px 0px 30px;

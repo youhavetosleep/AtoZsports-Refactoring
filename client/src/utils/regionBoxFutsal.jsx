@@ -4,35 +4,34 @@ import Select from 'react-select'
 import { REGION, AREA } from './data'
 
 const RegionBoxFutsal = ({ region1, region2, handleData1, handleData2, firstData1, firstData2 }) => {
-  // console.log('메인렌딩 리젼1', region1)
   let setFirst = region1
   let setSecond = region2
   const [data1, setData1] = useState(setFirst)
+
   useEffect(() => {
     firstData1(setFirst)
     firstData2(setSecond)
   },[])
-  // console.log('메인렌딩 데이터 췍',data1)
   const handleCOMP = (e) => {
     setData1(e.value)
   }
+
   const options = useMemo(() => REGION)
-  // console.log('보자보자 옵션1보자',options)
   let findDefaultValue
   options.map((el, idx) => {
     if(el.value === data1) {
       findDefaultValue = idx
     }
   })
+
   let pickSecondRegion
   AREA.forEach((selected) => {
     if(selected.name === data1) {
       pickSecondRegion = selected.list
     }
   })
-  // console.log('보자보자 픽2보자',pickSecondRegion)
+  
   const options2 = useMemo(() => pickSecondRegion)
-  // console.log('보자보자 옵션2보자',options2)
   let findDefaultValue2
   options2.map((el, idx) => {
     if(el.value === region2) {
@@ -61,7 +60,6 @@ const SelectBoxContainer = styled.div`
 const SelectWrap = styled.div`
   position: relative;
   width: 130px;
-  /* padding: 5px 0px 5px 0px; */
   font-size: 1rem;
 `
 

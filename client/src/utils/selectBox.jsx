@@ -9,7 +9,6 @@ const SelectBox = ({ handleStartHour, handleEndHour }) => {
   
   const options2 = useMemo(() => ENDOPTIONS)
   
-  
   return (
     <SelectBoxContainer>
       <SelectWrap>
@@ -28,10 +27,13 @@ const SelectBoxContainer = styled.div`
   .second {
     margin-left: 7px;
   }
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    margin-top : 5px;
+  }
 `
 const SelectWrap = styled.div`
   position: relative;
-  /* width: 9vw; */
 `
 
 export default SelectBox

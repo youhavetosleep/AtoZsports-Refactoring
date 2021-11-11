@@ -92,7 +92,7 @@ module.exports = {
                 password: encryptedPassword,
                 nickname: userKakaoNick,
                 userPhone: '010-xxxx-xxxx',
-                homeground: '',
+                homeground: '지역 시/구/군',
                 favoriteSports: '',
                 verified: true,
                 verifiedKey: ''
@@ -239,7 +239,7 @@ module.exports = {
               password: encryptedPassword,
               nickname: nickname,
               userPhone: '010-xxxx-xxxx',
-              homeground: '',
+              homeground: '지역 시/구/군',
               favoriteSports: '',
               verified: true,
               verifiedKey: ''
@@ -452,14 +452,16 @@ module.exports = {
           where: { email, verifiedKey }
         }
       )
-        .then((user) => {
+        .then(() => {
           // 인증 성공
-          if (user[0] === 1){
-            res.status(200).send({ message: '이메일 인증이 완료되었습니다' })
-          } else {
-            // 인증 실패
-            res.status(409).send({ message: '인증 유효시간이 만료되었습니다' })
-          }
+          User.findOne({ where: { email }})
+          .then((user) => {
+            if (user.dataValues.verified === true) {
+              res.status(200).send({ message: '이메일 인증이 완료되었습니다' })
+            } else {
+              res.status(409).send({ message: '인증 유효시간이 만료되었습니다' })
+            }
+          })
         })
         .catch((error) => {
           console.log('이메일 인증 에러')

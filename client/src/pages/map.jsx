@@ -7,14 +7,7 @@ import { accordGroundData } from '../_actions/ground_action'
 import instance from '../api'
 import Navbar from '../components/navbar'
 
-const Map = ({
-  isLogin,
-  setIsLogin,
-  getData,
-  searchPlace,
-  changeClick,
-  click
-}) => {
+const Map = ({ getData, searchPlace, changeClick, click }) => {
   const mapRef = useRef()
   const MenuRef = useRef()
   const dispatch = useDispatch()
@@ -448,6 +441,7 @@ const Container = styled.div`
     color: #777;
   }
 `
+
 const MapWrap = styled.div`
   width: 25vw;
   height: 100vh;

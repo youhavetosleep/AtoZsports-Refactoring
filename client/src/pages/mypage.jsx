@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import Swal from 'sweetalert2'
 import Footer from '../components/footer'
 import MatchCard from '../components/matchCard'
 import EditPasswordModal from '../modal/editPasswordModal'
-import Swal from 'sweetalert2'
 import {
   getUserFavoriteData,
   getUserMatchData
@@ -43,13 +43,6 @@ const Mypage = ({
     userHomeground = userInfo.loginSuccess.userData.homeground
   }
 
-  // AccessToken
-  // const Token = userInfo.loginSuccess.accessToken
-
-  // UserInfo
-  // const userInfoSuccess = userInfo.loginSuccess.userData
-  // console.log('기존 사용자  =====> ', userInfoSuccess)
-
   // 개인정보 변경 관련
   const [editeInfo, setEditInfo] = useState(false)
   const [editUserInfo, setEditUserInfo] = useState({
@@ -60,8 +53,6 @@ const Mypage = ({
     favoriteSports: userInfoSuccess.favoriteSports,
     userId: userInfoSuccess.id
   })
-
-  console.log(editUserInfo)
 
   const [phoneNumber, setPhoneNumber] = useState(editUserInfo.userPhone)
   const [nickname, setNickname] = useState(editUserInfo.nickname)
@@ -101,8 +92,7 @@ const Mypage = ({
   let setSecond = region2
   const [data1, setData1] = useState(setFirst)
   const [data2, setData2] = useState(setSecond)
-  console.log('리전 보자보자', region1, region2)
-  console.log('초기값 보자보자', data1, data2)
+
   const firstData1 = (e) => {
     setData1(e)
   }
@@ -115,8 +105,6 @@ const Mypage = ({
   const handleData2 = (e) => {
     setData2(e.value)
   }
-
-  // console.log('editUserInfo ====> ', editUserInfo)
 
   // (nickname) 한글, 영문, 숫자만 가능하며 2-10자리까지
   const nickname_Reg = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
@@ -135,7 +123,6 @@ const Mypage = ({
       })
       .then((res) => {
         setEditUserInfo(res.data.userData)
-        // console.log(res.data.userData)
       })
   }, [editeInfo])
 
@@ -193,8 +180,6 @@ const Mypage = ({
     }
   }
 
-  // console.log('핸드폰번호 상태 ====> ', phoneNumber)
-
   // 닉네임 확인
   const checkNickname = async () => {
     if (!nickname_Reg.test(nickname)) {
@@ -232,13 +217,11 @@ const Mypage = ({
   const changeUserNickname = (e) => {
     setNickname(e.target.value)
   }
-  // console.log('닉네임 상태 ====> ', nickname)
 
   // 좋아하는 스포츠 변경
   const changeUserFavoriteSports = (e) => {
     setFavoriteSports(e.target.value)
   }
-  // console.log('스포츠 상태 ====> ', nickname)
 
   // 개인정보 변경 send 버튼 클릭시 발생하는 이벤트
   const handleSendUserinfo = () => {
@@ -246,7 +229,7 @@ const Mypage = ({
       Swal.fire({
         icon: 'warning',
         text: '동네를 선택해주세요!',
-        confirmButtonColor : '#aeaeae',
+        confirmButtonColor: '#aeaeae',
         confirmButtonText: '확인'
       })
       return
@@ -293,7 +276,6 @@ const Mypage = ({
   }
 
   // 변경할 비밀번호 작성
-
   const checkPassword = () => {
     if (!password_Reg.test(firstPsword)) {
       setPwColor(false)
@@ -332,17 +314,7 @@ const Mypage = ({
     }
   }
 
-  // setYesOrNo(true)
-  //   if (YesOrNo) {
-  //     return dispatch(deleteUser(Token))
-  //       .then((res) => (window.location.href = '/'))
-  //       .catch((err) => {
-  //         console.log(err)
-  //       })
-  //   }
-
   // 회원탈퇴
-
   const withdrawal = () => {
     if (!YesOrNo) {
       Swal.fire({
@@ -476,12 +448,6 @@ const Mypage = ({
                   </UserinfoNickname>
                   <UserinfoHomeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
-                    {/* <input
-                      type="text"
-                      className="editinfo_homegroundContents"
-                      placeholder={mypageInfo.homeground}
-                      onChange={(e) => changeUserHomeGround(e)}
-                    /> */}
                     <div className="userinfo_regionBox">
                       <RegionBoxMypage
                         region1={region1}
@@ -655,14 +621,13 @@ const MypageUserInfo = styled.section`
     align-items: center;
     justify-content: center;
   }
-
   .mypage_title {
     font-size: 2rem;
     margin-left: 40px;
     @media screen and (max-width: 767px) {
       width: auto;
       font-size: 1.6rem;
-      margin-left: 0%
+      margin-left: 0%;
     }
   }
   .editePsword_title {
@@ -725,8 +690,6 @@ const UserPsContainer = styled.div`
   }
 `
 
-
-
 const UserinfoPsword = styled.div`
   display: flex;
   width: 70%;
@@ -744,7 +707,7 @@ const UserinfoPsword = styled.div`
     color: #565656;
     @media screen and (max-width: 767px) {
       width: 100px;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
   .editePsword_inputPsword {
@@ -779,7 +742,7 @@ const UserinfoPswordCheck = styled.div`
     color: #565656;
     @media screen and (max-width: 767px) {
       width: 100px;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
   .editePsword_inputPswordCheck {
@@ -792,7 +755,6 @@ const UserinfoPswordCheck = styled.div`
     background-color: #fafafa;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 10%;
-      /* width: 45%; */
     }
   }
 `
@@ -816,7 +778,6 @@ const UserinfoEmail = styled.div`
       width: 60px;
     }
   }
-
   .userinfo_emailContents {
     margin: 0px 0px 0px 127px;
     @media screen and (max-width: 767px) {
@@ -855,7 +816,6 @@ const UuserinfoPhone = styled.div`
       width: 60px;
     }
   }
-
   .userinfo_phoneContents {
     margin: 0px 0px 0px 127px;
     @media screen and (max-width: 767px) {
@@ -1241,7 +1201,6 @@ const ChoiceState = styled.div`
       margin: 0px auto 0px auto;
       font-size: 1rem;
     }
-
     .first {
       margin-right: 20px;
       :hover {
@@ -1261,15 +1220,14 @@ const ChoiceState = styled.div`
 const MyCard = styled.section`
   display: grid;
   position: relative;
-  /* flex-direction: column; */
   height: 100%;
   align-items: center;
   justify-content: center;
   margin: 10px 0px 0px 20px;
   @media screen and (max-width: 767px) {
-      width: 100%;
-      margin: 10px auto 0px auto;
-    }
+    width: 100%;
+    margin: 10px auto 0px auto;
+  }
   .writeORfavorite {
     display: grid;
     grid-template-columns: repeat(2, 360px);
@@ -1279,11 +1237,11 @@ const MyCard = styled.section`
     @media screen and (max-width: 767px) {
       display: grid;
       width: 100%;
-    grid-template-columns: repeat(1, 97%);
-    row-gap: 0px;
-    column-gap: 24px;
-    margin-left: 17px;
-  }
+      grid-template-columns: repeat(1, 97%);
+      row-gap: 0px;
+      column-gap: 24px;
+      margin-left: 17px;
+    }
   }
   .mypage_Match {
     display: flex;
@@ -1294,15 +1252,6 @@ const MyCard = styled.section`
     margin: 150px auto 168px auto;
   }
 `
-
-// const MyRecruitment = styled.div`
-//   display: flex;
-//   margin: 30px 0px 30px 0px;
-// `
-
-// const MyAttention = styled.div`
-//   display: flex;
-// `
 
 const GoodbyeUser = styled.div`
   max-width: 800px;

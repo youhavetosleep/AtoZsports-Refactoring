@@ -24,8 +24,14 @@ import EditWrite from './components/editWrite'
 function App() {
   // 로그인 정보 저장
   let userInfo = store.getState().user
-  let firstData = userInfo.loginSuccess !== undefined ? userInfo.loginSuccess.userData.homeground.split(' ')[0] : '서울'
-  let secondData = userInfo.loginSuccess !== undefined ? userInfo.loginSuccess.userData.homeground.split(' ')[1] : '강남구'
+  let firstData =
+    userInfo.loginSuccess !== undefined
+      ? userInfo.loginSuccess.userData.homeground.split(' ')[0]
+      : '서울'
+  let secondData =
+    userInfo.loginSuccess !== undefined
+      ? userInfo.loginSuccess.userData.homeground.split(' ')[1]
+      : '강남구'
 
   const [isLogin, setIsLogin] = useState(false)
   // 지역선택 드롭박스를 위한 상태
@@ -74,11 +80,8 @@ function App() {
   // window.addEventListener('scroll', handleScroll)
 
   useEffect(() => {
-
     if (userInfo.loginSuccess !== undefined) {
       setIsLogin(true)
-      //setRegion1(userInfo.loginSuccess.userData.homeground.split(' ')[0])
-      //setRegion2(userInfo.loginSuccess.userData.homeground.split(' ')[1])
     } else {
       setIsLogin(false)
     }
@@ -111,11 +114,11 @@ function App() {
             />
           </Route>
           <Route exact path="/map">
-            <MapSearch 
-            setEditPost={setEditPost} 
-            isLogin={isLogin}
-            setIsLogin={setIsLogin}
-            setClickMap={setClickMap}
+            <MapSearch
+              setEditPost={setEditPost}
+              isLogin={isLogin}
+              setIsLogin={setIsLogin}
+              setClickMap={setClickMap}
             />
           </Route>
           <Route exact path="/review">
@@ -146,15 +149,13 @@ function App() {
           </Route>
           <Route exact path="/write">
             {!editPost ? (
-              <Write 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin}
-              clickMap={clickMap}
+              <Write
+                isLogin={isLogin}
+                setIsLogin={setIsLogin}
+                clickMap={clickMap}
               />
             ) : (
-              <EditWrite 
-              isLogin={isLogin} 
-              setIsLogin={setIsLogin} />
+              <EditWrite isLogin={isLogin} setIsLogin={setIsLogin} />
             )}
           </Route>
           <Route exact path="/mypage">
@@ -179,10 +180,7 @@ function App() {
             />
           </Route>
           <Route exact path="/premierleague">
-            <PremierLeague 
-            isLogin={isLogin}
-            setIsLogin={setIsLogin}
-            />
+            <PremierLeague isLogin={isLogin} setIsLogin={setIsLogin} />
           </Route>
           <Route exact path="/auth" component={Auth} />
           <Route exact path="/google" component={Google} />

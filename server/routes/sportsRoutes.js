@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const postsController = require('../controllers/postsController')
 const groundController = require('../controllers/groundController')
-const chatController = require('../controllers/chatController')
 const auth = require('../controllers/function/function')
 
 router.get('/', postsController.urgentPostList)

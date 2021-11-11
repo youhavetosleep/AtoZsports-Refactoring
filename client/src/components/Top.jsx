@@ -22,7 +22,6 @@ const TopContainer = styled.div`
     bottom: 40px;
     right: 40px;
   }
-
   .top_circle {
     width: 50px;
     height: 50px;
@@ -33,7 +32,6 @@ const TopContainer = styled.div`
     border-radius: 25px;
     color: #fafafa;
   }
-
   .top_circle:hover {
     background-color: #840909;
     cursor: pointer;
