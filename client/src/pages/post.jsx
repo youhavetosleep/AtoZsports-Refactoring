@@ -29,6 +29,8 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
   const [status, setStatus] = useState()
 
   const getPostInfo = () => {
+    console.log(postData.startTime)
+    console.log(postData.endTime)
     dispatch(getPostData(postId, token)).then((res) => {
       setPostData(res.payload.postsData)
       setStatus(res.payload.postsData.status)
@@ -207,20 +209,20 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           </PostChating>
         </FormWrapper>
       </FormContainer>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }
 
 const FormContainer = styled.div`
   background-color: #fafafa;
-  height: 1000px;
+  height: 1350px;
   position: relative;
 `
 
 const FormWrapper = styled.div`
   position: absolute;
-  top: 45%;
+  top: 32%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 800px;
