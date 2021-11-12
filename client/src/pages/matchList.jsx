@@ -242,7 +242,7 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
           </AlertMessage>
         ) : null}
         <BtnWrap>
-          <PlusBtn onClick={handleOffset}> {finMessage} </PlusBtn>
+          <PlusBtn className={listData.length === 0 ? 'finish' : 'more' } onClick={handleOffset}> {finMessage} </PlusBtn>
         </BtnWrap>
       </FutsalMatchSoonSection>
       <Footer />
@@ -265,8 +265,9 @@ const FutsalMatchSoonSection = styled.section`
 const MatchSoonTitle = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-bottom: 1px solid black;
+  padding-bottom  :15px;
   .matchSoon_title {
     font-size: 3rem;
     @media screen and (max-width: 767px) {
@@ -292,13 +293,13 @@ const MatchSoonList = styled.div`
     column-gap: 24px;
     @media screen and (max-width: 1110px) {
       display: grid;
-      grid-template-columns: repeat(2, 350px);
+      grid-template-columns: repeat(2, 345px);
       row-gap: 0px;
       column-gap: 24px;
     }
     @media screen and (max-width: 767px) {
       display: grid;
-      grid-template-columns: repeat(1, 350px);
+      grid-template-columns: repeat(1, 345px);
       row-gap: 0px;
       column-gap: 24px;
     }
@@ -398,6 +399,10 @@ const BtnWrap = styled.div`
   width: 100%;
   justify-content: center;
   text-align: center;
+  .finish {
+    display : none;
+    border : none;
+  }
 `
 
 const PlusBtn = styled.button`
@@ -407,26 +412,33 @@ const PlusBtn = styled.button`
   background-color: white;
   border: 1px solid #cecece;
   border-radius: 10px;
+
 `
 
 const WriteBtn = styled.button`
   border: none;
-  border: 1px solid #6f6f6f;
+  border: 1px solid #a5a5a5;
   color: #6f6f6f;
-  padding: 5px 15px;
+  padding: 5px 10px;
+  background-color : #fefefe;
+  width : 123px;
   box-sizing: border-box;
   margin-bottom: 10px;
-  background-color: inherit;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 1.1rem;
   :hover {
     cursor: pointer;
+    color: #ffffff;
+    border: none;
+    background-color: #840909;
+    border : 1px solid #840909;
   }
   @media screen and (max-width: 767px) {
-    margin-right: 12px;
+    margin-right: 20px;
     font-size: 15px;
-    padding: 2px 5px;
-    margin-bottom: 0;
+    padding: 3px 5px;
+    width : 100px;
+    margin-bottom: 3px;
   }
 `
 

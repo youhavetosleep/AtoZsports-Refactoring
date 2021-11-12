@@ -124,13 +124,15 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
         />
         <Input
           type="text"
-          placeholder="댓글을 작성하세요"
+          placeholder="리뷰를 작성하세요"
           value={write}
           onChange={(e) => {
             setWrite(e.target.value)
           }}
         />
+        <BtnWrap>
         <CommentBtn onClick={addComment}>입력</CommentBtn>
+        </BtnWrap>
       </WriteWrap>
       {content && content.length === 0 ? (
         <Alert>댓글을 작성해주세요!</Alert>
@@ -206,7 +208,7 @@ const Input = styled.input`
     margin-top: 10px;
     width: auto;
     border: solid 1px #d2d2d2;
-    margin: 5px 0;
+    margin: 5px 0 0 0;
   }
 `
 
@@ -260,4 +262,9 @@ const Alert = styled.h1`
   }
 `
 
+const BtnWrap = styled.div`
+display: flex;
+width : auto;
+justify-content: right;
+`
 export default Comment
