@@ -331,8 +331,8 @@ const BackPage = styled.div`
   }
   @media screen and (max-width: 767px) {
     margin: -60px 0px 0px 10px;
-    width: 50%;
-    height: 20%;
+    width: 45%;
+    height: 100%;
   }
   .back_to_main {
     font-size: 13px;
@@ -345,8 +345,13 @@ const BackPage = styled.div`
   }
   .backPage {
     top: 0px;
-    width: 5vw;
+    width: 100px;
     height: 100px;
+    @media screen and (max-width: 767px) {
+      top: 0px;
+      width: 50px;
+      height: 40px;
+      }
   }
 `
 
@@ -358,9 +363,9 @@ const GotoMap = styled.div`
   padding: 0px 10px 0px 0px;
   position: relative;
   @media screen and (max-width: 767px) {
-    width: 92%;
+    width: 94%;
     height: 130px;
-    margin: -11px 0px 0px 20px;
+    margin: -11px 0px 0px 10px;
   }
   .mapImage {
     opacity: 0.9;
