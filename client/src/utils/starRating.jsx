@@ -53,6 +53,9 @@ const Wrap = styled.div`
   width: 110px;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 767px) {
+    border-radius: 5px;
+  }
 `
 
 const Stars = styled.div`

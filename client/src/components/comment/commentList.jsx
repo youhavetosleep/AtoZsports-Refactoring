@@ -42,7 +42,9 @@ const CommentList = ({
   const updateComment = () => {
     dispatch(updateCommentData(groundId, list.id, token, content1, score)).then(
       (res) => {
-        dispatch(selectGroundData(groundId)).then(res =>setCommentData(res.payload.score))
+        dispatch(selectGroundData(groundId)).then((res) =>
+          setCommentData(res.payload.score)
+        )
         setEditMode('normal')
       }
     )
@@ -92,13 +94,13 @@ const CommentList = ({
       <Line2>
         {content1 && editMode === 'normal' ? (
           <>
-          <Comment>{content1}</Comment>
-          {nickname === list.nickname ? (
-            <BtnWrap>
-              <Edit onClick={editComment}>수정</Edit>
-              <Delete onClick={deleteComment}>삭제</Delete>
-            </BtnWrap>
-          ) : null}
+            <Comment>{content1}</Comment>
+            {nickname === list.nickname ? (
+              <BtnWrap>
+                <Edit onClick={editComment}>수정</Edit>
+                <Delete onClick={deleteComment}>삭제</Delete>
+              </BtnWrap>
+            ) : null}
           </>
         ) : (
           <InputWrap>
@@ -110,10 +112,9 @@ const CommentList = ({
                 setContent1(e.target.value)
               }}
             />
-            <EditBtn onClick={updateComment} >수정완료</EditBtn>
+            <EditBtn onClick={updateComment}>수정완료</EditBtn>
           </InputWrap>
         )}
-
       </Line2>
     </ElWrap>
   )
@@ -159,13 +160,17 @@ const Comment = styled.p`
   font-size: 20px;
   @media screen and (max-width: 767px) {
     font-size: 15px;
-    width :60%;
+    width: 74%;
+    margin-top: 3px;
   }
 `
 
 const BtnWrap = styled.div`
   display: flex;
-  margin-right: 10px;
+  margin-right: 5px;
+  @media screen and (max-width: 767px) {
+    margin-right: 0;
+  }
 `
 
 const Edit = styled.button`
@@ -173,9 +178,17 @@ const Edit = styled.button`
   margin-right: 10px;
   border: none;
   background-color: #ffffff;
-  border-bottom: 1px solid #5e5e5e;
+  border-bottom: 1px solid #9a9a9a;
+  color: #9a9a9a;
   @media screen and (max-width: 767px) {
+    padding : 1px 2px;
     font-size: 13px;
+    margin-right: 5px;
+    width: 35px;
+    :hover {
+      color : #fcc419;
+      border-bottom : 1px solid #fcc419;
+    }
   }
 `
 
@@ -183,9 +196,15 @@ const Delete = styled.button`
   font-size: 15px;
   border: none;
   background-color: #ffffff;
-  border-bottom: 1px solid #5e5e5e;
+  border-bottom: 1px solid #9a9a9a;
+  color: #9a9a9a;
   @media screen and (max-width: 767px) {
+    padding : 1px 3px;
     font-size: 13px;
+    :hover {
+      color : #fcc419;
+      border-bottom : 1px solid #fcc419;
+    }
   }
 `
 
@@ -202,24 +221,29 @@ const Input = styled.input`
     outline: none;
   }
   @media screen and (max-width: 767px) {
-    width : 70%;
+    width: 70%;
     font-size: 14px;
   }
 `
 
 const EditBtn = styled.button`
   font-size: 15px;
-  margin-left: 10px;
+  margin-left: 35px;
   border: none;
   background-color: #ffffff;
-  border-bottom: 1px solid #5e5e5e;
+  border-bottom: 1px solid #9a9a9a;
+  color : #9a9a9a;
+  @media screen and (max-width: 767px) { 
+    font-size: 14px;
+    margin-left : 10px;
+  }
 `
 
 const InputWrap = styled.div`
   display: flex;
   @media screen and (max-width: 767px) {
-    width : 100%;
-    justify-content:space-between;
+    width: 100%;
+    justify-content: space-between;
   }
 `
 
