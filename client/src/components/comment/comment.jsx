@@ -187,7 +187,7 @@ const WriteWrap = styled.div`
 const Input = styled.input`
   width: 550px;
   height: 30px;
-  border: solid 2px #d2d2d2;
+  border: solid 1px #d2d2d2;
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 5px;
@@ -217,8 +217,8 @@ const CommentBtn = styled.button`
   width: 100px;
   height: 30px;
   background-color: #ffffff;
-  border-radius: 10px;
-  border: solid 2px #d2d2d2;
+  border-radius: 5px;
+  border: solid 1px #d2d2d2;
   color: #9a9a9a;
   @media screen and (max-width: 767px) {
     margin-top: 0px;
