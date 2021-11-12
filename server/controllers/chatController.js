@@ -34,14 +34,23 @@ module.exports = (io) => {
         include: [{ model: User, attributes: ['nickname'] }],
         order: [['createdAt']],
         where: { postId: roomNum }
-      }).then((message) => {
+      }).then(async (message) => {
         let chatData = []
+        let findPostOwner = await Post.findOne({
+          include: [{ model: User, attributes: ['nickname'] }],
+          where: { id: roomNum }
+        })
+        let postOwner = findPostOwner.dataValues.User.dataValues.nickname
         message.map((el) => {
           chatData.push({
             name:
               el.dataValues.User.nickname === userName
-                ? 'YOU'
-                : el.dataValues.User.nickname,
+                ? el.dataValues.User.nickname === postOwner
+                  ? '⚽️ 나'
+                  : '🏃🏽‍♂️ 나'
+                : el.dataValues.User.nickname === postOwner
+                ? '⚽️ ' + el.dataValues.User.nickname
+                : '🏃🏽‍♂️ ' + el.dataValues.User.nickname,
             message: el.dataValues.comment
           })
         })
@@ -69,13 +78,13 @@ module.exports = (io) => {
             postId: nowPostId
           }
         })
-        if(!!findLastChat) {
-        await Post.update(
-          {
-            lastReadTime: findLastChat.dataValues.createdAt
-          },
-          { where: { id: nowPostId } }
-        )
+        if (!!findLastChat) {
+          await Post.update(
+            {
+              lastReadTime: findLastChat.dataValues.createdAt
+            },
+            { where: { id: nowPostId } }
+          )
         }
       }
 
@@ -86,13 +95,13 @@ module.exports = (io) => {
             postId: nowPostId
           }
         })
-        if(!!findLastChat) {
-        await FavoritePost.update(
-          {
-            lastReadTime: findLastChat.dataValues.createdAt
-          },
-          { where: { userId: nowUserId, postId: nowPostId } }
-        )
+        if (!!findLastChat) {
+          await FavoritePost.update(
+            {
+              lastReadTime: findLastChat.dataValues.createdAt
+            },
+            { where: { userId: nowUserId, postId: nowPostId } }
+          )
         }
       }
       socket.rooms.forEach((room) =>
