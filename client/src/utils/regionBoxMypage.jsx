@@ -55,7 +55,10 @@ const SelectBoxContainer = styled.div`
     }
   .second {
     margin: 0px 0px 0px 10px;
-  }
+    @media screen and (max-width: 767px) {
+      margin: 10px 0px 0px 0px;
+    }
+  } 
 `
 const SelectWrap = styled.div`
   position: relative;

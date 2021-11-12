@@ -23,7 +23,8 @@ const Navbar = ({ isLogin, setIsLogin }) => {
 
   const hadleLogout = () => {
     if (isLogin) {
-      dispatch(logoutUser()).then((res) => {
+      dispatch(logoutUser())
+      .then((res) => {
         setIsLogin(false)
         window.location.replace('/entrance')
       })
@@ -214,7 +215,7 @@ const Navbar = ({ isLogin, setIsLogin }) => {
 const NavBarContainer = styled.section`
   width: 100%;
   height: 60px;
-  background-color: #fafafa;
+  background-color: #fefefe;
   top: 0;
   z-index: 10;
   @media screen and (max-width: 767px) {

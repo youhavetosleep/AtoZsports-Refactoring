@@ -27,7 +27,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	background-color: #FAFAFA;
+	background-color: #f5f5f5;
 	line-height: 1;
 	font-family: "NotoSans", sans-serif;
   font-weight: normal;

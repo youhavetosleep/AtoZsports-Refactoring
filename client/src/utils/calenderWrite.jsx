@@ -20,12 +20,13 @@ const CalendarWrite = ({ handledate, startDate }) => {
 
 const Dateform = styled(DatePicker)`
   width: 380px;
-  height: 35px;
+  height: 30px;
   box-sizing: border-box;
   margin: 0px 20px 0px -20px;
   padding: 20px 0px 20px 150px;
   border-radius: 5px;
   border : 1px solid #c6c6c6;
+  justify-content: center;
   font-size: 16px;
   opacity : 90%;
   @media screen and (max-width: 767px) {

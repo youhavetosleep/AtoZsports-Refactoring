@@ -61,8 +61,9 @@ const SelectBoxContainer = styled.div`
 `
 const SelectWrap = styled.div`
   position: relative;
-  width: 180px;
+  width: 185px;
   padding: 0px 0px 10px 0px;
+  text-align: center;
   @media screen and (max-width: 767px) {
     width: calc(100% - 0px);
     margin: 0px 10px 0px 0px;

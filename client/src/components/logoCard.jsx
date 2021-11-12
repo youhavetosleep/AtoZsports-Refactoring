@@ -25,8 +25,8 @@ const MoreViewCardContainer = styled.div`
 
   .articlebox {
     &-listbox {
-      background-color: white;
-      border: 1px solid #747474;
+      background-color: #fefefe;
+      border: 1px solid #C4C4C4;
       border-radius: 5px;
       display: inline-block;
       width: 300px;
