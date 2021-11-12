@@ -56,7 +56,7 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
       if (getPlace !== '') {
         if (Object.keys(store.getState().ground.accordData).length !== 0) {
           Swal.fire({
-            text: '원하는 서비스를 선택하세요',
+            title: `${getPlace.place_name}`,
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: '경기 잡기',
@@ -92,7 +92,7 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
           })
         } else
           Swal.fire({
-            text: '해당 경기장엔 리뷰가 없습니다',
+            title : `${getPlace.place_name}`,
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: '경기 잡기',
@@ -121,8 +121,6 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
                 placeUrl: getPlace.place_url
               })
               history.push('/write')
-            }
-            if (result.isDenied) {
             }
           })
       }
@@ -167,7 +165,6 @@ const Wrapper = styled.div`
 `
 
 const SearchForm = styled.form`
-  bottom: 93%;
   position: absolute;
   left: 36px;
   top: 0;
@@ -205,15 +202,15 @@ const SearchPosition = styled.div`
 const SearchBtn = styled.button`
   position: absolute;
   border: none;
-  top: 12%;
-  right: 2%;
+  top : 8px;
+  right : 8px;
   width: 50px;
   height: 50px;
   font-size: 25px;
   background: none;
   color: #c6c6c6;
   @media screen and (max-width: 767px) {
-    top: -2px;
+    top: -1px;
     right: 0;
     font-size: 17px;
   }

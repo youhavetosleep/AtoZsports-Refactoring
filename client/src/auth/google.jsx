@@ -30,7 +30,7 @@ const Google = () => {
       }
     })
     if (authorizationCode) {
-      history.push('/')
+      history.push('/futsal')
     }
   }
 

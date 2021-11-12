@@ -434,6 +434,7 @@ const FormWrapper = styled.div`
   padding: 50px;
   box-sizing: border-box;
   border-radius: 5px;
+  background-color: #fefefe;
   @media screen and (max-width: 767px) {
     top: 40%;
     width: calc(100% - 44px);

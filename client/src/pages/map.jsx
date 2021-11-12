@@ -274,7 +274,6 @@ const Map = ({ getData, searchPlace, changeClick, click }) => {
   return (
     <>
       <Container>
-        <MapWrap></MapWrap>
         <BackList />
         <div class="map_wrap">
           <MapView ref={mapRef} />
@@ -442,19 +441,6 @@ const Container = styled.div`
   }
 `
 
-const MapWrap = styled.div`
-  width: 25vw;
-  height: 100vh;
-  position: absolute;
-  background-color: #fafafa;
-  top: 0;
-  right: 1;
-  overflow: hidden;
-  z-index: -1;
-  @media screen and (max-width: 767px) {
-  }
-`
-
 const MapView = styled.div`
   width: calc(100vw - 473px);
   height: 100vh;
@@ -464,7 +450,7 @@ const MapView = styled.div`
   overflow: hidden;
   @media screen and (max-width: 767px) {
     width: 100vw;
-    height: 200px;
+    height: 220px;
     left: 0;
   }
 `
@@ -480,7 +466,7 @@ const List = styled.div`
 
 const ListLine = styled.div`
   position: absolute;
-  top: 55%;
+  top: 80%;
   left: 0;
   width: 100%;
   border: 1px solid #5c5c5c;

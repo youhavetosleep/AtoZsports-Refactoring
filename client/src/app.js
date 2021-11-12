@@ -48,7 +48,7 @@ function App() {
     return () => {
       window.removeEventListener('scroll', scrollPositionHandler)
     }
-  },[])
+  }, [])
 
   // // 스크롤 시 위치를 상태값에 저장하는 코드.
   const scrollPositionHandler = () => {
@@ -85,13 +85,6 @@ function App() {
     }
   }, [])
 
-  const handleRegion1 = (e) => {
-    setRegion1(e.value)
-  }
-  const handleRegion2 = (e) => {
-    setRegion2(e.value)
-  }
-
   return (
     <>
       <GlobalStyle />
@@ -103,8 +96,6 @@ function App() {
           <Route exact path="/entrance" component={Entrance} />
           <Route exact path="/futsal">
             <Futsal
-              handleRegion1={handleRegion1}
-              handleRegion2={handleRegion2}
               region1={region1}
               region2={region2}
               isLogin={isLogin}
@@ -113,7 +104,6 @@ function App() {
           </Route>
           <Route exact path="/map">
             <MapSearch
-              setEditPost={setEditPost}
               isLogin={isLogin}
               setIsLogin={setIsLogin}
               setClickMap={setClickMap}
@@ -168,14 +158,7 @@ function App() {
             />
           </Route>
           <Route exact path="/signup">
-            <Signup
-              handleRegion1={handleRegion1}
-              handleRegion2={handleRegion2}
-              region1={region1}
-              region2={region2}
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}
-            />
+            <Signup isLogin={isLogin} setIsLogin={setIsLogin} />
           </Route>
           <Route exact path="/premierleague">
             <PremierLeague isLogin={isLogin} setIsLogin={setIsLogin} />

@@ -179,6 +179,7 @@ const Form = styled.div`
   transform: translate(-50%, -50%);
   width: 720px;
   height: 500px;
+  border-radius : 5px;
   display: flex;
   z-index: 500;
   @media screen and (max-width: 767px) {
@@ -189,6 +190,7 @@ const Form = styled.div`
 const LoginImg = styled.img`
   width: 50%;
   height: 100%;
+  border-radius : 5px 0 0 5px;
   @media screen and (max-width: 767px) {
     width: 0%;
     height: 0%;

@@ -116,13 +116,7 @@ const Review = ({ isLogin, setIsLogin, userInfo, region1, region2 }) => {
         image: markerImage
       })
       let iwContent =
-        `<div class='info-title' style="     display: block;
-        background: #952e16;
-        color: #fff;
-        text-align: center;
-        height: 24px;
-        line-height:22px;
-        border-radius:4px;
+        `<div class='info-title' style=" display: block;
         padding:0px 10px;padding:6px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
         `${el.placeName}` +
         `</div>`

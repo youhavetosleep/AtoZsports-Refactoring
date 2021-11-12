@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
-import { BsStar, BsStarFill } from 'react-icons/bs'
+import { FaRegBookmark, FaBookmark } from 'react-icons/fa'
 import instance from '../api'
 import {
   getPostData,
@@ -140,9 +140,9 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
           <Main>
             <FavorteMark className="favorite">
               {postData.isMyFavorite ? (
-                <BsStarFill className="add" onClick={deleteFavorite} />
+                <FaBookmark className="add" onClick={deleteFavorite} />
               ) : (
-                <BsStar className="delete" onClick={addFavorite} />
+                <FaRegBookmark className="delete" onClick={addFavorite} />
               )}
             </FavorteMark>
             <Place>{postData.placeName}</Place>
@@ -155,11 +155,7 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
             )}
           </Main>
           <ContentWrap>
-            <ContentTitle>게시자 정보</ContentTitle>
-          </ContentWrap>
-          <ContentWrap>
-            <ContentName>제목</ContentName>
-            <ContentEl>{postData.title}</ContentEl>
+            <ContentTitle>{postData.title}</ContentTitle>
           </ContentWrap>
           <ContentWrap>
             <ContentName>닉네임</ContentName>
@@ -185,7 +181,7 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
             <ContentName className="need">요청 사항</ContentName>
             <ContentEl className="text">{postData.content}</ContentEl>
           </ContentWrap>
-          <ContentWrap>
+          <ContentWrap className = 'end'>
             <ContentName>전화번호</ContentName>
             {postData.userPhone ? (
               <ContentEl>{postData.userPhone}</ContentEl>
@@ -198,11 +194,11 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
               <ContentBtn onClick={() => {
                 if(status === '모집중') {
                   Swal.fire({
-                    title: '모집완료 하시겠어요?',
+                    title: '모집을 마감 하시겠어요?',
                     showCancelButton: true,
                     confirmButtonText: '네',
                     cancelButtonText: '아니요',
-                    confirmButtonColor: '#8F2929'
+                    confirmButtonColor: '#5ca415'
                   }).then(result => {
                     if (result.isConfirmed) {
                       setStatus('모집완료')
@@ -211,11 +207,11 @@ const Post = ({ isLogin, setIsLogin, userInfo, setEditPost }) => {
                 }
                 if(status === '모집완료') {
                   Swal.fire({
-                    title: '모집중으로 바꾸시겠어요?',
+                    title: '모집을 다시 진행하시겠어요?',
                     showCancelButton: true,
                     confirmButtonText: '네',
-                    cancelButtonText: '아니요',
-                    confirmButtonColor: '#555555'
+                    cancelButtonText: '아니오',
+                    confirmButtonColor: '#5ca415'
                   }).then(result => {
                     if (result.isConfirmed) {
                       setStatus('모집중')
@@ -254,14 +250,15 @@ const FormWrapper = styled.div`
   box-sizing: border-box;
   border-radius: 5px;
   .content {
-    height: 70px;
+    height: 150px;
     padding: 30px 30px;
-    border-bottom: none;
     @media screen and (max-width: 767px) {
       padding: 30px 20px;
     }
   }
-
+  .end {
+    border-radius : 0 0 5px 5px;
+  }
   @media screen and (max-width: 767px) {
     width: calc(100% - 20px);
   }
@@ -278,6 +275,7 @@ const TitleWrapper = styled.div`
 const MapWrap = styled.div`
   width: 100%;
   height: 250px;
+  border-radius : 5px 5px 0 0;
   @media screen and (max-width: 767px) {
     width: 100%;
     height: 200px;
@@ -303,6 +301,7 @@ const Main = styled.div`
   border-bottom: 1px solid #c4c4c4;
   border-left: 1px solid #c4c4c4;
   padding-bottom: 20px;
+  background-color: #fefefe;
   .favorite {
     text-align: left;
   }
@@ -321,7 +320,7 @@ const FavorteMark = styled.div`
   margin-left: 10px;
   padding-top: 10px;
   font-size: 23px;
-  color: #929292;
+  color: #c4c4c4;
   .delete {
   }
   @media screen and (max-width: 767px) {
@@ -358,10 +357,14 @@ const ContentWrap = styled.div`
   border-bottom: 1px solid #c4c4c4;
   border-right: 1px solid #c4c4c4;
   border-left: 1px solid #c4c4c4;
+  background-color: #fefefe;
   display: flex;
   @media screen and (max-width: 767px) {
     position: relative;
     padding: 20px 20px;
+  }
+  .text {
+    height : 300px;
   }
 `
 
