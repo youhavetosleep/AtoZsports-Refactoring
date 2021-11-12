@@ -183,7 +183,8 @@ const Form = styled.div`
   display: flex;
   z-index: 500;
   @media screen and (max-width: 767px) {
-    width: calc(100% - 30px);
+    width: 355px;
+    transform: translate(-50%, -50%);
   }
 `
 
@@ -192,8 +193,8 @@ const LoginImg = styled.img`
   height: 100%;
   border-radius : 5px 0 0 5px;
   @media screen and (max-width: 767px) {
-    width: 0%;
-    height: 0%;
+    width: 0;
+    height: 0;
   }
 `
 
@@ -227,7 +228,7 @@ const Input = styled.input`
   }
   :focus {
     outline: none;
-    border-bottom: solid 3px #797979;
+    border-bottom: solid 2px #797979;
     ::placeholder {
       color: #797979;
     }

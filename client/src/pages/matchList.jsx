@@ -245,7 +245,6 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
           <PlusBtn className={listData.length === 0 ? 'finish' : 'more' } onClick={handleOffset}> {finMessage} </PlusBtn>
         </BtnWrap>
       </FutsalMatchSoonSection>
-        {/* <Matchlist_info>안녕하세요</Matchlist_info> */}
       <Footer />
     </>
   )
@@ -429,9 +428,8 @@ const WriteBtn = styled.button`
   font-size: 1.1rem;
   :hover {
     cursor: pointer;
-    color: #ffffff;
+    color: #840909;
     border: none;
-    background-color: #840909;
     border : 1px solid #840909;
   }
   @media screen and (max-width: 767px) {

@@ -297,7 +297,7 @@ const TitleText = styled.h1`
 `
 
 const FormContainer = styled.div`
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   height: 1500px;
   position: relative;
   width: 800px;
