@@ -13,14 +13,22 @@ const PostChat = ({ postId }) => {
   const userInfo = store.getState().user.loginSuccess
   let userNickName = ''
   let userId = ''
+  let myPostInfo
+  let postOwnerNickName
   if (userInfo) {
     userNickName = userInfo.userData.nickname
     userId = userInfo.userData.id
+    if(store.getState().post.postData && store.getState().post.postData.postsData) {
+    myPostInfo = store.getState().post.postData.postsData.isMyPost
+    postOwnerNickName = store.getState().post.postData.postsData.nickname
+    }
   }
 
   // 메세지, 사용자 닉네임, 게시물 id값을 저장해주자
   const [state, setState] = useState({
     message: '',
+    myPost: myPostInfo,
+    postOwner: postOwnerNickName,
     name: userNickName,
     userId: userId,
     roomNum: postId
@@ -42,12 +50,12 @@ const PostChat = ({ postId }) => {
   }, [])
 
   socket.on('welcome', (user) => {
-    let text = { name: '환영합니다!!', message: `${user} 입장!!` }
+    let text = { name: '>> 환영합니다👋', message: `${user}님이 입장했습니다.` }
     setChat([...chat, text])
   })
 
   socket.on('bye', (user) => {
-    let text = { name: '다음 사용자가 웹을 종료했습니다.', message: `${user}` }
+    let text = { name: '>> 다음 사용자가 웹을 종료했습니다🚪', message: `${user}` }
     setChat([...chat, text])
   })
 
@@ -58,9 +66,17 @@ const PostChat = ({ postId }) => {
   useEffect(() => {
     socket.on('message', ({ name, message }) => {
       if (name === state.name) {
-        setChat([...chat, { name: 'YOU', message }])
+        if(myPostInfo){
+          setChat([...chat, { name: '⚽️ 나', message }])
+        } else {
+          setChat([...chat, { name: '🏃🏽‍♂️ 나', message }])
+        }
       } else {
-        setChat([...chat, { name, message }])
+        if(postOwnerNickName === name) {
+          setChat([...chat, { name: `⚽️ ${name}`, message }])
+        } else {
+          setChat([...chat, { name: `🏃🏽‍♂️ ${name}`, message }])
+        }
       }
     })
   })
@@ -71,16 +87,40 @@ const PostChat = ({ postId }) => {
 
   const onMessageSubmit = (e) => {
     e.preventDefault()
-    const { name, message, roomNum, userId } = state
-    socket.emit('message', { name, userId, message, roomNum })
-    setState({ message: '', name, roomNum, userId })
+    const { name, message, roomNum, userId, myPost, postOwner } = state
+    socket.emit('message', { name, userId, message, roomNum, myPost, postOwner })
+    setState({ message: '', name, roomNum, userId, myPost, postOwner })
   }
 
   const renderChat = () => {
     return chat.map(({ name, message }, index) => (
+      name.includes('나') 
+      ?
+      <div key={index} className="owner-chat">
+        <h3>
+          {name}: <span>{message}</span>
+        </h3>
+      </div> 
+      :
+      name.includes('환영합니다')
+      ?
+      <div key={index} className='inAndOut-user'>
+        <h3>
+          {name} <span>{message}</span>
+        </h3>
+      </div>
+      :
+      name.includes('다음 사용자가 웹을 종료했습니다')
+      ?
+      <div key={index} className='inAndOut-user'>
+        <h3>
+          {name} <span>{message}</span>
+        </h3>
+      </div>
+      :
       <div key={index}>
         <h3>
-          {name}:<span>{message}</span>
+          {name}: <span>{message}</span>
         </h3>
       </div>
     ))
@@ -153,6 +193,12 @@ const ChatContainer = styled.div`
     right: 20px;
     bottom: 20px;
     padding: 6px 10px 6px 10px;
+  }
+  .owner-chat {
+    color: #006d39;
+  }
+  .inAndOut-user {
+    color: #717b7e;
   }
 `
 
