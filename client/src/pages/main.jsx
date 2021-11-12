@@ -129,7 +129,7 @@ const MainPage = styled.div`
 const MainLogoPage = styled.div`
   width: 100%;
   height: 100vh;
-  background: #fafafa;
+  background: #f5f5f5;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,12 +239,16 @@ const DownArrowSpan = styled.div`
 `
 
 const Landing1 = styled.section`
-  background-color: #f2f2f2;
+  background-color: #e0e0e0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  @media screen and (max-width: 767px) {
+    height: 105vh;
+    margin: 0px auto 30px auto;
+  }
 `
 
 const LandingContainer = styled.div`
@@ -254,6 +258,9 @@ const LandingContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  @media screen and (max-width: 767px) {
+    height: 100vh;
+  }
 `
 
 const LandingIn = styled.div`
@@ -267,11 +274,13 @@ const LandingIn = styled.div`
   align-items: center;
   padding: 0 0.2rem;
   @media screen and (max-width: 767px) {
+    margin: 50px 0px 0px 0px;
+    height: 120vh;
     display: flex;
     flex-direction: column;
   }
   .landing_gif1 {
-    margin: 0px 0px 0px 100px;
+    margin: 0px 0px 0px 60px;
     display: flex;
     border: 1px solid gray;
     width: 700px;
@@ -279,16 +288,17 @@ const LandingIn = styled.div`
     justify-content: center;
     align-items: center;
     @media screen and (max-width: 767px) {
-      margin: 30px auto 0px auto;
+      margin: 30px auto 30px auto;
+      padding: 50px 0px 50px 0px;
       width: 300px;
-      height: 500px;
+      height: 300px;
       border: 1px solid gray;
       justify-content: center;
       align-items: center;
     }
   }
   .landing_gif2 {
-    margin: 0px 100px 0px 0px;
+    margin: 0px 60px 0px 0px;
     display: flex;
     width: 700px;
     height: 350px;
@@ -314,49 +324,64 @@ const LandingText = styled.div`
     text-align: center;
   }
   .landing_mainText {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     display: flex;
     flex-direction: column;
+    text-align: right;
     font-weight: bold;
     line-height: 50px;
     @media screen and (max-width: 767px) {
-      font-size: 30px;
+      font-size: 1.7rem;
+      line-height: 30px;
+      text-align: center;
     }
   }
   .landing_subText {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-top: 20px;
+    text-align: right;
     line-height: 20px;
     @media screen and (max-width: 767px) {
-      font-size: 14px;
+      font-size: .8rem;
+      line-height: 15px;
+      text-align: center;
     }
   }
   .landing_mainText2 {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     display: flex;
     flex-direction: column;
     font-weight: bold;
     line-height: 50px;
     @media screen and (max-width: 767px) {
-      font-size: 30px;
+      font-size: 1.7rem;
+      line-height: 30px;
+      text-align: center;
     }
   }
   .landing_subText2 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-top: 20px;
     line-height: 20px;
     @media screen and (max-width: 767px) {
-      font-size: 14px;
+      font-size: .8rem;
+      line-height: 15px;
+      text-align: center;
     }
   }
 `
 
 const Landing2 = styled.section`
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  @media screen and (max-width: 767px) {
+    height: 105vh;
+    margin: 30px auto 30px auto;
+  }
 `
 
 const LandingFinal = styled.div`
@@ -394,14 +419,15 @@ const LandingFinalText = styled.div`
     text-align: center;
     font-size: 15px;
     color: #353535;
-    border: 2.5px solid #353535;
+    border: 2px solid #747474;
     border-radius: 15px;
     text-decoration: none;
+    background-color: #f5f5f5;
+    transition: all 0.3s;
     :hover {
       cursor: pointer;
       color: #840909;
-      border: 2.5px solid #840909;
-      transition: 0.3s ease-out;
+      border: 2px solid #840909;
     }
     @media screen and (max-width: 767px) {
       margin-top: 22px;

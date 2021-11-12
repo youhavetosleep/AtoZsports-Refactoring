@@ -322,6 +322,7 @@ const Mypage = ({
         text: '정말 탈퇴하시겠습니까?',
         showConfirmButton: true,
         confirmButtonText: '확인',
+        confirmButtonColor: '#890909',
         denyButtonColor: '#d2d2d2',
         showCancelButton: true,
         cancelButtonText: '취소'
@@ -363,18 +364,36 @@ const Mypage = ({
                       {editUserInfo.email}
                     </div>
                   </UserinfoEmail>
-                  <UuserinfoPhone>
+                  {editeInfo ? (
+                    <UuserinfoPhone>
                     <div className="userinfo_phoneTitle">핸드폰</div>
                     <div className="userinfo_phoneContents">
                       {editUserInfo.userPhone}
                     </div>
                   </UuserinfoPhone>
-                  <UserinfoNickname>
+                  ) : (
+                    <UserinfoPhone>
+                    <div className="userinfo_phoneTitle2">핸드폰</div>
+                    <div className="userinfo_phoneContents2">
+                      {editUserInfo.userPhone}
+                    </div>
+                  </UserinfoPhone>
+                  )}
+                  {editeInfo ? (
+                    <UserinfoNickname>
                     <div className="userinfo_nicknameTitle">닉네임</div>
                     <div className="userinfo_nicknameContents">
                       {editUserInfo.nickname}
                     </div>
                   </UserinfoNickname>
+                  ) : (
+                    <UserinfoNickname2>
+                    <div className="userinfo_nicknameTitle">닉네임</div>
+                    <div className="userinfo_nicknameContents">
+                      {editUserInfo.nickname}
+                    </div>
+                  </UserinfoNickname2>
+                  )}       
                   <UserinfoHomeground>
                     <div className="userinfo_homegroundTitle">우리동네</div>
                     <div className="userinfo_homegroundContents">
@@ -602,12 +621,12 @@ const MypageIn = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 767px) {
-    width: auto;
+    width: 100%;
   }
 `
 
 const MypageUserInfo = styled.section`
-  max-width: 800px;
+  max-width: 722px;
   width: 100%;
   display: flex;
   position: relative;
@@ -649,6 +668,7 @@ const UserInfo = styled.div`
   border-bottom: 1px solid black;
   margin: 10px 0px 0px 0px;
   padding: 60px 0px 0px 30px;
+  background-color: #fefefe;
   @media screen and (max-width: 767px) {
     flex-direction: column;
     justify-content: center;
@@ -717,9 +737,12 @@ const UserinfoPsword = styled.div`
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 10%;
+    }
+    :focus {
+      outline-color: #840909;
     }
   }
 `
@@ -743,6 +766,7 @@ const UserinfoPswordCheck = styled.div`
     @media screen and (max-width: 767px) {
       width: 100px;
       font-size: 0.9rem;
+      margin: -0px 0px 0px 0px;
     }
   }
   .editePsword_inputPswordCheck {
@@ -752,9 +776,12 @@ const UserinfoPswordCheck = styled.div`
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 10%;
+    }
+    :focus {
+      outline-color: #840909;
     }
   }
 `
@@ -790,7 +817,7 @@ const UserinfoEmail = styled.div`
     border: none;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 7%;
     }
@@ -808,7 +835,7 @@ const UuserinfoPhone = styled.div`
   @media screen and (max-width: 767px) {
     width: 92%;
     margin: 20px 0px 0px 0px;
-    padding: 0px 0px 10px 0px;
+    padding: 0px 0px 40px 0px;
   }
   .userinfo_phoneTitle {
     color: #565656;
@@ -829,15 +856,104 @@ const UuserinfoPhone = styled.div`
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 10%;
       width: 45%;
+    }
+    :focus {
+      outline-color: #840909;
+    }
+  }
+`
+
+const UserinfoPhone = styled.div`
+  display: flex;
+  width: 70%;
+  align-items: center;
+  margin: 40px 0px 0px 0px;
+  padding: 0px 0px 10px 0px;
+  border-bottom: 1px solid #dddddd;
+  font-size: 1rem;
+  @media screen and (max-width: 767px) {
+    width: 92%;
+    margin: 20px 0px 0px 0px;
+    padding: 0px 0px 10px 0px;
+  }
+  .userinfo_phoneTitle2 {
+    color: #565656;
+    @media screen and (max-width: 767px) {
+      width: 60px;
+    }
+  }
+  .userinfo_phoneContents2 {
+    margin: 0px 0px 0px 127px;
+    @media screen and (max-width: 767px) {
+      margin: 0px 0px 0px 70px;
+    }
+  }
+  .editinfo_phoneContents {
+    margin: 0px 0px 0px 127px;
+    padding: 0px 27px 0px 10px;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 1rem;
+    background-color: #fefefe;
+    @media screen and (max-width: 767px) {
+      margin: 0px 0px 0px 10%;
+      width: 45%;
+    }
+    :focus {
+      outline-color: #840909;
     }
   }
 `
 
 const UserinfoNickname = styled.div`
+  display: flex;
+  width: 70%;
+  align-items: center;
+  margin: 40px 0px 0px 0px;
+  padding: 0px 0px 10px 0px;
+  border-bottom: 1px solid #dddddd;
+  font-size: 1rem;
+  @media screen and (max-width: 767px) {
+    width: 92%;
+    margin: 20px 0px 0px 0px;
+    padding: 0px 0px 40px 0px;
+  }
+  .userinfo_nicknameTitle {
+    color: #565656;
+    @media screen and (max-width: 767px) {
+      width: 60px;
+    }
+  }
+  .userinfo_nicknameContents {
+    margin: 0px 0px 0px 127px;
+    @media screen and (max-width: 767px) {
+      margin: 0px 0px 0px 70px;
+    }
+  }
+  .editinfo_nicknameContents {
+    margin: 0px 0px 0px 127px;
+    padding: 0px 27px 0px 10px;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 1rem;
+    background-color: #fefefe;
+    @media screen and (max-width: 767px) {
+      margin: 0px 0px 0px 10%;
+      width: 45%;
+    }
+    :focus {
+      outline-color: #840909;
+    }
+  }
+`
+
+const UserinfoNickname2 = styled.div`
   display: flex;
   width: 70%;
   align-items: center;
@@ -869,7 +985,7 @@ const UserinfoNickname = styled.div`
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 10%;
       width: 45%;
@@ -879,6 +995,8 @@ const UserinfoNickname = styled.div`
     }
   }
 `
+
+
 
 const UserinfoHomeground = styled.div`
   display: flex;
@@ -912,11 +1030,12 @@ const UserinfoHomeground = styled.div`
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       padding: 0px 0px 0px 0px;
       margin: 0px 0px 0px 40px;
     }
+    
   }
   .userinfo_regionBox {
     margin: 0px 0px 0px 112px;
@@ -959,10 +1078,13 @@ const UserinfoFavorite = styled.div`
     border-radius: 5px;
     height: 25px;
     font-size: 1rem;
-    background-color: #fafafa;
+    background-color: #fefefe;
     @media screen and (max-width: 767px) {
       margin: 0px 0px 0px 10%;
       width: 45%;
+    }
+    :focus {
+      outline-color: #840909;
     }
   }
 `
@@ -1019,7 +1141,7 @@ const EditUserInfo = styled.div`
     @media screen and (max-width: 767px) {
       font-size: 1.3rem;
       bottom: 0px;
-      right: 38px;
+      right: 68px;
     }
   }
   .sendEditPsword {
@@ -1057,6 +1179,7 @@ const EditUserInfo = styled.div`
     }
     @media screen and (max-width: 767px) {
       font-size: 1.3rem;
+      right: 130px;
       bottom: 0px;
     }
   }
@@ -1071,9 +1194,9 @@ const Check = styled.div`
   color: #840909;
   @media screen and (max-width: 767px) {
     margin: 0;
-  margin-top: -115px;
+  margin-top: 70px;
   position: absolute;
-  right: 30px;
+  right: 100px;
   font-size: 13px;
   color: #840909;
     }
@@ -1088,9 +1211,9 @@ const PassCheck = styled.div`
   color: #1b7e07;
   @media screen and (max-width: 767px) {
     margin: 0;
-  margin-top: -50px;
+  margin-top: 70px;
   position: absolute;
-  right: 30px;
+  right: 100px;
   font-size: 13px;
   color: #1b7e07;
     }
@@ -1268,13 +1391,15 @@ const GoodbyeUser = styled.div`
     padding: 8px 0px 3px 0px;
     font-size: 0.9rem;
     text-align: center;
-    color: #840909;
-    border: 2px solid #840909;
+    color: #747474;
+    border: 1px solid #747474;
     border-radius: 15px;
     :hover {
       cursor: pointer;
-      background-color: #840909;
-      color: white;
+      /* background-color: #840909; */
+      color: #840909;
+      border: 1px solid #890909;
+      /* font-weight: bold; */
     }
   }
 `

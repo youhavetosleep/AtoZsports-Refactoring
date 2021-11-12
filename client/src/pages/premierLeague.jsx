@@ -158,6 +158,9 @@ const PremierLeague = ({ isLogin, setIsLogin }) => {
 const LeagueContainer = styled.div`
   display: flex;
   width: 100%;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 const LeagueIn = styled.div`
@@ -167,25 +170,39 @@ const LeagueIn = styled.div`
   align-items: center;
   margin: 0px auto 0px auto;
   width: 100%;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 const LeagueLogo = styled.div`
   display: flex;
   .league_logo {
     width: 600px;
+    @media screen and (max-width: 767px) {
+    width: 100%;
+  }
   }
 `
 
 const LeagueList = styled.div`
   display: flex;
-  width: 700px;
+  max-width: 700px;
+  width: 80%;
   margin: 0px auto 30px auto;
   padding: 0px 0px 10px 0px;
   border-bottom: 1px solid black;
+  @media screen and (max-width: 767px) {
+    width: 85%;
+  }
   .league_year {
     justify-content: center;
     text-align: center;
     font-size: 1.8rem;
+    margin: 0px auto 30px auto;
+    @media screen and (max-width: 767px) {
+    width: 100%;
+  }
   }
 `
 
@@ -195,6 +212,9 @@ const ButtonWrap = styled.div`
   align-items: center;
   width: 30%;
   margin: 10px 0px 10px 0px;
+  @media screen and (max-width: 767px) {
+    width: 50%;
+  }
 `
 
 const Button = styled.div`
@@ -236,11 +256,21 @@ const TeamWrap = styled.div`
   position: relative;
   align-items: center;
   width: 100%;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto 0px auto;
+    width: 50%;
+  }
 `
 
 const HomeTeam = styled.div`
   position: absolute;
   left: 0;
+  @media screen and (max-width: 767px) {
+    width: 20%;
+    text-align: center;
+  }
 `
 
 const Score = styled.div`
@@ -252,6 +282,10 @@ const Score = styled.div`
 const AwayTeam = styled.div`
   position: absolute;
   right: 0;
+  @media screen and (max-width: 767px) {
+    width: 20%;
+    text-align: center;
+  }
 `
 
 export default PremierLeague

@@ -24,12 +24,12 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
 
   const Token = userInfo.loginSuccess.accessToken
 
-   // focus 이벤트를 주기 위한 Ref
-   const _title = useRef()
-   const _choice = useRef()
-   const _ground = useRef()
-   const _nick = useRef()
-   const _des = useRef()
+  // focus 이벤트를 주기 위한 Ref
+  const _title = useRef()
+  const _choice = useRef()
+  const _ground = useRef()
+  const _nick = useRef()
+  const _des = useRef()
 
   const handledate = (date) => {
     let ChangeDate =
@@ -122,7 +122,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
   const getData = (getPlace) => {
     setGetPlace(getPlace)
   }
-  
+
   // 등록하기 버튼 클릭시 발생하는 이벤트
   const handelSendPost = () => {
     if (
@@ -152,7 +152,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
       ).then((res) => {
         history.push(`/post/id=${res.payload.id}`)
       })
-    } else if(postTitle === '') {
+    } else if (postTitle === '') {
       _title.current.focus()
       Swal.fire({
         text: '입력하지 않은 데이터가 있습니다.',
@@ -161,7 +161,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
         confirmButtonText: '확인'
       })
       return
-    } else if(groundData.placeName === undefined) {
+    } else if (groundData.placeName === undefined) {
       _ground.current.focus()
       Swal.fire({
         text: '입력하지 않은 데이터가 있습니다.',
@@ -178,7 +178,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
         confirmButtonText: '확인'
       })
       return
-    } 
+    }
   }
 
   return (
@@ -212,7 +212,7 @@ const Write = ({ isLogin, setIsLogin, clickMap }) => {
             <div className="write_palce">선택한 경기장</div>
             <input
               type="text"
-              placeholder="경기장을 선택해 주세요"
+              placeholder="지도에서 경기장을 선택해 주세요"
               // map 페이지에서 넘어올 때 map에서 선택한 경기장의 이름
               // value={mapData.mapData.place_name}
               value={groundData.placeName}
@@ -292,7 +292,7 @@ const WriteContainer = styled.div`
   display: flex;
   width: 100%;
   @media screen and (max-width: 767px) {
-    width: auto;
+    width: 100vw;
   }
 `
 
@@ -300,6 +300,9 @@ const WriteIn = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  @media screen and (max-width: 767px) {
+      width: 100vw;
+    }
   .write_title {
     display: flex;
     justify-content: center;
@@ -308,6 +311,7 @@ const WriteIn = styled.div`
     margin: 80px 0px 20px 0px;
     @media screen and (max-width: 767px) {
       display: flex;
+      width: 100vw;
       justify-content: center;
       font-size: 1.5rem;
       margin: 30px auto 20px auto;
@@ -331,17 +335,16 @@ const WriteIn = styled.div`
 
 const WriteTitle = styled.div`
   display: flex;
+  max-width: 800px;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 30px auto 30px auto;
+  margin: 20px auto 20px auto;
   @media screen and (max-width: 767px) {
     width: 96%;
     margin: 80px auto 30px auto;
   }
   .write_mainPostTitle {
-    max-width: 800px;
-    width: 53vw;
+    display: flex;
+    margin: 0px 30% 0px 0px;
     font-size: 1.3rem;
     @media screen and (max-width: 767px) {
       font-size: 1rem;
@@ -354,20 +357,27 @@ const WriteTitle = styled.div`
   }
   .write_postTitle {
     max-width: 800px;
-    width: 53vw;
+    width: 780px;
     height: 50px;
     margin-top: 10px;
     font-size: 1.6rem;
     border-top: none;
     border-left: none;
     border-right: none;
-    background-color: #fafafa;
+    background-color: #f5f5f5;
     border-bottom: 1px solid #747474;
+    :focus {
+    outline: none;
+    border-bottom: solid 3.5px #797979;
+    }
     ::placeholder {
       font-size: 1.5rem;
       @media screen and (max-width: 767px) {
         font-size: 1rem;
-  }
+        
+        /* justify-content: center; */
+       
+      }
     }
     :focus {
       outline: none;
@@ -376,6 +386,7 @@ const WriteTitle = styled.div`
       width: calc(100% - 90px);
       height: 30px;
       font-size: 1rem;
+       margin: 10px auto 0px auto;
     }
   }
 `
@@ -424,9 +435,10 @@ const WritePlace = styled.div`
     border-left: none;
     border-right: none;
     border-bottom: 1px solid #747474;
-    background-color: #fafafa;
+    background-color: #f5f5f5;
     :focus {
-      outline: none;
+    outline: none;
+    border-bottom: solid 3.5px #797979;
     }
     ::placeholder {
       font-size: 1.5rem;
@@ -471,9 +483,10 @@ const WriteRequest = styled.div`
     justify-content: left;
     margin: 20px 0px 0px 0px;
     padding: 15px 153px 10px 153px;
-    border: 1px solid black;
-    border-radius: 10px;
+    border: 1px solid #747474;
+    border-radius: 5px;
     font-size: 1.3rem;
+    background-color: #fefefe;
     :hover {
       background-color: #840909;
       color: #fafafa;
@@ -493,7 +506,7 @@ const WriteRequest = styled.div`
     margin: 20px 0px 0px 0px;
     padding: 15px 154px 10px 154px;
     background-color: #840909;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 1.3rem;
     color: #fafafa;
     @media screen and (max-width: 767px) {
@@ -509,9 +522,10 @@ const WriteRequest = styled.div`
     justify-content: left;
     margin: 20px 0px 0px 20px;
     padding: 15px 153px 10px 153px;
-    border: 1px solid black;
-    border-radius: 10px;
+    border: 1px solid #747474;
+    border-radius: 5px;
     font-size: 1.3rem;
+    background-color: #fefefe;
     :hover {
       background-color: #840909;
       color: #fafafa;
@@ -531,7 +545,7 @@ const WriteRequest = styled.div`
     margin: 20px 0px 0px 20px;
     padding: 15px 154px 10px 154px;
     background-color: #840909;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 1.3rem;
     color: #fafafa;
     @media screen and (max-width: 767px) {
@@ -551,19 +565,17 @@ const RequestBtn = styled.div`
 
 const WriteDate = styled.div`
   display: flex;
-  flex-direction: column;
   max-width: 800px;
-  justify-content: center;
-  margin: 20px auto 20px auto;
+  flex-direction: column;
+  margin: 30px auto 20px auto;
   @media screen and (max-width: 767px) {
     width: 100%;
     margin: 15px auto 20px auto;
     color: #747474;
-    
   }
   .write_data {
     font-size: 1.3rem;
-    margin-left: 10px;
+    margin-left: 0px;
     @media screen and (max-width: 767px) {
       font-size: 1rem;
       margin-top: -10px;
@@ -588,10 +600,10 @@ const CalendarWrap = styled.div`
   @media screen and (max-width: 767px) {
     display: flex;
     width: 100%;
-  flex-direction: column;
-  margin: 10px auto 0px auto;
-  padding: 0px 0px 0px 50px;
-    }
+    flex-direction: column;
+    margin: 10px auto 0px auto;
+    padding: 0px 0px 0px 50px;
+  }
 `
 
 const DownWrap = styled.div`

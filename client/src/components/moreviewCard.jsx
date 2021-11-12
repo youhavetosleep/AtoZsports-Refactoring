@@ -24,15 +24,15 @@ function MoreViewCard() {
 const MoreViewCardContainer = styled.div`
   z-index: 10;
   @media screen and (max-width: 767px) {
-    width: 93.5%;
+    width: 99%;
   }
   .moreMatch {
     @media screen and (max-width: 767px) {
       width: 100%;
     }
     &-listbox {
-      background-color: white;
-      border: 1px solid #747474;
+      background-color: #fefefe;
+      border: 1px solid #C4C4C4;
       border-radius: 5px;
       cursor: pointer;
       display: inline-block;
@@ -46,7 +46,7 @@ const MoreViewCardContainer = styled.div`
       transition: all 0.5s;
       @media screen and (max-width: 767px) {
         width: calc(100% - 35px);
-        height: auto;
+        height: 100%;
       }
       ul {
         height: 100%;
@@ -58,6 +58,8 @@ const MoreViewCardContainer = styled.div`
       }
       :hover {
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #747474;
+        background-color: #f5f5f5;
       }
     }
     &-title {
@@ -68,7 +70,7 @@ const MoreViewCardContainer = styled.div`
       color: #353535;
       @media screen and (max-width: 767px) {
         font-size: 1.2rem;
-        margin: 40px auto 10px 38px;
+        margin: 40px auto 10px 20px;
       }
     }
     &-subTitle {
@@ -82,7 +84,7 @@ const MoreViewCardContainer = styled.div`
       margin: 0 !important;
       @media screen and (max-width: 767px) {
         font-size: 0.9rem;
-        margin: 40px auto 10px 30px;
+        margin: 40px auto 10px 10px;
       }
     }
   }

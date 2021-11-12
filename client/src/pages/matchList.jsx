@@ -245,6 +245,7 @@ const MatchList = ({ isLogin, setIsLogin, region1, region2, setEditPost }) => {
           <PlusBtn onClick={handleOffset}> {finMessage} </PlusBtn>
         </BtnWrap>
       </FutsalMatchSoonSection>
+        {/* <Matchlist_info>안녕하세요</Matchlist_info> */}
       <Footer />
     </>
   )
@@ -255,8 +256,8 @@ const FutsalMatchSoonSection = styled.section`
   max-width: 1110px;
   justify-content: center;
   border-bottom: 1px solid black;
-  padding: 0px 0px 50px 0px;
-  margin: 50px auto;
+  padding: 0px 0px 125px 0px;
+  margin: 50px auto 15.5vh auto;
   @media screen and (max-width: 767px) {
     width: calc(100% - 20px);
   }
@@ -266,6 +267,7 @@ const MatchSoonTitle = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  /* margin: 50px auto 50px auto; */
   border-bottom: 1px solid black;
   .matchSoon_title {
     font-size: 3rem;
@@ -439,5 +441,7 @@ const AlertMessage = styled.h1`
     font-size: 20px;
   }
 `
+
+// const Matchlist_info = styled
 
 export default MatchList

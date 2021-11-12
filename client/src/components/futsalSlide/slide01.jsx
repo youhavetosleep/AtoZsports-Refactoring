@@ -14,8 +14,8 @@ const Slide01 = () => {
         ></img>
         <SliderText>
           <div className="slider_mainText">
-            A to Z Sports Futsal 에<br />
-            <p>오신것을 환영합니다.</p>
+            A to Z Sports Futsal<br />
+            <p>방문을 환영합니다.</p>
           </div>
           <div className="slider_subText">
             우리동네 풋살의 연결고리,

@@ -240,7 +240,7 @@ const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
               <div className="stadiumReview2">
                 경기장을 직접 사용한 사람들의 리뷰
               </div>
-              <div className="stadiumReview3">리뷰 바로가기</div>
+              <div className="stadiumReview3">리뷰 바로가기 ➝</div>
             </StadiumReview>
             <Link to="/premierleague" style={{ textDecoration: 'none' }}>
               <PremierLeague>
@@ -249,7 +249,7 @@ const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
                   alt="premier"
                   className="premierLeagueImg"
                 ></img>
-                <div className="premierLeagueText">프리미어리그 바로가기</div>
+                <div className="premierLeagueText">프리미어리그 바로가기 ➝</div>
               </PremierLeague>
             </Link>
           </div>
@@ -298,6 +298,7 @@ const FutsalSliderSection = styled.section`
   }
   .slider {
     color: #fafafa;
+    /* font-size: 30px; */
   }
 `
 
@@ -317,12 +318,21 @@ const BackPage = styled.div`
   width: 120px;
   display: flex;
   height: 108px;
-  border: 1px solid #747474;
+  background-color: #fefefe;
+  border: 1px solid #afafaf;
   padding: 20px;
   justify-content: center;
   border-radius: 5px;
   position: relative;
+  transition: all 0.5s;
+  :hover {
+    border: 1px solid #747474;
+    font-weight: bold;
+  }
   @media screen and (max-width: 767px) {
+    margin: -60px 0px 0px 10px;
+    width: 50%;
+    height: 20%;
   }
   .back_to_main {
     font-size: 13px;
@@ -335,13 +345,8 @@ const BackPage = styled.div`
   }
   .backPage {
     top: 0px;
-    width: 90%;
-    height: 90%;
-  }
-  @media screen and (max-width: 767px) {
-    margin-top: -8.3vh;
-    width: 40px;
-    height: 40px;
+    width: 5vw;
+    height: 100px;
   }
 `
 
@@ -353,10 +358,9 @@ const GotoMap = styled.div`
   padding: 0px 10px 0px 0px;
   position: relative;
   @media screen and (max-width: 767px) {
-    width: auto;
+    width: 92%;
     height: 130px;
-    margin-top: -2.8vh;
-    margin-left: 10px;
+    margin: -11px 0px 0px 20px;
   }
   .mapImage {
     opacity: 0.9;
@@ -364,7 +368,7 @@ const GotoMap = styled.div`
     border-radius: 5px;
     @media screen and (max-width: 767px) {
       width: 100%;
-      height: 63%;
+      height: 62%;
       object-fit: cover;
     }
   }
@@ -390,6 +394,7 @@ const GotoMap = styled.div`
     right: -30px;
     bottom: 15px;
     @media screen and (max-width: 767px) {
+      /* width: 50%; */
       color: red;
       display: none;
     }
@@ -447,6 +452,7 @@ const MatchSoonFilter = styled.div`
     top: 100px;
     @media screen and (max-width: 767px) {
       margin-bottom: 15px;
+
     }
     .first {
       margin-right: 20px;
@@ -468,6 +474,9 @@ const MatchSoonList = styled.div`
   position: relative;
   @media screen and (max-width: 767px) {
     width: 100%;
+    justify-content: center;
+      align-items: center;
+    margin: 0px auto 0px auto;
   }
   .all_MatchCard {
     display: grid;
@@ -477,10 +486,13 @@ const MatchSoonList = styled.div`
     @media screen and (max-width: 767px) {
       display: grid;
       width: 100%;
-      grid-template-columns: repeat(1, 97%);
+      grid-template-columns: repeat(1, 340px);
       row-gap: 0px;
-      column-gap: 24px;
-      margin-left: 17px;
+      /* column-gap: 24px; */
+      justify-content: center;
+      align-items: center;
+      margin: 0px auto 0px auto;
+      /* margin-left: 17px; */
     }
   }
   .notAll_MatchCard {
@@ -519,9 +531,11 @@ const MatchSoonList = styled.div`
       border: 1px solid gray;
       border-radius: 15px;
       padding: 7px 15px 5px 15px;
+      background-color: #fefefe;
       :hover {
         color: #840909;
         border: 1px solid #840909;
+        cursor: pointer;
       }
     }
   }
@@ -552,10 +566,10 @@ const StadiumReview = styled.div`
     display: flex;
     align-items: center;
     position: absolute;
-    width: 80%;
+    width: 79%;
     height: 50px;
     left: 0px;
-    margin-top: 0px;
+    margin: 0px auto 0px auto;
   }
   .stadiumReview1 {
     position: absolute;
@@ -590,8 +604,9 @@ const StadiumReview = styled.div`
     position: absolute;
     font-size: 1.3em;
     color: #fafafa;
-    right: 70px;
+    right: 50px;
     bottom: 20px;
+    
     @media screen and (max-width: 767px) {
       display: none;
     }
@@ -621,27 +636,45 @@ const PremierLeague = styled.div`
   justify-content: left;
   width: 700px;
   height: 100px;
-  border: 1px solid #747474;
+  background-color: #fefefe;
+  border: 1px solid #afafaf;
   padding: 37px 28px 4px 10px;
   margin-top: 30px;
   border-radius: 5px;
+  transition: all 0.5s;
+  @media screen and (max-width: 767px) {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-top: 30px;
+    margin-right: auto;
+    /* margin-left: 8px; */
+    margin-bottom: 0px;
+    margin-left: auto;
+    width: 79%;
+    height: 180px;
+    }
+  :hover {
+    border: 1px solid #747474;
+    font-weight: bold;
+  }
   @media screen and (max-width: 767px) {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 21px;
+    left: 20px;
     top: 70px;
-    width: 81.5%;
-    height: 8vh;
+    width: 81%;
+    height: 60px;
     object-fit: cover;
   }
   .premierLeagueImg {
     display: flex;
     position: absolute;
-    width: 400px;
+    width: 420px;
     height: 130px;
-    top: 0px;
+    top: 8px;
     @media screen and (max-width: 767px) {
       left: 10%;
       top: 1vh;
@@ -653,7 +686,7 @@ const PremierLeague = styled.div`
     position: absolute;
     font-size: 1.2em;
     color: #373737;
-    right: 70px;
+    right: 50px;
     bottom: 20px;
     @media screen and (max-width: 767px) {
       display: none;
@@ -666,16 +699,20 @@ const Notice = styled.div`
   flex-direction: column;
   width: 300px;
   height: 452px;
-  border: 1px solid #747474;
+  background-color: #fefefe;
+  border: 1px solid #afafaf;
   padding: 20px;
   margin-left: 30px;
   border-radius: 5px;
   @media screen and (max-width: 767px) {
     display: flex;
     position: relative;
-    margin-top: 228px;
-    margin-left: 3px;
+    justify-content: center;
+    margin-top: 220px;
+    margin-right: auto;
+    /* margin-left: 8px; */
     margin-bottom: 0px;
+    margin-left: auto;
     width: 80%;
     height: 180px;
   }

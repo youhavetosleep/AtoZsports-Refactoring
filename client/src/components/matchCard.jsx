@@ -86,8 +86,8 @@ const MatchCardContainer = styled.div`
   }
   .matchCard {
     &-listbox {
-      background-color: white;
-      border: 1px solid #747474;
+      background-color: #fefefe;
+      border: 1px solid #C4C4C4;
       border-radius: 5px;
       cursor: pointer;
       display: inline-block;
@@ -100,8 +100,8 @@ const MatchCardContainer = styled.div`
       position: relative;
       transition: all 0.5s;
       @media screen and (max-width: 767px) {
-        width: auto;
-        height: auto;
+        /* width: auto;
+        height: auto; */
       }
       ul {
         height: 100%;
@@ -113,6 +113,7 @@ const MatchCardContainer = styled.div`
       }
       :hover {
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #747474;
       }
     }
     &-title {
@@ -133,8 +134,8 @@ const MatchCardContainer = styled.div`
       font-weight: bold;
       padding: 5px 1px 3px 2px;
       border-radius: 15px;
-      color: #fafafa;
-      background-color: white;
+      color: #fefefe;
+      background-color: #fefefe;
     }
     &-notReadMsg {
       position: absolute;
@@ -146,8 +147,9 @@ const MatchCardContainer = styled.div`
       font-weight: bold;
       padding: 5px 1px 3px 2px;
       border-radius: 15px;
-      color: #fafafa;
+      color: #fefefe;
       background-color: #890909;
+     
     }
     &-date {
       font-size: 1rem;
@@ -184,6 +186,7 @@ const MatchCardContainer = styled.div`
       margin: 0 !important;
       .progress {
         border: 1px solid #840909;
+        background-color: #fefefe;
         color: #840909;
         border-radius: 13px;
         padding: 4px 20px 4px 20px;

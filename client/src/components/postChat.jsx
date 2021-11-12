@@ -11,6 +11,7 @@ const socket = io.connect(domain)
 
 const PostChat = ({ postId }) => {
   const userInfo = store.getState().user.loginSuccess
+
   let userNickName = ''
   let userId = ''
   if (userInfo) {
@@ -86,6 +87,7 @@ const PostChat = ({ postId }) => {
     ))
   }
 
+
   return (
     <>
       <ChatContainer>
@@ -111,7 +113,7 @@ const PostChat = ({ postId }) => {
           </div>
           <button className="chat_btn">전 송</button>
         </form>
-        <div className="render-chat">
+        <div className="render-chat" >
           {/* <h1>Chat log</h1> */}
           {renderChat()}
         </div>
@@ -124,12 +126,14 @@ const ChatContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid #747474;
+  border-radius: 5px;
   max-width: 800px;
   width: 800px;
   height: 300px;
   padding: 20px 20px 20px 20px;
   margin: 0px 0px 50px 0px;
+  background-color: #fefefe;
   .render-chat {
     display: flex;
     flex-direction: column;
@@ -138,7 +142,8 @@ const ChatContainer = styled.div`
     max-height: 400px;
     height: 250px;
     top: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
+    
   }
   #outlined-multiline-static {
     display: flex;
@@ -146,13 +151,17 @@ const ChatContainer = styled.div`
     width: 580px;
     height: 25px;
     bottom: 20px;
+    @media screen and (max-width: 767px) {
+      width: 73%;
+      /* margin-left: 10px; */
+    }
   }
   .chat_btn {
     display: flex;
     position: absolute;
     right: 20px;
     bottom: 20px;
-    padding: 6px 10px 6px 10px;
+    padding: 5px 10px 6px 10px;
   }
 `
 

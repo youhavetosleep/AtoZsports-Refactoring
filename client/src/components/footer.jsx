@@ -29,11 +29,12 @@ const Footer = () => {
 }
 
 const Footerbar = styled.div`
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   width: 100%;
   height: 60px;
   display: flex;
-  position: relative;
+  position: absolute;
+ flex: 1 1 auto;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #747474;

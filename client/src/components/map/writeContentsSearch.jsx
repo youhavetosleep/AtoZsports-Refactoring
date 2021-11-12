@@ -376,7 +376,7 @@ const MapView = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0px 0px 0px 260px;
-  border-radius: 5px;
+  border-radius: 0px 5px 5px 0px;
   top: 0px;
   right: 0;
   @media screen and (max-width: 767px) {
@@ -390,16 +390,16 @@ const MapView = styled.div`
 
 const MenuWrap = styled.div`
   position: absolute;
-  top: 70px;
+  top: 60px;
   left: 10px;
   width: 260px;
-  height: 405px;
+  height: 415px;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   background: rgba(255, 255, 255);
   font-size: 12px;
-  border-radius: 5px;
+  border-radius: 5px 0px 0px 5px;
   z-index: 2;
   @media screen and (max-width: 767px) {
     width: 79vw;
