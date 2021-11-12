@@ -436,8 +436,8 @@ const FormWrapper = styled.div`
   border-radius: 5px;
   @media screen and (max-width: 767px) {
     top: 40%;
-    width: calc(100% - 40px);
-    padding: 20px 15px;
+    width: calc(100% - 44px);
+    padding: 20px 17px;
     height: auto;
   }
 `
@@ -453,6 +453,9 @@ const Element = styled.div`
 const Name = styled.p`
   font-size: 20px;
   margin: 10px 0;
+  @media screen and (max-width: 767px) {
+    font-size: 17px;
+  }
 `
 
 const DropName = styled.p`

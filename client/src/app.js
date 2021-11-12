@@ -42,7 +42,6 @@ function App() {
   const [editPost, setEditPost] = useState(false)
   const [clickMap, setClickMap] = useState({})
 
-
   // 스크롤 이벤트
   useEffect(() => {
     window.addEventListener('scroll', scrollPositionHandler)
