@@ -112,6 +112,14 @@ const MapSearch = ({ isLogin, setIsLogin, setClickMap }) => {
                 })
                 return
               }
+              setClickMap({
+                placeName: getPlace.place_name,
+                addressName: getPlace.address_name,
+                phone: getPlace.phone,
+                longitude: getPlace.y,
+                latitude: getPlace.x,
+                placeUrl: getPlace.place_url
+              })
               history.push('/write')
             }
             if (result.isDenied) {
