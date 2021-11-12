@@ -85,13 +85,6 @@ function App() {
     }
   }, [])
 
-  const handleRegion1 = (e) => {
-    setRegion1(e.value)
-  }
-  const handleRegion2 = (e) => {
-    setRegion2(e.value)
-  }
-
   return (
     <>
       <GlobalStyle />
