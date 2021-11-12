@@ -9,9 +9,11 @@ A to Z Sports 는 우리동네의 스포츠메이트들이 모여있는 소통�
 
 ![gif 가 들어갈 자리입니다]()
 
+
 ## 🌐 Homepage
 
 [A to Z Sports 들어가기](https://atozsports.link/)
+ 
 
 ## 💡 Feature
 
@@ -28,13 +30,99 @@ A to Z Sports 는 우리동네의 스포츠메이트들이 모여있는 소통�
 
 ### Front-end Stack
 
-<img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white">
-
+<img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white">
+<img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white">
 
 ### Back-end Stack
 
-<img src="https://img.shields.io/badge/node.js-228B22?style=for-the-badge&logo=node.js&logoColor=white"> 
+<img src="https://img.shields.io/badge/node.js-228B22?style=for-the-badge&logo=node.js&logoColor=white"> <img src="https://img.shields.io/badge/express-006400?style=for-the-badge&logo=express&logoColor=white">
+<img src="https://img.shields.io/badge/json%20web%20tokens-8A2BE2?style=for-the-badge&logo=json%20web%20tokens&logoColor=white">
+<img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
+ 
 
+## 📱 주요기능별 시연 GIF
+
+<details>
+  <summary> 회원가입, 로그인, 로그아웃</summary>
+  
+  <details>
+  <summary> 회원가입 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+  <details>
+  <summary> 로그인 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+   <details>
+  <summary> 카카오 로그인 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+   <details>
+  <summary> 구글 로그인 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+  <details>
+  <summary> 로그아웃 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+</details>
+
+
+<details>
+  <summary> MainLanding 및 Entrance </summary>
+  
+  <details>
+  <summary> MainLanding Page </summary>
+    <img width="700" src=""/>
+  </details>
+  
+  <details>
+  <summary> Entrance Page </summary>
+    <img width="700" src=""/>
+  </details>
+  
+</details>
+
+
+<details>
+  <summary> Futsal Page </summary>
+
+  <details>
+  <summary> 매치리스트 탐색 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+  <details>
+  <summary> 게시글 페이지 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+  <details>
+  <summary> 게시글 작성페이지 </summary>
+    <img width="700" src=""/>
+
+  </details>
+  <details>
+  <summary> 게시글 수정페이지 </summary>
+    <img width="700" src=""/>
+  </details>
+  
+  <details>
+  <summary>  </summary>
+    <img width="700" src=""/>
+  </details>
+ 
+</details>
 
 
 
