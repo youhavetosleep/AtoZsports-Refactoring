@@ -34,6 +34,8 @@ const SelectBoxContainer = styled.div`
 `
 const SelectWrap = styled.div`
   position: relative;
+  width : 122px;
+  font-size: 14px;
 `
 
 export default SelectBox

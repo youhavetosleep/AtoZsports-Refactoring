@@ -319,7 +319,7 @@ const RegionWrapper = styled.div`
   left: -2px;
   @media screen and (max-width: 767px) {
     left: 9px;
-    top: 40px;
+    top: 35px;
   }
 `
 

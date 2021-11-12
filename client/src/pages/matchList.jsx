@@ -303,7 +303,6 @@ const MatchSoonList = styled.div`
       column-gap: 24px;
     }
   }
-
   .moreView {
     position: flex;
     right: -15px;
@@ -339,6 +338,7 @@ const CalendarWrap = styled.div`
 const TimeWrap = styled.div`
   @media screen and (max-width: 767px) {
 text-align:center;
+font-size: 15px;
   }`
 
 const FilterWrap1 = styled.div`
@@ -390,6 +390,7 @@ const FilterWrap2 = styled.div`
   @media screen and (max-width: 767px) {
     width: 350px;
     margin: 0 auto;
+    font-size: 15px;
   }
 `
 
@@ -423,6 +424,9 @@ const WriteBtn = styled.button`
   }
   @media screen and (max-width: 767px) {
     margin-right: 12px;
+    font-size: 15px;
+    padding: 2px 5px;
+    margin-bottom: 0;
   }
 `
 

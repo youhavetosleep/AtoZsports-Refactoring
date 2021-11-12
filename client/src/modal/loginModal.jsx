@@ -159,10 +159,8 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   z-index: 400;
-  background: rgba(0, 0, 0, 0.6);
   background-color: rgba(0, 0, 0, 0.6);
   animation: back 0.1s ease-in;
-  z-index: 2;
   @keyframes back {
     from {
       opacity: 0%;
@@ -184,8 +182,7 @@ const Form = styled.div`
   display: flex;
   z-index: 500;
   @media screen and (max-width: 767px) {
-    width: 370px;
-    transform: translate(-55%, -55%);
+    width: calc(100% - 30px);
   }
 `
 

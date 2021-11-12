@@ -179,6 +179,9 @@ const Input = styled.input`
   border: solid 1px #c6c6c6;
   ::placeholder {
     font-size: 17px;
+    @media screen and (max-width: 767px) {
+      font-size: 15px;
+    }
   }
   @media screen and (max-width: 767px) {
     width: calc(100vw - 60px);
@@ -204,6 +207,7 @@ const SearchBtn = styled.button`
   @media screen and (max-width: 767px) {
     top: -2px;
     right: 0;
+    font-size: 17px;
   }
 `
 
