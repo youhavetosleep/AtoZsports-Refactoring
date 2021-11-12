@@ -124,13 +124,15 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
         />
         <Input
           type="text"
-          placeholder="댓글을 작성하세요"
+          placeholder="리뷰를 작성하세요"
           value={write}
           onChange={(e) => {
             setWrite(e.target.value)
           }}
         />
+        <BtnWrap>
         <CommentBtn onClick={addComment}>입력</CommentBtn>
+        </BtnWrap>
       </WriteWrap>
       {content && content.length === 0 ? (
         <Alert>댓글을 작성해주세요!</Alert>
@@ -187,7 +189,7 @@ const WriteWrap = styled.div`
 const Input = styled.input`
   width: 550px;
   height: 30px;
-  border: solid 2px #d2d2d2;
+  border: solid 1px #d2d2d2;
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 5px;
@@ -206,7 +208,7 @@ const Input = styled.input`
     margin-top: 10px;
     width: auto;
     border: solid 1px #d2d2d2;
-    margin: 5px 0;
+    margin: 5px 0 0 0;
   }
 `
 
@@ -217,8 +219,8 @@ const CommentBtn = styled.button`
   width: 100px;
   height: 30px;
   background-color: #ffffff;
-  border-radius: 10px;
-  border: solid 2px #d2d2d2;
+  border-radius: 5px;
+  border: solid 1px #d2d2d2;
   color: #9a9a9a;
   @media screen and (max-width: 767px) {
     margin-top: 0px;
@@ -260,4 +262,9 @@ const Alert = styled.h1`
   }
 `
 
+const BtnWrap = styled.div`
+display: flex;
+width : auto;
+justify-content: right;
+`
 export default Comment

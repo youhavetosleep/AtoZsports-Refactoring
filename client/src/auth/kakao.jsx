@@ -31,7 +31,7 @@ const Kakao = () => {
       }
     })
     if (authorizationCode) {
-      history.push('/')
+      history.push('/futsal')
     }
   }
 

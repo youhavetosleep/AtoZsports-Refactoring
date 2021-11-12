@@ -47,15 +47,12 @@ const Container = styled.div`
 
 const Wrap = styled.div`
   border: 1px solid #c6c6c6;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 3px 4px;
   box-sizing: border-box;
   width: 110px;
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 767px) {
-    border-radius: 5px;
-  }
 `
 
 const Stars = styled.div`
