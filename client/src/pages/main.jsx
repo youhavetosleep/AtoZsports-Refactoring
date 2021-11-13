@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import mainLogo from '../image/mainLogo.png'
+import mapGif from '../image/mapGif.gif'
+import postGif from '../image/postGif.gif'
+import reviewGif from '../image/reviewGif.gif'
 import Footer from '../components/footer'
 
 const Main = () => {
@@ -45,7 +48,7 @@ const Main = () => {
                   지금도 그곳에선 뜨거운 경기가 열리고 있습니다!
                 </div>
               </LandingText>
-              <div className="landing_gif1 scroll">Gif</div>
+              <img src={mapGif} alt="map" className="landing_gif1 scroll"></img>
               {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
             </LandingIn>
           </LandingContainer>
@@ -53,7 +56,7 @@ const Main = () => {
         <Landing2>
           <LandingContainer>
             <LandingIn>
-              <div className="landing_gif2 scroll">Gif</div>
+              <img src={postGif} alt="post" className="landing_gif2 scroll"></img>
               {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
               <LandingText className="text scroll">
                 <div className="landing_mainText2">
@@ -71,7 +74,7 @@ const Main = () => {
                   <br />
                   이미 팀이 있다면
                   <br />
-                  다른팀에게 경기를 제안할 수 있습니다.
+                  다른 팀에게 경기를 제안할 수 있습니다.
                 </div>
               </LandingText>
             </LandingIn>
@@ -92,12 +95,12 @@ const Main = () => {
                   사용하고 싶은 경기장의 리뷰를 확인할 수 있습니다.
                   <br />
                   <br />
-                  팀원간의 커뮤니케이션을 위해
+                  팀원 간의 커뮤니케이션을 위해
                   <br />
                   실시간 채팅기능을 제공합니다.
                 </div>
               </LandingText>
-              <div className="landing_gif1 scroll">Gif</div>
+              <img src={reviewGif} alt="review" className="landing_gif1 scroll"></img>
               {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
             </LandingIn>
           </LandingContainer>
@@ -282,9 +285,8 @@ const LandingIn = styled.div`
   .landing_gif1 {
     margin: 0px 0px 0px 60px;
     display: flex;
-    border: 1px solid gray;
-    width: 700px;
-    height: 350px;
+    width: 624px;
+    height: 351px;
     justify-content: center;
     align-items: center;
     @media screen and (max-width: 767px) {
@@ -300,11 +302,10 @@ const LandingIn = styled.div`
   .landing_gif2 {
     margin: 0px 60px 0px 0px;
     display: flex;
-    width: 700px;
-    height: 350px;
+    width: 624px;
+    height: 351px;
     justify-content: center;
     align-items: center;
-    border: 1px solid gray;
     @media screen and (max-width: 767px) {
       margin: 0px auto 40px auto;
       width: 300px;

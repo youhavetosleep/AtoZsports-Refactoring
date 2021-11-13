@@ -13,11 +13,11 @@ const Slide02 = () => {
           className="slider_img"
         ></img>
         <SliderText>
-          <div className="slider_mainText">우리동네 풋살장을 검색해보세요</div>
+          <div className="slider_mainText">우리 동네 풋살장을 검색해보세요</div>
           <div className="slider_subText">
-            미처 몰랐던 우리동네 풋살장을
+            미처 몰랐던 우리 동네 풋살장을
             <br />
-            찾아보세요, 의외로 많은 경기장을
+            찾아보세요. 의외로 많은 경기장을
             <br />
             확인할 수 있습니다.
           </div>

@@ -39,7 +39,7 @@ const Entrance = () => {
         <SportsSub>
           <BasketBall>
             <img src={basketball} alt="basketball" className="entrance_img" />
-            <div className="entrance_mainText">왼손은 거들뿐</div>
+            <div className="entrance_mainText">왼손은 거들 뿐</div>
             <div className="entrance_subText">COMMING SOON</div>
           </BasketBall>
         </SportsSub>
