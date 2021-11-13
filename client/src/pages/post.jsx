@@ -403,12 +403,11 @@ const ContentBtn = styled.button`
   margin-top: 10px;
   padding: 2px 5px;
   box-sizing: border-box;
-  background-color: white;
+  background-color: #fefefe;
   :hover {
     cursor: pointer;
-    color: #ffffff;
-    border: none;
-    background-color: #840909;
+    color: #840909;
+    border: 1px solid #840909;
   }
 `
 

@@ -371,6 +371,9 @@ const Container = styled.div`
     text-align: center;
     width: 60px;
     text-decoration: none;
+    @media screen and (max-width: 767px) {
+      display : none;
+    }
   }
   #placesList .item .markerbg {
     float: left;
@@ -478,7 +481,7 @@ const ListTitle = styled.h1`
   width: 175px;
   height: 10px;
   font-size: 20px;
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   text-align: center;
   color: #5c5c5c;
 `
@@ -497,7 +500,6 @@ const MenuWrap = styled.div`
   padding: 5px 30px;
   box-sizing: border-box;
   overflow-y: auto;
-  background: #fafafa;
   z-index: 1;
   font-size: 12px;
   border-radius: 10px;
