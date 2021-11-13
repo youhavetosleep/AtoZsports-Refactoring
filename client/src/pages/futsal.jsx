@@ -127,13 +127,13 @@ const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
           <Link to="/entrance" style={{ textDecoration: 'none' }}>
             <BackPage>
               <img src={sublogo} alt="sublogo" className="backPage"></img>
-              <div className="back_to_main">다른운동하러가기</div>
+              <div className="back_to_main">다른 운동하러 가기</div>
             </BackPage>
           </Link>
           <Link to="/map" style={{ textDecoration: 'none' }}>
             <GotoMap>
               <img src={gotomap} alt="gotomap" className="mapImage"></img>
-              <div className="go_to_mapText">우리동네 풋살장 검색하기 ➝ </div>
+              <div className="go_to_mapText">우리 동네 풋살장 검색하기 ➝ </div>
               <div className="go_to_map">지도로 이동하기 </div>
             </GotoMap>
           </Link>
@@ -220,7 +220,7 @@ const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
               <>
                 <div className="empty_MatchCard">
                   <div className="gotoWrite">
-                    해당지역의 공고가 없습니다,
+                    해당 지역의 공고가 없습니다.
                     <br />
                     직접 작성해보시겠어요?
                   </div>
@@ -257,14 +257,14 @@ const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
             <div className="notice">공지사항</div>
             <div className="notice_list">
               <div className="notice_title">[공지]</div>
-              <div className="notice_text">누리 풋살장 잔디교체 공사중</div>
+              <div className="notice_text">용인 누리 풋살장 잔디교체 공사중</div>
             </div>
             <div className="notice_list">
               <div className="notice_title">[공지]</div>
               <div className="notice_text">
-                유림 풋살장 거리두기 단계 격상으로
+                용인 유림 풋살장 거리두기 단계 
                 <br />
-                인해 잠정 운영 중단
+                격상으로 인해 잠정 운영 중단
               </div>
             </div>
             <div className="notice_list">
@@ -272,7 +272,7 @@ const Futsal = ({ region1, region2, isLogin, setIsLogin }) => {
               <div className="notice_text">
                 유저 간 실시간 채팅기능
                 <br />
-                업데이트 예정
+                업데이트 완료
               </div>
             </div>
           </Notice>

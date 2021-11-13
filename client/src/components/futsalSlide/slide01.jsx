@@ -18,7 +18,7 @@ const Slide01 = () => {
             <p>방문을 환영합니다.</p>
           </div>
           <div className="slider_subText">
-            우리동네 풋살의 연결고리,
+            우리 동네 풋살의 연결고리,
             <br />
             A to Z Sports Futsal 에서 오늘의 경기를 확인하고
             <br />
