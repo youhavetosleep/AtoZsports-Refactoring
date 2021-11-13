@@ -5,6 +5,9 @@ import mainLogo from '../image/mainLogo.png'
 import mapGif from '../image/mapGif.gif'
 import postGif from '../image/postGif.gif'
 import reviewGif from '../image/reviewGif.gif'
+import mMapGif from '../image/map_mobile.gif'
+import mPostGif from '../image/match_mobile.gif'
+import mReviewGif from '../image/review_mobile.gif'
 import Footer from '../components/footer'
 
 const Main = () => {
@@ -48,16 +51,14 @@ const Main = () => {
                   지금도 그곳에선 뜨거운 경기가 열리고 있습니다!
                 </div>
               </LandingText>
-              <img src={mapGif} alt="map" className="landing_gif1 scroll"></img>
-              {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
+              <div className="landing_gif1 scroll"></div>
             </LandingIn>
           </LandingContainer>
         </Landing1>
         <Landing2>
           <LandingContainer>
             <LandingIn>
-              <img src={postGif} alt="post" className="landing_gif2 scroll"></img>
-              {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
+              <div className="landing_gif2 scroll"></div>
               <LandingText className="text scroll">
                 <div className="landing_mainText2">
                   팀원을 모집할 수 있고
@@ -100,8 +101,7 @@ const Main = () => {
                   실시간 채팅기능을 제공합니다.
                 </div>
               </LandingText>
-              <img src={reviewGif} alt="review" className="landing_gif1 scroll"></img>
-              {/* <img src={mainLogo} alt="mainLogo" className="landing_gif1 scroll"></img> */}
+              <div className="landing_gif3 scroll"></div>
             </LandingIn>
           </LandingContainer>
         </Landing1>
@@ -285,34 +285,58 @@ const LandingIn = styled.div`
   .landing_gif1 {
     margin: 0px 0px 0px 60px;
     display: flex;
-    width: 624px;
-    height: 351px;
+    width: 600px;
+    height: 340px;
     justify-content: center;
     align-items: center;
+    background-image: url(${mapGif});
     @media screen and (max-width: 767px) {
       margin: 30px auto 30px auto;
       padding: 50px 0px 50px 0px;
       width: 300px;
-      height: 300px;
+      height: 350px;
       border: 1px solid gray;
       justify-content: center;
       align-items: center;
+      background-image: url(${mMapGif});
     }
   }
   .landing_gif2 {
     margin: 0px 60px 0px 0px;
     display: flex;
-    width: 624px;
-    height: 351px;
+    width: 600px;
+    height: 340px;
     justify-content: center;
     align-items: center;
+    background-image: url(${postGif});
     @media screen and (max-width: 767px) {
-      margin: 0px auto 40px auto;
+      margin: 30px auto 30px auto;
+      padding: 50px 0px 50px 0px;
       width: 300px;
-      height: 500px;
+      height: 350px;
       border: 1px solid gray;
       justify-content: center;
       align-items: center;
+      background-image: url(${mPostGif});
+    }
+  }
+  .landing_gif3 {
+    margin: 0px 0px 0px 60px;
+    display: flex;
+    width: 600px;
+    height: 340px;
+    justify-content: center;
+    align-items: center;
+    background-image: url(${reviewGif});
+    @media screen and (max-width: 767px) {
+      margin: 30px auto 30px auto;
+      padding: 50px 0px 50px 0px;
+      width: 300px;
+      height: 350px;
+      border: 1px solid gray;
+      justify-content: center;
+      align-items: center;
+      background-image: url(${mReviewGif});
     }
   }
 `
