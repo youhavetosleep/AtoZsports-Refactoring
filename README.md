@@ -50,8 +50,8 @@ A to Z Sports 는 우리 동네의 스포츠메이트들이 모여있는 소통�
 <details>
   <summary> 회원가입, 로그인, 로그아웃</summary>
   
-  &nbsp;<details>
-  <summary> 회원가입 </summary>
+  <details>
+  &nbsp;<summary> 회원가입 </summary>
     <img width="700" src=""/>
   </details>
   
