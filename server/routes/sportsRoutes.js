@@ -1,0 +1,20 @@
+const router = require('express').Router()
+const postsController = require('../controllers/postsController')
+const groundController = require('../controllers/groundController')
+const auth = require('../controllers/function/function')
+
+router.get('/', postsController.urgentPostList)
+router.get('/posts', auth.isAuth, postsController.findPost)
+router.post('/posts', auth.isAuth, postsController.writePost)
+router.get('/posts/list', postsController.findPostList)
+router.patch('/posts/:postId', auth.isAuth, postsController.updatePost)
+router.delete('/posts/:postId', auth.isAuth, postsController.deletePost)
+router.patch('/posts/:postId/status', auth.isAuth, postsController.updateStatus)
+router.get('/ground', groundController.findGround)
+router.post('/ground/check', groundController.checkGround)
+router.get('/ground/:groundId/review', groundController.findReview)
+router.post('/ground/:groundId/review', auth.isAuth, groundController.writeReview)
+router.patch('/ground/:groundId/review/:reviewId', auth.isAuth, groundController.updateReview)
+router.delete('/ground/:groundId/review/:reviewId', auth.isAuth, groundController.deleteReview)
+
+module.exports = router

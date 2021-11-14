@@ -9,12 +9,10 @@ A to Z Sports 는 우리 동네의 스포츠메이트들이 모여있는 소통�
 
 ![gif 가 들어갈 자리입니다]()
 
-
 ## 🌐 Homepage
 
 [A to Z Sports 들어가기](https://atozsports.link/)
  
-
 ## 💡 Feature
 
 - 여러 종류의 스포츠 관련 서비스를 제공받을 수 있어요 (업데이트 예정)
@@ -24,7 +22,6 @@ A to Z Sports 는 우리 동네의 스포츠메이트들이 모여있는 소통�
 - 직접 뛰었던 경기장에 대한 리뷰를 작성하거나 확인할 수 있어요.
 - 관심 있는 경기일정을 즐겨찾기할 수 있어요.
 - 해외스포츠리그 일정을 확인할 수 있어요.
- 
   
 ## 🧰 Development
 
@@ -43,7 +40,6 @@ A to Z Sports 는 우리 동네의 스포츠메이트들이 모여있는 소통�
 <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white">
 <img src="https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
- 
 
 ## 📱 주요 기능별 시연 GIF
 
