@@ -47,84 +47,130 @@ A to Z Sports 는 우리 동네의 스포츠메이트들이 모여있는 소통�
 
 ## 📱 주요 기능별 시연 GIF
 
-<details>
-  <summary> 회원가입, 로그인, 로그아웃</summary>
-  
   <details>
   <summary> 회원가입 </summary>
-    <img width="700" src=""/>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141667954-3c02d075-2ca2-4505-985d-deeedfaae69f.gif"/>
   </details>
   
   <details>
-  <summary> 로그인 </summary>
-    <img width="700" src=""/>
+  <summary> 인증되지 않은 계정 로그인 시도 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141667978-6eb9bdd5-bfd9-4c49-ba78-a5e7905cae9e.gif"/>
   </details>
   
-   <details>
+  <details>
+  <summary> 인증 만료된 후 인증 시도 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141667993-11d8c483-2ae8-4b0f-9891-627a55f2252d.gif"/>
+  </details>
+  
+  <details>
   <summary> 카카오 로그인 </summary>
-    <img width="700" src=""/>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668005-7898fb2f-90d9-43c0-bd61-16d9d28abe65.gif"/>
   </details>
   
-   <details>
+  <details>
   <summary> 구글 로그인 </summary>
-    <img width="700" src=""/>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668018-152e191a-21bc-4e39-adee-13ea777e90fa.gif"/>
   </details>
   
   <details>
-  <summary> 로그아웃 </summary>
-    <img width="700" src=""/>
-  </details>
-  
-</details>
-
-
-<details>
-  <summary> MainLanding 및 Entrance </summary>
-  
-  <details>
-  <summary> MainLanding Page </summary>
-    <img width="700" src=""/>
-  </details>
-  
-  <details>
-  <summary> Entrance Page </summary>
-    <img width="700" src=""/>
-  </details>
-  
-</details>
-
-
-<details>
-  <summary> Futsal Page </summary>
-
-  <details>
-  <summary> 매치리스트 탐색 </summary>
-    <img width="700" src=""/>
-  </details>
-  
-  <details>
-  <summary> 게시글 페이지 </summary>
-    <img width="700" src=""/>
-  </details>
-  
-  <details>
-  <summary> 게시글 작성페이지 </summary>
-    <img width="700" src=""/>
-
-  </details>
-  <details>
-  <summary> 게시글 수정페이지 </summary>
-    <img width="700" src=""/>
-  </details>
-  
-  <details>
-  <summary>  </summary>
-    <img width="700" src=""/>
+  <summary> 마이페이지 및 내 정보 수정 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668042-1f2a954a-7424-4105-b9a4-46c4060dd867.gif"/>
   </details>
  
-</details>
+  <details>
+  <summary> 비밀번호 변경 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668064-54fbc1d7-278d-4493-9d5a-3837bbc02cd7.gif"/>
+  </details>
+  
+  <details>
+  <summary> 회원탈퇴 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668068-34851524-afc8-4267-a209-840496385478.gif"/>
+  </details>
+ 
+  <details>
+  <summary> Futsal 랜딩페이지 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668079-8754b7d0-78e6-4bea-b629-734328f94e54.gif"/>
+  </details>
+  
+  <details>
+  <summary> 게시글 목록, 게시글, 채팅 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668097-b5e2283b-f6d7-4458-97e2-433b655f17e6.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 안 읽은 채팅 메시지 알림 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668120-77e3dfab-afa7-469d-a929-b77e509c0100.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 안 읽은 채팅 메시지 지워짐 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668152-e6a48dd7-f2f7-4eee-985c-a8b773e112f0.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 회원 주소에 맞는 정보 제공 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668174-b023df92-2196-476f-8c51-a956134c195c.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 게시글 날짜, 시간 필터 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668214-6474a87e-07a8-4429-b880-102a2e542097.gif"/>
+  </details>
+  
+  <details>
+  <summary> 지도에서 경기장 검색 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668246-3a88e494-295e-4cd7-9025-76387e985c7c.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 게시글 작성 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668275-e4b99d9e-8898-4cd6-891d-08f887b7604d.gif"/>
+  </details>
 
+  <details>
+  <summary> 당일 경기 안내 메일 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668301-c3d61cd7-44d1-4767-bfd8-ea04a585643a.gif"/>
+  </details>
 
+  <details>
+  <summary> 지도에서 게시글 작성 이동 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668313-568c99ac-0749-4592-9661-04925b6b43ef.gif"/>
+  </details>
+
+  <details>
+  <summary> 게시글 수정 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668328-ff56115d-39b8-4468-9fb3-4e1f4fc754f1.gif"/>
+  </details>
+
+  <details>
+  <summary> 관심글 등록 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668344-5044315a-1d44-48eb-8698-c241feeba6c2.gif"/>
+  </details>
+
+  <details>
+  <summary> 모집완료 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668367-74626fcc-5f46-43a5-806f-03d298282134.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 게시글 삭제 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668378-023340c5-ecea-48d2-a17e-b599c591b677.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 지역별 리뷰 마커 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668415-e76d377c-0807-4c38-9ed3-cefe1597a75f.gif"/>
+  </details>
+ 
+  <details>
+  <summary> 경기장 리뷰 확인 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668392-3f3cd0aa-f31a-4c97-ab26-3c29a06be81d.gif"/>
+  </details>
+
+  <details>
+  <summary> 지도에서 경기장 리뷰로 이동 </summary>
+    <img width="700" src="https://user-images.githubusercontent.com/59719552/141668404-46c00d47-befc-4e1a-9439-37051d81b8a4.gif"/>
+  </details>
 
 ## 🧑🏻‍💻🧑🏻‍💻🧑🏻‍💻🧑🏻‍💻  Team: WASD
 
