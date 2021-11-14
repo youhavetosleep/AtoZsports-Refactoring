@@ -9,7 +9,7 @@ assignees: ''
 
 ### ISSUE
 - Group:  `client`, `server`, `sr`
-- Type: `bug`, `feature`, `delete`
+- Type: `bug`, `feature`, `delete`, `sr`
 - Detail: fix actions from client redux
 
 ### TODO
@@ -19,9 +19,8 @@ assignees: ''
 
 ### Estimated time
 > Pick one
-### `0.5h`
 ### `1h`
-### `1.5h`
 ### `2h`
-### `2.5h`
 ### `3h`
+### `4h`
+### `5h`
