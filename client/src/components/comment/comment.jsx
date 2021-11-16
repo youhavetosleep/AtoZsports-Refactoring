@@ -69,6 +69,7 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
       })
       return
     }
+    if( content.length !== 0 ) {
     if (nickname === content[0].nickname && write === content[0].comment) {
       Swal.fire({
         icon: 'error',
@@ -79,7 +80,7 @@ const Comment = ({ groundData, groundSelect, setCommentData }) => {
       })
       return
     }
-
+  }
     setContent([])
     dispatch(addCommentData(groundSelect, token, score, userId, write))
       .then((res) => {
