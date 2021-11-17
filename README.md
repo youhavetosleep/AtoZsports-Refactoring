@@ -170,7 +170,7 @@ A to Z Sports 는 우리 동네의 스포츠메이트들이 모여있는 소통�
     <img width="700" src="https://user-images.githubusercontent.com/59719552/141668404-46c00d47-befc-4e1a-9439-37051d81b8a4.gif"/>
   </details>
 
-## 🧑🏻‍💻🧑🏻‍💻🧑🏻‍💻🧑🏻‍💻  Team: WASD
+## 🧑🏻‍💻🧑🏻‍💻🧑🏻‍💻🧑🏻‍💻  Team: WSAD
 
 역할|이름|담당|Github
 :---:|:---:|:---:|:---:
