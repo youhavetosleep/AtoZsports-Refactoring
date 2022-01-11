@@ -14,7 +14,10 @@ import Mypage from './pages/mypage'
 import Post from './pages/post'
 import PremierLeague from './pages/premierLeague'
 import Review from './pages/review'
-import Signup from './pages/signup'
+
+// import Signup from './pages/signup'
+import Signup from './pages/sigup_refactoring/signup_refac'
+
 import Write from './pages/write'
 import MapSearch from './components/map/mapSearch'
 import Top from './components/Top'
