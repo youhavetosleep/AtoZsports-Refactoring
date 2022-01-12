@@ -2,12 +2,12 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import Swal from 'sweetalert2'
-// import lockerroom from '../image/lockerroom.jpeg'
+import lockerroom from '../image/lockerroom.jpeg'
 import instance from '../../api/index.jsx'
 import RegionBox from '../../utils/regionBox'
 import Navbar from '../../components/navbar'
 import Footer from '../../components/footer'
-
+import { signupDataType } from '../../types/types'
 import {
   TitleWrapper,
   Wrap,
@@ -31,6 +31,17 @@ import {
 const Signup = ({ isLogin, setIsLogin }: any) => {
   const history = useHistory<string>()
 
+  const [signupData, setSignupData] = useState<signupDataType>({
+    email : '',
+    password : '',
+    pwCheck : '',
+    nickname : '',
+    userPhone : '',
+    favoriteSports : '',
+    homeground : '',
+    data1 : '',
+    data2 : ''
+  })
   // 회원가입 데이터
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -269,7 +280,7 @@ const Signup = ({ isLogin, setIsLogin }: any) => {
     <Wrap>
       <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <TitleWrapper>
-        {/* <TitleImg src={lockerroom} alt='' /> */}
+        <TitleImg src={lockerroom} alt="lockerroom" />
         <TitleText>Sign up</TitleText>
       </TitleWrapper>
       <FormContainer>
